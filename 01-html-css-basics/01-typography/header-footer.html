@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romistory header</title>
+
+    <!-- Swiper CSS (v11) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+    <style>
+        /* 상당 띠배너 영역 */
+        .headerTopBanner {
+            width: 100%;
+            background: #111;   /* 배경색(필요시 변경) */
+            color: #fff;        /* 글자색 */
+            font-size: 14px;
+            line-height: 38px;     /* 배너 높이 */
+            height: 38px;
+            overflow: hidden;
+            position: relative;
+        }
+        /* Swiper 기본 레이아웃 */
+        .headerTopBanner .swiper {
+            width: 100%;
+            height: 100%;
+        }
+        .headerTopBanner .swiper-slide {
+            diplay: flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;    /* 한 줄로 표시 */
+            padding: 0 16px;
+        }
+        /* 네비게이션 버튼 위치/크기 */
+        .headerTopBanner .swiper-button-prev,
+        .headerTopBanner .swiper-button-next {
+            width: 2px;
+            height: 2px;
+            top: 100%;
+            transform: translateY(-50%);
+            color: #fff;
+        }
+        .headerTopBanner .swiper-button-prev { left: 3px; }
+        .headerTopBanner .swiper-button-next { right: 3px; }
+
+        /* 배너 링크 스타일 */
+        .headerTopBanner a {
+            color: inherit;
+            text-decoration: none;
+        }
+        .headerTopBanner a:hover {
+            text-decoration: underline;
+        }
+
+        /* 화면이 아주 좁을 때 글자 줄이기 */
+        @media (max-width: 360px) {
+            .headerTopBanner { font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="header" class="header">
+        <div class="headerTopBanner">
+            <!-- 최신 Swiper 컨테이너는 .swiper 사용 -->
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                    <!-- 슬라이드를 추가 -->
+                    <div class="swiper-slide">
+                        <a href="#event1">오늘만! 전 상품 10% 쿠폰</a>
+                    </div>
+                    <div class="swiper-slide">
+                        <a href="#event2">신규 회원 가입 시 5,000원 적립금 지급</a>
+                    <div class="swiper-slide">
+                        <a href="#event3">무료 배송 이벤트 진행 중!</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Swiper 네비게이션 좌/우 버튼(옵션) -->
+            <div class="swiper-button-prev" aria-label="Previous slide"></div>
+            <div class="swiper-button-next" aria-label="Next slide"></div>
+        </div>
+    </div>
+
+    <!-- Swiper JS (v11) -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        // Swiper 초기화
+        const headerBannerSwiper = new Swiper('.headerTopBanner .swiper', {
+            loop: true,                 // 무한 루프
+            autoplay: {                 // 자동 재생 설정
+                delay: 3000,           // 3초마다 슬라이드 변경
+                disableOnInteraction: false,
+            },
+            allowTouchMove: false,   // 손가락 스와이프 비활성화(띠배너 느낌 유지)
+            navigation: {               // 네비게이션 버튼 설정
+                nextEl: '.headerTopBanner .swiper-button-next',
+                prevEl: '.headerTopBanner .swiper-button-prev',
+            },
+            // 텍스가 한 줄이라면 효과 옵션은 단순 슬라이드로 충분
+            sped: 500,
+        });
+    </script>
+</body>
+</html>
