@@ -10,19 +10,19 @@
 }
 
 .button-nav-link-ul {
-    list-style: none; /* 목록 기호 제거*/
+    list-style: none; /* Remove List Symbols, 목록 기호 제거 */
     padding: 0;
     margin: 0;
 }
 
 .button-nav-link-li{
-    display: inline; /* 항목을 가로로 배치 */
+    display: inline; /* Place items horizontally, 항목을 가로로 배치 */
     margin: 0 15px;
 }
 
 .button-nav-link-a {
     color: white;
-    text-decoration: none; /* 밑줄 제거 */
+    text-decoration: none; /* Underscored, 밑줄 제거 */
 }
 
 .button-nav-link-a:hover {

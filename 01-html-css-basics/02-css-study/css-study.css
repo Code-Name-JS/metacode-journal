@@ -121,3 +121,59 @@ p{
   border: 1px solid rgb(194, 194, 194);
 }
 
+
+
+/* font-family 특정 글꼴이나 대표 글꼴을 지정합니다.
+값 : 글꼴 이름 / 대표 글꼴
+Value
+- 글꼴 이름 : 브라우저에 따라 공백으로 글꼴 이름을 구분할 수 있으므로 공백을 갖는 글꼴 이름일 경우 따옴표로 묶어주어야 합니다.
+(ex : "new centurty schoolbook", "맑은 고딕")
+- 대표 글꼴 : serif, sans-serif, cursive, fantasy, monospace가 대표 글꼴로 정의되어 있고, 대표 글꼴의 이름은 키워드이므로 따옴표 안에 넣으면 안된다.
+대표 글꼴은 글꼴 이름으로 지정한 글꼴을 사용할 수 없을 때 사용자의 시스템 환경에서 제공하는 글꼴로 대체해준다.
+*/
+
+
+/* font-weight 글꼴의 굵기를 지정합니다.
+값 : normal, bold, bolder, lighter, 100 ~ 900
+- normal : 글꼴을 400과 같은 굵기로 지정합니다.
+- bold : 두껍게 지정합니다. 글꼴을 700과 같은 굵기로 지정합니다.
+- bolder : 더욱 두껍게 지정합니다. 상속된 굵기가 900이면 굵기가 변경되지 않습니다.
+- lighter : 더욱 얇게 지정합니다. 상속된 굵기가 100이면 굵기가 변경되지 않습니다.
+- 100 ~ 900 : 글꼴을 100단위의 9가지 단계의 굵기로 지정합니다.
+*/
+
+/* 위 코드의 의미는 h1 태그를 Times New Roman을 지정합니다. 그런데 사용자의 컴퓨터에 폰트가 없으면 Times를 사용하게 됩니다.
+이 때 마지막 폰트는 포괄적인 폰트로 지정합니다. 아래와 같은 것이 있습니다.
+- serif(장식이 있는 폰트)
+- sans-serif
+- cursive(흘림체)
+- fantasy
+- monospace(고정폭)
+
+font-weight
+폰트의 두께를 나타냅니다.
+
+line-height
+행과 행 사이의 간격을 지정합니다. 기본 값은 normal로 수치로는 1, 2에 해당합니다.
+이 수치를 기준으로 간격을 조정하면 됩니다. 값이 1, 2라면 현재 엘리먼트 폰트 크기의 1.2배만큼 간격을 준다는 의미입니다.
+*/
+
+#type1{
+  font-size: Srem;
+  font-family: arial, verdana, "Helvetica Neue", serif;
+  font-weight: bold;
+  line-height: 2;
+}
+
+#type2{
+  font: bold Srem/2 arial, verdana, "Helvetica Neue", serif;
+}
+
+#font1{
+  font-family: 'Open Sans Condensed', sans-serif;
+}
+
+#font2{
+  font-family: 'Indie Flower', cursive;
+}
+
