@@ -1,4 +1,6 @@
 ![preview](./img/image.01.png)
+![preview](./img/image.02.png)
+![preview](./img/image.03.png)
 
 
 # Art Climate Data Project
