@@ -35,6 +35,16 @@ nav a{
     font-weight: bold;
 }
 
+.logo-link{
+    display: flex;
+
+    align-items: center;
+
+    text-decoration: none;
+
+    color: inherit;
+}
+
 .logo img {
     width: 70px;
     height: auto;
@@ -100,6 +110,7 @@ button{
 }
 
 /* art-data-project-page-css */
+
 .shot{
     height: 30vh;
 
@@ -118,4 +129,21 @@ button{
     font-size: 48px;
 
     margin-bottom: 20px;
+}
+
+img{
+    width: 500px;
+    height: 500px;
+
+    object-fit: cover;
+    
+    border-radius: 2px;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.5);
+}
+
+.image-group{
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
 }
