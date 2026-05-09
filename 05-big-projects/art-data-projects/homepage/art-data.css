@@ -1,3 +1,4 @@
+/* 고정된 네비게이션 바 설정 */
 *{
     margin:0;
     padding:0;
@@ -44,6 +45,7 @@ nav a{
     line-height: 1.4;
 }
 
+/* art-data-home-page-css */
 .hero{
     height: 100vh;
 
@@ -95,4 +97,25 @@ button{
 .section h2{
     font-size: 50px;
     margin-bottom: 40px;
+}
+
+/* art-data-project-page-css */
+.shot{
+    height: 30vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.shot-text{
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.shot-text h1{
+    font-size: 48px;
+
+    margin-bottom: 20px;
 }
