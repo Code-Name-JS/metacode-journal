@@ -1,3 +1,6 @@
+![preview](./img/image.01.png)
+
+
 # Art Climate Data Project
 
 > 기후 데이터를 활용한 예술 창작 환경 분석 프로젝트  
