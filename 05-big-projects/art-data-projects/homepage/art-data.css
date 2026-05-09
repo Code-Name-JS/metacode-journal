@@ -6,6 +6,7 @@
 }
 
 nav{
+    padding: 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -15,7 +16,9 @@ nav{
 nav ul{
     display: flex;
     align-items: center;
+    gap: 20px;
     list-style: none;
+    flex-wrap: nowrap;
 }
 
 nav li{
@@ -23,6 +26,8 @@ nav li{
 }
 
 nav a{
+    white-space: nowrap;
+    font-size: 14px;
     color: #000000;
     text-decoration: none;
 }
@@ -53,10 +58,12 @@ nav a{
 
 .logo-text {
     line-height: 1.4;
+    white-space: nowrap;
 }
 
 /* art-data-home-page-css */
 .hero{
+    white-space: nowrap;
     height: 100vh;
 
     display: flex;
