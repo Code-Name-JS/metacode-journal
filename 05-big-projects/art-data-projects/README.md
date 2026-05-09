@@ -1,3 +1,4 @@
+<!-- 대문 이미지 -->
 ![preview](./img/image.01.png)
 ![preview](./img/image.03.png)
 

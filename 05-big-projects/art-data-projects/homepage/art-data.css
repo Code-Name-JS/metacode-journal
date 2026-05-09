@@ -1,10 +1,15 @@
-/* 고정된 네비게이션 바 설정 */
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
 }
 
+body{
+    padding-top: 120px;
+}
+
+/* 고정된 네비게이션 바 설정 */
 header{
     position: fixed;
     top: 0;
@@ -15,12 +20,7 @@ header{
     z-index: 1000;
 }
 
-body{
-    padding-top: 120px;
-}
-
 nav{
-    padding: 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -28,11 +28,11 @@ nav{
 }
 
 nav ul{
+    flex-wrap: nowrap;
     display: flex;
     align-items: center;
-    gap: 20px;
     list-style: none;
-    flex-wrap: nowrap;
+    gap: 20px;
 }
 
 nav li{
@@ -42,25 +42,21 @@ nav li{
 nav a{
     white-space: nowrap;
     font-size: 15px;
-    color: #000000;
     text-decoration: none;
+    color: #000000;
 }
 
 .logo {
     display: flex;
     align-items: center;
-
     font-size: 20px;
     font-weight: bold;
 }
 
 .logo-link{
     display: flex;
-
     align-items: center;
-
     text-decoration: none;
-
     color: inherit;
 }
 
@@ -75,21 +71,17 @@ nav a{
     white-space: nowrap;
 }
 
-/* art-data-home-page-css */
+/* art-data_home 화면 */
 .hero{
     white-space: nowrap;
     height: 100vh;
-
     display: flex;
     align-items: center;
-
     padding: 150px;
-
     background:
     linear-gradient(rgb(255, 253, 253),
     rgb(255, 255, 255, 0.3)),
     url("./img/atist-oh-01.jpg");
-
     background-size: cover;
     background-position: center;
 }
@@ -111,19 +103,17 @@ nav a{
 
 button{
     margin-top: 30px;
-
     padding: 15px 20px;
-
     border: none;
     border-radius: 4px;
-
     font-size: 14px;
     background: #3f3c39;
     color: white;
-
     cursor: pointer;
 }
 
+/* art-data_home 화면 */
+/* Project에 대한 간략한 설명 */
 .section{
     text-align: center;
     max-width: 1500px;
@@ -131,32 +121,20 @@ button{
     padding: 25px 80px;
 }
 
-/* Project Section */
-
 .project-section{
-
     background:white;
-
     color:#111827;
-
     min-height:100vh;
-
     display:flex;
     justify-content:center;
     align-items:center;
-
     padding:120px 80px;
-
     position:relative;
     z-index:5;
-
     border-top-left-radius:50px;
     border-top-right-radius:50px;
-
     margin-top:-120px;
 }
-
-/* 내부 컨테이너 */
 
 .project-container{
     background:white;
@@ -164,18 +142,11 @@ button{
     max-width:1200px;
 }
 
-
-/* 제목 */
-
 .project-subtitle{
     color:#817a77;
-
     font-size:20px;
-
     font-weight:700;
-
     display:block;
-
     margin-bottom:25px;
 }
 
@@ -186,9 +157,6 @@ button{
     font-weight:bold;
 }
 
-
-/* 설명 */
-
 .project-title p{
     font-size:24px;
     line-height:2;
@@ -197,12 +165,11 @@ button{
 }
 
 
-/* art-data-project-page-css */
-
+/* art-data_project-page.css */
+/* 프로젝트 shot 화면 */
 .shot{
     white-space: nowrap;
     height: 40vh;
-
     display: flex;
     justify-content: center;
     align-items: center;
@@ -217,15 +184,14 @@ button{
 
 .shot-text h1{
     font-size: 60px;
-
 }
 
+/* art-data_project-page.css */
+/* 프로젝트 shot 화면 이미지 */
 img{
     width: 500px;
     height: 500px;
-
     object-fit: cover;
-    
     border-radius: 2px;
     box-shadow: 0 4px 10px rgba(255, 255, 255, 0.5);
 }
