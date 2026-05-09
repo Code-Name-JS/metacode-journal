@@ -66,8 +66,8 @@ nav a{
 
     background:
     linear-gradient(rgb(255, 253, 253),
-    rgb(255, 255, 255, 0.6)),
-    url("./img/atist-oh.jpg");
+    rgb(255, 255, 255, 0.3)),
+    url("./img/atist-oh-01.jpg");
 
     background-size: cover;
     background-position: center;
