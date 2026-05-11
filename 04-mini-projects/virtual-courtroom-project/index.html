@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Civic Jury Simulator</title>
+
+    <meta name="description" content="AI 기반 가상 사건을 통해 시민들이 증거, 토론, 투표 과정을 체험하는 인터랙티브 시민 배심 시뮬레이터 프로젝트입니다. 재판 절차와 판단 과정을 참여형 웹서비스로 구현합니다.">
+    <meta name="author" content="Code-Name-JS">
+
+    <link rel="stylesheet" href="index.css">
+
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <h1 class="logo">
+                <a href="index.html" class="logo-link">
+                    <img src="./assets/img/logo.png" alt="logo"/>
+                    <span class = "logo-text">
+                        <strong style="color: #f2f2f2;">Civic Jury</strong><br>
+                        <small style="color: #c8a461;">Simulator</small>
+                    </span>
+                </a>
+            </h1>
+
+            <ul class="menu">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About the Project</a></li>
+                <li><a href="#">Notice</a></li>
+                <li><a href="#">Game</a></li>
+                <li><a href="#">Guest Thread</a></li>
+                <li class="menu-left"><a href="#">Review</a></li>
+            </ul>
+
+            <div class="auth-buttons">
+                <a href="login.html" class="login-btn">Login</a>
+                <a href="signup.html" class="signup-btn"><strong>Sign Up</strong></a>
+            </div>
+        </nav>
+    </header>
+
+
+    <section id = "home" class = "hero">
+        <div class="hero-content">
+            <h2>Your judgment<br>
+                becomes the verdict.
+            </h2>
+
+            <p>
+                An interactive civic jury simulator platform where citizens experience evidence review, debate,<br>
+                and voting processes through AI-powered virtual cases.
+            </p>
+
+            <a href="./pages/game-case.html" class="button-case">Participate in a Case</a>
+            <a href="./pages/project.html" class="button-introduction">About the Project</a>
+        </div>
+    </section>
+    
+    <section class="about">
+        <h2>About the Project</h2>
+
+        <p>
+            <strong>Civic Jury Simulator</strong> is a citizen-participation interactive simulation platform
+            that allows users to experience judicial procedures through AI-powered virtual cases.
+        </p>
+    </section>
+
+
+    <section class="flow">
+        <h2>재판 진행 과정</h2>
+            <div class="flow-container">
+                <div class="step">
+                    <h3>1. 사건 생성</h3>
+                    <p>운영자가 AI 기반 가상 사건을 생성합니다.</p>
+                </div>
+
+                <div class="step">
+                    <h3>2. 공소 투표</h3>
+                    <p>공소 제기 또는 공소 중지 투표가 진행됩니다.</p>
+                </div>
+
+                <div class="step">
+                    <h3>3. 증거 제출</h3>
+                    <p>참여자는 증거와 논리를 업로드합니다.</p>
+                </div>
+
+                <div class="step">
+                    <h3>4. 최후 변론</h3>
+                    <p>가장 설득력 있는 변론이 투표됩니다.</p>
+                </div>
+
+                <div class="step">
+                    <h3>5. 판결</h3>
+                    <p>운영자가 최종 판결을 내립니다.</p>
+                </div>
+            </div>
+    </section>
+
+
+    <section class="features">
+        <h2>플랫폼 기능</h2>
+            <div class="feature-container">
+                <div class="card">
+                    <h3>투표 시스템</h3>
+                    <p>공소 제기와 공소 중지 투표를 통해 재판 개시 여부 결정</p>
+                </div>
+
+                <div class="card">
+                    <h3>증거 업로드</h3>    
+                    <p>사용자가 증거와 논리를 스레드 형태로 제출</p>
+                </div>
+
+                <div class="card">
+                    <h3>토론 구조</h3>
+                    <p>논리와 증거 중심의 시민 토론 시스템</p>
+                </div>
+
+                <div class="card">
+                    <h3>판결 알림</h3>
+                    <p>판결 결과를 알림 또는 이메일로 전달</p>
+                </div>
+            </div>
+    </section>
+
+
+    <section class="case">
+        <h2>사건 예시</h2>
+            <div class="case-card">
+                <h3>전시 작품 표절 논란 사건</h3>
+                <p>공소 제기 62% / 공소 중지 38%</p>
+                <button>사건 보기</button>
+            </div>
+    </section>
+
+
+    <footer>
+        <p>© 2026 Civic Jury Simulator Project</p>
+    </footer>
+
+
+</body>
+</html>
