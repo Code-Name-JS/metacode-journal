@@ -6,7 +6,6 @@ padding:0;
 box-sizing:border-box;
 }
 
-
 .serif-title{
 font-family: 'Inter', sans-serif;
 }
@@ -17,7 +16,6 @@ background:#ffffff;
 line-height:1.6;
 color:#111111;
 }
-
 
 header{
 display: flex;
@@ -30,7 +28,6 @@ background:#0d1b2a;
 color: #ffffff;
 z-index: 1000;
 }
-
 
 nav{
 display: flex;
@@ -100,7 +97,6 @@ margin-left:auto;
 white-space: nowrap;
 flex-wrap: nowrap;
 }
-
 
 .menu a{
 font-family:'Inter', sans-serif;

@@ -9,6 +9,7 @@ This project was created as part of my frontend development learning journey usi
 ---
 
 ![preview](./assets/img/civic-jury-simulator.jpg)
+![preview](./assets/img/2026-05-12-civic-jury-simulator.jpg)
 # Project Overview
 
 The **Virtual Courtroom Project** is an experimental portfolio website that explores how legal procedures and storytelling can be transformed into an interactive web experience.
