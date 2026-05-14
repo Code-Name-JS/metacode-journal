@@ -63,7 +63,6 @@ gap: 12px;
 .logo img{
 width: 80px;
 height: auto;
-
 }
 
 .logo-text{
@@ -237,7 +236,71 @@ font-size : 40px;
 }
 
 .about p{
+margin-bottom: 60px;
 line-height: 1.5;
+}
+
+.icon-box-1:hover{
+background:#0d1b2a;
+color:#ffffff;
+border-color:#0d1b2a;
+
+transform:translateY(-5px);
+
+box-shadow:0 10px 20px rgba(0,0,0,0.25);
+}
+
+.icon-box-1{
+display:flex;
+flex-direction:column;
+justify-content:center;
+text-align:center;
+align-items:center;
+gap:15px;
+font-size: 20px;
+margin: 0;
+padding:30px 20px;
+box-sizing: border-box;
+width:250px;
+min-height: 250px;
+background:none;
+border:1px solid #c6c6c6;
+border-radius:20px;
+cursor:pointer;
+transition:0.3s ease;
+box-shadow:0 4px 12px rgba(73, 73, 73, 0.2);
+box-sizing:border-box;
+}
+
+.icon-box-1 img{
+width: 100px;
+height:100px;
+object-fit:contain;
+margin-bottom:10px;
+}
+
+.icon-box-1 h4{
+font-size: 20px;
+font-weight: 700;
+margin-bottom:10px;
+min-height:50px;
+display:flex;
+align-items:center;
+}
+
+.icon-box-1 p{
+font-size: 15px;
+font-family:'Inter', sans-serif;
+line-height: 1.7;
+}
+
+.icon-container{
+display:flex;
+justify-content:center;
+align-items:stretch;
+gap:25px;
+flex-wrap:wrap;
+margin-top:20px;
 }
 
 .flow-container{
