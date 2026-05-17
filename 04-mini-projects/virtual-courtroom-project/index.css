@@ -97,6 +97,10 @@ white-space: nowrap;
 flex-wrap: nowrap;
 }
 
+.menu a:hover{
+color:#c8a461;
+}
+
 .menu a{
 font-family:'Inter', sans-serif;
 color:#ffffff;
@@ -105,10 +109,6 @@ font-size:15px;
 font-weight:500;
 letter-spacing:1px;
 text-transform:uppercase;
-}
-
-.menu a:hover{
-color:#c8a461;
 }
 
 .auth-buttons{
