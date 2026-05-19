@@ -323,7 +323,6 @@ border-radius:20px;
 cursor:pointer;
 transition:0.3s ease;
 box-shadow:0 4px 12px rgba(73, 73, 73, 0.2);
-box-sizing:border-box;
 }
 
 .icon-box-1 img{
@@ -429,7 +428,6 @@ cursor:pointer;
 transition:0.3s ease;
 box-shadow:0 4px 12px rgba(73, 73, 73, 0.2);
 box-sizing:border-box;
-margin-bottom: 10px
 }
 
 .circle-1 img{
