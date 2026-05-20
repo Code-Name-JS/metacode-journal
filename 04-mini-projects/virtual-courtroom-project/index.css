@@ -522,7 +522,7 @@ flex:1;
 }
 
 .card-content{
-text-align:left;
+text-align: left;
 padding:18px;
 }
 
@@ -600,7 +600,7 @@ padding:18px;
 }
 
 .activity-panel{
-  width:280px;
+  width:310px;
   margin-top: 110px;
   margin-right: 50px;
   flex-shrink:0;
@@ -641,7 +641,7 @@ padding:18px;
   display:flex;
   gap:12px;
   margin:28px 0;
-  margin-left: 25px;
+  margin-left: 40px;
 }
 
 .badge{
@@ -663,4 +663,8 @@ padding:18px;
   background:#f1f1f1;
   cursor:pointer;
   font-weight:600;
+}
+
+.footer-p{
+align-items:center;
 }
