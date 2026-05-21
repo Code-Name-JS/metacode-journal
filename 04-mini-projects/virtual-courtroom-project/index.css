@@ -572,7 +572,7 @@ padding:18px;
 .card-footer{
   display:flex;
   justify-content:space-between;
-  font-size:13px;
+  font-size:13px;case-section-progress
   color:#777;
 }
 
@@ -669,34 +669,35 @@ padding:18px;
 /* 진행 중인 사건 둘러보기 */
 
 .case-section-progress{
+    max-width:1750px;
     width:100%;
-    background:
-    linear-gradient(
-        90deg,
-        #06172c,
-        #002244,
-        #06172c
-    );
 
-    border-radius:20px;
+    background:#ffffff;
+    border-radius:5px;
     padding:40px;
+
+    margin:0 auto;
 }
 
 /* 제목 */
 
 .section-progress-title h1{
     font-size:36px;
-    margin-bottom:10px;
+    font-weight: 800;
+    text-align: left;
 }
 
 .section-progress-title p{
-    color:#b8c3d1;
+    font-size: 20px;
+    text-align: left;
+    color:#000000;
     margin-bottom:30px;
 }
 
 /* 레이아웃 */
 
 .case-container-progress{
+    background: #e4e3eb;
     display:flex;
     gap:30px;
     align-items:flex-start;
@@ -739,7 +740,7 @@ padding:18px;
     color:white;
 
     padding:8px 14px;
-    border-radius:10px;
+    border-radius:5px;
 
     font-size:14px;
     font-weight:bold;
@@ -753,12 +754,16 @@ padding:18px;
 }
 
 .case-progress-content h2{
-    font-size:36px;
-    margin-bottom:20px;
+    font-size:40px;
+    font-weight: 800;
+    text-align: left;
+    margin-bottom:10px;
 }
 
 .description{
-    color:#c6d1df;
+    color:#000000;
+    font-weight: 500;
+    text-align: left;
     line-height:1.7;
     margin-bottom:35px;
 }
@@ -777,7 +782,7 @@ padding:18px;
 
 .vote-progress-box span{
     display:block;
-    color:#c7d2e2;
+    color:#000000;
     margin-bottom:10px;
 }
 
@@ -805,7 +810,7 @@ padding:18px;
 .progress-bar{
     width:100%;
     height:8px;
-    background:#1b2a3b;
+    background:#cdcdcd;
     border-radius:30px;
     overflow:hidden;
 }
@@ -839,8 +844,9 @@ padding:18px;
 
 .button-group button{
     border:none;
+    width: 250px;
     padding:16px 28px;
-    border-radius:12px;
+    border-radius:8px;
     font-size:16px;
     font-weight:bold;
     cursor:pointer;
@@ -849,8 +855,8 @@ padding:18px;
 
 .detail-btn{
     background:transparent;
-    border:1px solid rgba(255,255,255,0.2) !important;
-    color:white;
+    border:1.5px solid rgba(0, 0, 0, 0.2) !important;
+    color:rgb(0, 0, 0);
 }
 
 .detail-btn:hover{
