@@ -160,7 +160,7 @@
         <p class="flow-p-01">Follow the procedure of how a case reaches its final verdict.</p>
 
         <div class="flow-container">
-                <div class="step">
+                <div class="flow-step">
                     <button class="circle-1">
                         <img src="./assets/img/papers.png">
                     </button>
@@ -170,7 +170,7 @@
 
                 <img src="./assets/img/arrow.png" class="flow-img">
 
-                <div class="step">
+                <div class="flow-step">
                     <button class="circle-1">
                         <img src="./assets/img/definition.png">
                     </button>
@@ -180,7 +180,7 @@
 
                 <img src="./assets/img/arrow.png" class="flow-img">
 
-                <div class="step">
+                <div class="flow-step">
                     <button class="circle-1">
                         <img src="./assets/img/finding.png">
                     </button>
@@ -190,7 +190,7 @@
 
                 <img src="./assets/img/arrow.png" class="flow-img">
 
-                <div class="step">
+                <div class="flow-step">
                     <button class="circle-1">
                         <img src="./assets/img/folder.png">
                     </button>
@@ -200,7 +200,7 @@
 
                 <img src="./assets/img/arrow.png" class="flow-img">
 
-                <div class="step">
+                <div class="flow-step">
                     <button class="circle-1">
                         <img src="./assets/img/citizen participation.png">
                     </button>
@@ -210,7 +210,7 @@
 
                 <img src="./assets/img/arrow.png" class="flow-img">
 
-                <div class="step">
+                <div class="flow-step">
                     <button class="circle-1">
                         <img src="./assets/img/imaginary affair.png">
                     </button>
@@ -269,11 +269,11 @@
                             <img src="./assets/img/medical-negligence.png" alt="사건 이미지">
 
                             <div class="card-content">
-                                <h3>Medical Malpractice Death Case</h3>
+                                <h3>Medical Malpractice<br> Death Case</h3>
 
                                 <p>
                                     A lawsuit filed by the victim’s family claiming that medical negligence during surgery caused the patient’s death.
-                                </p><br>
+                                </p>
 
                                 <div class="vote-text">
                                     <span>Supported: 71%</span>
@@ -363,13 +363,12 @@
         </section>
     </div>
 
-    <!-- 진행 중인 사건 둘러보기 -->
+    <!-- Explore Ongoing Cases -->
 
     <section class="case-section-progress">
-
         <div class="section-progress-title">
-            <h1>진행 중인 사건 둘러보기</h1>
-            <p>현재 진행 중인 가상 사건의 현황을 확인하고 참여해보세요.</p>
+            <h1>Explore Ongoing Cases</h1>
+            <p>Check the status of currently active virtual cases and participate in the discussion.</p>
         </div>
 
         <div class="case-container-progress">
@@ -378,88 +377,83 @@
             <div class="case-card-progress">
 
                 <div class="case-progress-image">
-                    <span class="status-badge">진행 중</span>
+                    <span class="status-badge">In Progress</span>
                     <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?q=80&w=1200&auto=format&fit=crop" alt="art"/>
                 </div>
 
                     <div class="case-progress-content">
-                        <h2>전시 작품 표절 논란 사건</h2>
+                        <h2>Exhibition Artwork<br>
+                            Plagiarism Controversy Case</h2><br>
 
                         <p class="description">
-                            유명 화가 A씨가 다른 작가의 작품을 표절하여 전시했다는 의혹이 제기되었습니다.<br>
-                            이 사건의 진실은 무엇일까요?
+                            Famous painter A has been accused of plagiarizing another artist’s work and exhibiting it publicly. What is the truth behind this case?
                         </p>
 
                         <div class="vote-progress-area">
-
-                            <div class="vote-progress-box">
-                                <span>공소 제기</span>
-                                <strong class="red">62%</strong>
-
-                                <div class="progress-bar">
-                                    <div class="progress red-bar">
-                                    </div>
-                                </div>
+                            <div class="vote-labels">
+                                <span class="label-red">Prosecution Requested</span>
+                                <span class="label-blue">Prosecution Suspended</span>
                             </div>
 
-                            <div class="vote-progress-box">
-                                <span>공소 중지</span>
-                                <strong class="blue">38%</strong>
+                            <div class="vote-progress-wrap">
+                                <strong class="progress-row-red">62%</strong>
 
-                            <div class="progress-bar">
-                                <div class="progress blue-bar">
+                                <div class="progress-line">
+                                    <div class="line-red-bar"></div>
                                 </div>
+
+                                <strong class="progress-row-blue">38%</strong>
+
                             </div>
                         </div>
-                    </div>
 
-                    <div class="button-group">
-                        <button class="detail-btn">사건 상세 보기</button>
-                        <button class="join-btn">증거 제출 & 토론 참여</button>
+                        <div class="button-group">
+                            <button class="detail-btn">View Case Details</button>
+                            <button class="join-btn">Submit Evidence & Join Discussion</button>
+                        </div>
                     </div>
-                </div>
             </div>
 
             <!-- 오른쪽 진행 현황 -->
             <div class="timeline-card">
-                <h3>단계별 진행 현황</h3>
+                <h3>Step-by-Step Progress Status</h3>
 
                 <ul class="timeline">
 
                     <li class="done">
-                        <span class="circle-progress"></span>
-                            사건 생성
-                        <span class="state-progress">완료</span>
+                        <span class="circle-progress">1</span>
+                            Case Created
+                        <span class="state-progress">Completed</span>
                     </li>
 
                     <li class="done">
-                        <span class="circle-progress"></span>
-                            공소 투표
-                        <span class="state-progress">완료</span>
+                        <span class="circle-progress">2</span>
+                            Prosecution Vote
+                        <span class="state-progress">Completed</span>
                     </li>
 
                     <li class="done">
-                        <span class="circle-progress"></span>
-                            재판 개시
-                        <span class="state-progress">완료</span>
+                        <span class="circle-progress">3</span>
+                            Trial Begins
+                        <span class="state-progress">Completed</span>
                     </li>
 
                     <li class="current">
-                        <span class="circle-progress"></span>
-                            증거 제출
-                        <span class="state-progress">진행 중</span>
+                        <span class="circle-progress">4</span>
+                            Evidence Submission
+                        <span class="state-progress">In Progress</span>
                     </li>
 
                     <li>
-                        <span class="circle-progress"></span>
-                            최후 변론 투표
-                        <span class="state-progress">대기</span>
+                        <span class="circle-progress">5</span>
+                            Final Argument Vote
+                        <span class="state-progress">Pending</span>
                     </li>
 
                     <li>
-                        <span class="circle-progress"></span>
-                            최종 판결
-                        <span class="state-progress">대기</span>
+                        <span class="circle-progress">6</span>
+                            Final Verdict
+                        <span class="state-progress">Pending</span>
                     </li>
                 </ul>
             </div>

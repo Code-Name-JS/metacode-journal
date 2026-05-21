@@ -1,11 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Jockey+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;700&display=swap');
 
+
+
+
+
 * {
     margin:0;
     padding:0;
     box-sizing:border-box;
 }
+
+
+
+
+
 
 body {
     font-family:'Inter', sans-serif;
@@ -14,6 +23,11 @@ body {
     background:#ffffff;
     color:#111111;
 }
+
+
+
+
+
 
 header {
     display: flex;
@@ -30,6 +44,13 @@ header {
     color: #ffffff;
 }
 
+
+
+
+
+
+/* nav bar */
+
 nav{
 display: flex;
 align-items: center;
@@ -45,6 +66,10 @@ align-items: center;
 list-style: none;
 gap: 20px;
 }
+
+
+
+/* logo */
 
 .logo{
 display: flex;
@@ -89,6 +114,10 @@ text-transform:uppercase;
 font-weight:500;
 }
 
+
+
+/* menu bar */
+
 .menu{
 display:flex;
 list-style:none;
@@ -111,6 +140,10 @@ font-weight:500;
 letter-spacing:1px;
 text-transform:uppercase;
 }
+
+
+
+/* button */
 
 .auth-buttons{
 display:flex;
@@ -136,6 +169,12 @@ text-decoration:none;
 border-radius:5px;
 }
 
+
+
+
+
+/* Home section  */
+
 section{
 padding:60px 20px;
 text-align:center;
@@ -149,6 +188,10 @@ margin-bottom:25px;
 color:#0d1b2a;
 text-transform:uppercase;
 }
+
+
+
+/* hero part */
 
 .hero{
 white-space: nowrap;
@@ -201,6 +244,10 @@ font-family:'Inter', sans-serif;
 font-weight:400;
 }
 
+
+
+/* button */
+
 .button-case:hover,
 .button-introduction:hover{
 background:rgb(198, 200, 202);
@@ -224,6 +271,9 @@ text-decoration:none;
 transition:all 0.3s ease;
 box-shadow:0 4px 12px rgba(0,0,0,0.2);
 }
+
+
+
 
 
 /* NOTICE */
@@ -277,6 +327,9 @@ align-self:center;
 }
 
 
+
+
+
 /* About the Project */
 
 .about{
@@ -293,6 +346,19 @@ font-weight:800;
 .about p{
 margin-bottom: 60px;
 line-height: 1.5;
+}
+
+
+
+/* icon-container */
+
+.icon-container{
+display:flex;
+justify-content:center;
+align-items:stretch;
+gap:25px;
+flex-wrap:wrap;
+margin-top:20px;
 }
 
 .icon-box-1:hover{
@@ -351,14 +417,8 @@ font-family:'Inter', sans-serif;
 line-height: 1.7;
 }
 
-.icon-container{
-display:flex;
-justify-content:center;
-align-items:stretch;
-gap:25px;
-flex-wrap:wrap;
-margin-top:20px;
-}
+
+
 
 
 /* Trial Process */
@@ -395,13 +455,13 @@ margin-left: -30px;
 margin-right: -20px;
 }
 
-.step{
+.flow-step{
 padding:20px;
 width:200px;
 border-radius:8px;
 }
 
-.step p{
+.flow-step p{
 display:flex;
 flex-direction:column;
 justify-content:center;
@@ -457,6 +517,8 @@ font-style: normal;
 
 
 
+
+
 /* Ongoing Cases */
 
 .features{
@@ -479,6 +541,8 @@ font-style: normal;
     margin-bottom:24px;
 }
 
+
+
 /* left panel */
 
 .case-left{
@@ -498,6 +562,8 @@ flex:1;
 
     justify-content:flex-start;
 }
+
+
 
 /* card */
 
@@ -527,8 +593,13 @@ padding:18px;
 }
 
 .card-content h3{
-  font-size:20px;
-  margin-bottom:12px;
+    font-family:'Bebas Neue', sans-serif;
+    font-size:33px;
+    font-weight: 700;
+    text-align: left;
+    line-height:1.1;
+    letter-spacing:1.1px;
+    margin-bottom:12px;
 }
 
 .card-content p{
@@ -537,6 +608,8 @@ padding:18px;
   color:#666;
   margin-bottom:20px;
 }
+
+
 
 /* voting */
 
@@ -547,6 +620,8 @@ padding:18px;
   font-size:14px;
   font-weight:600;
 }
+
+
 
 /* go ahead */
 
@@ -567,14 +642,18 @@ padding:18px;
   background:#ff5c5c;
 }
 
+
+
 /* footer */
 
 .card-footer{
-  display:flex;
-  justify-content:space-between;
-  font-size:13px;case-section-progress
-  color:#777;
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #777;
 }
+
+
 
 /* right panel */
 
@@ -612,9 +691,11 @@ padding:18px;
   border:none;
   background:#fff;
   border-radius:12px;
-  margin-bottom:20px;
-  font-size: 18px;
+  font-family:'Bebas Neue', sans-serif;
+  font-size: 25px;
   font-weight:600;
+  line-height:1.3;
+    letter-spacing:1px;
   cursor:pointer;
 }
 
@@ -626,8 +707,11 @@ padding:18px;
 }
 
 .activity-box h3{
-  margin-bottom:24px;
-  font-size:24px;
+    font-family:'Bebas Neue', sans-serif;
+    font-size:35px;
+    line-height:1.3;
+    letter-spacing:1px;
+    margin-bottom:24px;
 }
 
 .activity-item{
@@ -662,14 +746,21 @@ padding:18px;
   border-radius:12px;
   background:#f1f1f1;
   cursor:pointer;
+  font-family:'Bebas Neue', sans-serif;
+  font-size:20px;
+  line-height:1.1;
+  letter-spacing:1px;
   font-weight:600;
 }
+
+
+
 
 
 /* 진행 중인 사건 둘러보기 */
 
 .case-section-progress{
-    max-width:1750px;
+    max-width:1740px;
     width:100%;
 
     background:#ffffff;
@@ -679,12 +770,17 @@ padding:18px;
     margin:0 auto;
 }
 
+
+
 /* 제목 */
 
 .section-progress-title h1{
-    font-size:36px;
+    font-family:'Bebas Neue', sans-serif;
+    font-size:50px;
     font-weight: 800;
     text-align: left;
+    line-height:1.3;
+    letter-spacing:2px;
 }
 
 .section-progress-title p{
@@ -694,14 +790,19 @@ padding:18px;
     margin-bottom:30px;
 }
 
+
+
 /* 레이아웃 */
 
 .case-container-progress{
-    background: #e4e3eb;
+    border-radius:20px;
+    background:#e5e5e8;
     display:flex;
-    gap:30px;
+    gap:20px;
     align-items:flex-start;
 }
+
+
 
 /* 사건 카드 */
 
@@ -712,22 +813,30 @@ padding:18px;
     border:1px solid rgba(255,255,255,0.08);
     border-radius:20px;
     overflow:hidden;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px)
 }
+
+
 
 /* 이미지 */
 
 .case-progress-image{
     position:relative;
-    width:320px;
-    min-width:320px;
+    width:400px;
+    min-width:400px;
+    height:500px;
+    overflow:hidden;
+    border-radius:20px 0 0 20px;
 }
 
 .case-progress-image img{
     width:100%;
     height:100%;
     object-fit:cover;
+    display:block;
 }
+
+
 
 /* 진행 상태 */
 
@@ -746,6 +855,8 @@ padding:18px;
     font-weight:bold;
 }
 
+
+
 /* 내용 */
 
 .case-progress-content{
@@ -754,10 +865,11 @@ padding:18px;
 }
 
 .case-progress-content h2{
+    color: #000000;
     font-size:40px;
     font-weight: 800;
+    line-height:1;
     text-align: left;
-    margin-bottom:10px;
 }
 
 .description{
@@ -768,86 +880,102 @@ padding:18px;
     margin-bottom:35px;
 }
 
+
+
 /* 투표 영역 */
 
 .vote-progress-area{
+    width:100%;
+    max-width:670px;
+    margin-top: 70px;
+}
+
+
+
+/* 위 라벨 */
+
+.vote-labels{
     display:flex;
-    gap:30px;
-    margin-bottom:35px;
+    justify-content:space-between;
+    margin-bottom:12px;
 }
 
-.vote-progress-box{
-    flex:1;
+.label-red{
+    color:#000;
+    font-weight:700;
 }
 
-.vote-progress-box span{
-    display:block;
-    color:#000000;
-    margin-bottom:10px;
+.label-blue{
+    color:#000;
+    font-weight:700;
 }
 
-.vote-progress-box strong{
-    display:block;
-    font-size:30px;
-    margin-bottom:10px;
-}
 
-.red{
-    color:#ff4747;
-}
-
-.blue{
-    color:#4da3ff;
-}
-
-.yellow{
-    color:#f5c66d;
-    font-size:18px;
-}
 
 /* 진행률 */
 
-.progress-bar{
-    width:100%;
+.vote-progress-wrap{
+    display:flex;
+    align-items:center;
+    gap:16px;
+}
+
+
+
+/* 퍼센트 */
+
+.progress-row-red{
+    color:#ff4747;
+    font-size:32px;
+    font-weight:800;
+}
+
+.progress-row-blue{
+    color:#4da3ff;
+    font-size:32px;
+    font-weight:800;
+}
+
+
+
+/* 바 */
+
+.progress-line{
+    position:relative;
+    flex:1;
     height:8px;
-    background:#cdcdcd;
-    border-radius:30px;
+    background:#1e2a38;
+    border-radius:999px;
     overflow:hidden;
 }
 
-.progress{
-    height:100%;
-    border-radius:30px;
-}
 
-.red-bar{
+
+/* 빨간 바 */
+
+.line-red-bar{
     width:62%;
+    height:100%;
     background:#ff4747;
+    border-radius:999px;
 }
 
-.blue-bar{
-    width:38%;
-    background:#4da3ff;
-}
 
-.step-progress-count{
-    margin-top:10px;
-    color:#d8dee9;
-}
 
 /* 버튼 */
 
 .button-group{
     display:flex;
-    gap:20px;
+    gap:10px;
+    margin-top: 30px;
 }
 
 .button-group button{
     border:none;
-    width: 250px;
-    padding:16px 28px;
-    border-radius:8px;
-    font-size:16px;
+    width: 330px;
+    padding:15px 25px;
+    border-radius:10px;
+    font-size:15px;
     font-weight:bold;
     cursor:pointer;
     transition:0.3s;
@@ -872,71 +1000,134 @@ padding:18px;
     transform:translateY(-2px);
 }
 
+
+
 /* 진행 현황 카드 */
 
 .timeline-card{
-    width:320px;
-    background:rgba(255,255,255,0.05);
-    border:1px solid rgba(255,255,255,0.08);
+    width: 450px;
+    height: 400px;
     border-radius:20px;
-    padding:30px;
+    padding:25px;
+    flex-shrink:0;
+    margin-top: 40px;
+    margin-right: 20px;
+    background:rgba(255,255,255,0.7);
 }
 
+
+
+/* 제목 */
+
 .timeline-card h3{
-    margin-bottom:25px;
-    font-size:24px;
+    font-family:'Bebas Neue', sans-serif;
+    font-size:30px;
+    font-weight:800;
+    line-height:1.3;
+    letter-spacing:1.5px;
+    margin-bottom:30px;
 }
+
+
 
 /* 타임라인 */
 
 .timeline{
     list-style:none;
+    position:relative;
 }
+
+
+
+/* 세로 라인 */
+
+.timeline::before{
+    content:"";
+    position:absolute;
+    left:11px;
+    top:10px;
+    width:2px;
+    height:88%;
+    background:rgba(255,255,255,0.12);
+}
+
+
+
+/* 리스트 */
 
 .timeline li{
     position:relative;
-    padding-left:35px;
-    margin-bottom:28px;
-    color:#d6dfeb;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    margin-bottom:26px;
+    padding-left:30px;
+
+    font-size:15px;
+    font-weight:500;
+
+    color:#000000;
 }
+
+
 
 /* 원 */
 
 .circle-progress{
     position:absolute;
     left:0;
-    top:3px;
+    top:0;
 
-    width:16px;
-    height:16px;
+    width:24px;
+    height:24px;
 
     border-radius:50%;
-    background:#7d8795;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:12px;
+    font-weight:700;
+
+    background:#6c7685;
+    color:white;
+
+    z-index:2;
 }
+
+
 
 /* 완료 */
 
 .done .circle-progress{
-    background:#6fd46f;
+    background:#469a46;
 }
 
-/* 현재 단계 */
+
+
+/* 현재 */
 
 .current .circle-progress{
-    background:#f5c66d;
+    background:#e7af47;
+    color:#111;
 }
+
+
 
 /* 상태 */
 
 .state-progress{
-    float:right;
-    color:#aab7c7;
+    color:#8c8c8c;
+    font-weight:700;
 }
+
+
+
+/* 현재 상태 */
 
 .current .state-progress{
-    color:#f5c66d;
-}
-
-.footer-p{
-align-items:center;
+    color:#e09710;
 }
