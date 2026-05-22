@@ -31,7 +31,7 @@ The goal of this project is not to create a real legal service, but to design a 
 ---
 
 # Main Pages
-
+```plaintext / 
 HOME - Sign Up / Login / Notification Center
 │
 ├── About the Project - Project Vision and Purpose / Introduction and Objectives / Creator Introduction / Development Process Archive
@@ -80,10 +80,10 @@ HOME - Sign Up / Login / Notification Center
 
 ---
 
-# Folder Structure
-List of folders you are working on
+# Folder Structure - More to be added
 
-```plaintext / More to be added
+List of folders you are working on
+```plaintext / 
 virtual-courtroom-project/
 │
 ├── assets/img
