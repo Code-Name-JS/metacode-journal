@@ -87,7 +87,9 @@ List of folders you are working on
 ```plaintext /
 virtual-courtroom-project/
 │
-├── assets/img
+├── assets
+│     ├── img
+│     └── readme
 ├── css
 │     ├── home.css
 │     └── about-the-project.css
