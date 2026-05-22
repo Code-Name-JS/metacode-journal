@@ -8,13 +8,13 @@ This project was created as part of my frontend development learning journey usi
 
 ---
 
-![preview](./assets/readme/2026-05-12-civic-jury-simulator-01.jpg)
-![preview](./assets/readme/2026-05-14-civic-jury-simulator-01.jpg)
+![preview](./assets/readme/2026-05-12-civic-jury-simulator.jpg)
+![preview](./assets/readme/2026-05-13-civic-jury-simulator.jpg)
+![preview](./assets/readme/2026-05-14-civic-jury-simulator.jpg)
 ![preview](./assets/readme/2026-05-15-civic-jury-simulator.jpg)
 ![preview](./assets/readme/2026-05-16-civic-jury-simulator.jpg)
-![preview](./assets/readme/2026-05-17-civic-jury-simulator.jpg)
 ![preview](./assets/readme/2026-05-18-civic-jury-simulator.jpg)
-![preview](./assets/readme/2026-05-19-civic-jury-simulator-02.jpg)
+![preview](./assets/readme/2026-05-19-civic-jury-simulator.jpg)
 
 # Project Overview
 
@@ -31,7 +31,7 @@ The goal of this project is not to create a real legal service, but to design a 
 ---
 
 # Main Pages
-```plaintext / 
+```plaintext
 HOME - Sign Up / Login / Notification Center
 │
 ├── About the Project - Project Vision and Purpose / Introduction and Objectives / Creator Introduction / Development Process Archive
@@ -69,6 +69,7 @@ HOME - Sign Up / Login / Notification Center
 │     └── Suspension Of Prosecution
 ├── Review
 └── My pages
+```
 
 ---
 
@@ -83,7 +84,7 @@ HOME - Sign Up / Login / Notification Center
 # Folder Structure - More to be added
 
 List of folders you are working on
-```plaintext / 
+```plaintext /
 virtual-courtroom-project/
 │
 ├── assets/img
@@ -95,3 +96,4 @@ virtual-courtroom-project/
 │     ├── home.html
 │     └── about-the-project.html
 └── README.md
+```
