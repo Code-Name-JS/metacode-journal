@@ -1450,9 +1450,9 @@ font-weight:500;
 .footer-menu{
     display:flex;
     text-align: left;
-    gap:120px;
-    margin-top: 8px;
-    margin-left: 100px;
+    gap:100px;
+    margin-top: 10px;
+    margin-left: 70px;
 }
 
 .footer-menu h4{
@@ -1468,12 +1468,16 @@ font-weight:500;
     color:#cfcfcf;
 }
 
+.menu-inquiry{
+    margin-left: -25px;
+}
+
 .menu-inquiry-button{
     background: rgb(255, 255, 255, 0.65);
     width: 50px;
     height: 50px;
     border-radius:50%;  
-    margin-right: 11px; 
+    margin-right: 10px; 
 }
 
 .menu-inquiry-button p{
