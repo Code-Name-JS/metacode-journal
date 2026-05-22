@@ -41,7 +41,6 @@ Art Climate Data Project는
 ### Frontend
 - HTML5
 - CSS3
-- JavaScript
 
 ### Data Analysis
 - Python
@@ -60,13 +59,18 @@ Art Climate Data Project는
 
 ```bash
 art-data-projects/
+├── homepage
+│   ├── 01-data-page/                # 기후 데이터 파일 
+│   ├── 02-jupyter-notebook-page/    # Jupyter 분석 파일
+│   ├── 03-src-page/                 # 프로젝트 속성
+│   └── 04-requirements-page/        # 프로젝트 조건 정리
 │
-├── 01-data-page/                # 기후 데이터 파일
-├── 02-jupyter-notebook-page/    # Jupyter 분석 파일
-├── 03-src-page/                 # 프로젝트 속성
-├── 04-requirements-page/        # 프로젝트 조건 정리
-├── art-data.html                # 메인 페이지
-├── project-page.html            # 프로젝트 소개 페이지
+├── img
+│
+├── main-art-data.css                 # 메인 페이지 CSS
+├── main-art-data.html                # 메인 페이지 HTML
+├── project-page.html                 # 프로젝트 소개 페이지 HTML
+│
 └── README.md
 ```
 
@@ -118,10 +122,8 @@ art-data-projects/
 
 ## 🚀 Future Plans
 
-- 실시간 기후 데이터 API 연동
 - 인터랙티브 데이터 시각화 추가
 - 지도 기반 환경 분석
-- Blender 기반 3D 시각화
 - AI 이미지 생성 연동
 - 웹 전시 형태로 확장
 
@@ -135,7 +137,7 @@ art-data-projects/
 - Python 데이터 분석 학습
 - Pandas 기반 데이터 처리
 - Seaborn 시각화
-- HTML/CSS/JavaScript 웹 개발
+- HTML/CSS 웹 개발
 
 등을 함께 공부하며 프로젝트를 발전시키고 있습니다.
 
