@@ -1,0 +1,63 @@
+/* about-the-project-Home  */
+
+/* about-the-project-hero-part */
+
+.about-the-project-hero{
+white-space: nowrap;
+min-height: 500px;
+margin-top: 110px;
+color: #ffffff;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+text-align: left;
+padding: 90px;
+background:
+linear-gradient(rgba(13,27,42,0.7), rgba(13,27,42,0.7)),
+url("../assets/img/court.png");
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+background-attachment: fixed;
+}
+
+.about-the-project-hero-content{
+text-align:center;
+}
+
+.about-the-project-hero img {
+width: 70px;
+height: auto;
+}
+
+.about-the-project-hero h2{
+color:#ffffff;
+font-family:'Bebas Neue', sans-serif;
+font-size:100px;
+font-weight:500;
+line-height:1;
+letter-spacing:2px;
+text-transform:uppercase;
+}
+
+.about-the-project-hero-h2{
+color:#e7af47;
+font-family:'Bebas Neue', sans-serif;
+font-size:100px;
+font-weight:500;
+line-height:1;
+letter-spacing:2px;
+text-transform:uppercase;
+}
+
+.about-the-project-hero p{
+margin-top:35px;
+margin-bottom:60px;
+font-size:22px;
+color:#ffffff;
+line-height:1.6;
+font-family:'Inter', sans-serif;
+font-weight:400;
+}
+
