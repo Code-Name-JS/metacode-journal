@@ -1379,7 +1379,7 @@ button{
 /* footer */
 
 .footer{
-    margin-top:80px;
+    margin-top: -50px;
 
     background:linear-gradient(
         90deg,
@@ -1390,35 +1390,102 @@ button{
 
     color:white;
 
-    padding:60px 20px;
+    padding:40px 20px;
 }
 
 .footer-inner{
-    max-width:1400px;
+    max-width:1700px;
 
-    margin:0 auto;
+    margin: 0 auto;
 
     display:flex;
 
-    justify-content:space-between;
+    justify-content: left;
 
     gap:50px;
 }
 
-.footer-left h2{
-    margin-bottom:16px;
+.footer-logo{
+display: flex;
+align-items: center;
+font-size: 25px;
+font-weight: bold;
+margin-left: 20px;
+}
+
+.footer-left img{
+width: 80px;
+height: auto;
+margin-right: 10px;
+}
+
+.footer-left p{
+max-width: 350px;
+margin-left: 25px;
+}
+
+.footer-left-logo-text{
+line-height: 0.9;
+white-space: nowrap;
+}
+
+.footer-left-logo-title{
+font-family:'Bebas Neue', sans-serif;
+font-size:40px;
+color:#ffffff;
+letter-spacing:3px;
+font-weight:400;
+text-transform:uppercase;
+}
+
+.footer-left-logo-subtitle{
+font-family:'Inter', sans-serif;
+font-size:16px;
+color:#c8a461;
+letter-spacing:3px;
+text-transform:uppercase;
+font-weight:500;
 }
 
 .footer-menu{
     display:flex;
-    gap:80px;
+    text-align: left;
+    gap:120px;
+    margin-top: 8px;
+    margin-left: 100px;
 }
 
 .footer-menu h4{
-    margin-bottom:16px;
+    font-family:'Bebas Neue', sans-serif;
+    font-size: 30px;
+    letter-spacing:1.5px;
+    font-weight:400;
+    text-transform:uppercase;
 }
 
 .footer-menu p{
     margin-bottom:10px;
     color:#cfcfcf;
+}
+
+.menu-inquiry-button{
+    background: rgb(255, 255, 255, 0.65);
+    width: 50px;
+    height: 50px;
+    border-radius:50%;  
+    margin-right: 11px; 
+}
+
+.menu-inquiry-button p{
+    font-size: 20px;
+    color: rgb(0, 0, 0, 0.7);
+}
+
+
+.footer-copyright p{
+    color: rgb(255, 255, 255, 0.7);
+    text-align: center;
+    font-weight: 300;
+    margin-top: -20px;
+    margin-bottom: -20px;
 }
