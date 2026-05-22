@@ -73,18 +73,18 @@ HOME - Sign Up / Login / Notification Center
 
 ---
 
-# Tech Stack
+# Tech Stack - More to be added
 
 - HTML5
 - CSS3
-- JavaScript / I need to learn. / More to be added
+- JavaScript / I need to learn.
 
 ---
 
 # Folder Structure - More to be added
 
 List of folders you are working on
-```plaintext /
+```plaintext
 virtual-courtroom-project/
 │
 ├── assets
