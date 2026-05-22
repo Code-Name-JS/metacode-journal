@@ -35,7 +35,6 @@ Each commit documents a step in an ongoing creative process.
 
 ---
 
-```md
 ## Vision
 
 This archive is part of a long-term exploration into how
