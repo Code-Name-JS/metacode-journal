@@ -1,4 +1,4 @@
-![preview](./assets/img/readme-thumbnail.png)
+![preview](./assets/readme/readme-thumbnail.png)
 
 # Virtual Courtroom Project
 
@@ -8,13 +8,13 @@ This project was created as part of my frontend development learning journey usi
 
 ---
 
-![preview](./assets/img/2026-05-12-civic-jury-simulator-01.jpg)
-![preview](./assets/img/2026-05-14-civic-jury-simulator-01.jpg)
-![preview](./assets/img/2026-05-15-civic-jury-simulator.jpg)
-![preview](./assets/img/2026-05-16-civic-jury-simulator.jpg)
-![preview](./assets/img/2026-05-17-civic-jury-simulator.jpg)
-![preview](./assets/img/2026-05-18-civic-jury-simulator.jpg)
-![preview](./assets/img/2026-05-19-civic-jury-simulator-02.jpg)
+![preview](./assets/readme/2026-05-12-civic-jury-simulator-01.jpg)
+![preview](./assets/readme/2026-05-14-civic-jury-simulator-01.jpg)
+![preview](./assets/readme/2026-05-15-civic-jury-simulator.jpg)
+![preview](./assets/readme/2026-05-16-civic-jury-simulator.jpg)
+![preview](./assets/readme/2026-05-17-civic-jury-simulator.jpg)
+![preview](./assets/readme/2026-05-18-civic-jury-simulator.jpg)
+![preview](./assets/readme/2026-05-19-civic-jury-simulator-02.jpg)
 
 # Project Overview
 
@@ -32,17 +32,43 @@ The goal of this project is not to create a real legal service, but to design a 
 
 # Main Pages
 
-| Page | Description |
-|------|-------------|
-| Home | First impression and project introduction |
-| Creator | Information about the creator |
-| Project | Detailed explanation of the project |
-| Notice | Announcements and updates |
-| Game Rule | Rules of the courtroom simulation |
-| Game Case | Interactive case scenarios |
-| Guest Thread | Community discussion board |
-| Game Case Results | Case outcome and result page |
-| Review | User reviews and feedback |
+HOME - Sign Up / Login / Notification Center
+│
+├── About the Project - Project Vision and Purpose / Introduction and Objectives / Creator Introduction / Development Process Archive
+│
+├── Notice
+│     │
+│     ├── The Whole - General Notices
+│     │
+│     └── System Operator's Notice
+│     │   │
+│     │   ├── Case Occurrence Announcements (Pinned)
+│     │   ├── Indictment Vote Result Announcements (Pinned)
+│     │   │
+│     │   └── General Operator Notices
+│     │
+│     └── A Written Judgment(Ai) - AI Judgment Releases
+│         │
+│         ├── Community Thread Judgment Guide (Pinned)
+│         ├── Witness Statement Summary (Pinned)
+│         ├── Reconstruction of the Incident Day (Pinned)
+│         │
+│         └── General AI Judgment Posts
+│        
+├── Game
+│     │
+│     ├── Game Rule
+│     │   │
+│     │   └── Introduction to the Gameplay Process
+│     │       └── 7-Step Procedure
+│     │
+│     ├── Game Case
+│     └── Game Case Results
+├── Guest Thread
+│     ├── An Indictment
+│     └── Suspension Of Prosecution
+├── Review
+└── My pages
 
 ---
 
@@ -50,19 +76,22 @@ The goal of this project is not to create a real legal service, but to design a 
 
 - HTML5
 - CSS3
-- JavaScript (Vanilla JS)
+- JavaScript / I need to learn. / More to be added
 
 ---
 
 # Folder Structure
+List of folders you are working on
 
-```plaintext
+```plaintext / More to be added
 virtual-courtroom-project/
 │
-├── index.html
-├── pages/
-├── css/
-├── js/
-├── assets/
-├── components/
+├── assets/img
+├── css
+│     ├── home.css
+│     └── about-the-project.css
+├── js
+├── pages
+│     ├── home.html
+│     └── about-the-project.html
 └── README.md
