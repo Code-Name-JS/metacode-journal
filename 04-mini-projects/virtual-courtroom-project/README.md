@@ -11,6 +11,10 @@ This project was created as part of my frontend development learning journey usi
 ![preview](./assets/img/civic-jury-simulator.jpg)
 ![preview](./assets/img/2026-05-12-civic-jury-simulator.jpg)
 ![preview](./assets/img/2026-05-14-civic-jury-simulator.jpg)
+![preview](./assets/img/2026-05-15-civic-jury-simulator.jpg)
+![preview](./assets/img/2026-05-16-civic-jury-simulator.jpg)
+![preview](./assets/img/2026-05-17-civic-jury-simulator.jpg)
+![preview](./assets/img/2026-05-18-civic-jury-simulator.jpg)
 
 # Project Overview
 
