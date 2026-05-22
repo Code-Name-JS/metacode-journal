@@ -1,3 +1,7 @@
+![HTML](https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS](https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+
 # metacode-journal
 
 > Exploring code, aesthetics, AI, and metaphysical ideas through digital experiments.
@@ -10,26 +14,67 @@ metacode-journal is a personal archive of:
 
 - Web development studies
 - AI-assisted creative workflows
-- 3D / Blender experiments
-- Interface and BX design ideas
+- Interface design ideas
 - Philosophy and aesthetics notes
 - Interactive simulation projects
-- Digital art & speculative systems
 
-This repository documents the process of learning beyond syntax —  
-toward structure, meaning, interaction, and creative thinking.
+This repository documents the process of learning beyond syntax — toward structure, meaning, interaction, and creative thinking.
+
+---
+
+## Development Journal
+
+This repository evolves continuously through:
+- design experiments
+- coding studies
+- interface research
+- philosophical writing
+- AI-assisted production workflows
+
+Each commit documents a step in an ongoing creative process.
+
+---
+
+```md
+## Vision
+
+This archive is part of a long-term exploration into how
+technology, aesthetics, philosophy, and AI can coexist
+inside interactive digital environments.
+
+The goal is not only to build applications,
+but to design meaningful systems that encourage
+reflection, participation, and creative interaction.
+
+---
+
+## Future Plans
+
+- Build interactive philosophy-based simulations
+- Explore generative AI interfaces
+- Develop immersive web experiences
+- Study data-driven visual storytelling
+- Publish experimental digital archives
 
 ---
 
 ## Current Interests
 
-- Frontend Development (HTML / CSS / JavaScript)
-- UI/UX & BX Design
+- Frontend Development (HTML / CSS)
 - AI + Creative Production
-- Blender & 3D Workflow
 - Interactive Web Experiences
 - Data Visualization
 - Philosophy of Art & Technology
+
+---
+
+## Goals
+
+- Build meaningful digital experiences
+- Develop creative + technical workflows
+- Create experimental interactive platforms
+- Connect philosophy, art, and technology
+- Grow through consistent documentation
 
 ---
 
@@ -42,8 +87,23 @@ where users participate in evidence analysis, discussion, and voting.
 ### Art Data Project
 Experimental website combining climate data, visual storytelling, and digital aesthetics.
 
-### BX Concept Studies
-Research and prototype works focused on future-oriented brand experiences.
+---
+
+## Repository Structure
+```plaintext
+metacode-journal/
+│
+├── big-projects/
+│   └── art-data-project
+│
+├── mini-projects/
+│   └── civic-jury-simulator
+│
+└── studies/
+      ├── html-css/
+      ├── javascript/
+      └── python/
+```
 
 ---
 
@@ -52,19 +112,14 @@ Research and prototype works focused on future-oriented brand experiences.
 ### Languages
 - HTML
 - CSS
-- JavaScript
 - Python
 
 ### Tools & Platforms
 - GitHub
 - VS Code
-- Blender
-- Figma
 - Notion
 
 ### Learning
-- React
-- Three.js
 - Data Analysis
 - AI Workflow Automation
 
@@ -82,20 +137,5 @@ This journal explores the relationship between:
 
 ---
 
-## Goals
-
-- Build meaningful digital experiences
-- Develop creative + technical workflows
-- Create experimental interactive platforms
-- Connect philosophy, art, and technology
-- Grow through consistent documentation
-
----
-
-## Connect
-
-- GitHub Projects & Experiments
-- Creative Research Archive
-- Web & Interactive Prototypes
-
----
+> Documenting the intersection of code, perception, and human imagination.
+> A growing archive of experiments between technology and thought.
