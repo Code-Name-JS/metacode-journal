@@ -101,6 +101,7 @@ metacode-journal/
 │     └── README/
 │
 ├── 02-python-basics/
+│     ├── 01-data-analysis/
 │     └── README/
 │
 └── 03-personal-projects/
