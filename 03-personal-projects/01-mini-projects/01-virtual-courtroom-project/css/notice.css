@@ -1,0 +1,153 @@
+.notice-container{
+    max-width:1200px;
+    margin:300px auto;
+    background:white;
+}
+
+/* 상단 탭 */
+.notice-tabs{
+    display:flex;
+    border-bottom:2px solid #0d1b2a;
+}
+
+.tab{
+    flex:1;
+    text-align:center;
+    padding:24px 10px;
+    border:1px solid #ddd;
+    border-bottom:none;
+    background:#f2f2f6;;
+    cursor:pointer;
+    transition:0.3s;
+    font-weight:500;
+    color:#a09fb4;
+}
+
+.tab.active{
+    background:#fcfcff;
+    color:#0d1b2a;
+    border-top:2px solid #0d1b2a;
+    border-left:2px solid #0d1b2a;
+    border-right:2px solid #0d1b2a;
+    font-weight:700;
+}
+
+.tab:hover{
+    background:#d7dced;
+}
+
+/* 카테고리 + 검색 */
+.notice-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:30px;
+    margin-bottom:20px;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.categories{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.category{
+    cursor:pointer;
+    color:#999;
+    transition:0.3s;
+    font-size:15px;
+}
+
+.category.active{
+    color:#0d1b2a;
+    font-weight:700;
+}
+
+.category:hover{
+    color:#a09fb4;
+}
+
+/* 검색창 */
+.search-box{
+    display:flex;
+    align-items:center;
+    border:1px solid #ddd;
+    background:white;
+    padding:10px 15px;
+    width:380px;
+    gap:10px;
+}
+
+.search-box select{
+    border:none;
+    outline:none;
+    color:#777;
+    font-size:14px;
+}
+
+.search-box input{
+    flex:1;
+    border:none;
+    outline:none;
+    font-size:14px;
+}
+
+.search-btn{
+    cursor:pointer;
+    font-size:18px;
+}
+
+/* 게시판 */
+.notice-list{
+    border-top:2px solid #a09fb4;
+}
+
+.notice-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:22px 20px;
+    border-bottom:1px solid #e5e5e5;
+    transition:0.3s;
+    cursor:pointer;
+}
+
+.notice-item:hover{
+    background:#ecedf4;
+}
+
+.notice-left{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.badge{
+    border:1px solid #ddd;
+    border-radius:6px;
+    padding:5px 10px;
+    font-size:13px;
+    color:#666;
+    background:white;
+    min-width:60px;
+    text-align:center;
+}
+
+.notice-title{
+    font-size:17px;
+}
+
+.notice-right{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    color:#777;
+    font-size:14px;
+}
+
+.writer{
+    font-weight:600;
+    color:#444;
+}
