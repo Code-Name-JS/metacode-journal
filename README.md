@@ -92,16 +92,21 @@ Experimental website combining climate data, visual storytelling, and digital ae
 ```plaintext
 metacode-journal/
 │
-├── big-projects/
-│   └── art-data-project
+├── 01-html-css-javascript/
+│     ├── 00-assets/ img
+│     ├── 01-html-study/
+│     ├── 02-css-study/
+│     ├── 03-javascript-study/
+│     ├── 04-mini-projects/
+│     └── README/
 │
-├── mini-projects/
-│   └── civic-jury-simulator
+├── 02-python-basics/
+│     └── README/
 │
-└── studies/
-      ├── html-css/
-      ├── javascript/
-      └── python/
+└── 03-personal-projects/
+      ├── 01-mini-projects/01-virtual-courtroom-project
+      ├── 02-big-projects/01-art-data-projects
+      └── README/
 ```
 
 ---
