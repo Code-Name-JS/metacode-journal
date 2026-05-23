@@ -34,7 +34,7 @@ The goal of this project is not to create a real legal service, but to design a 
 ```plaintext
 HOME - Sign Up / Login / Notification Center
 │
-├── About the Project - Project Vision and Purpose / Introduction and Objectives / Creator Introduction / Development Process Archive
+├── About the Project - Project Vision and Purpose / Introduction and Objectives
 │
 ├── Notice
 │     │
@@ -92,10 +92,12 @@ virtual-courtroom-project/
 │     └── readme
 ├── css
 │     ├── home.css
-│     └── about-the-project.css
+│     ├── about-the-project.css
+│     └── notice.css
 ├── js
 ├── pages
 │     ├── home.html
-│     └── about-the-project.html
+│     ├── about-the-project.html
+│     └── notice.html
 └── README.md
 ```
