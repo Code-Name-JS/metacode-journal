@@ -198,8 +198,168 @@
         </div>
     </main>
 
+
+
+    <!-- Notice Details Modal -->
+    <div class="notice-modal-overlay" id="detailModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="notice-modal-box">
+            <div class="notice-modal-header">
+                <div class="notice-modal-meta">
+                    <span class="notice-modal-category" id="modalCategory"></span>
+                    <span class="notice-modal-important" id="modalImportant" style="display:none">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        Importance
+                    </span>
+                </div>
+
+                <button class="notice-modal-close" id="modalClose" aria-label="close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <h2 class="notice-modal-title" id="modalTitle"></h2>
+            
+            <div class="notice-modal-info-row">
+                <span>
+                    <i class="fa-solid fa-user"></i>
+                    <span id="modalAuthor"></span>
+                </span>
+
+                <span>
+                    <i class="fa-solid fa-calendar"></i>
+                    <span id="modalDate"></span>
+                </span>
+
+                <span>
+                    <i class="fa-solid fa-eye"></i>
+                    <span id="modalViews"></span>
+                </span>
+            </div>
+
+            <div class="notice-modal-divider"></div>
+
+            <div class="notice-modal-content" id="modalContent"></div>
+
+            <div class="notice-modal-footer">
+                <button class="btn-prev" id="btnPrev">
+                    <i class="fa-solid fa-chevron-left"></i>
+                    Earlier Article
+                </button>
+
+                <button class="btn-list" onclick="closeModal()">
+                    <i class="fa-solid fa-list"></i>
+                    List
+                </button>
+
+                <button class="btn-next" id="btnNext">
+                    The Next One
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
     
 
 
+
+    <!-- Writing Modal -->
+    <div class="notice-modal-overlay" id="writeModal" role="dialog" aria-modal="true" aria-labelledby="writeModalTitle">
+        <div class="notice-modal-box notice-write-modal-box">
+            <div class="notice-modal-header">
+                <h2 class="notice-modal-title" id="writeModalTitle">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                    Create an announcement
+                </h2>
+
+                <button class="notice-modal-close" id="writeModalClose" aria-label="close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <form class="notice-write-form" id="writeForm" onsubmit="return false;">
+                <div class="notice-form-row">
+                    <label for="formCategory">Classification</label>
+                    <select id="formCategory">
+                        <option value="notice">Notice</option>
+                        <option value="event">Event</option>
+                        <option value="up-date">Up Date</option>
+                        <option value="check">check</option>
+                    </select>
+                </div>
+            
+
+                <div class="notice-form-row">
+                    <label for="formTitle">
+                        title
+                        <span class="required">*</span>
+                    </label>
+
+                    <input type="text" id="formTitle" placeholder="Please enter the title" maxlength="100" />
+                
+                    <span class="char-count" id="titleCount">0 / 100</span>
+                </div>
+
+                <div class="notice-form-row">
+                    <label for="formAuthor">Writer</label>
+
+                    <input type="text" id="formAuthor" placeholder="Author name" value="Manager" />
+                </div>
+
+                <div class="notice-form-row">
+                    <label for="formContent">content
+                        <span class="required">*</span>
+                    </label>
+                
+                    <textarea id="formContent" rows="6" placeholder="Please enter the announcement..."></textarea>
+                </div>
+
+                <div class="notice-form-row notice-form-row-check">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="formPinned" />
+
+                        <span>
+                            <i class="fa-solid fa-thumbtack"></i>
+                            Fixing the top
+                        </span>
+                    </label>
+          
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="formImportant" />
+
+                        <span>
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                            Important Notice
+                        </span>
+                    </label>
+                </div>
+
+                <div class="notice-form-actions">
+                    <button type="button" class="btn-cancel" onclick="closeWriteModal()">
+                        Cancellation
+                    </button>
+
+                    <button type="submit" class="btn-submit" onclick="submitNotice()">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        Registering
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+    <!-- Toast Notification -->
+    <div class="toast-wrap" id="toastWrap"></div>
+
+    <footer class="site-footer">
+        <p>© 2026 NoticBoard Design Prototype &nbsp;|&nbsp; Sample page for design draft</p>
+    </footer>
+
+      <script src="./notice-design.js"></script>
+
+
+      
 </body>
 </html>
