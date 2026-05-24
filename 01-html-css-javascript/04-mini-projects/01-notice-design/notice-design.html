@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notice Design</title>
+
+    <meta name="description" content="homepage notice of design for project">
+    <meta name="author" content="Gi-So-Jeong">
+
+    <link rel="stylesheet" href="./notice-design.css">
+
+</head>
+
+<body>
+
+
+
+    <!-- HEADER-->>
+    <header class="notice-header">
+        
+        <div class="notice-header-inner">
+            <div class="notice-logo">
+                <i class="fa-solid fa-bell-concierge"></i>
+                <a href="./notice-design.html">
+                    <span>NOTICE<em>BOARD</em></span>
+                </a>
+            </div>
+        
+
+            <nav class="notice-header-nav">
+                <a href="#">Home</a>
+                <a href="#">Notice</a>
+                <a href="#">Frequently Asked Questions</a>
+                <a href="#">Customer Service</a>
+            </nav>
+
+            <button class="notice-btn-write" id="ntbtnOpenModal">
+                Writing         
+            </button>
+        </div>
+
+    </header>
+
+
+
+    <!-- NOTICE HERO BANNER -->
+    <section class="notice-hero-section">
+
+        <div class="notice-hero-bg-shapes">
+            <span class="shape s1"></span>
+            <span class="shape s2"></span>
+            <span class="shape s3"></span>
+        </div>
+
+        <div class="notice-hero-content">
+            <p class="notice-hero-label">
+                Notice
+            </p>
+
+            <h1 class="notice-hero-title">Notice</h1>
+
+            <p class="notice-hero-desc">
+                Get important news and updates as soon as possible.
+            </p>
+
+            <!-- Search -->
+            <form class="notice-hero-search" id="searchForm" onsubmit="return false;">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="notice-text" id="searchinput" placeholder="Search for announcements..." autocomplete="off" />
+                <button type="notice-submit" onclick="doSearch()">Search</button>
+            </form>
+        </div>
+
+    </section>
+
+
+
+    <!-- NOTICE MAIN CONTENT -->
+    <main class="notice-main-wrap">
+        <div class="notice-container">
+
+            <!-- Statistical Card -->
+            <section class="notice-stats-row" aria-label="Announcement Statistics">
+                <article class="notice-stat-card">
+                    
+                    <span class="notice-stat-icon blue">
+                        <i class="fa-solid fa-bullhorn"></i>
+                    </span>
+
+                    <div>
+                        <p class="notice-stat-num" id="statTotal">0</p>
+                        <p class="notice-stat-label">General Notice</p>
+                    </div>
+                
+                </article>
+
+                <article class="notice-stat-card">
+                    <span class="notice-stat-icod red">
+                        <i class="fa-solid fa-thumbtack"></i>
+                    </span>
+
+                    <div>
+                        <p class="notice-stat-num" id="statPinned">0</p>
+                        <p class="notice-stat-label">Fixed Notice</p>
+                    </div>
+                </article>
+
+                <article class="notice-stat-card">
+                    <span class="notice-stat-icon orange">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                    </span>
+
+                    <div>
+                        <p class="notice-stat-num" id="statlmportant">0</p>
+                        <p class="notice-stat-label">Important Notice</p>
+                    </div>
+                </article>
+
+                <article class="notice-stat-card">
+                    <span class="notice-stat-icon green">
+                        <i class="fa-solid fa-eye"></i>
+                    </span>
+
+                    <div>
+                        <p class="notice-stat-num" id="statViews">0</p>
+                        <p class="notice-stat-label">Total Views</p>
+                    </div>
+                </article>
+            </section>
+
+            <!-- Filter tab + sort -->
+            <section class="notice-toolbar" aria-label="Filter tab">
+                <div class="notice-filter-tabs" id="filterTabs">
+                    <button class="notice-tab-btn active" data-cat="entire">Entire</button>
+                    <button class="notice-tab" data-cat="announcement">Announcement</button>
+                    <button class="notice-tab" data-cat="event">Event</button>
+                    <button class="notice-tab" data-cat="update">Update</button>
+                    <button class="notice-tab" data-cat="check">Check</button>
+                </div>
+
+                <div class="notice-sort-wrap">
+                    <select id="sortSelect" onchange="renderList()">
+                        <option value="newest">Up to Date</option>
+                        <option value="oldest">Old order</option>
+                        <option value="views">Order of inquiry</option>
+                    </select>
+                </div>
+            </section>
+
+            <!-- List of announcements -->
+            <seciton class="notice-section-list" aria-label="공지사항 목록">
+                <!-- Fixed Notice -->
+                <div id="pinnedArea"></div>
+
+                <!-- General List -->
+                <div class="notice-table-wrap">
+                    <table class="notice-table-list" id="noticeTable">
+                        <thead>
+                            <tr>
+                                <th class="notice-col-num">Number</th>
+                                <th class="notice-col-cat">Cat</th>
+                                <th class="notice-col-title">title</th>
+                                <th class="notice-col-author">Author</th>
+                                <th class="notice-col-date">Date</th>
+                                <th class="notice-col-view">View</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="notice-noticeBody">
+                            <tr class="notice-skeleton-row">
+                                <td colspan="6">
+                                    <div class="notice-skeleton"></div>
+                                </td>
+                            </tr>
+
+                            <tr class="notice-skeleton-row">
+                                <td colspan="6">
+                                    <div class="notice-skeleton"></div>
+                                </td>
+                            </tr>
+
+                            <tr class="notice-skeleton-row">
+                                <td colspan="6">
+                                    <div class="notice-skeleton"></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Notice Pagination -->
+                <div class="notice-pagination" id="pagination"></div>
+            </seciton>
+
+        </div>
+    </main>
+
+    
+
+
+</body>
+</html>
