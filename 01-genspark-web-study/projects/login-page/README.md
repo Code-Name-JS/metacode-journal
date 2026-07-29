@@ -5,6 +5,7 @@
 ---
 
 ## 프로젝트 구조
+```plaintext
 01-genspark-web-study/
 │
 ├── projects/
@@ -27,6 +28,7 @@
 │   └── ...
 │
 └── README.md
+```
 
 ---
 
