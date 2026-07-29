@@ -1,10 +1,10 @@
 # 🧠 Genspark Web Study
-젠스파크 웹 스터디 프로젝트 모음입니다.
-이 저장소는 웹 개발 학습 및 미니 프로젝트 실습을 위해 구성되었으며, 각 프로젝트는 버전별로 발전 과정을 기록합니다.
+A collection of web study projects developed under the Genspark program.
+This repository is designed for learning and practicing web development through mini projects, with each version documenting its own evolution.
 
 ---
 
-## 프로젝트 구조
+## Project Structure
 ```plaintext
 01-genspark-web-study/
 │
@@ -32,40 +32,40 @@
 
 ---
 
-## 프로젝트 개요
-- **목적**: 웹 개발 기초 학습 및 실습을 위한 미니 프로젝트 모음
-- **주요 기술**: HTML, CSS, JavaScript
-- **버전 관리**: 각 프로젝트는 v1.0, v1.1, v2.0 등 버전별로 폴더를 분리하여 관리합니다.
-- **이미지 및 디자인 리소스**: 각 버전의 assets 폴더에 포함되어 있습니다.
+## Overview
+- **Purpose**: A collection of mini projects for web development study and practice.
+- **Core Technologies**: HTML, CSS, JavaScript
+- **Version Management**: Each project is organized by version folders such as v1.0, v1.1, and v2.0.
+- **Assets and Design Resources**: They are included in the assets folder of each version.
 
 ---
 
-## 로그인 페이지 버전 설명
+## Login Page Versions
 
-| 버전 | 주요 특징 | 제작 방식 |
+| Version | Key Features | Development Approach |
 | --- | --- | --- |
-| **v1.0, v2.0** | 기본 HTML/CSS/JS 로그인 페이지 | 정적 구조 중심 |
-| **v1.1, v2.1** | 창작 디자인 버전 (색상·이미지 커스터마이징) | 창의적 스타일링 중심 |
+| **v1.0, v2.0** | Basic HTML/CSS/JS login page | Static structure |
+| **v1.1, v2.1** | Custom design version created by Lumi (color and image modifications) | Creative styling |
 
 ---
 
-## 실행 방법
-1. 원하는 버전 폴더로 이동합니다.
-- 예: projects/login-page/v1.0
-2. 브라우저에서 index.html을 실행합니다.
-3. 필요 시 style.css와 main.js를 수정하여 커스터마이징합니다.
+## How to Run
+1. Navigate to the desired version folder:
+- Example: projects/login-page/v1.0
+2. Open index.html in your browser.
+3. Modify style.css or main.js as needed for customization.
 
 ---
 
-## 참고 및 확장
-- 각 버전의 README.md에서 해당 버전의 디자인 포인트, 기술적 개선 사항, 이미지 출처 등을 기록합니다.
-- Code-name-js가 직접 디자인한 버전(v1.1)은 창작물로서 색상 팔레트와 이미지 구성이 독립적으로 관리됩니다.
-- v2.0부터 v3.0 ... 에서는 login-page를 여러 버전으로 제작할 예정입니다.
+## Notes and Expansion
+- Each version’s README.md includes design highlights, technical improvements, and image references.
+- The version personally designed by Code-name-js (v1.1) is treated as an original creation, with its color palette and image assets managed independently.
+- Starting from versions v2.0 through v3.0 and beyond, multiple variations of the login page will be developed.
 
 ---
 
-## 향후 계획
-- 공지사항 페이지 제작
-- 회원가입 페이지 제작
-- 고용 컴포넌트 관리 시스템 구축
+## Future Plans
+- Notice Board Page
+- Sign-Up Page
+- Shared Component Management
 
