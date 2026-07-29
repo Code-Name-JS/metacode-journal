@@ -1,0 +1,88 @@
+/* =====================================================
+   style.css  –  Login Page
+   ===================================================== */
+
+/* ── CSS variable ── */
+:root{
+  --primary:       #6c63ff;
+  --primary-dark:  #5a52e0;
+  --primary-light: #ede9ff;
+  --accent:        #ff6584;
+  --success:       #22c55e;
+  --danger:        #ef4444;
+  --warning:       #f59e0b;
+
+  --bg:            #f0f2ff;
+  --surface:       #ffffff;
+  --surface-2:     #f8f9ff;
+
+  --text-primary:  #1e1b4b;
+  --text-secondary:#64748b;
+  --text-muted:    #94a3b8;
+  --border:        #e2e8f0;
+  --border-focus:  #6c63ff;
+
+  --shadow-sm: 0 1px 3px    rgba(0,0,0,.06), 0 1px 2px          rgba(0,0,0,.04);
+  --shadow-md: 0 4px 16px   rgba(108,99,255,.12), 0 2px 8px     rgba(0,0,0,.06);
+  --shadow-lg: 0 20px 60px  rgba(108,99,255,.18), 0 8px 24px    rgba(0,0,0,.08);
+
+  --rdius-sm: 8px;
+  --rdius-md: 14px;
+  --rdius-lg: 24px;
+  --rdius-xl: 32px;
+
+  --transition: 0.22s cubic-bezier(.4,0,.2,1);
+
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe Ul', sans-serif;
+}
+
+/* ── reset & base ── */
+*, *::before, *::after{box-sizing: border-box; margin: 0; padding: 0;}
+
+html{font-size: 16px; scroll-behavior: smooth;}
+
+body{
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* ── background & blob ── */
+.bg-blobs{position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;}
+
+.blob{
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: .5;
+    animation: float 8s ease-in-out infinite;
+}
+
+.blob-1{
+    width: 500px; height: 500px;
+    background: redial-gradient(circle, #b8b0ff 0%, #6c63ff 100%);
+    top: -180px; left: -140px;
+    animation-delay: 0s;
+}
+
+.blob-2{
+    width: 420px; height: 420px;
+    background: radial-gradient(circle, #ffb3c1 0%, #ff6584 100%);
+    bottom: -160px; right: -120px;
+    animation-delay: -3s;
+}
+
+.blob-3{
+    width: 280px; height: 280px;
+    background: radial-gradient(circle, #a0f0c8 0%, #34d399 100%);
+    top: 50%; left: 65%;
+    animation-delay: -5s;
+}
+
