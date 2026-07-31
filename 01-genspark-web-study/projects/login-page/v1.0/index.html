@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8"/>
-        <meta name="viewport" cotent="width=device-width, initial-scale=1.0"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>login-page·My-App</title>
 
         <!-- Google Fonts -->
@@ -22,5 +22,66 @@
         </div>
 
         <!-- ── main card ── -->
+        <main class="login-wrapper">
+            <article class="login-card">
+
+                <!-- brand -->
+                <header class="card-header">
+                    <div class="brand-icon">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+
+                    <h1 class="brand-name">My-App</h1>
+                    <p class="brand-tagline">Nice to see you again! 👋</p>
+                </header>
+
+                <!-- social login -->
+                <section class="social-login" aria-label="social login">
+                    <button class="btn-social btn-google" id="btn-google" type="button">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/icons/google/google-original.svg" alt="Google" width="20" height="20" />
+                        Continue with Google
+                    </button>
+
+                    <button class="btn-social btn-github" id="btn-github" type="button">
+                        <i class="fa-brands fa-github"></i>
+                        Continue to GitHub
+                    </button>  
+                </section>
+
+                <!-- separator -->
+                <div class="divider" role="separator">
+                    <span>Or log in with email</span>  
+                </div>
+
+                <!-- Login Form -->
+                <form id="login-form" class="login-form" novalidate>
+
+                    <!-- email -->
+                    <div class="field-group" id="group-email">
+                        <label class="field-label" for="email">email</label>
+                        <div class="field-input-wrap">
+                            <i class="fa-regular fa-envelope field-icon"></i>
+                            <input id="email" class="field-input" type="email" placeholder="example@email.com" autocomplete="email" required/>
+                        </div>
+                        <p class="field-error" id="error-email" role="alert" aria-live="polite"></p>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="field-group" id="group-password">
+                        <label class="field-label" for="password">password</label>
+                        <div class="field-input-wrap">
+                            <i class="fa-solid fa-lock field-icon"></i>
+                            <input id="password" class="field-input" type="password" placeholder="Please enter your PIN number." autocomplete="current-password" required/>
+                            <button type="button" class="btn-toggle-pw" id="toggle-pw" aria-label="Show/Hide Password">
+                                <i class="fa-regular fa-eye" id="eye-icon"></i>
+                            </button>
+                        </div>
+                        <p class="fa-regular fa-eye" id="eye-icon"></p>
+                    </div>
+
+                    
+                </form>
+            </article>
+        </main>
     </body>
 </html>
