@@ -79,9 +79,37 @@
                         <p class="fa-regular fa-eye" id="eye-icon"></p>
                     </div>
 
-                    
+                    <!-- Option line -->
+                    <div class="options-row">
+                        <label class="checkbox-wrap">
+                            <input type="checkbox" id="remember-me"/>
+                            <span class="custom-check"></span>
+                            Keep me logged in
+                        </label>
+                        <a href="#" class="link-forgot" id="link-forgot">Find Password</a>
+                    </div>
+
+                    <!-- Submit button -->
+                    <button type="submit" class="btn-submit" id="btn-submit">
+                        <span class="btn-text">Login</span>
+                        <span class="btn-spinner" id="btn-spinner" aria-hidden="true">
+                            <i class="fa-solid fa-circle-notch fa-spin"></i>
+                        </span>
+                    </button>
+
+                    <!-- Toast Message -->
+                    <div class="toast" id="toast" role="alert" aria-live="assertive"></div>
+
                 </form>
+
+                <!-- Encourage sign-up -->
+                <footer class="card-footer">
+                    Don't have an account?
+                    <a href="#" class="link-signup" id="link-signup">Join Membership</a>
+                </footer>
             </article>
         </main>
+
+        <script src="./main.js"></script>
     </body>
 </html>
