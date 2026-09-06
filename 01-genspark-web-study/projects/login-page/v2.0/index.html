@@ -85,8 +85,12 @@
                 
                 <!-- Tab: Log In / Sign Up -->
                 <div class="tab-group" role="tablist">
-                    <button class="tab active" id="tab-login" role="tab" aria-selected="true">Log In</button>
-                    <button class="tab" id="tab-signup" role="tab" aria-selected="false">Sign Up</button>
+                    <a href="./index.html" class="tab active">
+                        Log In
+                    </a>
+                    <a href="./signup.html" class="tab">
+                        Sign Up
+                    </a>
                     <span class="tab-indicator"></span>
                 </div>
 
@@ -160,71 +164,6 @@
                         </button>
                     </div>
                 </form>
-
-                <!-- ─── Membership Registration Form ─── -->
-                <form id="form-signup" class="auth-form hidden" novalidate>
-                    <h1 class="form-title">So this is your first time here!<span class="wave">🎉</span></h1>
-                    <p class="form-desc">You can get started right away by entering just a few pieces of information.</p>
-                    
-                    <!-- Name -->
-                    <div class="field" id="f-name">
-                        <label for="username">Name</label>
-                        <div class="input-box">
-                            <i class="fa-regular fa-user"></i>
-                            <input id="username" type="text" placeholder="Hong Gil-dong" autocomplete="name" required/>
-                        </div>
-                        <span class="err-msg" id="err-name"></span>
-                    </div>
-
-                    <!-- Email (Sign up) -->
-                    <div class="field" id="f-su-email">
-                        <lavel for="su-email">Email address</lavel>
-                        <div class="input-box">
-                            <i class="fa-regular fa-envelope"></i>
-                            <input id="su-email" type="email" placeholder="you@example.com" autocomplete="email" required/>
-                        </div>
-                        <span class="err-msg" id="err-su-email"></span>
-                    </div>
-
-                    <!-- Password (Sign Up) -->
-                    <div class="field" id="f-su-pass">
-                        <label for="su-pass">Password</label>
-                        <div class="input-box">
-                            <i class="fa-solid fa-lock"></i>
-                            <input id="su-pass" type="password" placeholder="Enter at least 8 characters" required/>
-                            <button type="button" class="eye-btn" id="eye-btn2" aria-label="Show password">
-                                <i class="fa-regular fa-eye" id="eye-ic2"></i>
-                            </button>
-                        </div>
-
-                        <!-- Password Strength Bar -->
-                        <div class="strength-wrap">
-                            <div class="strength-bar">
-                                <span class="sb" id="sb1"></span>
-                                <span class="sb" id="sb2"></span>
-                                <span class="sb" id="sb3"></span>
-                                <span class="sb" id="sb4"></span>
-                            </div>
-                            <span class="strength-label" id="strength-label">No robbery</span>
-                        </div>
-                        <span class="err-msg" id="err-su-pass"></span>
-                    </div>
-
-                    <!-- Agree to Terms -->
-                    <label class="check-label">
-                        <input type="checkbox" id="agree"/>
-                        <span class="check-box"></span>
-                        <span><a href="#" class="inline-link">Terms of Use </a> and <a href="#" class="inline-link"> Privacy Policy</a></span>
-                    </label>
-
-                    <button type="submit" class="btn-main" id="btn-signup">
-                        <span class="btn-label">Create account</span>
-                        <i class="fa-solid fa-arrow-right btn-arrow"></i>
-                        <span class="btn-loader" id="loader2"><i class="fa-solid fa-circle-notch fa-spin"></i></span>
-                    </button>
-
-                    <div class="alert-banner" id="alert-signup"></div>
-                </form>
             </section>
 
             <!-- Bottom link -->
@@ -235,6 +174,6 @@
         </main>
     </div><!-- /page-wrap -->
 
-    <script src="./main.js"></script>
+    <script src="./main.js" defer></script>
 </body>
 </html>

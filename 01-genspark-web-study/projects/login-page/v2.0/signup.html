@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>Sign Up · My-App · v2</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"/>
+
+    <link rel="stylesheet" href="./style.css"/>
+</head>
+
+<body>
+
+    <div class="page-wrap">
+
+        <!-- 왼쪽 패널 -->
+        <aside class="panel-left" aria-hidden="true">
+
+            <div class="panel-noise"></div>
+
+            <div class="panel-logo">
+                <span class="logo-dot"></span>
+                <span class="logo-text">My-App·v2</span>
+            </div>
+
+            <div class="panel-center">
+
+                <div class="orbit-wrap">
+
+                    <div class="orbit orbit-1">
+                        <span class="orbit-dot dot-cyan"></span>
+                    </div>
+
+                    <div class="orbit orbit-2">
+                        <span class="orbit-dot dot-pink"></span>
+                    </div>
+
+                    <div class="orbit orbit-3">
+                        <span class="orbit-dot dot-yellow"></span>
+                    </div>
+
+                    <div class="orbit-core">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+
+                </div>
+
+                <h2 class="panel-heading">Start safely.</h2>
+
+                <p class="panel-sub">
+                    Your data is thoroughly protected<br/>
+                    with top-level encryption.
+                </p>
+
+            </div>
+
+        </aside>
+
+
+        <!-- 오른쪽 회원가입 패널 -->
+        <main class="panel-right">
+
+            <section class="form-section">
+
+                <div class="tab-group">
+
+                    <a href="./index.html" class="tab">
+                        Log In
+                    </a>
+
+                    <a href="./signup.html" class="tab active">
+                        Sign Up
+                    </a>
+
+                    <span class="tab-indicator"></span>
+
+                </div>
+
+
+                <!-- 회원가입 -->
+                <form id="form-signup" class="auth-form" novalidate>
+
+                    <h1 class="form-title">
+                        So this is your first time here!
+                        <span class="wave">🎉</span>
+                    </h1>
+
+                    <p class="form-desc">
+                        You can get started right away by entering just a few pieces of information.
+                    </p>
+
+
+                    <!-- Name -->
+                    <div class="field" id="f-name">
+
+                        <label for="username">
+                            Name
+                        </label>
+
+                        <div class="input-box">
+
+                            <i class="fa-regular fa-user"></i>
+
+                            <input
+                                id="username"
+                                type="text"
+                                placeholder="Hong Gil-dong"
+                                autocomplete="name"
+                                required
+                            />
+
+                        </div>
+
+                        <span class="err-msg" id="err-name"></span>
+
+                    </div>
+
+
+                    <!-- Email -->
+                    <div class="field" id="f-su-email">
+
+                        <label for="su-email">
+                            Email address
+                        </label>
+
+                        <div class="input-box">
+
+                            <i class="fa-regular fa-envelope"></i>
+
+                            <input
+                                id="su-email"
+                                type="email"
+                                placeholder="you@example.com"
+                                autocomplete="email"
+                                required
+                            />
+
+                        </div>
+
+                        <span class="err-msg" id="err-su-email"></span>
+
+                    </div>
+
+
+                    <!-- Password -->
+                    <div class="field" id="f-su-pass">
+
+                        <label for="su-pass">
+                            Password
+                        </label>
+
+                        <div class="input-box">
+
+                            <i class="fa-solid fa-lock"></i>
+
+                            <input
+                                id="su-pass"
+                                type="password"
+                                placeholder="Enter at least 8 characters"
+                                required
+                            />
+
+                            <button
+                                type="button"
+                                class="eye-btn"
+                                id="eye-btn2"
+                                aria-label="Show password"
+                            >
+                                <i
+                                    class="fa-regular fa-eye"
+                                    id="eye-ic2"
+                                ></i>
+                            </button>
+
+                        </div>
+
+
+                        <!-- Password Strength -->
+                        <div class="strength-wrap">
+
+                            <div class="strength-bar">
+
+                                <span class="sb" id="sb1"></span>
+                                <span class="sb" id="sb2"></span>
+                                <span class="sb" id="sb3"></span>
+                                <span class="sb" id="sb4"></span>
+
+                            </div>
+
+                            <span
+                                class="strength-label"
+                                id="strength-label"
+                            >
+                                No robbery
+                            </span>
+
+                        </div>
+
+                        <span
+                            class="err-msg"
+                            id="err-su-pass"
+                        ></span>
+
+                    </div>
+
+
+                    <!-- Terms -->
+                    <label class="check-label">
+
+                        <input
+                            type="checkbox"
+                            id="agree"
+                        />
+
+                        <span class="check-box"></span>
+
+                        <span>
+                            <a href="#" class="inline-link">
+                                Terms of Use
+                            </a>
+
+                            and
+
+                            <a href="#" class="inline-link">
+                                Privacy Policy
+                            </a>
+                        </span>
+
+                    </label>
+
+
+                    <!-- Submit -->
+                    <button
+                        type="submit"
+                        class="btn-main"
+                        id="btn-signup"
+                    >
+
+                        <span class="btn-label">
+                            Create account
+                        </span>
+
+                        <i class="fa-solid fa-arrow-right btn-arrow"></i>
+
+                        <span
+                            class="btn-loader"
+                            id="loader2"
+                        >
+                            <i class="fa-solid fa-circle-notch fa-spin"></i>
+                        </span>
+
+                    </button>
+
+
+                    <div
+                        class="alert-banner"
+                        id="alert-signup"
+                    ></div>
+
+                </form>
+
+            </section>
+
+
+            <p class="bottom-hint">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                Secure connection · SSL encryption · GDPR compliance
+
+            </p>
+
+        </main>
+
+    </div>
+
+    <script src="./main.js" defer></script>
+
+</body>
+</html>

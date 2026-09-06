@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>로그인 시안 선택 · MyApp</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Pretendard', -apple-system, sans-serif;
+      background: #0f1117;
+      color: #e2e8f5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 1.5rem;
+      gap: 3rem;
+    }
+    header { text-align: center; }
+    .badge {
+      display: inline-flex; align-items: center; gap: .45rem;
+      background: rgba(79,124,255,.15);
+      border: 1px solid rgba(79,124,255,.3);
+      color: #7da4ff;
+      font-size: .78rem;
+      font-weight: 600;
+      padding: .3rem .85rem;
+      border-radius: 999px;
+      margin-bottom: 1.2rem;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+    }
+    h1 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -.5px;
+      line-height: 1.2;
+      background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .sub {
+      margin-top: .75rem;
+      font-size: 1rem;
+      color: #64748b;
+    }
+    .cards {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 860px;
+      width: 100%;
+    }
+    .card {
+      background: #161b2e;
+      border: 1.5px solid #1e2640;
+      border-radius: 20px;
+      padding: 2rem;
+      width: 380px;
+      max-width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      transition: transform .22s, border-color .22s, box-shadow .22s;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: #4f7cff;
+      box-shadow: 0 16px 48px rgba(79,124,255,.2);
+    }
+    .preview-box {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid rgba(255,255,255,.06);
+    }
+    /* V1 프리뷰 */
+    .prev-v1 {
+      background: linear-gradient(135deg, #ede9ff 0%, #f0f4ff 100%);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .prev-v1-card {
+      background: #fff;
+      border-radius: 16px;
+      width: 60%; padding: 1.2rem 1rem;
+      box-shadow: 0 12px 32px rgba(108,99,255,.18);
+      display: flex; flex-direction: column; gap: .5rem; align-items: center;
+    }
+    .prev-v1-icon {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, #6c63ff, #9b88ff);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: .75rem;
+    }
+    .prev-line { height: 7px; border-radius: 4px; background: #e8ecf7; width: 70%; }
+    .prev-line.short { width: 50%; background: #eee8ff; }
+    .prev-btn-v1 {
+      height: 20px; border-radius: 6px; width: 80%;
+      background: linear-gradient(135deg, #6c63ff, #9b88ff);
+      margin-top: 4px;
+    }
+    /* V2 프리뷰 */
+    .prev-v2 {
+      display: flex;
+      background: #0d0f1a;
+    }
+    .prev-left {
+      width: 40%; background: #111320;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .3rem;
+      padding: .6rem;
+    }
+    .prev-orbit {
+      width: 40px; height: 40px;
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .prev-orbit-core {
+      width: 18px; height: 18px;
+      background: linear-gradient(135deg, #4f7cff, #00e5ff);
+      border-radius: 5px;
+    }
+    .prev-left-line { height: 4px; border-radius: 2px; background: rgba(255,255,255,.1); width: 70%; }
+    .prev-right {
+      flex: 1; background: #fff;
+      display: flex; flex-direction: column; gap: .35rem; padding: .7rem .6rem;
+    }
+    .prev-tab {
+      height: 14px; border-radius: 6px; width: 60%; background: #f0f4ff;
+    }
+    .prev-right-line { height: 6px; border-radius: 3px; background: #edf0f7; }
+    .prev-right-line.w80 { width: 80%; }
+    .prev-right-line.w60 { width: 60%; }
+    .prev-btn-v2 {
+      height: 18px; border-radius: 6px; width: 100%;
+      background: #4f7cff; margin-top: 4px;
+    }
+
+    .card-info { display: flex; flex-direction: column; gap: .5rem; }
+    .ver-badge {
+      font-size: .72rem;
+      font-weight: 700;
+      padding: .22rem .65rem;
+      border-radius: 999px;
+      letter-spacing: .4px;
+      text-transform: uppercase;
+      width: fit-content;
+    }
+    .ver-v1 { background: rgba(108,99,255,.15); color: #a89bff; border: 1px solid rgba(108,99,255,.25); }
+    .ver-v2 { background: rgba(79,124,255,.15);  color: #7da4ff; border: 1px solid rgba(79,124,255,.25); }
+
+    .card-title { font-size: 1.1rem; font-weight: 700; color: #e2e8f5; }
+    .card-desc  { font-size: .84rem; color: #64748b; line-height: 1.6; }
+
+    .feature-list {
+      display: flex; flex-wrap: wrap; gap: .4rem;
+    }
+    .feature-chip {
+      font-size: .72rem; font-weight: 600;
+      background: #1e2640; color: #94a3b8;
+      border: 1px solid #2a3355;
+      border-radius: 6px; padding: .2rem .6rem;
+    }
+
+    .go-btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: linear-gradient(135deg, #4f7cff 0%, #7da4ff 100%);
+      color: #fff; font-weight: 700; font-size: .88rem;
+      padding: .65rem 1.4rem; border-radius: 10px;
+      width: fit-content;
+      transition: opacity .2s, transform .2s;
+      box-shadow: 0 4px 16px rgba(79,124,255,.3);
+    }
+    .go-btn:hover { opacity: .9; transform: translateX(4px); }
+
+    footer {
+      font-size: .8rem;
+      color: #334155;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="badge"><i class="fa-solid fa-palette"></i> UI 시안</div>
+    <h1>로그인 페이지 시안</h1>
+    <p class="sub">두 가지 버전 중 원하는 시안을 선택하세요.</p>
+  </header>
+
+  <div class="cards">
+
+    <!-- V1 -->
+    <a class="card" href="index.html">
+      <div class="preview-box prev-v1">
+        <div class="prev-v1-card">
+          <div class="prev-v1-icon"><i class="fa-solid fa-bolt"></i></div>
+          <div class="prev-line short"></div>
+          <div class="prev-line"></div>
+          <div class="prev-line"></div>
+          <div class="prev-btn-v1"></div>
+        </div>
+      </div>
+      <div class="card-info">
+        <span class="ver-badge ver-v1">Version 1</span>
+        <p class="card-title">센터 카드 · 라이트 테마</p>
+        <p class="card-desc">화면 중앙의 단일 카드 레이아웃. 움직이는 컬러 블롭 배경과 보라 그라디언트 포인트.</p>
+        <div class="feature-list">
+          <span class="feature-chip">블롭 배경 애니메이션</span>
+          <span class="feature-chip">소셜 로그인</span>
+          <span class="feature-chip">비밀번호 토글</span>
+          <span class="feature-chip">토스트 알림</span>
+          <span class="feature-chip">로그인 유지</span>
+        </div>
+        <span class="go-btn">시안 보기 <i class="fa-solid fa-arrow-right"></i></span>
+      </div>
+    </a>
+
+    <!-- V2 -->
+    <a class="card" href="index.html">
+      <div class="preview-box prev-v2">
+        <div class="prev-left">
+          <div class="prev-orbit"><div class="prev-orbit-core"></div></div>
+          <div class="prev-left-line"></div>
+          <div class="prev-left-line" style="width:55%"></div>
+        </div>
+        <div class="prev-right">
+          <div class="prev-tab"></div>
+          <div class="prev-right-line w80"></div>
+          <div class="prev-right-line w60"></div>
+          <div class="prev-right-line w80"></div>
+          <div class="prev-right-line w60"></div>
+          <div class="prev-btn-v2"></div>
+        </div>
+      </div>
+      <div class="card-info">
+        <span class="ver-badge ver-v2">Version 2</span>
+        <p class="card-title">좌우 분할 · 다크 패널</p>
+        <p class="card-desc">왼쪽 다크 비주얼 패널 + 오른쪽 화이트 폼. 탭 전환으로 로그인·회원가입 통합.</p>
+        <div class="feature-list">
+          <span class="feature-chip">좌우 분할 레이아웃</span>
+          <span class="feature-chip">공전 오빗 애니메이션</span>
+          <span class="feature-chip">탭 전환 (로그인/회원가입)</span>
+          <span class="feature-chip">비밀번호 강도 바</span>
+          <span class="feature-chip">카카오/네이버 로그인</span>
+          <span class="feature-chip">숫자 카운터</span>
+        </div>
+        <span class="go-btn">시안 보기 <i class="fa-solid fa-arrow-right"></i></span>
+      </div>
+    </a>
+
+  </div>
+
+  <footer>
+    MyApp Login UI Showcase &nbsp;·&nbsp; HTML · CSS · JavaScript
+  </footer>
+
+</body>
+</html>
