@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>login-page·My-App·v2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"/>
+    <link rel="stylesheet" href="./style.css"/>
+</head>
+<body>
+
+    <!-- ── All Wrap ── -->
+    <div class="page-wrap">
+
+        <!-- ════ Panel Left (Visual) ════ -->
+        <aside class="panel-left" aria-hidden="true">
+
+            <!-- Noise Overlay -->
+            <div class="panel-noise"></div>
+
+            <!-- Top Logo -->
+            <div class="panel-logo">
+                <span class="logo-dot"></span>
+                <span class="logo-text">My-App·v2</span>
+            </div>
+
+            <!-- center Illust Area -->
+            <div class="panel-center">
+                <!-- Orbit -->
+                <div class="orbit-wrap">
+                    <div class="orbit orbit-1">
+                        <span class="orbit-dot dot-cyan"></span>
+                    </div>
+                    <div class="orbit orbit-2">
+                        <span class="orbit-dot dot-pink"></span>
+                    </div>
+                    <div class="orbit orbit-3">
+                        <span class="orbit-dot dot-yellow"></span>
+                    </div>
+
+                    <!-- Center Icon -->
+                    <div class="orbit-core">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                </div>
+
+                <h2 class="panel-heading">Start safely.</h2>
+                <p class="panel-sub">
+                    Your data is thoroughly protected<br/>with top-level encryption.
+                </p>
+            </div>
+
+            <!-- Footer Stat -->
+            <footer class="panel-stats">
+                <div class="stat-item">
+                    <span class="stat-num" data-target="98">0</span><span class="stat-unit">%</span>
+                    <span class="stat-label">rate of operation</span>
+                </div>
+                <div class="stat-divider"></div>
+                <duv class="stat-item">
+                    <span class="stat-num" data-target="256">0</span><span class="stat-unit">bit</span>
+                    <span class="stat-label">Encryption</span>
+                </duv>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-num" data-target="24">0</span><span class="stat-unit">/7</span>
+                    <span class="stat-label">Monitoring</span>
+                </div>
+            </footer>
+        </aside>
+
+        <!-- ════ Right Panel (Form) ════ -->
+        <main class="panel-right">
+
+            <!-- Mobile Logo -->
+            <div class="mobile-logo">
+                <span class="logo-dot"></span>
+                <span class="logo-text">My-App.v2</span>
+            </div>
+
+            <section class="form-section">
+                
+                <!-- Tab: Log In / Sign Up -->
+                <div class="tab-group" role="tablist">
+                    <button class="tab active" id="tab-login" role="tab" aria-selected="true">Log In</button>
+                    <button class="tab" id="tab-signup" role="tab" aria-selected="false">Sign Up</button>
+                    <span class="tab-indicator"></span>
+                </div>
+
+                <!-- Log In Form -->
+                <form id="form-login" class="auth-form" novalidate>
+                    <h1 class="form-title">It's great to see you again.<span class="wave">👋</span></h1>
+                    <p class="form-desc">Log in to your account to use the service.</p>
+
+                    <!-- Email -->
+                    <div class="field" id="f-email">
+                        <label for="email">Email address</label>
+                        <div class="input-box">
+                            <i class="fa-regular fa-envelope"></i>
+                            <input id="email" required/>
+                        </div>
+                        <span class="err-msg" id="err-email"></span>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="field" id="f-pass">
+                        <div class="label-row">
+                            <label for="password">Password</label>
+                            <a href="#" class="forgot" id="link-forgot">It slipped my mind.</a>
+                        </div>
+                        <div class="input-box">
+                            <i class="fa-solid fa-lock"></i>
+                            <input id="password" type="password" placeholder="••••••••"
+                                autocomplete="current-password" required/>
+                            <button type="button" class="eye-btn" id="eye-btn" aria-label="Show password">
+                                <i class="fa-regular fa-eye" id="eye-ic"></i>
+                            </button>
+                        </div>
+                        <span class="err-msg" id="err-pass"></span>
+                    </div>
+
+                    <!-- Keep me logged in -->
+                    <label class="check-label">
+                        <input type="checkbox" id="remember"/>
+                        <span class="check-box"></span>
+                        Log in on this device
+                    </label>
+
+                    <!-- Submission -->
+                    <button type="submit" class="btn-main" id="btn-login">
+                        <span class="btn-label">Login</span>
+                        <i class="fa-solid fa-arrow-right btn-arrow"></i>
+                        <span class="btn-loader" id="loader"><i class="fa-solid fa-circle-notch fa-spin"></i></span>
+                    </button>
+
+                    <!-- Notification Banner -->
+                    <div class="alert-banner" id="alert-login"></div>
+
+                    <!-- Separator -->
+                    <div class="or-line"><span>OR</span></div>
+
+                    <!-- Social -->
+                    <div class="social-row">
+                        <button type="button" class="btn-social-v2" id="s-google">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicons/devicon/icons/google/google-original.svg" alt="Google" width="18" height="18"/>
+                            Google
+                        </button>
+                        <button type="button" class="btn-social-v2" id="s-kakao">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="#3A1D1D">
+                                <path d="M12 3C6.477 3 2 6.582 2 11.045c0 2.857 1.866 5.369 4.7 6.841L5.6 21l4.37-2.876A12.2 12.2 0 0012 18.09c5.523 0 10-3.582 10-8.045S17.523 3 12 3z"/>
+                            </svg>
+                            Kakao
+                        </button>
+                        <button type="button" class="btn-social-v2" id="s-naver">
+                            <span class="naver-n">N</span>
+                            Naver
+                        </button>
+                    </div>
+                </form>
+
+                <!-- ─── Membership Registration Form ─── -->
+                <form id="form-signup" class="auth-form hidden" novalidate>
+                    <h1 class="form-title">So this is your first time here!<span class="wave">🎉</span></h1>
+                    <p class="form-desc">You can get started right away by entering just a few pieces of information.</p>
+                    
+                    <!-- Name -->
+                    <div class="field" id="f-name">
+                        <label for="username">Name</label>
+                        <div class="input-box">
+                            <i class="fa-regular fa-user"></i>
+                            <input id="username" type="text" placeholder="Hong Gil-dong" autocomplete="name" required/>
+                        </div>
+                        <span class="err-msg" id="err-name"></span>
+                    </div>
+
+                    <!-- Email (Sign up) -->
+                    <div class="field" id="f-su-email">
+                        <lavel for="su-email">Email address</lavel>
+                        <div class="input-box">
+                            <i class="fa-regular fa-envelope"></i>
+                            <input id="su-email" type="email" placeholder="you@example.com" autocomplete="email" required/>
+                        </div>
+                        <span class="err-msg" id="err-su-email"></span>
+                    </div>
+
+                    <!-- Password (Sign Up) -->
+                    <div class="field" id="f-su-pass">
+                        <label for="su-pass">Password</label>
+                        <div class="input-box">
+                            <i class="fa-solid fa-lock"></i>
+                            <input id="su-pass" type="password" placeholder="Enter at least 8 characters" required/>
+                            <button type="button" class="eye-btn" id="eye-btn2" aria-label="Show password">
+                                <i class="fa-regular fa-eye" id="eye-ic2"></i>
+                            </button>
+                        </div>
+
+                        <!-- Password Strength Bar -->
+                        <div class="strength-wrap">
+                            <div class="strength-bar">
+                                <span class="sb" id="sb1"></span>
+                                <span class="sb" id="sb2"></span>
+                                <span class="sb" id="sb3"></span>
+                                <span class="sb" id="sb4"></span>
+                            </div>
+                            <span class="strength-label" id="strength-label">No robbery</span>
+                        </div>
+                        <span class="err-msg" id="err-su-pass"></span>
+                    </div>
+
+                    <!-- Agree to Terms -->
+                    <label class="check-label">
+                        <input type="checkbox" id="agree"/>
+                        <span class="check-box"></span>
+                        <span><a href="#" class="inline-link">Terms of Use</a>and<a href="#" class="inline-link">Privacy Policy</a>I agree.</span>
+                    </label>
+
+                    <button type="submit" class="btn-main" id="btn-signup">
+                        <span class="btn-label">Create account</span>
+                        <i class="fa-solid fa-arrow-right btn-arrow"></i>
+                        <span class="btn-loader" id="loader2"><i class="fa-solid fa-circle-notch fa-spin"></i></span>
+                    </button>
+
+                    <div class="alert-banner" id="alert-signup"></div>
+                </form>
+            </section>
+
+            <!-- Bottom link -->
+            <p class="bottom-hint">
+                <i class="fa-solid fa-shield-halved"></i>
+                Secure connection · SSL encryption · GDPR compliance
+            </p>
+        </main>
+    </div><!-- /page-wrap -->
+
+    <script src="./main.js"></script>
+</body>
+</html>
