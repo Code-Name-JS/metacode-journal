@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>S|X|S - Stationery Shop</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="top-bar">
+        <div class="top-inner">
+            <div class="top-menu">
+                <a href="#">로그인 / 회원가입</a>
+                <span>|</span>
+
+                <a href="#">주문 / 배송</a>
+                <span>|</span>
+
+                <!--글씨 앞에 아이콘을 넣는 방법 알아보기 -->
+                <a href="#">장바구니 <strong>0 개</strong></a>
+                <span>|</span>
+
+                <a href="#">커뮤니티</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================
+         HEADER(헤더)
+    ========================================= -->
+    <header class="header">
+        <div class="header-inner">
+            <!-- 로고 -->
+            <h1 class="logo">
+                <a href="#">
+                    S|X|S
+                </a>
+            </h1>
+
+            <!-- 메인 네비게이션 -->
+            <nav class="main-nav">
+                <a href="#" class="active">New</a>
+                <a href="#">Event</a>
+                <a href="#">Best</a>
+                <a href="#">Brand</a>
+                <a href="#">Plan</a>
+            </nav>
+
+            <!-- 검색창 -->
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Try searching for a diary">
+                <button type="button" id="searchButton" aria-label="검색">
+                </button>
+            </div>
+        </div>
+
+        <!-- ========================================
+             카테고리 내비게이션
+        ========================================= -->
+        <nav class="category-nav">
+            <div class="category-inner">
+                <a href="#"><strong>SALE(~50%)</strong></a>
+                <span>|</span>
+                <a href="#">RANDOM</a>
+                <span>|</span>
+                <a href="#">TRACING - PAPER</a>
+                <span>|</span>
+                <a href="#">디자인 / 굿즈</a>
+                <a href="#">스티커 / 페이퍼</a>
+                <a href="#">노트 / Pad</a>
+                <a href="#">테이프 / 스탬프</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ========================================
+         메인
+    ========================================= -->
+    <main>
+        <!-- ========================================
+             HERO / 배너
+        ========================================= -->
+        <section class="hero">
+            <div class="slider">
+                <dis class="slider active">
+                    <div class="slider-content">
+                        <!-- <h2>새로운 컬렉션</h2> -->
+                        <!-- <p>새로운 문구용품</p> -->
+                    </div>
+                </dis>
+
+                <div class="slide">
+                    <div class="slide-content">
+                        <!-- 두 번째 배너 -->
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <div class="slide-content">
+                        <!-- 세 번째 배너 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 슬라이더 점 -->
+            <div class="slider-dots">
+                <button class="dot active" data-slide="0" aria-label="첫 번째 배너"></button>
+                <button class="dot" data-slide="1" aria-label="두 번째 배너"></button>
+                <button class="dot" data-slide="2" aria-label="세 번째 배너"></button>
+            </div>
+        </section>
+
+        <!-- ========================================
+             공지사항
+        ========================================= -->
+        <section class="notice-section">
+            <div class="notice-box">
+                <h2>S|X|S /<span>Notice</span></h2>
+
+                <p>
+                    스티커와 트레이싱 종이를 50% 할인 가격에 판매합니다.
+                    <br>(일부 제품은 제외)
+                </p>
+
+                <p>
+                    주문 후 배송이 지연될 수 있습니다. 양해를 부탁드립니다.
+                    <br>
+                    배송비는 주문당 3,500원의 택배비가 부가되며, 회원만 결제 가능합니다.
+                    <br>
+                    궁금한 점이 있으시면 고객센터에 문의해 주세요.
+                </p>
+
+                <p>감사합니다.</p>
+            </div>
+        </section>
+
+        <!-- ========================================
+             REVIEW
+        ========================================= -->
+        <section class="review-section">
+            <h2><a href="#">REVIEW</a></h2>
+            <div class="review-line"></div>
+        </section>
+    </main>
+
+    <!-- ========================================
+         FOOTER
+    ========================================= -->
+    <footer class="footer">
+        <p>© 2026 S|X|S. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="./main.js"></script>
+</body>
+</html>
