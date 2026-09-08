@@ -1,5 +1,5 @@
 /* =====================================================
-   main.js  –  Login Page Interactions
+   main-v1.js  –  Login v1.0 Interactions
    ===================================================== */
 console.log("main.js 연결 성공!");
 
@@ -7,7 +7,7 @@ console.log("main.js 연결 성공!");
 
 
 
-//  ── Demo account (replaced by server authentication in the live service) ──
+//  ── 데모용 계정(실제 서비스에서는 서버 인증으로 대체) ──
 const DEMO_ACCOUNTS = [
     {email:'demo@myapp.com', password:'demo1234'},
     {email:'test@example.com', password:'test5678'},
@@ -15,7 +15,7 @@ const DEMO_ACCOUNTS = [
 
 
 
-//  ── DOM Element ──
+//  ── DOM 요소 ──
 const form = document.getElementById('login-form');
 const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('password');
@@ -31,48 +31,47 @@ const errorEmail = document.getElementById('error-email');
 const errorPassword = document.getElementById('error-password');
 
 
-
-//  ── Social button ──
+//  ── 소셜 버튼 ──
 document.getElementById('btn-google').addEventListener('click', () =>
-    showToast('info', '🔍 Google Sign-In is being prepared.'));
+    showToast('info', '🔍 Google 로그인은 준비 중입니다.'));
 document.getElementById('btn-github').addEventListener('click', () =>
-    showToast('info', '🐙 GitHub login is being prepared.'));
+    showToast('info', '🐙 GitHub 로그인은 준비 중입니다.'));
 document.getElementById('link-forgot').addEventListener('click', (e) => {
     e.preventDefault();
-    showToast('info', '📧 We will send you an email to reset your password.');
+    showToast('info', '📧 비밀전호 재설정 메일을 보내드립니다.');
 });
 document.getElementById('link-signup').addEventListener('click', (e) => {
     e.preventDefault();
-    showToast('info', '✍️ Go to the sign-up page.');
+    showToast('info', '✍️ 회원가입 페이지로 이동합니다.');
 });
 
 
 
-// ── Restore saved emails ──
+// ── 저장된 이메일 복원 ──
 window.addEventListener('DOMContentLoaded', () => {
-    const saved = localStorage.getltem('remembered_email');
+    const saved = localStorage.getItem('remembered_email');
     if(saved){
         emailInput.value = saved;
         rememberMe.checked = true;
     }
-    // If there is a value in the email field, focus on the password
+    // 이메일 필드에 값이 있으면 패스워드로 포커스
     if(emailInput.value) passwordInput.focus();
     else emailInput.focus();
 });
 
 
 
-// ── Show/Hide Password ──
+// ── 비밀번호 표시/숨기기 ──
 togglePwBtn.addEventListener('click', () => {
     const isHidden = passwordInput.type === 'password';
     passwordInput.type = isHidden ? 'text' : 'password';
     eyeIcon.className = isHidden ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye';
-    togglePwBtn.setAttribute('aria-label', isHidden ? 'Hide Password' : 'Show password');
+    togglePwBtn.setAttribute('aria-label', isHidden ? '비밀번호 숨기기' : '비밀번호 표시');
 });
 
 
 
-// ── Live validation ──
+// ── 실시간 유효성 검사 ──
 emailInput.addEventListener('input', () => {
     clearFieldState(groupEmail, errorEmail);
 });
@@ -88,7 +87,7 @@ passwordInput.addEventListerner('blur', () => {
 
 
 
-// ── Form submission ──
+// ── 폼 제출 ──
 form.addEventListener('submit', async(e) => {
     e.preventDefault();
 
@@ -96,11 +95,11 @@ form.addEventListener('submit', async(e) => {
     const passwordOk = validatePassword();
     if(!emailOk || !passwordOk) return;
 
-    // Start loading
+    // 로딩 시작
     setLoading(true);
 
     try{
-        // Server request simulation (1.2 s delay)
+        // 서버 요청 시뮬레이션 (1.2s 딜레이)
         await delay(1200);
 
         const matched = DEMO_ACCOUNTS.find(
@@ -109,59 +108,59 @@ form.addEventListener('submit', async(e) => {
         );
 
         if(matched){
-            // Handle persistent login state
+            // 로그인 상태 유지 처리
             if(rememberMe.checked){
-                localStorage.setltem('remembered_email', matched.email);
+                localStorage.setItem('remembered_email', matched.email);
             } else{
-                localStorage.removeltem('remembered_email');
+                localStorage.removeItem('remembered_email');
             }
 
             setFieldSuccess(groupEmail);
             setFieldSuccess(groupPassword);
-            showToast('success', '✅ Login successful! Welcome aboard.');
+            showToast('success', '✅ 로그인 성공! 환영합니다.');
 
-            // Button completed state
+            // 버튼 완료 상태
             submitBtn.style.background = 'linear-gradient(135deg, #22c55e 0%, #4ade80 100%)';
             submitBtn.querySelector('.btn-text').style.display = 'flex';
-            submitBtn.querySelector('.btn-text').textContent = '✓ Login complete';
+            submitBtn.querySelector('.btn-text').textContent = '✓ 로그인 완료';
             submitBtn.querySelector('.btn-spinner').style.display = 'none';
         } else{
-            // Login failed
+            // 로그인 실패
             setFieldError(groupEmail, errorEmail, '');
-            setFieldError(groupPassword, errorPassword, 'The email or password does not match.');
-            showToast('error', '❌ Failed to log in. Please check again.');
+            setFieldError(groupPassword, errorPassword, '이메일 또는 비밀번호가 일치하지 않습니다.');
+            showToast('error', '❌ 로그인에 실패했습니다. 다시 확인해주세요.');
             shakeCard();
         }
     } finally{
-        if(!submitBtn.textContent.includes('Completion')) setLoading(false);
+        if(!submitBtn.textContent.includes('완료')) setLoading(false);
     }
 });
 
 
 
-// ── Validation Functions ──
+// ── 유효성 검사 함수들 ──
 function validateEmail(){
-    const val = emaillnput.value.trim();
+    const val = emailInput.value.trim();
     if(!val) {
-        setFieldError(groupEmail, errorEmail, 'Please enter your email.');
+        setFieldError(groupEmail, errorEmail, '이메일을 입력해주세요.');
         return false;
     }
-    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
-        setFieldError(groupEmail, errorEmail, 'This is not a valid email format.');
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)){
+        setFieldError(groupEmail, errorEmail, '올바른 이메일 형식이 아닙니다.');
         return false;
     }
     clearFieldState(groupEmail, errorEmail);
     return true;
 }
 
-function validatePassword() {
-    const val = passwordlnput.value;
+function validatePassword(){
+    const val = passwordInput.value;
     if(!val) {
-        setFieldError(groupPassword, errorPassword, 'Please enter your password.');
+        setFieldError(groupPassword, errorPassword, '비밀번호를 입력해주세요.');
         return false;
     }
-    if(val.length < 6) {
-        setFieldError(groupPassword, errorPassword, 'The password must be at least 6 characters long.');
+    if(val.length < 6){
+        setFieldError(groupPassword, errorPassword, '비밀번호는 6자 이상이어야 합니다.');
         return false;
     }
     clearFieldState(groupPassword, errorPassword);
@@ -170,12 +169,11 @@ function validatePassword() {
 
 
 
-// ── Field state helper ──
+// ── 필드 상태 헬퍼 ──
 function setFieldError(group, errorEl, message) {
     group.classList.remove('is-success');
     group.classList.add('is-error');
-    errorEl.innerHTML = message ? `<i class="fa-solid fa-circle-exclamation"></i>
-    ${message}` : '';
+    errorEl.innerHTML = message ? `<i class="fa-solid fa-circle-exclamation"></i>${message}` : '';
 }
 
 function setFieldSuccess(group) {
@@ -190,7 +188,7 @@ function clearFieldState(group, errorEl) {
 
 
 
-// ── Loading state ──
+// ── 로딩 상태 ──
 function setLoading(on) {
     submitBtn.disabled = on;
     if(on) {
@@ -202,7 +200,7 @@ function setLoading(on) {
 
 
 
-// ── Shake the card ──
+// ── 카드 흔들기 ──
 function shakeCard() {
     const card = document.querySelector('.login-card');
     card.style.animation = 'none';
@@ -212,7 +210,7 @@ function shakeCard() {
 
 
 
-// ── Toast message ──
+// ── 토스트 메시지 ──
 let toastTimer = null;
 function showToast(type, message) {
     clearTimeout(toastTimer);
@@ -225,17 +223,17 @@ function showToast(type, message) {
 
 
 
-// ── Utility ──
+// ── 유틸 ──
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 
 
-// ── CSS: Dynamic Injection of Shake Animation ──
+// ── CSS:shake 애니메이션 동적 주입 ──
 const shakeStyle = document.createElement('style');
 shakeStyle.textContent = `
-@keyframes shake {
+@keyframes shake{
     0%, 100%{transform: translateX(0);}
     15%{transform: translateX(-8px);}
     30%{transform: translateX(7px);}

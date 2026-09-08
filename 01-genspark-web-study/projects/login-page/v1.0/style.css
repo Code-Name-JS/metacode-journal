@@ -1,10 +1,10 @@
 /* =====================================================
-   style.css  –  Login Page
+   style-v1.css  –  Login v1.0
    ===================================================== */
 
 
    
-/* ── CSS variable ── */
+/* ── CSS 변수 ── */
 :root{
   --primary:       #6c63ff;
   --primary-dark:  #5a52e0;
@@ -28,19 +28,19 @@
   --shadow-md: 0 4px 16px   rgba(108,99,255,.12), 0 2px 8px     rgba(0,0,0,.06);
   --shadow-lg: 0 20px 60px  rgba(108,99,255,.18), 0 8px 24px    rgba(0,0,0,.08);
 
-  --rdius-sm: 8px;
-  --rdius-md: 14px;
-  --rdius-lg: 24px;
-  --rdius-xl: 32px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
 
-  --transition: 0.22s cubic-bezier(.4,0,.2,1);
+  --transition: 0.22s cubic-bezier(.4, 0, .2, 1);
 
   --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 
 
-/* ── reset & base ── */
+/* ── 리셋 & 베이스 ── */
 *, *::before, *::after{box-sizing: border-box; margin: 0; padding: 0;}
 
 html{font-size: 16px; scroll-behavior: smooth;}
@@ -60,7 +60,7 @@ body{
 
 
 
-/* ── background & blob ── */
+/* ── 배경 블롭 ── */
 .bg-blobs{position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;}
 
 .blob{
@@ -99,7 +99,7 @@ body{
 
 
 
-/* ── login wrapper ── */
+/* ── 로그인 래퍼 ── */
 .login-wrapper{
     position: relative;
     z-index: 1;
@@ -109,7 +109,7 @@ body{
 
 
 
-/* ── card ── */
+/* ── 카드 ── */
 .login-card{
     background: var(--surface);
     border-radius: var(--radius-xl);
@@ -127,7 +127,7 @@ body{
 
 
 
-/* ── header ── */
+/* ── 헤더 ── */
 .card-header{
     text-align: center;
     margin-bottom: 2rem;
@@ -166,7 +166,7 @@ body{
 
 
 
-/* ── social buttons ── */
+/* ── 소셜 버튼 ── */
 .social-login{
     display: flex;
     flex-direction: column;
@@ -186,7 +186,7 @@ body{
     font-weight: 500;
     font-family: var(--font);
     cursor: pointer;
-    transition: background var(--transition), transition var(--transition), box-shadow var(--transition);
+    transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
     border: 1.5px solid var(--border);
     color: var(--text-primary);
     background: var(--surface-2);
@@ -215,7 +215,7 @@ body{
 
 
 
-/* ── separator ── */
+/* ── 구분선 ── */
 .divider{
     display: flex;
     align-items: center;
@@ -237,7 +237,7 @@ body{
 
 
 
-/* ── form ── */
+/* ── 폼 ── */
 .login-form{
     display: flex;
     flex-direction: column;
@@ -246,7 +246,7 @@ body{
 
 
 
-/* ── field group ── */
+/* ── 필드 그룹 ── */
 .field-group{
     display: flex;
     flex-direction: column;
@@ -301,8 +301,8 @@ body{
 
 
 
-/* ── validity status ── */
-.field-group.is-error .field-input{border-color: var(--danger); box-shadow: 0 0 0 4px rgba(239,68,68,.1);}
+/* ── 유효성 상태 ── */
+.field-group.is-error  .field-input{border-color: var(--danger);  box-shadow: 0 0 0 4px rgba(239,68,68,.1);}
 .field-group.is-success .field-input{border-color: var(--success); box-shadow: 0 0 0 4px rgba(34,197,94,.1);}
 
 .field-error{
@@ -315,7 +315,7 @@ body{
     gap: .3rem;
     opacity: 0;
     transform: translateY(-4px);
-    transform: opacity var(--transition), transform var(--transition);
+    transition: opacity var(--transition), transform var(--transition);
 }
 
 .field-group.is-error .field-error{
@@ -325,7 +325,7 @@ body{
 
 
 
-/* ── password toggle ── */
+/* ── 비밀번호 토글 ── */
 .btn-toggle-pw{
     position: absolute;
     right: .9rem;
@@ -343,7 +343,7 @@ body{
 
 
 
-/* ── option line ── */
+/* ── 옵션 행 ── */
 .options-row{
     display: flex;
     justify-content: space-between;
@@ -353,7 +353,7 @@ body{
 
 
 
-/* ── Custom checkbox ── */
+/* ── 커스텀 체크박스 ── */
 .checkbox-wrap{
     display: flex;
     align-items: center;
@@ -381,7 +381,7 @@ body{
 }
 
 .custom-check::after{
-    content:'';
+    content: '';
     width: 5px; height: 9px;
     border: 2px solid #fff;
     border-top: none; border-left: none;
@@ -403,7 +403,7 @@ body{
 
 
 
-/* ── Submit button ── */
+/* ── 제출 버튼 ── */
 .btn-submit{
     width: 100%;
     padding: .85rem 1rem;
@@ -424,7 +424,7 @@ body{
 }
 
 .btn-submit::before{
-    content:'';
+    content: '';
     position: absolute; inset: 0;
     background: rgba(255, 255, 255, .12);
     opacity: 0;
@@ -442,19 +442,19 @@ body{
 
 
 
-/* ── Toast Message ── */
-.toast{
-    margin-top: .25rem;
-    padding: .7rem 1rem;
-    border-radius: var(--radius-sm);
-    font-size: .875rem;
-    font-weight: 500;
-    text-align: center;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    gap: .5rem;
-    animation: toast-in .3s ease both;
+/* ── 토스트 ── */
+.toast {
+  margin-top: .25rem;
+  padding: .7rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: .875rem;
+  font-weight: 500;
+  text-align: center;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  animation: toast-in .3s ease both;
 }
 
 @keyframes toast-in{
@@ -469,7 +469,7 @@ body{
 
 
 
-/* ── Card Footer ── */
+/* ── 카드 푸터 ── */
 .card-footer{
     text-align: center;
     margin-top: 1.5rem;
@@ -489,8 +489,8 @@ body{
 
 
 
-/* ── Responsive ── */
-@media (max-width: 480px){
+/* ── 반응형 ── */
+@media(max-width: 480px){
 .login-card{padding: 2rem 1.5rem 1.8rem; border-radius: var(--radius-lg);}
 .brand-name{font-size: 1.5rem;}
 }

@@ -1,42 +1,41 @@
 <!DOCTYPE html>
 <html lang="ko">
     <head>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>login-page·My-App</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>login-page·MyApp</title>
 
         <!-- Google Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
         
         <!-- Font Awesome -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
         <link rel="stylesheet" href="./style.css"/>
     </head>
 
     <body>
-        <!-- ── background decoration ── -->
+        <!-- ── 배경 장식 ── -->
         <div class="bg-blobs" aria-hidden="true">
             <span class="blob blob-1"></span>
             <span class="blob blob-2"></span>
             <span class="blob blob-3"></span>
         </div>
 
-        <!-- ── main card ── -->
+        <!-- ── 메인 카드 ── -->
         <main class="login-wrapper">
             <article class="login-card">
 
-                <!-- brand -->
+                <!-- 브랜드 -->
                 <header class="card-header">
                     <div class="brand-icon">
                         <i class="fa-solid fa-bolt"></i>
                     </div>
-
-                    <h1 class="brand-name">My-App</h1>
-                    <p class="brand-tagline">Nice to see you again! 👋</p>
+                    <h1 class="brand-name">MyApp</h1>
+                    <p class="brand-tagline">다시 만나서 반가워요! 👋</p>
                 </header>
 
-                <!-- social login -->
-                <section class="social-login" aria-label="social login">
+                <!-- 소셜 로그인 -->
+                <section class="social-login" aria-label="소셜 로그인">
                     <button class="btn-social btn-google" id="btn-google" type="button">
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google" width="20" height="20" />
                         Google로 계속하기
@@ -48,68 +47,67 @@
                     </button>  
                 </section>
 
-                <!-- separator -->
+                <!-- 구분선 -->
                 <div class="divider" role="separator">
-                    <span>Or log in with email</span>  
+                    <span>또는 이메일로 로그인</span>  
                 </div>
 
-                <!-- Login Form -->
+                <!-- 로그인 폼 -->
                 <form id="login-form" class="login-form" novalidate>
 
-                    <!-- email -->
+                    <!-- 이메일 -->
                     <div class="field-group" id="group-email">
-                        <label class="field-label" for="email">email</label>
+                        <label class="field-label" for="email">이메일</label>
                         <div class="field-input-wrap">
                             <i class="fa-regular fa-envelope field-icon"></i>
-                            <input id="email" class="field-input" type="email" placeholder="example@email.com" autocomplete="email" required/>
+                            <input id="email" class="field-input" type="email" placeholder="example@email.com" autocomplete="email" required />
                         </div>
                         <p class="field-error" id="error-email" role="alert" aria-live="polite"></p>
                     </div>
 
-                    <!-- Password -->
+                    <!-- 비밀번호 -->
                     <div class="field-group" id="group-password">
-                        <label class="field-label" for="password">password</label>
+                        <label class="field-label" for="password">비밀번호</label>
                         <div class="field-input-wrap">
                             <i class="fa-solid fa-lock field-icon"></i>
-                            <input id="password" class="field-input" type="password" placeholder="Please enter your PIN number." autocomplete="current-password" required/>
-                            <button type="button" class="btn-toggle-pw" id="toggle-pw" aria-label="Show/Hide Password">
+                            <input id="password" class="field-input" type="password" placeholder="비밀번호를 입력하세요" autocomplete="current-password" required />
+                            <button type="button" class="btn-toggle-pw" id="toggle-pw" aria-label="비밀번호 표시/숨기기">
                                 <i class="fa-regular fa-eye" id="eye-icon"></i>
                             </button>
                         </div>
-                        <p class="fa-regular fa-eye" id="eye-icon"></p>
+                        <p class="field-error" id="error-password" role="alert" aria-live="polite"></p>
                     </div>
 
-                    <!-- Option line -->
+                    <!-- 옵션 행 -->
                     <div class="options-row">
                         <label class="checkbox-wrap">
-                            <input type="checkbox" id="remember-me"/>
+                            <input type="checkbox" id="remember-me" />
                             <span class="custom-check"></span>
-                            Keep me logged in
+                            로그인 상태 유지
                         </label>
-                        <a href="#" class="link-forgot" id="link-forgot">Find Password</a>
+                        <a href="#" class="link-forgot" id="link-forgot">비밀번호 찾기</a>
                     </div>
 
-                    <!-- Submit button -->
+                    <!-- 제출 버튼 -->
                     <button type="submit" class="btn-submit" id="btn-submit">
-                        <span class="btn-text">Login</span>
+                        <span class="btn-text">로그인</span>
                         <span class="btn-spinner" id="btn-spinner" aria-hidden="true">
                             <i class="fa-solid fa-circle-notch fa-spin"></i>
                         </span>
                     </button>
 
-                    <!-- Toast Message -->
+                    <!-- 토스트 메시지 -->
                     <div class="toast" id="toast" role="alert" aria-live="assertive"></div>
 
                 </form>
 
-                <!-- Encourage sign-up -->
+                <!-- 회원가입 유도 -->
                 <footer class="card-footer">
-                    Don't have an account?
-                    <a href="#" class="link-signup" id="link-signup">Join Membership</a>
+                    계정이 없으신가요?
+                    <a href="#" class="link-signup" id="link-signup">회원가입</a>
                 </footer>
             </article>
         </main>
-
-        <script src="./main.js"></script>
     </body>
+    <script src="./main.js"></script>
 </html>
