@@ -85,12 +85,8 @@
                 
                 <!-- Tab: Log In / Sign Up -->
                 <div class="tab-group" role="tablist">
-                    <a href="./index.html" class="tab active">
-                        Log In
-                    </a>
-                    <a href="./signup.html" class="tab">
-                        Sign Up
-                    </a>
+                    <button class="tab active" id="tab-login" role="tab" aria-selected="true">로그인</button>
+                    <button class="tab" id="tab-signup" role="tab" aria-selected="false">회원가입</button>
                     <span class="tab-indicator"></span>
                 </div>
 
@@ -104,7 +100,7 @@
                         <label for="email">Email address</label>
                         <div class="input-box">
                             <i class="fa-regular fa-envelope"></i>
-                            <input id="email" placeholder="you@example.com" autocomplete="email" required/>
+                             <input id="email" type="email" placeholder="you@example.com" autocomplete="email" required />
                         </div>
                         <span class="err-msg" id="err-email"></span>
                     </div>
@@ -113,13 +109,12 @@
                     <div class="field" id="f-pass">
                         <div class="label-row">
                             <label for="password">Password</label>
-                            <a href="#" class="forgot" id="link-forgot">It slipped my mind.</a>
+                            <a href="#" class="forgot" id="link-forgot">잊어버렸어요</a>
                         </div>
                         <div class="input-box">
                             <i class="fa-solid fa-lock"></i>
-                            <input id="password" type="password" placeholder="••••••••"
-                                autocomplete="current-password" required/>
-                            <button type="button" class="eye-btn" id="eye-btn" aria-label="Show password">
+                            <input id="password" type="password" placeholder="••••••••" autocomplete="current-password" required/>
+                            <button type="button" class="eye-btn" id="eye-btn" aria-label="비밀번호 표시">
                                 <i class="fa-regular fa-eye" id="eye-ic"></i>
                             </button>
                         </div>
@@ -130,7 +125,7 @@
                     <label class="check-label">
                         <input type="checkbox" id="remember"/>
                         <span class="check-box"></span>
-                        Log in on this device
+                        이 기기에서 로그인 유지
                     </label>
 
                     <!-- Submission -->
@@ -163,6 +158,71 @@
                             Naver
                         </button>
                     </div>
+                </form>
+
+                <!-- ─── 회원가입 폼 ─── -->
+                <form id="form-signup" class="auth-form hidden" novalidate>
+                    <h1 class="form-title">처음 오셨군요! <span class="wave">🎉</span></h1>
+                    <p class="form-desc">몇 가지 정보만 입력하면 바로 시작할 수 있어요.</p>
+
+                     <!-- 이름 -->
+                    <div class="field" id="f-name">
+                        <label for="username">이름</label>
+                        <div class="input-box">
+                            <i class="fa-regular fa-user"></i>
+                            <input id="username" type="text" placeholder="홍길동" autocomplete="name" required />
+                        </div>
+                        <span class="err-msg" id="err-name"></span>
+                    </div>
+
+                    <!-- 이메일 (회원가입) -->
+                    <div class="field" id="f-su-email">
+                        <label for="su-email">이메일 주소</label>
+                        <div class="input-box">
+                            <i class="fa-regular fa-envelope"></i>
+                            <input id="su-email" type="email" placeholder="you@example.com" autocomplete="email" required />
+                        </div>
+                        <span class="err-msg" id="err-su-email"></span>
+                    </div>
+
+                    <!-- 비밀번호 (회원가입) -->
+                    <div class="field" id="f-su-pass">
+                        <label for="su-pass">비밀번호</label>
+                        <div class="input-box">
+                            <i class="fa-solid fa-lock"></i>
+                            <input id="su-pass" type="password" placeholder="8자 이상 입력" required />
+                            <button type="button" class="eye-btn" id="eye-btn2" aria-label="비밀번호 표시">
+                                <i class="fa-regular fa-eye" id="eye-ic2"></i>
+                            </button>
+                        </div>
+
+                        <!-- 비밀번호 강도 바 -->
+                        <div class="strength-wrap">
+                            <div class="strength-bar">
+                                <span class="sb" id="sb1"></span>
+                                <span class="sb" id="sb2"></span>
+                                <span class="sb" id="sb3"></span>
+                                <span class="sb" id="sb4"></span>
+                            </div>
+                            <span class="strength-label" id="strength-label">강도 없음</span>
+                        </div>
+                        <span class="err-msg" id="err-su-pass"></span>
+                    </div>
+
+                    <!-- 약관 동의 -->
+                    <label class="check-label">
+                        <input type="checkbox" id="agree" />
+                        <span class="check-box"></span>
+                        <span><a href="#" class="inline-link">이용약관</a> 및 <a href="#" class="inline-link">개인정보처리방침</a>에 동의합니다.</span>
+                    </label>
+
+                    <button type="submit" class="btn-main" id="btn-signup">
+                        <span class="btn-label">계정 만들기</span>
+                        <i class="fa-solid fa-arrow-right btn-arrow"></i>
+                        <span class="btn-loader" id="loader2"><i class="fa-solid fa-circle-notch fa-spin"></i></span>
+                    </button>
+
+                    <div class="alert-banner" id="alert-signup"></div>
                 </form>
             </section>
 

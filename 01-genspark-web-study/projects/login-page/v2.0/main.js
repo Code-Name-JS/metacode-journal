@@ -129,10 +129,7 @@ function checkStrength(val) {
 
 
 /* -- Submit Login Form -- */
-const loginForm = document.getElementById('form-login');
-
-if (loginForm) {
-  loginForm.addEventListener('submit', async e => {
+document.getElementById('form-login').addEventListener('submit', async e => {
   e.preventDefault();
   const emailVal = document.getElementById('email').value.trim();
   const passVal  = document.getElementById('password').value;
@@ -170,15 +167,11 @@ if (loginForm) {
     setLoading('btn-login', false);
   }
  });
-}
 
 
 
 /* -- Submit Membership Form -- */
-const signupForm = document.getElementById('form-signup');
-
-if (signupForm) {
-  signupForm.addEventListener('submit', async e => {
+document.getElementById('form-signup').addEventListener('submit', async e => {
   e.preventDefault();
   const nameVal  = document.getElementById('username').value.trim();
   const emailVal = document.getElementById('su-email').value.trim();
@@ -202,7 +195,6 @@ if (signupForm) {
   btn.querySelector('.btn-loader').style.display = 'none';
   btn.querySelector('.btn-label').style.display  = 'flex';
 });
-}
 
 
 
