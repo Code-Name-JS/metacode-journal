@@ -16,32 +16,32 @@ const DEMO_ACCOUNTS = [
 
 
 //  ── DOM Element ──
-const form = document.getElementByld('login-form');
-const emaillnput = document.getElementByld('email');
-const passwordlnput = document.getElementByld('password');
-const togglePwBtn = document.getElementByld('toggle-pw');
-const eyelcon = document.getElementByld('eye-icon');
-const submitBtn = document.getElementByld('btn-submit');
-const rememberMe = document.getElementByld('remember-me');
-const toast = document.getElementByld('toast');
+const form = document.getElementById('login-form');
+const emailInput = document.getElementById('email');
+const passwordInput = document.getElementById('password');
+const togglePwBtn = document.getElementById('toggle-pw');
+const eyeIcon = document.getElementById('eye-icon');
+const submitBtn = document.getElementById('btn-submit');
+const rememberMe = document.getElementById('remember-me');
+const toast = document.getElementById('toast');
 
-const groupEmail = document.getElementByld('group-email');
-const groupPassword = document.getElementByld('group-password');
-const errorEmail = document.getElementByld('error-email');
-const errorPassword = document.getElementByld('error-password');
+const groupEmail = document.getElementById('group-email');
+const groupPassword = document.getElementById('group-password');
+const errorEmail = document.getElementById('error-email');
+const errorPassword = document.getElementById('error-password');
 
 
 
 //  ── Social button ──
-document.getElementByld('btn-google').addEventListener('click', () =>
+document.getElementById('btn-google').addEventListener('click', () =>
     showToast('info', '🔍 Google Sign-In is being prepared.'));
-document.getElementByld('btn-github').addEventListener('click', () =>
+document.getElementById('btn-github').addEventListener('click', () =>
     showToast('info', '🐙 GitHub login is being prepared.'));
-document.getElementByld('link-forgot').addEventListener('click', (e) => {
+document.getElementById('link-forgot').addEventListener('click', (e) => {
     e.preventDefault();
     showToast('info', '📧 We will send you an email to reset your password.');
 });
-document.getElementByld('link-signup').addEventListener('click', (e) => {
+document.getElementById('link-signup').addEventListener('click', (e) => {
     e.preventDefault();
     showToast('info', '✍️ Go to the sign-up page.');
 });
@@ -52,37 +52,37 @@ document.getElementByld('link-signup').addEventListener('click', (e) => {
 window.addEventListener('DOMContentLoaded', () => {
     const saved = localStorage.getltem('remembered_email');
     if(saved){
-        emaillnput.value = saved;
+        emailInput.value = saved;
         rememberMe.checked = true;
     }
     // If there is a value in the email field, focus on the password
-    if(emaillnput.value) passwordlnput.focus();
-    else emaillnput.focus();
+    if(emailInput.value) passwordInput.focus();
+    else emailInput.focus();
 });
 
 
 
 // ── Show/Hide Password ──
 togglePwBtn.addEventListener('click', () => {
-    const isHidden = passwordlnput.type === 'password';
-    passwordlnput.type = isHidden ? 'text' : 'password';
-    eyelcon.className = isHidden ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye';
+    const isHidden = passwordInput.type === 'password';
+    passwordInput.type = isHidden ? 'text' : 'password';
+    eyeIcon.className = isHidden ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye';
     togglePwBtn.setAttribute('aria-label', isHidden ? 'Hide Password' : 'Show password');
 });
 
 
 
 // ── Live validation ──
-emaillnput.addEventListener('input', () => {
+emailInput.addEventListener('input', () => {
     clearFieldState(groupEmail, errorEmail);
 });
-emaillnput.addEventListener('blur', () => {
+emailInput.addEventListener('blur', () => {
     validateEmail();
 });
-passwordlnput.addEventListener('input', () => {
+passwordInput.addEventListener('input', () => {
     clearFieldState(groupPassword, errorPassword);
 });
-passwordlnput.addEventListerner('blur', () => {
+passwordInput.addEventListerner('blur', () => {
     validatePassword();
 });
 
@@ -104,8 +104,8 @@ form.addEventListener('submit', async(e) => {
         await delay(1200);
 
         const matched = DEMO_ACCOUNTS.find(
-            a => a.email === emaillnput.value.trim().toLowerCase()
-            && a.password === passwordlnput.value
+            a => a.email === emailInput.value.trim().toLowerCase()
+            && a.password === passwordInput.value
         );
 
         if(matched){
