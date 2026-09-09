@@ -453,6 +453,10 @@ body{
 .input-box:focus-within > i:first-child{color: var(--c-primary);}
 
 
+/* 브라우저 기본 비밀번호 아이콘 제거 */
+input[type="password"]::-ms-reveal{display: none;}
+input[type="password"]::-ms-clear{display: none;}
+
 
 /* 상태 */
 .field.is-err .input-box input{border-color: var(--c-err); box-shadow: 0 0 0 4px rgba(239, 68, 68, .09);}

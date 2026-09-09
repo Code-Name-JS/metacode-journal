@@ -13,6 +13,40 @@ const ACCOUNTS = [
 
 
 
+/* -- 탭 전환 -- */
+const tabLogin  = document.getElementById('tab-login');
+const tabSignup = document.getElementById('tab-signup');
+const tabGroup  = document.querySelector('.tab-group');
+const formLogin = document.getElementById('form-login');
+const formSignup= document.getElementById('form-signup');
+const signupButton = document.getElementById("tab-signup");
+
+tabLogin.addEventListener('click', () => switchTab('login'));
+
+
+
+/* -- 회원가입 페이지 이동 -- */
+signupButton.addEventListener('click', () => {
+  window.location.href = './signup.html';
+});
+
+function switchTab(which) {
+  const toLogin = which === 'login';
+
+  tabLogin.classList.toggle('active',  toLogin);
+  tabSignup.classList.toggle('active', !toLogin);
+
+  tabLogin.setAttribute('aria-selected',  toLogin);
+  tabSignup.setAttribute('aria-selected', !toLogin);
+
+  tabGroup.classList.toggle('on-signup', !toLogin);
+
+  formLogin.classList.toggle('hidden',  !toLogin);
+  formSignup.classList.toggle('hidden',  toLogin);
+}
+
+
+
 /*  ── 비밀번호 토글 ── */
 setupEyeToggle('password', 'eye-btn', 'eye-ic');
 setupEyeToggle('su-pass', 'eye-btn2', 'eye-ic2');
@@ -21,14 +55,26 @@ function setupEyeToggle(inputId, btnId, iconId) {
   const input = document.getElementById(inputId);
   const btn   = document.getElementById(btnId);
   const icon  = document.getElementById(iconId);
-  if (!btn) return;
+  
+  // 요소가 없으면 실행하지 않음
+  if (!input || !btn || !icon) return;
+
   btn.addEventListener('click', () => {
-    const show = input.type === 'password';
-    input.type  = show ? 'text' : 'password';
-    icon.className = show ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye';
-    btn.setAttribute('aria-label', show ? '비밀번호 숨기기' : '비밀번호 표시');
+
+    //현재 비밀번호 상태 확인
+    const showPassword = input.type === 'password';
+
+    // password ↔ text 변경
+    input.type  = showPassword ? 'text' : 'password';
+
+    // 눈 아이콘 변경
+    icon.className = showPassword ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye';
+    
+    // 접근성 문구 변경
+    btn.setAttribute('aria-label', showPassword ? '비밀번호 숨기기' : '비밀번호 표시');
   });
 }
+
 
 
 /* -- 로그인 상태 유지 복원 -- */
@@ -44,43 +90,17 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 /* -- 소셜 버튼 -- */
-// Google
-const googleBtn = document.getElementById('s-google');
+document.getElementById('s-google').addEventListener('click', () =>
+  showAlert('alert-login', 'info', '🔍 Google 로그인은 준비 중입니다.'));
+document.getElementById('s-kakao').addEventListener('click', () =>
+  showAlert('alert-login', 'info', '💛 카카오 로그인은 준비 중입니다.'));
+document.getElementById('s-naver').addEventListener('click', () =>
+  showAlert('alert-login', 'info', '🟢 네이버 로그인은 준비 중입니다.'));
+document.getElementById('link-forgot').addEventListener('click', e => {
+  e.preventDefault();
+  showAlert('alert-login', 'info', '📧 비밀번호 재설정 이메일을 발송합니다.');
+});
 
-if(googleBtn){
-  googleBtn.addEventListner('click', () => {
-    showAlert('alert-login', 'info', '🔍 Google 로그인은 준비 중입니다.');
-  });
-}
-
-// Kakao
-const kakaoBtn = document.getElementById('s-kakao');
-
-if(kakaoBtn){
-  kakaoBtn.addEventListner('click', () => {
-    showAlert('alert-login', 'info', '💛 카카오 로그인은 준비 중입니다.');
-  });
-}
-
-// Naver
-const naverBtn = document.getElementById('s-naver');
-
-if(naverBtn){
-  naverBtn.addEventListner('click', () => {
-    showAlert('alert-login', 'info', '🟢 네이버 로그인은 준비 중입니다.');
-  });
-}
-
-/* -- 비밀번호 잃어버림 --*/
-const forgotLink = document.getElementById('link-forgot');
-
-if(forgotLink){
-  forgotLink.addEventListner('click', e => {
-    e.preventDefault();
-
-    showAlert('alert-login', 'info', '📧 비밀번호 재설정 이메일을 발송합니다.');
-  });
-}
 
 
 /* -- 비밀번호 강도 -- */
@@ -108,162 +128,136 @@ function checkStrength(val) {
 
 
 /* -- 로그인 폼 제출 -- */
-const loginForm = document.getElementById('form-login');
+document.getElementById('form-login').addEventListener('submit', async e => {
+  e.preventDefault();
 
-if(loginForm){
-  loginForm.addEventListener('submit', async e => {
+  const emailVal = document.getElementById('email').value.trim();
+  const passVal  = document.getElementById('password').value;
+
+  let ok = true;
+
+  if (!validateEmail(emailVal, 'f-email', 'err-email')){
+    ok = false;
+  } 
+  if (!validateRequired(passVal, 'f-pass', 'err-pass', '비밀번호를 입력해주세요.')){
+    ok = false;
+  }
+
+  if (!ok) return;
+
+  /* 로그인 버튼 로딩 시작 */
+  setLoading('btn-login', true);
+
+  /* 1.3초 동안 로딩 */
+  await delay(1300);
+
+  /* 계정 확인 */
+  const matched = ACCOUNTS.find(a => a.email === emailVal.toLowerCase() && a.password === passVal);
   
-    e.preventDefault();
-
-    const emailVal = document.getElementById('email').value.trim();
-    const passVal = document.getElementById('password').value;
-
-    let ok = true;
-
-    if(!validateEmail(emailVal, 'f-email', 'err-email')){
-      ok = false;
-    }
-
-    if(!validateRequired(
-      passVal, 'f-pass', '비밀번호를 입력해 주세요.'
-    )) {
-      ok = false;
-    }
-
-    if(!ok) return;
-
-    setLoading('btn-login', true);
-    await delay(1300);
-    
-    const matched = ACCOUNTS.find(
-      a => a.email === emailVal.toLowerCase() && a.password === passVal
-    );
-
-    if(matched){
-      const remember = document.getElementById('remember');
-
-      if(remember && remember.checked){
-        localStorage.setItem(
-          'v2-remembered', matched.email
-        );
-      } else{
-        localStorage.removeItem('v2-remembered');
-      }
-
-      setFieldOk('f-email');
-      setFieldOK('f-pass');
-
-      showAlert('alert-login', 'success', '✅ 로그인 성공! 대시보드로 이동합니다.'
-      );
-
-      const btn = document.getElementById('btn-login');
-
-      if(btn){
-        btn.querySelector('.btn-label').textContent = '✓ 완료';
-        btn.style.background = '#22c55e';
-        btn.querySelector('.btn-loader').style.display = 'none';
-        btn.querySelector('.btn-label').style.display = 'flex';
-      }
-    } else{
-      setFieldErr('f-email', 'err-email', '');
-      setFieldErr('f-pass', 'err-pass', '이메일 또는 비밀번호가 일치하지 않습니다.');
-      showAlert('alert-login', 'error', '❌ 로그인 정보를 다시 확인해주세요.');
-      shakeForm('form-login');
-      setLoading('btn-login', false);
-    }
-  });
-}
 
 
-
-/* -- 회원가입 폼 제출 -- */
-const signupForm = document.getElementById('form-signup');
-
-if(signupForm){
-  signupForm.addEventListener('submit', async e => {
-  
-    e.preventDefault();
-
-    const nameVal = document.getElementById('username').value.trim();
-    const emailVal = document.getElementById('su-email').value.trim();
-    const passVal = document.getElementById('su-pass').value;
-    const agreeCheckbox = document.getElementById('agree');
-    const agreed = agreeCheckbox && agreeCheckbox.checked;
-
-    let ok = true;
-
-    if(!validateRequired(nameVal, 'f-name', 'err-name')){
-      ok = false;
-    }
-
-    if(!validateEmail(
-      emailVal, 'f-su-email', 'err-su-email')){
-      ok = false;
-    }
-
-    if(!validatePassStrength(passVal, 'f-su-pass', 'err-su-pass')){
-      ok = false;
-    }
-
-    if(!agreed){
-      showAlert('alert-signup', 'error', '약관에 동의해주세요.');
-      ok = false;
-    }
-
-    if(!ok) return;
-
-    setLoading('btn-signup', true);
-    await delay(1400);
-    
-    showAlert('alert-signup', 'success', `🎉 ${nameVal}님, 가입이 완료되었습니다!`);
-
-    const btn = document.getElementById('btn-sigup');
-
-    if(btn){
-      btn.querySelector('.btn-label').textContent = '✓ 가입 완료';
-      btn.style.background = '#22c55e';
-      btn.querySelector('.btn-loader').style.display = 'none';
-      btn.querySelector('.btn-label').style.display = 'flex';
-    }
-  });
-}
-
-const matched = ACCOUNTS.find(
-  a => a.email === emailVal.toLowerCase() && a.password === passVal
-  );
-
+  /* 로그인 성공 */
   if(matched){
+
+    console.log('로그인 성공:', matched);
+
+    /* 로그인 상태 저장 */
     const remember = document.getElementById('remember');
 
     if(remember && remember.checked){
-      localStorage.setItem(
-        'v2-remembered', matched.email
-      );
+      localStorage.setItem('v2_remembered', matched.email);
     } else{
-      localStorage.removeItem('v2-remembered');
+      localStorage.removeItem('v2_remembered');
     }
 
+    /* 입력창 성공 상태 */
     setFieldOk('f-email');
-    setFieldOK('f-pass');
+    setFieldOk('f-pass');
 
-    showAlert('alert-login', 'success', '✅ 로그인 성공! 대시보드로 이동합니다.'
-    );
+    /* 성공 알림 */
+    showAlert('alert-login', 'success', '✅ 로그인 성공! 대시보드로 이동합니다.');
 
+    /* 로그인 버튼 */
     const btn = document.getElementById('btn-login');
 
-    if(btn){
-      btn.querySelector('.btn-label').textContent = '✓ 완료';
-      btn.style.background = '#22c55e';
-      btn.querySelector('.btn-loader').style.display = 'none';
-      btn.querySelector('.btn-label').style.display = 'flex';
+    if(!btn){
+      console.error('btn-login을 찾을 수 없습니다.');
+      return;
     }
-  } else{
+
+    /* 버튼 문구 변경 */
+    const label = btn.querySelector('.btn-label');
+
+    if(label){
+      label.textContent = '✓ 완료';
+      label.style.display = 'flex';
+    }
+
+    /* 로그인 화살표 숨기기 */
+    const arrow = btn.querySelector('.btn-arrow');
+
+    if(arrow){
+      arrow.style.display = 'none';
+    }
+
+    /* 로딩 아이콘 숨기기 */
+    const loader = btn.querySelector('.btn-loader');
+
+    if(loader){
+      loader.style.display = 'none';
+    }
+
+    /* 버튼 색상 변경 */
+    btn.style.background = '#22c55e';
+
+    /* 버튼 중복 클릭 방지 */
+    btn.disabled = true;
+
+    console.log('로그인 성공 처리 완료');
+
+    /* 필요하다면 잠시 후 대시보드로 이동 */
+    // window.Location.href = 'dashboard.html'
+  }
+
+  /* -- 로그인 실패 -- */
+  else{
     setFieldErr('f-email', 'err-email', '');
     setFieldErr('f-pass', 'err-pass', '이메일 또는 비밀번호가 일치하지 않습니다.');
     showAlert('alert-login', 'error', '❌ 로그인 정보를 다시 확인해주세요.');
     shakeForm('form-login');
+
+    /* 로딩 종료 */
     setLoading('btn-login', false);
   }
+
+});
+
+
+/* -- 회원가입 폼 제출 -- */
+document.getElementById('form-signup').addEventListener('submit', async e => {
+  e.preventDefault();
+  const nameVal  = document.getElementById('username').value.trim();
+  const emailVal = document.getElementById('su-email').value.trim();
+  const passVal  = document.getElementById('su-pass').value;
+  const agreed   = document.getElementById('agree').checked;
+
+  let ok = true;
+  if (!validateRequired(nameVal,  'f-name',     'err-name',     '이름을 입력해주세요.'))      ok = false;
+  if (!validateEmail(emailVal,     'f-su-email', 'err-su-email'))                              ok = false;
+  if (!validatePassStrength(passVal, 'f-su-pass', 'err-su-pass'))                             ok = false;
+  if (!agreed) { showAlert('alert-signup', 'error', '약관에 동의해주세요.'); ok = false; }
+  if (!ok) return;
+
+  setLoading('btn-signup', true);
+  await delay(1400);
+
+  showAlert('alert-signup', 'success', `🎉 ${nameVal}님, 가입이 완료되었습니다!`);
+  const btn = document.getElementById('btn-signup');
+  btn.querySelector('.btn-label').textContent = '✓ 가입 완료';
+  btn.style.background = '#22c55e';
+  btn.querySelector('.btn-loader').style.display = 'none';
+  btn.querySelector('.btn-label').style.display  = 'flex';
+});
 
 
 /* -- 실시간 검증 (blur) -- */
