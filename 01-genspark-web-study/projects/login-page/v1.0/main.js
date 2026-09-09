@@ -30,20 +30,47 @@ const groupPassword = document.getElementById('group-password');
 const errorEmail = document.getElementById('error-email');
 const errorPassword = document.getElementById('error-password');
 
+const googleButton = document.getElementById('btn-google');
+const githubButton = document.getElementById('btn-github');
+const forgotLink = document.getElementById('link-forgot');
+const signupLink = document.getElementById('link-signup');
+
+
 
 //  ── 소셜 버튼 ──
-document.getElementById('btn-google').addEventListener('click', () =>
-    showToast('info', '🔍 Google 로그인은 준비 중입니다.'));
-document.getElementById('btn-github').addEventListener('click', () =>
-    showToast('info', '🐙 GitHub 로그인은 준비 중입니다.'));
-document.getElementById('link-forgot').addEventListener('click', (e) => {
-    e.preventDefault();
-    showToast('info', '📧 비밀전호 재설정 메일을 보내드립니다.');
-});
-document.getElementById('link-signup').addEventListener('click', (e) => {
-    e.preventDefault();
-    showToast('info', '✍️ 회원가입 페이지로 이동합니다.');
-});
+
+// ── Google ──
+if (googleButton) {
+    googleButton.addEventListener('click', () => {
+        showToast('info', '🔍 Google 로그인은 준비 중입니다.');
+    });
+}
+
+
+// ── GitHub ──
+if (githubButton) {
+    githubButton.addEventListener('click', () => {
+        showToast('info', '🐙 GitHub 로그인은 준비 중입니다.');
+    });
+}
+
+
+// ── 비밀번호 찾기 ──
+if (forgotLink) {
+    forgotLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        showToast('info', '📧 비밀번호 재설정 메일을 보내드립니다.');
+    });
+}
+
+
+// ── 회원가입 ──
+if (signupLink) {
+    signupLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        showToast('info', '✍️ 회원가입 페이지로 이동합니다.');
+    });
+}
 
 
 
@@ -81,7 +108,7 @@ emailInput.addEventListener('blur', () => {
 passwordInput.addEventListener('input', () => {
     clearFieldState(groupPassword, errorPassword);
 });
-passwordInput.addEventListerner('blur', () => {
+passwordInput.addEventListener('blur', () => {
     validatePassword();
 });
 

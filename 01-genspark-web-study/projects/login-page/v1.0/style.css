@@ -203,6 +203,16 @@ body{
     box-shadow: var(--shadow-sm);
 }
 
+.btn-google{
+    background: #fff;
+    color: var(--text-primary);
+    border-color: var(--border);
+}
+
+.btn-google:hover{
+    background: #f8f9fa;
+}
+
 .btn-github{
     background: #24292e;
     color: #fff;
@@ -298,6 +308,12 @@ body{
 
 .field-input:focus + .field-icon,
 .field-group:focus-within .field-icon{color: var(--primary);}
+
+
+
+/* 브라우저 기본 비밀번호 아이콘 제거 */
+input[type="password"]::-ms-reveal{display: none;}
+input[type="password"]::-ms-clear{display: none;}
 
 
 
