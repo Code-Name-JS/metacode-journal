@@ -1,32 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>login-page·My-App·v2</title>
-    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"/>
+    
+    <title>login-page·MyApp·v2</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="./style.css"/>
 </head>
 <body>
 
-    <!-- ── All Wrap ── -->
+    <!-- ── 전체 래퍼 ── -->
     <div class="page-wrap">
 
-        <!-- ════ Panel Left (Visual) ════ -->
+        <!-- ════ 왼쪽 패널 (비주얼) ════ -->
         <aside class="panel-left" aria-hidden="true">
 
-            <!-- Noise Overlay -->
+            <!-- 노이즈 오버레이 -->
             <div class="panel-noise"></div>
 
-            <!-- Top Logo -->
+            <!-- 상단 로고 -->
             <div class="panel-logo">
                 <span class="logo-dot"></span>
-                <span class="logo-text">My-App·v2</span>
+                <span class="logo-text">MyApp</span>
             </div>
 
-            <!-- center Illust Area -->
+            <!-- 중앙 일러스트 -->
             <div class="panel-center">
                 
                 <!-- Orbit -->
@@ -41,79 +45,79 @@
                         <span class="orbit-dot dot-yellow"></span>
                     </div>
 
-                    <!-- Center Icon -->
+                    <!-- 중심 아이콘 -->
                     <div class="orbit-core">
                         <i class="fa-solid fa-shield-halved"></i>
                     </div>
                 </div>
 
-                <h2 class="panel-heading">Start safely.</h2>
+                <h2 class="panel-heading">안전하게 시작하세요.</h2>
                 <p class="panel-sub">
-                    Your data is thoroughly protected<br/>with top-level encryption.
+                    당신의 데이터는 최고 수준의 암호화로<br/>철저하게 보호됩니다.
                 </p>
             </div>
 
-            <!-- Footer Stat -->
+            <!-- 하단 스탯 -->
             <footer class="panel-stats">
                 <div class="stat-item">
                     <span class="stat-num" data-target="98">0</span><span class="stat-unit">%</span>
-                    <span class="stat-label">rate of operation</span>
+                    <span class="stat-label">가동률</span>
                 </div>
                 <div class="stat-divider"></div>
-                <duv class="stat-item">
+                <div class="stat-item">
                     <span class="stat-num" data-target="256">0</span><span class="stat-unit">bit</span>
-                    <span class="stat-label">Encryption</span>
-                </duv>
+                    <span class="stat-label">암호화</span>
+                </div>
                 <div class="stat-divider"></div>
                 <div class="stat-item">
                     <span class="stat-num" data-target="24">0</span><span class="stat-unit">/7</span>
-                    <span class="stat-label">Monitoring</span>
+                    <span class="stat-label">모니터링</span>
                 </div>
             </footer>
         </aside>
 
-        <!-- ════ Right Panel (Form) ════ -->
+        <!-- ════ 오른쪽 패널 (폼) ════ -->
         <main class="panel-right">
 
-            <!-- Mobile Logo -->
+            <!-- 모바일 로고 -->
             <div class="mobile-logo">
                 <span class="logo-dot"></span>
-                <span class="logo-text">My-App.v2</span>
+                <span class="logo-text">MyApp</span>
             </div>
 
             <section class="form-section">
                 
-                <!-- Tab: Log In / Sign Up -->
+                <!-- 탭: 로그인 / 회원가입 -->
                 <div class="tab-group" role="tablist">
-                    <button class="tab active" id="tab-login" role="tab" aria-selected="true">로그인</button>
-                    <button class="tab" id="tab-signup" role="tab" aria-selected="false">회원가입</button>
+                    <a href="./index.html" class="tab active">로그인</a>
+                    <a href="./signup.html" class="tab">회원가입</a>
                     <span class="tab-indicator"></span>
                 </div>
 
-                <!-- Log In Form -->
+                <!-- 로그인 폼 -->
                 <form id="form-login" class="auth-form" novalidate>
-                    <h1 class="form-title">It's great to see you again <span class="wave"> 👋 </span></h1>
-                    <p class="form-desc">Log in to your account to use the service.</p>
+                    <h1 class="form-title">다시 만나서 반가워요 <span class="wave">👋</span></h1>
+                    <p class="form-desc">계정에 로그인하여 서비스를 이용하세요.</p>
 
-                    <!-- Email -->
+                    <!-- 이메일 -->
                     <div class="field" id="f-email">
-                        <label for="email">Email address</label>
+                        <label for="email">이메일 주소</label>
                         <div class="input-box">
                             <i class="fa-regular fa-envelope"></i>
-                             <input id="email" type="email" placeholder="you@example.com" autocomplete="email" required />
+                            <input id="email" type="email" placeholder="you@example.com" autocomplete="email" required />
                         </div>
                         <span class="err-msg" id="err-email"></span>
                     </div>
 
-                    <!-- Password -->
+                    <!-- 비밀번호 -->
                     <div class="field" id="f-pass">
                         <div class="label-row">
-                            <label for="password">Password</label>
+                            <label for="password">비밀번호</label>
                             <a href="#" class="forgot" id="link-forgot">잊어버렸어요</a>
                         </div>
                         <div class="input-box">
                             <i class="fa-solid fa-lock"></i>
-                            <input id="password" type="password" placeholder="••••••••" autocomplete="current-password" required/>
+                            <input id="password" type="password" placeholder="••••••••" autocomplete="current-password" required />
                             <button type="button" class="eye-btn" id="eye-btn" aria-label="비밀번호 표시">
                                 <i class="fa-regular fa-eye" id="eye-ic"></i>
                             </button>
@@ -121,27 +125,27 @@
                         <span class="err-msg" id="err-pass"></span>
                     </div>
 
-                    <!-- Keep me logged in -->
+                    <!-- 로그인 유지 -->
                     <label class="check-label">
-                        <input type="checkbox" id="remember"/>
+                        <input type="checkbox" id="remember" />
                         <span class="check-box"></span>
                         이 기기에서 로그인 유지
                     </label>
 
-                    <!-- Submission -->
+                    <!-- 제출 -->
                     <button type="submit" class="btn-main" id="btn-login">
-                        <span class="btn-label">Login</span>
+                        <span class="btn-label">로그인</span>
                         <i class="fa-solid fa-arrow-right btn-arrow"></i>
                         <span class="btn-loader" id="loader"><i class="fa-solid fa-circle-notch fa-spin"></i></span>
                     </button>
 
-                    <!-- Notification Banner -->
+                    <!-- 알림 배너 -->
                     <div class="alert-banner" id="alert-login"></div>
 
-                    <!-- Separator -->
+                    <!-- 구분선 -->
                     <div class="or-line"><span>OR</span></div>
 
-                    <!-- Social -->
+                    <!-- 소셜 -->
                     <div class="social-row">
                         <button type="button" class="btn-social-v2" id="s-google">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google" width="18" height="18" />
@@ -149,88 +153,23 @@
                         </button>
                         <button type="button" class="btn-social-v2" id="s-kakao">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="#3A1D1D">
-                                <path d="M12 3C6.477 3 2 6.582 2 11.045c0 2.857 1.866 5.369 4.7 6.841L5.6 21l4.37-2.876A12.2 12.2 0 0012 18.09c5.523 0 10-3.582 10-8.045S17.523 3 12 3z"/>
+                                 <path d="M12 3C6.477 3 2 6.582 2 11.045c0 2.857 1.866 5.369 4.7 6.841L5.6 21l4.37-2.876A12.2 12.2 0 0012 18.09c5.523 0 10-3.582 10-8.045S17.523 3 12 3z"/>
                             </svg>
-                            Kakao
+                            카카오
                         </button>
                         <button type="button" class="btn-social-v2" id="s-naver">
                             <span class="naver-n">N</span>
-                            Naver
+                            네이버
                         </button>
                     </div>
                 </form>
 
-                <!-- ─── 회원가입 폼 ─── -->
-                <form id="form-signup" class="auth-form hidden" novalidate>
-                    <h1 class="form-title">처음 오셨군요! <span class="wave">🎉</span></h1>
-                    <p class="form-desc">몇 가지 정보만 입력하면 바로 시작할 수 있어요.</p>
-
-                     <!-- 이름 -->
-                    <div class="field" id="f-name">
-                        <label for="username">이름</label>
-                        <div class="input-box">
-                            <i class="fa-regular fa-user"></i>
-                            <input id="username" type="text" placeholder="홍길동" autocomplete="name" required />
-                        </div>
-                        <span class="err-msg" id="err-name"></span>
-                    </div>
-
-                    <!-- 이메일 (회원가입) -->
-                    <div class="field" id="f-su-email">
-                        <label for="su-email">이메일 주소</label>
-                        <div class="input-box">
-                            <i class="fa-regular fa-envelope"></i>
-                            <input id="su-email" type="email" placeholder="you@example.com" autocomplete="email" required />
-                        </div>
-                        <span class="err-msg" id="err-su-email"></span>
-                    </div>
-
-                    <!-- 비밀번호 (회원가입) -->
-                    <div class="field" id="f-su-pass">
-                        <label for="su-pass">비밀번호</label>
-                        <div class="input-box">
-                            <i class="fa-solid fa-lock"></i>
-                            <input id="su-pass" type="password" placeholder="8자 이상 입력" required />
-                            <button type="button" class="eye-btn" id="eye-btn2" aria-label="비밀번호 표시">
-                                <i class="fa-regular fa-eye" id="eye-ic2"></i>
-                            </button>
-                        </div>
-
-                        <!-- 비밀번호 강도 바 -->
-                        <div class="strength-wrap">
-                            <div class="strength-bar">
-                                <span class="sb" id="sb1"></span>
-                                <span class="sb" id="sb2"></span>
-                                <span class="sb" id="sb3"></span>
-                                <span class="sb" id="sb4"></span>
-                            </div>
-                            <span class="strength-label" id="strength-label">강도 없음</span>
-                        </div>
-                        <span class="err-msg" id="err-su-pass"></span>
-                    </div>
-
-                    <!-- 약관 동의 -->
-                    <label class="check-label">
-                        <input type="checkbox" id="agree" />
-                        <span class="check-box"></span>
-                        <span><a href="#" class="inline-link">이용약관</a> 및 <a href="#" class="inline-link">개인정보처리방침</a>에 동의합니다.</span>
-                    </label>
-
-                    <button type="submit" class="btn-main" id="btn-signup">
-                        <span class="btn-label">계정 만들기</span>
-                        <i class="fa-solid fa-arrow-right btn-arrow"></i>
-                        <span class="btn-loader" id="loader2"><i class="fa-solid fa-circle-notch fa-spin"></i></span>
-                    </button>
-
-                    <div class="alert-banner" id="alert-signup"></div>
-                </form>
+                <!-- 하단 링크 -->
+                <p class="bottom-hint">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    보안 연결 · SSL 암호화 · GDPR 준수
+                </p>
             </section>
-
-            <!-- Bottom link -->
-            <p class="bottom-hint">
-                <i class="fa-solid fa-shield-halved"></i>
-                Secure connection · SSL encryption · GDPR compliance
-            </p>
         </main>
     </div><!-- /page-wrap -->
 

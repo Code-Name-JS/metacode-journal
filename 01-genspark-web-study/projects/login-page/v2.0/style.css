@@ -2,9 +2,9 @@
    style-v2.css  –  Login v2 (Split Layout · Dark Panel)
    ===================================================== */
 
-/* ── CSS Variable ── */
+/* ── CSS 변수 ── */
 :root{
-/* Brand */
+/* 브랜드 */
 --c-bg: #0d0f1a;
 --c-panel: #111320;
 --c-surface: #161928;
@@ -45,7 +45,7 @@
 
 
 
-/* ── Reset ── */
+/* ── 리셋 ── */
 *, *::before, *::after{box-sizing: border-box; margin: 0; padding: 0;}
 html{font-size: 16px;}
 body{
@@ -60,7 +60,7 @@ body{
 
 
 
-/* ── Page Wrap ── */
+/* ── 페이지 래퍼 ── */
 .page-wrap{
     display: flex;
     width: 100%;
@@ -95,7 +95,7 @@ body{
 
 
 
-/* Noise Texture */
+/* 노이즈 텍스처 */
 .panel-noise{
     position: absolute; inset: 0;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
@@ -105,7 +105,7 @@ body{
 
 
 
-/* Gradient blob */
+/* 그라디언트 블롭 */
 .panel-left::before{
     content: '';
     position: absolute;
@@ -128,12 +128,13 @@ body{
 
 
 
-/* Logo */
+/* 로고 */
 .panel-logo{
     display: flex;
     align-items: center;
     gap: .55rem;
-    position: relative; z-index: 1;
+    position: relative;
+    z-index: 1;
 }
 
 .logo-dot{
@@ -153,7 +154,7 @@ body{
 
 
 
-/* ── Cneter Orbit Area ── */
+/* ── 중앙 orbit 영역 ── */
 .panel-center{
     text-align: center;
     position: relative; z-index: 1;
@@ -179,7 +180,7 @@ body{
 
 .orbit-1{width: 200px; height: 200px; animation: spin-cw 9s linear infinite;}
 .orbit-2{width: 148px; height: 148px; animation: spin-ccw 7s linear infinite;}
-.orbit-3{width: 96px; height: 96px; animation:spin-cw 5s linear infinite;}
+.orbit-3{width: 96px; height: 96px; animation: spin-cw 5s linear infinite;}
 
 @keyframes spin-cw{to{transform: translate(-50%, -50%) rotate(360deg);}}
 @keyframes spin-ccw{to{transform: translate(-50%, -50%) rotate(-360deg);}}
@@ -201,7 +202,7 @@ body{
 
 
 
-/* Center core */
+/* 중심 코어 */
 .orbit-core{
     position: absolute;
     top: 50%; left: 50%;
@@ -238,7 +239,7 @@ body{
 
 
 
-/* ── Stat ── */
+/* ── 스탯 ── */
 .panel-stats{
     display: flex;
     align-items: center;
@@ -297,7 +298,7 @@ body{
 
 
 
-/* Mobile logo (desktop hidden) */
+/* 모바일 로고(데스크탑 숨김) */
 .mobile-logo{
     display: none;
     align-items: center;
@@ -310,8 +311,8 @@ body{
 
 
 
-/* ── Tab ── */
-.tab-group {
+/* ── 탭 ── */
+.tab-group{
   display: flex;
   gap: 0;
   background: #f0f4ff;
@@ -322,7 +323,7 @@ body{
   width: fit-content;
 }
 
-.tab {
+.tab{
   position: relative; z-index: 1;
   padding: .52rem 1.4rem;
   border: none;
@@ -336,9 +337,9 @@ body{
   transition: color var(--dur) var(--ease);
 }
 
-.tab.active { color: var(--c-text-body); }
+.tab.active{ color: var(--c-text-body); }
 
-.tab-indicator {
+.tab-indicator{
   position: absolute;
   top: 4px; left: 4px;
   height: calc(100% - 8px);
@@ -349,13 +350,13 @@ body{
   transition: transform var(--dur) var(--ease);
 }
 
-.tab-group.on-signup .tab-indicator {
+.tab-group.on-signup .tab-indicator{
   transform: translateX(100%);
 }
 
 
 
-/* ── Form ── */
+/* ── 폼 ── */
 .form-section{flex: 1;}
 .auth-form{display: flex; flex-direction: column; gap: 1.1rem;}
 .auth-form .hidden{display: none;}
@@ -387,8 +388,9 @@ body{
 
 
 
-/* Field */
-.field { display: flex; flex-direction: column; gap: .38rem; }
+/* 필드 */
+.field{display: flex; flex-direction: column; gap: .38rem;}
+
 .field label,
 .label-row label {
   font-size: .82rem;
@@ -396,13 +398,13 @@ body{
   color: var(--c-text-body);
 }
 
-.label-row {
+.label-row{
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.forgot {
+.forgot{
   font-size: .8rem;
   color: var(--c-primary);
   text-decoration: none;
@@ -410,7 +412,7 @@ body{
   transition: opacity var(--dur);
 }
 
-.forgot:hover { opacity: .75; }
+.forgot:hover{opacity: .75;}
 
 .input-box{
     position: relative;
@@ -452,7 +454,7 @@ body{
 
 
 
-/* State */
+/* 상태 */
 .field.is-err .input-box input{border-color: var(--c-err); box-shadow: 0 0 0 4px rgba(239, 68, 68, .09);}
 .field.is-ok .input-box input{border-color: var(--c-ok); box-shadow: 0 0 0 4px rgba(34, 197, 94, .09);}
 
@@ -466,7 +468,7 @@ body{
     transition: opacity var(--dur), transform var(--dur);
 }
 
-.field .is-err .err-msg{opacity: 1; transform: translateY(0);}
+.field.is-err .err-msg{opacity: 1; transform: translateY(0);}
 
 .eye-btn{
     position: absolute;
@@ -484,7 +486,7 @@ body{
 
 
 
-/* -- Checkbox -- */
+/* -- 체크박스 -- */
 .check-label{
     display: flex; align-items: flex-start; gap: .55rem;
     font-size: .83rem;
@@ -523,13 +525,13 @@ body{
     display: none;
 }
 
-.check-laber input:checked ~ .check-box::after{display: block;}
+.check-label input:checked ~ .check-box::after{display: block;}
 .inline-link{color: var(--c-primary); text-decoration: none; font-weight: 600;}
 .inline-link:hover{text-decoration: underline;}
 
 
 
-/* -- Main Button -- */
+/* -- 메인 버튼 -- */
 .btn-main{
     display: flex; align-items: center; justify-content: center;
     gap: .6rem;
@@ -571,7 +573,7 @@ body{
 
 
 
-/* -- Notification Banner -- */
+/* -- 알림 배너 -- */
 .alert-banner{
     border-radius: var(--r-sm);
     font-size: .85rem;
@@ -594,7 +596,7 @@ body{
 
 
 
-/* -- Separator -- */
+/* -- 구분선 -- */
 .or-line{
     display: flex; align-items: center; gap: .7rem;
     font-size: .75rem; font-weight: 600;
@@ -609,7 +611,7 @@ body{
 
 
 
-/* -- Social Buttons -- */
+/* -- 소셜 버튼 -- */
 .social-row{display: flex; gap: .6rem;}
 
 .btn-social-v2{
@@ -638,26 +640,27 @@ body{
 
 
 
-/* Kakao */
+/* 카카오 */
 #s-kakao{background: #FEE500; border-color: #FEE500; color: #3A1D1D;}
 #s-kakao:hover{background: #f5db00; border-color: #f5db00; box-shadow: 0 4px 14px rgba(254, 229, 0, .35);}
 
 
 
-/* Naver */
+/* 네이버 */
 #s-naver{background: #03C75A; border-color: #03C75A; color: #fff;}
 #s-naver:hover{background: #02b350; border-color: #02b350; box-shadow: 0 4px 14px rgba(3, 199, 90, .35);}
 .naver-n{font-weight: 800; font-size: .9rem;}
 
 
 
-/* -- Password Strength -- */
+/* -- 비밀번호 강도 -- */
 .strength-wrap{
     display: flex; align-items: center; gap: .6rem;
     margin-top: .35rem;
 }
 
 .strength-bar{display: flex; gap: 4px; flex: 1;}
+
 .sb{
     flex: 1; height: 4px;
     border-radius: 999px;
@@ -665,10 +668,10 @@ body{
     transition: background .3s var(--ease);
 }
 
-.sb .s1{background: var(--c-err);}
-.sb .s2{background: var(--c-yellow);}
-.sb .s3{background: #3b82f6;}
-.sb .s4{background: var(--c-ok);}
+.sb.s1{background: var(--c-err);}
+.sb.s2{background: var(--c-yellow);}
+.sb.s3{background: #3b82f6;}
+.sb.s4{background: var(--c-ok);}
 
 .strength-label{
     font-size: .74rem;
@@ -681,7 +684,7 @@ body{
 
 
 
-/* -- Bottom hint -- */
+/* -- 하단 힌트 -- */
 .bottom-hint{
     text-align: center;
     font-size: .77rem;
