@@ -644,23 +644,84 @@ input[type="password"]::-ms-clear{display: none;}
 
 
 
-/* 카카오 */
-#s-kakao{background: #FEE500; border-color: #FEE500; color: #3A1D1D;}
-#s-kakao:hover{background: #f5db00; border-color: #f5db00; box-shadow: 0 4px 14px rgba(254, 229, 0, .35);}
+/* Google */
+#s-google {
+    background: #fff;
+    border-color: #d9d9d9;
+    color: #333;
+}
 
+#s-google:hover {
+    background: #f8f8f8;
+    border-color: #bdbdbd;
+}
+
+
+/* 카카오 */
+#s-kakao {
+    background: #FEE500;
+    border-color: #FEE500;
+    color: #3A1D1D;
+}
+
+#s-kakao:hover {
+    background: #f5db00;
+    border-color: #f5db00;
+    box-shadow: 0 4px 14px rgba(254, 229, 0, .35);
+}
 
 
 /* 네이버 */
-#s-naver{background: #03C75A; border-color: #03C75A; color: #fff;}
-#s-naver:hover{background: #02b350; border-color: #02b350; box-shadow: 0 4px 14px rgba(3, 199, 90, .35);}
-.naver-n{font-weight: 800; font-size: .9rem;}
+#s-naver {
+    background: #03C75A;
+    border-color: #03C75A;
+    color: #fff;
+}
+
+#s-naver:hover {
+    background: #02b350;
+    border-color: #02b350;
+    box-shadow: 0 4px 14px rgba(3, 199, 90, .35);
+}
+
+
+/* Google 아이콘 */
+#s-google img {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+
+/* 카카오 아이콘 */
+#s-kakao svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+
+/* 네이버 N */
+.naver-n {
+    width: 18px;
+    height: 18px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    font-weight: 800;
+    font-size: .9rem;
+}
 
 
 
-/* -- 비밀번호 강도 -- */
-.strength-wrap{
-    display: flex; align-items: center; gap: .6rem;
-    margin-top: .35rem;
+/* ── 비밀번호 강도 ── */
+.strength-wrap {
+  display: flex; align-items: center; gap: .6rem;
+  margin-top: .35rem;
 }
 
 .strength-bar{display: flex; gap: 4px; flex: 1;}

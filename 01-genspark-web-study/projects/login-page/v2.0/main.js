@@ -90,16 +90,60 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 /* -- 소셜 버튼 -- */
-document.getElementById('s-google').addEventListener('click', () =>
-  showAlert('alert-login', 'info', '🔍 Google 로그인은 준비 중입니다.'));
-document.getElementById('s-kakao').addEventListener('click', () =>
-  showAlert('alert-login', 'info', '💛 카카오 로그인은 준비 중입니다.'));
-document.getElementById('s-naver').addEventListener('click', () =>
-  showAlert('alert-login', 'info', '🟢 네이버 로그인은 준비 중입니다.'));
-document.getElementById('link-forgot').addEventListener('click', e => {
-  e.preventDefault();
-  showAlert('alert-login', 'info', '📧 비밀번호 재설정 이메일을 발송합니다.');
-});
+const googleBtn = document.getElementById('s-google');
+const kakaoBtn = document.getElementById('s-kakao');
+const naverBtn = document.getElementById('s-naver');
+const forgotBtn = document.getElementById('link-forgot');
+const alertLogin = document.getElementById('alert-login');
+
+
+const alertTimers = {};
+
+function showAlert(id, type, message) {
+
+  const alert = document.getElementById(id);
+
+  if (!alert) {
+    console.error(`Alert 요소를 찾을 수 없습니다: #${id}`);
+    return;
+  }
+
+  clearTimeout(alertTimers[id]);
+
+  alert.textContent = message;
+  alert.className = `alert ${type}`;
+  alert.style.display = 'block';
+
+  alertTimers[id] = setTimeout(() => {
+    alert.style.display = 'none';
+  }, 3000);
+}
+
+if(googleBtn){
+  googleBtn.addEventListener('click', () => {
+    showAlert('alert-login', 'info', '🔍 Google 로그인은 준비 중입니다.');
+  });
+}
+
+if(kakaoBtn){
+  kakaoBtn.addEventListener('click', () => {
+    showAlert('alert-login', 'info', '💛 카카오 로그인은 준비 중입니다.');
+  });
+}
+
+if(naverBtn){
+  naverBtn.addEventListener('click', () => {
+    showAlert('alert-login', 'info', '🟢 네이버 로그인은 준비 중입니다.');
+  });
+}
+
+if(forgotBtn){
+  forgotBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    showAlert('alert-login', 'info', '📧 비밀번호 재설정 이메일을 발송합니다.');
+  });
+}
 
 
 
@@ -322,18 +366,6 @@ function setLoading(btnId, on){
   const btn = document.getElementById(btnId);
   btn.disabled = on;
   btn.classList.toggle('loading', on);
-}
-
-
-
-/* -- 알림 배너 -- */
-const alertTimers = {};
-function showAlert(elId, type, msg){
-  const el = document.getElementById(elId);
-  clearTimeout(alertTimers[elId]);
-  el.className = `alert-banner ${type} show`;
-  el.textContent = msg;
-  alertTimers[elId] = setTimeout(() => {el.className = 'alert-banner';}, 4000);
 }
 
 
