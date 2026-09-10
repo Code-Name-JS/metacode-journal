@@ -335,6 +335,12 @@ body{
   color: var(--c-text-sub);
   cursor: pointer;
   transition: color var(--dur) var(--ease);
+
+  /* [추가] <a> 태그로 변경 시 필요한 스타일 */
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .tab.active{ color: var(--c-text-body); }

@@ -13,18 +13,25 @@ const ACCOUNTS = [
 
 
 
-/* -- DOM -- */
-const tabLogin  = document.getElementById('tab-login');
-const tabSignup = document.getElementById('tab-signup');
-const tabGroup  = document.querySelector('.tab-group');
-const loginTab = document.getElementById('tab-login');
-const signupTab = document.getElementById('tab-signup');
+/* -- DOM (로그인 화면에 실제 존재하는 요소만 선택) -- */
 const formLogin = document.getElementById('form-login');
-
 const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('password');
+const googleBtn = document.getElementById('s-google');
+const kakaoBtn = document.getElementById('s-kakao');
+const naverBtn = document.getElementById('s-naver');
+const forgotBtn = document.getElementById('link-forgot');
 
-const formSignup= document.getElementById('form-signup');
+
+
+/*
+  [제거됨]
+  - tabLogin, tabSignup, formSignup 관련 변수 및 switchTab() 함수
+  - window.location.href 로 수동 이동시키던 클릭 이벤트
+  -> HTML의 <a href="..."> 태그가 자동으로 페이지 이동을 처리하므로 JS가 필요 없음!
+*/
+
+
 
 tabLogin.addEventListener('click', () => switchTab('login'));
 
@@ -56,37 +63,30 @@ function switchTab(which) {
   tabGroup.classList.toggle('on-signup', !toLogin);
 
   formLogin.classList.toggle('hidden',  !toLogin);
+  // formSignup이 null이므로 여기서 "Cannot read properties of null (reading 'classList')" 에러 발생
   formSignup.classList.toggle('hidden',  toLogin);
 }
 
 
-
-/* -- DOM -- */
-const googleBtn = document.getElementById('s-google');
-const kakaoBtn = document.getElementById('s-kakao');
-const naverBtn = document.getElementById('s-naver');
-const forgotBtn = document.getElementById('link-forgot');
-const alertLogin = document.getElementById('alert-login');
-
-
+/* -- 알림 배너 타이머 보관함 -- */
 const alertTimers = {};
 
-/* -- 함수 -- */
+/* -- 알림 배너 표시 함수 -- */
 function showAlert(id, type, message) {
-
-  const alert = document.getElementById(id);
-
+  const alert = document.getElementById(id); // 여기서 매번 id를 전달받아 직접 요소를 찾고 있습니다.
   if (!alert) return;
 
+  // 이전에 돌고 있던 타이머가 있다면 즉시 취소!(중복 방지)
   clearTimeout(alertTimers[id]);
   
+  // 문구 및 스타일 클래스 부여 (.show가 붙으면서 부드럽게 펼쳐짐)
   alert.textContent = message;
   alert.className = `alert-banner ${type} show`;
-  alert.style.display = 'block';
 
+  // 새로운 3.5초 타이머를 등록하고 .show 클래스 제거하여 부드럽게 닫힘
   alertTimers[id] = setTimeout(() => {
-    alert.style.display = 'none';
-  }, 3000);
+    alert.className = 'alert-banner';
+  }, 3500);
 }
 
 /* -- 소셜 버튼 -- */
@@ -148,13 +148,19 @@ function setupEyeToggle(inputId, btnId, iconId) {
 
 
 
-/* -- 로그인 상태 유지 복원 -- */
+/* -- 초기 실행 (자동완성 복원 및 스탯 애니메이션) -- */
 window.addEventListener('DOMContentLoaded', () => {
-  const saved = localStorage.getItem('v2-remembered');
+
+  // [주의] 저장할 때 'v2_remembered'로 저장하므로 키 이름을 일치시켜줍니다.
+  const saved = localStorage.getItem('v2_remembered');
   if (saved) {
-    document.getElementById('email').value = saved;
-    document.getElementById('remember').checked = true;
+    const emailInput = document.getElementById('email');
+    const rememberCheck = document.getElementById('remember');
+    if (emailInput) emailInput.value = saved;
+    if (rememberCheck) rememberCheck.checked = true; 
   }
+
+  // 여기서 딱 1번만 스탯 애니메이션 실행!
   animateStats();
 });
 
@@ -229,9 +235,9 @@ if(loginForm){
     const remember = document.getElementById('remember');
 
     if(remember && remember.checked){
-      localStorage.setItem('v2_remembered', matched.email);
+      localStorage.setItem('v2-remembered', matched.email);
     } else{
-      localStorage.removeItem('v2_remembered');
+      localStorage.removeItem('v2-remembered');
     }
 
     /* 입력창 성공 상태 */
@@ -392,15 +398,24 @@ function shakeForm(formId){
 
 
 /* -- 카운터 애니메이션 -- */
-function animateStats(){
-  document.querySelectorAll('.stat-num').forEach(el => {
-    const target = +el.dataset.target;
-    let cur = 0;
-    const step = Math.ceil(target / 40);
+function animateStats() {
+  const statElements = document.querySelectorAll('.stat-num');
+
+  statElements.forEach(el => {
+    const target = Number(el.dataset.target);
+    if (!target) return;
+
+    let current = 0;
+    const step = Math.ceil(target / 40); // 약 40단계에 걸쳐 부드럽게 증가
+
     const timer = setInterval(() => {
-      cur = Math.min(cur + step, target);
-      el.textContent = cur;
-      if (cur >= target) clearInterval(timer);
+      current = Math.min(current + step, target);
+      el.textContent = current;
+
+      // 목표 숫자에 도달하면 타이머 종료
+      if (current >= target) {
+        clearInterval(timer);
+      }
     }, 28);
   });
 }
@@ -453,8 +468,5 @@ function animateStats() {
       }, 28);
     })
 }
-
-/* -- 스탯 애니메이션 실행 -- */
-animateStats();
 
 document.head.appendChild(style);
