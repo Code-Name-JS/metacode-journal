@@ -425,4 +425,36 @@ style.textContent = `
     90%     { transform: translateX(2px); }
   }
 `}
+
+/* -- 하단 스탯 숫자 애니메이션 -- */
+function animateStats() {
+  document.querySelectorAll('.stat-num').forEach(el => {
+
+    // data-target 가져오기
+    const target = Number(el.dataset.target);
+
+    let current = 0;
+
+    // 약 40번에 걸쳐 증가
+    const step = Math.ceil(target / 40);
+
+    const timer = setInterval(() => {
+      current = Math.min(
+      current + step,
+        target
+      );
+
+      el.textContent = current;
+
+      /// 목적 숫자에 도달하면 종료
+      if (current >= target) {
+        clearInterval(timer);
+        }
+      }, 28);
+    })
+}
+
+/* -- 스탯 애니메이션 실행 -- */
+animateStats();
+
 document.head.appendChild(style);
