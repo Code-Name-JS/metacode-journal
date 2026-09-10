@@ -50,6 +50,7 @@ body{
     background: var(--bg);
     color: var(--text-primary);
     min-height: 100vh;
+    min-height: 100dvh; /* 최신 뷰포트 단위 지원 */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -69,6 +70,8 @@ body{
     filter: blur(80px);
     opacity: .5;
     animation: float 8s ease-in-out infinite;
+    will-change: transform;
+    contain: layout; /* 불필요한 리플로우 방지, paint 제외: 블러가 잘리는 현상을 방지하기 위함 */
 }
 
 .blob-1{
@@ -539,9 +542,11 @@ input[type="password"]::-ms-clear{display: none;}
 
 
 /* ── 반응형 ── */
-@media(max-width: 480px){
-.login-card{padding: 2rem 1.5rem 1.8rem; border-radius: var(--radius-lg);}
-.brand-name{font-size: 1.5rem;}
+@media (prefers-reduced-motion: reduce) {
+    .blob, .login-card, .brand-icon {
+        animation: none !important;
+        transition: none !important;
+    }
 }
 
 /* ── 카드 흔들림 애니메이션 ── */

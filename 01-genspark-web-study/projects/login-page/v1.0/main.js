@@ -119,7 +119,16 @@ form.addEventListener('submit', async(e) => {
     e.preventDefault();
 
     const emailOk = validateEmail();
+    if (!emailOk) {
+        emailInput.focus();
+        return;
+    }
     const passwordOk = validatePassword();
+    if (!passwordOk) {
+        passwordInput.focus();
+        return;
+    }
+
     if(!emailOk || !passwordOk) return;
 
     // 로딩 시작
@@ -237,11 +246,13 @@ function setLoading(on) {
 
 
 // ── 카드 흔들기 ──
+// 개선 방식 : CSS 클래스로 분리하고 animationend 이벤트 활용
 function shakeCard() {
     const card = document.querySelector('.login-card');
-    card.style.animation = 'none';
-    card.offsetHeight; // reflow
-    card.style.animation = 'shake .4s ease';
+    card.classList.add('shake');
+    card.addEventListener('animationend', () => {
+        card.classList.remove('shake');
+    }, { once: true});
 }
 
 
