@@ -146,11 +146,11 @@ form.addEventListener('submit', async(e) => {
             setFieldSuccess(groupPassword);
             showToast('success', '✅ 로그인 성공! 환영합니다.');
 
-            // 버튼 완료 상태
-            submitBtn.style.background = 'linear-gradient(135deg, #22c55e 0%, #4ade80 100%)';
-            submitBtn.querySelector('.btn-text').style.display = 'flex';
+            // [수정된 부분] 로딩 클래스 제거 및 완료 상태 적용
+            submitBtn.classList.remove('loading'); // 숨겨졌던 텍스트를 다시 화면에 표시
+            submitBtn.classList.add('is-success'); // 초록색 배경 및 클릭 차단 적용
             submitBtn.querySelector('.btn-text').textContent = '✓ 로그인 완료';
-            submitBtn.querySelector('.btn-spinner').style.display = 'none';
+            
         } else{
             // 로그인 실패
             setFieldError(groupEmail, errorEmail, '');
@@ -158,11 +158,13 @@ form.addEventListener('submit', async(e) => {
             showToast('error', '❌ 로그인에 실패했습니다. 다시 확인해주세요.');
             shakeCard();
         }
-    } finally{
-        if(!submitBtn.textContent.includes('완료')) setLoading(false);
+    } finally {
+        // 성공 상태가 아닐 때만(즉, 실패했거나 에러가 났을 때만) 로딩 해제
+        if(!submitBtn.classList.contains('is-success')){
+            setLoading(false);
+        }
     }
 });
-
 
 
 // ── 유효성 검사 함수들 ──
@@ -200,7 +202,14 @@ function validatePassword(){
 function setFieldError(group, errorEl, message) {
     group.classList.remove('is-success');
     group.classList.add('is-error');
-    errorEl.innerHTML = message ? `<i class="fa-solid fa-circle-exclamation"></i>${message}` : '';
+    errorEl.textContent = ''; // 이전 에러 내용 초기화
+
+    if (message) {
+        const icon = document.createElement('i');
+        icon.className = 'fa-solid fa-circle-exclamation';
+        errorEl.appendChild(icon);
+        errorEl.appendChild(document.createTextNode(` ${message}`));
+    }
 }
 
 function setFieldSuccess(group) {
@@ -254,20 +263,3 @@ function showToast(type, message) {
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
-
-
-
-// ── CSS:shake 애니메이션 동적 주입 ──
-const shakeStyle = document.createElement('style');
-shakeStyle.textContent = `
-@keyframes shake{
-    0%, 100%{transform: translateX(0);}
-    15%{transform: translateX(-8px);}
-    30%{transform: translateX(7px);}
-    45%{transform: translateX(-6px);}
-    60%{transform: translateX(5px);}
-    75%{transform: translateX(-4px);}
-    90%{transform: translateX(3px);}
-}
-`;
-document.head.appendChild(shakeStyle);
