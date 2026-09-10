@@ -13,22 +13,36 @@ const ACCOUNTS = [
 
 
 
-/* -- 탭 전환 -- */
+/* -- DOM -- */
 const tabLogin  = document.getElementById('tab-login');
 const tabSignup = document.getElementById('tab-signup');
 const tabGroup  = document.querySelector('.tab-group');
+const loginTab = document.getElementById('tab-login');
+const signupTab = document.getElementById('tab-signup');
 const formLogin = document.getElementById('form-login');
+
+const emailInput = document.getElementById('email');
+const passwordInput = document.getElementById('password');
+
 const formSignup= document.getElementById('form-signup');
-const signupButton = document.getElementById("tab-signup");
 
 tabLogin.addEventListener('click', () => switchTab('login'));
 
 
 
-/* -- 회원가입 페이지 이동 -- */
-signupButton.addEventListener('click', () => {
-  window.location.href = './signup.html';
-});
+/* -- 로그인 / 회원가입 페이지 이동 -- */
+if(loginTab){
+  loginTab.addEventListener('click', () => {
+    window.location.href = './index.html';
+  });
+}
+
+if(signupTab){
+  signupTab.addEventListener('click', () => {
+    window.location.href = './signup.html';
+  });
+}
+
 
 function switchTab(which) {
   const toLogin = which === 'login';
@@ -47,9 +61,66 @@ function switchTab(which) {
 
 
 
+/* -- DOM -- */
+const googleBtn = document.getElementById('s-google');
+const kakaoBtn = document.getElementById('s-kakao');
+const naverBtn = document.getElementById('s-naver');
+const forgotBtn = document.getElementById('link-forgot');
+const alertLogin = document.getElementById('alert-login');
+
+
+const alertTimers = {};
+
+/* -- 함수 -- */
+function showAlert(id, type, message) {
+
+  const alert = document.getElementById(id);
+
+  if (!alert) return;
+
+  clearTimeout(alertTimers[id]);
+  
+  alert.textContent = message;
+  alert.className = `alert-banner ${type} show`;
+  alert.style.display = 'block';
+
+  alertTimers[id] = setTimeout(() => {
+    alert.style.display = 'none';
+  }, 3000);
+}
+
+/* -- 소셜 버튼 -- */
+if(googleBtn){
+  googleBtn.addEventListener('click', () => {
+    showAlert('alert-login', 'info', '🔍 Google 로그인은 준비 중입니다.');
+  });
+}
+
+if(kakaoBtn){
+  kakaoBtn.addEventListener('click', () => {
+    showAlert('alert-login', 'info', '💛 카카오 로그인은 준비 중입니다.');
+  });
+}
+
+if(naverBtn){
+  naverBtn.addEventListener('click', () => {
+    showAlert('alert-login', 'info', '🟢 네이버 로그인은 준비 중입니다.');
+  });
+}
+
+if(forgotBtn){
+  forgotBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    showAlert('alert-login', 'info', '📧 비밀번호 재설정 이메일을 발송합니다.');
+  });
+}
+
+
+
 /*  ── 비밀번호 토글 ── */
 setupEyeToggle('password', 'eye-btn', 'eye-ic');
-setupEyeToggle('su-pass', 'eye-btn2', 'eye-ic2');
+setupEyeToggle('f-su-pass', 'eye-btn2', 'eye-ic2');
 
 function setupEyeToggle(inputId, btnId, iconId) {
   const input = document.getElementById(inputId);
@@ -89,67 +160,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 
-/* -- 소셜 버튼 -- */
-const googleBtn = document.getElementById('s-google');
-const kakaoBtn = document.getElementById('s-kakao');
-const naverBtn = document.getElementById('s-naver');
-const forgotBtn = document.getElementById('link-forgot');
-const alertLogin = document.getElementById('alert-login');
-
-
-const alertTimers = {};
-
-function showAlert(id, type, message) {
-
-  const alert = document.getElementById(id);
-
-  if (!alert) {
-    console.error(`Alert 요소를 찾을 수 없습니다: #${id}`);
-    return;
-  }
-
-  clearTimeout(alertTimers[id]);
-
-  alert.textContent = message;
-  alert.className = `alert ${type}`;
-  alert.style.display = 'block';
-
-  alertTimers[id] = setTimeout(() => {
-    alert.style.display = 'none';
-  }, 3000);
-}
-
-if(googleBtn){
-  googleBtn.addEventListener('click', () => {
-    showAlert('alert-login', 'info', '🔍 Google 로그인은 준비 중입니다.');
-  });
-}
-
-if(kakaoBtn){
-  kakaoBtn.addEventListener('click', () => {
-    showAlert('alert-login', 'info', '💛 카카오 로그인은 준비 중입니다.');
-  });
-}
-
-if(naverBtn){
-  naverBtn.addEventListener('click', () => {
-    showAlert('alert-login', 'info', '🟢 네이버 로그인은 준비 중입니다.');
-  });
-}
-
-if(forgotBtn){
-  forgotBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-
-    showAlert('alert-login', 'info', '📧 비밀번호 재설정 이메일을 발송합니다.');
-  });
-}
-
-
-
 /* -- 비밀번호 강도 -- */
-const suPassInput = document.getElementById('su-pass');
-suPassInput && suPassInput.addEventListener('input', () => checkStrength(suPassInput.value));
+const suPassInput = document.getElementById('f-su-pass');
+
+if(suPassInput){ 
+  suPassInput.addEventListener('input', () => {
+    checkStrength(suPassInput.value);
+  });
+}
 
 function checkStrength(val) {
   const bars  = [document.getElementById('sb1'), document.getElementById('sb2'),
@@ -169,10 +187,12 @@ function checkStrength(val) {
   label.textContent = val.length ? levels[score] || '강도 없음' : '강도 없음';
 }
 
+const loginForm = document.getElementById('form-login');
 
+if(loginForm){
 
-/* -- 로그인 폼 제출 -- */
-document.getElementById('form-login').addEventListener('submit', async e => {
+  /* -- 로그인 폼 제출 -- */
+  loginForm.addEventListener('submit', async e => {
   e.preventDefault();
 
   const emailVal = document.getElementById('email').value.trim();
@@ -261,7 +281,7 @@ document.getElementById('form-login').addEventListener('submit', async e => {
 
     /* 필요하다면 잠시 후 대시보드로 이동 */
     // window.Location.href = 'dashboard.html'
-  }
+}
 
   /* -- 로그인 실패 -- */
   else{
@@ -277,34 +297,10 @@ document.getElementById('form-login').addEventListener('submit', async e => {
 });
 
 
-/* -- 회원가입 폼 제출 -- */
-document.getElementById('form-signup').addEventListener('submit', async e => {
-  e.preventDefault();
-  const nameVal  = document.getElementById('username').value.trim();
-  const emailVal = document.getElementById('su-email').value.trim();
-  const passVal  = document.getElementById('su-pass').value;
-  const agreed   = document.getElementById('agree').checked;
-
-  let ok = true;
-  if (!validateRequired(nameVal,  'f-name',     'err-name',     '이름을 입력해주세요.'))      ok = false;
-  if (!validateEmail(emailVal,     'f-su-email', 'err-su-email'))                              ok = false;
-  if (!validatePassStrength(passVal, 'f-su-pass', 'err-su-pass'))                             ok = false;
-  if (!agreed) { showAlert('alert-signup', 'error', '약관에 동의해주세요.'); ok = false; }
-  if (!ok) return;
-
-  setLoading('btn-signup', true);
-  await delay(1400);
-
-  showAlert('alert-signup', 'success', `🎉 ${nameVal}님, 가입이 완료되었습니다!`);
-  const btn = document.getElementById('btn-signup');
-  btn.querySelector('.btn-label').textContent = '✓ 가입 완료';
-  btn.style.background = '#22c55e';
-  btn.querySelector('.btn-loader').style.display = 'none';
-  btn.querySelector('.btn-label').style.display  = 'flex';
-});
 
 
-/* -- 실시간 검증 (blur) -- */
+
+/* ── 실시간 검증 (blur) ── */
 document.getElementById('email').addEventListener('blur', () => {
   validateEmail(document.getElementById('email').value.trim(), 'f-email', 'err-email');
 });
@@ -315,7 +311,7 @@ document.getElementById('su-email') && document.getElementById('su-email').addEv
 
 
 
-/* -- 유효성 함수들 -- */
+/* ── 유효성 함수들 ── */
 function validateEmail(val, groupId, errId) {
   if (!val) {
     setFieldErr(groupId, errId, '이메일을 입력해주세요.');
@@ -329,43 +325,58 @@ function validateEmail(val, groupId, errId) {
   return true;
 }
 
-function validateRequired(val, groupId, errId, msg){
-  if (!val) { setFieldErr(groupId, errId, msg); return false;}
+function validateRequired(val, groupId, errId, msg) {
+  if (!val) { setFieldErr(groupId, errId, msg); return false; }
   clearField(groupId, errId);
   return true;
 }
 
-function validatePassStrength(val, groupId, errId){
-  if (!val){setFieldErr(groupId, errId, '비밀번호를 입력해주세요.'); return false;}
-  if (val.length < 8){setFieldErr(groupId, errId, '비밀번호는 8자 이상이어야 합니다.'); return false;}
+function validatePassStrength(val, groupId, errId) {
+  if (!val) { setFieldErr(groupId, errId, '비밀번호를 입력해주세요.'); return false; }
+  if (val.length < 8) { setFieldErr(groupId, errId, '비밀번호는 8자 이상이어야 합니다.'); return false; }
   clearField(groupId, errId);
   return true;
 }
 
-function setFieldErr(groupId, errId, msg){
+function setFieldErr(groupId, errId, msg) {
   const g = document.getElementById(groupId);
   const e = document.getElementById(errId);
   g.classList.remove('is-ok'); g.classList.add('is-err');
   e.innerHTML = msg ? `<i class="fa-solid fa-circle-exclamation"></i> ${msg}` : '';
 }
-
-function setFieldOk(groupId){
+function setFieldOk(groupId) {
   const g = document.getElementById(groupId);
   g.classList.remove('is-err'); g.classList.add('is-ok');
 }
-
-function clearField(groupId, errId){
+function clearField(groupId, errId) {
   document.getElementById(groupId).classList.remove('is-err', 'is-ok');
   document.getElementById(errId).textContent = '';
 }
 
 
 
-/* -- 버튼 로딩 -- */
-function setLoading(btnId, on){
+/* ── 버튼 로딩 ── */
+function setLoading(btnId, on) {
   const btn = document.getElementById(btnId);
+
+  if(!btn){
+    console.err(`${btnId} 버튼을 찾을 수 없습니다.`);
+    return;
+  }
+
   btn.disabled = on;
   btn.classList.toggle('loading', on);
+}
+
+
+
+/* ── 알림 배너 ── */
+function showAlert(elId, type, msg) {
+  const el = document.getElementById(elId);
+  clearTimeout(alertTimers[elId]);
+  el.className = `alert-banner ${type} show`;
+  el.textContent = msg;
+  alertTimers[elId] = setTimeout(() => { el.className = 'alert-banner'; }, 4000);
 }
 
 
@@ -396,7 +407,6 @@ function animateStats(){
 
 
 
-
 /* -- 유틸 -- */
 function delay(ms){return new Promise(r => setTimeout(r, ms));}
 
@@ -414,5 +424,5 @@ style.textContent = `
     75%     { transform: translateX(-3px); }
     90%     { transform: translateX(2px); }
   }
-`;
+`}
 document.head.appendChild(style);

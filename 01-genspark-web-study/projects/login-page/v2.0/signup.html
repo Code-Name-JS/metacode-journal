@@ -62,41 +62,34 @@
         <!-- ════ 오른쪽 패널 (폼) ════ -->
         <main class="panel-right">
 
+            <!-- 모바일 로고 -->
+            <div class="mobile-logo">
+                <span class="logo-dot"></span>
+                <span class="logo-text">MyApp</span>
+            </div>
+            
             <section class="form-section">
 
                 <!-- 탭: 로그인 / 회원가입 -->
-                <div class="tab-group">
-                    <a href="./index.html" class="tab">
-                        로그인
-                    </a>
-                    <a href="./signup.html" class="tab active">
-                        회원가입
-                    </a>
+                <div class="tab-group on-signup" role="tablist">
+                    <button class="tab" id="tab-login" type="button" role="tab" aria-selected="false">로그인</button>
+                    <button class="tab active" id="tab-signup" type="button" role="tab" aria-selected="true">회원가입</button>
                     <span class="tab-indicator"></span>
                 </div>
 
-                <!-- 회원가입 -->
+                <!-- 회원가입 폼 -->
                 <form id="form-signup" class="auth-form" novalidate>
-                    <h1 class="form-title">
-                        처음 오셨군요! <span class="wave">🎉</span>
-                    </h1>
-
-                    <p class="form-desc">
-                        몇 가지 정보만 입력하면 바로 시작할 수 있어요.
-                    </p>
+                    <h1 class="form-title">처음 오셨군요! <span class="wave">🎉</span></h1>
+                    <p class="form-desc">몇 가지 정보만 입력하면 바로 시작할 수 있어요.</p>
 
                     <!-- 이름 -->
                     <div class="field" id="f-name">
-                        <label for="username">
-                            이름
-                        </label>
-
+                        <label for="username">이름</label>
                         <div class="input-box">
                             <i class="fa-regular fa-user"></i>
-                            <input id="username" type="text" placeholder="Hong Gil-dong" autocomplete="name" required />
+                            <input id="username" type="text" placeholder="이름을 입력해주세요." autocomplete="name" required />
                         </div>
-
-                        <span class="err-msg" id="err-name"></span>
+                        <span class="err-msg" id="err-su-name"></span>
                     </div>
 
                     <!-- 이메일 -->
@@ -119,30 +112,31 @@
                         </label>
                         <div class="input-box">
                             <i class="fa-solid fa-lock"></i>
-                            <input id="su-pass" type="password" placeholder="Enter at least 8 characters" required />
+                            <input id="su-pass" type="password" placeholder="비밀번호는 8자 이상 입력해주세요." required />
 
-                            <button type="button" class="eye-btn" id="eye-btn2" aria-label="Show password">
+                            <button type="button" class="eye-btn" id="eye-btn2" aria-label="비밀번호 표시">
                                 <i class="fa-regular fa-eye" id="eye-ic2"></i>
                             </button>
                         </div>
 
-
-                        <!-- 비밀번호 강도 -->
-                        <div class="strength-wrap">
-                            <div class="strength-bar">
-                                <span class="sb" id="sb1"></span>
-                                <span class="sb" id="sb2"></span>
-                                <span class="sb" id="sb3"></span>
-                                <span class="sb" id="sb4"></span>
-                            </div>
-
-                            <span class="strength-label" id="strength-label">
-                                No robbery
-                            </span>
-                        </div>
-
+                        <!-- 비밀번호 에러 메시지 -->
                         <span class="err-msg" id="err-su-pass"></span>
                     </div>
+
+                    <!-- 비밀번호 강도 -->
+                    <div class="strength-wrap">
+                        <div class="strength-bar">
+                            <span class="sb" id="sb1"></span>
+                            <span class="sb" id="sb2"></span>
+                            <span class="sb" id="sb3"></span>
+                            <span class="sb" id="sb4"></span>
+                        </div>
+
+                        <span class="strength-label" id="strength-label">
+                             강도 없음
+                        </span>
+                    </div>
+                
 
 
                     <!-- Terms -->
@@ -151,14 +145,14 @@
                         <span class="check-box"></span>
                         <span>
                             <a href="#" class="inline-link">
-                                Terms of Use
+                                이용약관
                             </a>
 
-                            and
-
+                            및
+                            
                             <a href="#" class="inline-link">
-                                Privacy Policy
-                            </a>
+                            개인정보처리방침
+                            </a>에 동의합니다.
                         </span>
                     </label>
 
@@ -166,7 +160,7 @@
                     <!-- Submit -->
                     <button type="submit" class="btn-main" id="btn-signup">
                         <span class="btn-label">
-                            Create account
+                            회원가입
                         </span>
 
                         <i class="fa-solid fa-arrow-right btn-arrow"></i>
@@ -180,13 +174,14 @@
             </section>
 
 
+            <!-- 하단 링크 -->
             <p class="bottom-hint">
                 <i class="fa-solid fa-shield-halved"></i>
-                Secure connection · SSL encryption · GDPR compliance
+                보안 연결 · SSL 암호화 · GDPR 준수
             </p>
         </main>
     </div>
 
-    <script src="./main.js" defer></script>
+    <script src="./signup-main.js" defer></script>
 </body>
 </html>

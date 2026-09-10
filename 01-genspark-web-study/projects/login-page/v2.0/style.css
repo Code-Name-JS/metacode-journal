@@ -354,6 +354,18 @@ body{
   transform: translateX(100%);
 }
 
+.tab-group:hover .tab-signup:hover ~ .tab-indicator {
+    transform: translateX(100%);
+}
+
+.tab-group:has(#tab-signup:hover) .tab-indicator {
+    transform: translateX(100%);
+}
+
+.tab-group:has(#tab-login:hover) .tab-indicator {
+    transform: translateX(0);
+}
+
 
 
 /* ── 폼 ── */

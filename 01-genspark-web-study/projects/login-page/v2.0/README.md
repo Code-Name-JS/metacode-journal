@@ -1,6 +1,7 @@
 # 로그인 페이지 시안 (v2.0 기반)
 
-![프로젝트 대표 이미지](../img/preview-2.png)
+![프로젝트 대표 이미지](../img/preview-2.0.png)
+![프로젝트 대표 이미지](../img/preview-2.1.png)
 
 ---
 
@@ -54,6 +55,7 @@ signup.html       ← 로그인 페이지
 showcase.html     ← v1.0과 v2.0 디자인 차이 설명
 style.css         ← 모든 스타일 (CSS 변수, 애니메이션 포함)
 main.js           ← 인터랙션 & 유효성 검사 로직
+signup-main.js    ← signup.html의 인터랙션 & 유효성 검사 로직
 README.md
 ```
 
@@ -67,11 +69,3 @@ README.md
 | `test@example.com` | `test5678` |
 
 ---
-
-## v1.0 버전의 한계점 및 개선 필요 사항
-
-- Log In / Sign Up → checkbox가 로그인 페이지와 회원가입 페이지에서 고정됨
-- Log In / Sign Up 페이지에서 Email address와 Password에 JavaScript의 emailError와 passwordError 및 showMessage가 적용되지 않음
-- 
-
-이러한 부분은 추후 버전(v2.0 이상)에서 수정 및 개선될 예정입니다.
