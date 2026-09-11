@@ -10,19 +10,20 @@
 --text: #1c2333;
 --muted: #6b7280;
 --border: #e2e8f0;
---primary: #4f46e5;
+--primary: #4f46ef;
 --primary-hover: #4338ca;
---primary-soft: #eef2ff;
+--primart-soft: #eef2ff;
 --error: #dc2626;
 --error-soft: #fef2f2;
---success: #16a34a;
+--succenss: #16a34a;
 --focus: #6366f1;
 --radius: 16px;
 --shadow: 0 20px 45px -20px rgba(30, 41, 59, 0.25);
 --social-border: #d1d5db;
 }
 
-@media(prefers-color-scheme:dark){
+
+@media (prefers-color-scheme: dark) {
 :root{
 --bg: #0f1420;
 --card: #171d2e;
@@ -41,14 +42,11 @@
 }
 }
 
-*{box-sizing: border-box; margin: 0; padding: 0;}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-body{
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe Ul", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
-    background:
-    radial-gradient(600px 400px at 15% 10%, rgba(79, 70, 229, 0.10), transparent 60%),
-    radial-gradient(600px 400px at 90% 90%, rgba(14, 165, 233, 0.10), transparent 60%),
-    var(--bg);
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+    background: radial-gradient(600px 400px at 15% 10%, rgba(79, 70, 229, 0.10), transparent 60%), radial-gradient(600px 400px at 90% 90%, rgba(14, 165, 233, 0.10), transparent 60%), var(--bg);
     color: var(--text);
     min-height: 100vh;
     display: flex;
@@ -57,7 +55,7 @@ body{
     padding: 24px;
 }
 
-.card{
+.card {
     width: 100%;
     max-width: 420px;
     background: var(--card);
@@ -67,14 +65,14 @@ body{
     padding: 40px 36px 32px;
 }
 
-.brand{
+.brand {
     display: flex;
     align-items: center;
     gap: 10px;
     margin-bottom: 8px;
 }
 
-.logo{
+.logo {
     width: 40px;
     height: 40px;
     border-radius: 12px;
@@ -86,35 +84,17 @@ body{
     font-size: 20px;
 }
 
-h1{
-    font-size: 24px;
-    font-weight: 700;
-    letter-spacing: -0.3px;
-}
+h1 { font-size: 24px; font-weight: 700; letter-spacing: -0.3px; }
+.sub { color: var(--muted); font-size: 14px; margin: 6px 0 28px; }
 
-.sub{
-    color: var(--muted);
-    font-size: 14px;
-    margin: 6px 0 28px;
-}
+.field { margin-bottom: 18px; }
 
-.field{
-    margin-bottom: 18px;
-}
+label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; }
 
-label{
-    display: block;
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 8px;
-}
-
-.input-wrap{
-    position: relative;
-}
+.input-wrap { position: relative; }
 
 input[type="email"],
-input[type="password"]{
+input[type="password"] {
     width: 100%;
     padding: 12px 14px;
     font-size: 15px;
@@ -126,16 +106,14 @@ input[type="password"]{
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-input[type="password"]{
-    padding-right: 46px;
-}
+input[type="password"] { padding-right: 46px; }
 
-input:focus{
+input:focus {
     border-color: var(--focus);
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
 }
 
-.toggle{
+.toggle {
     position: absolute;
     right: 6px;
     top: 50%;
@@ -150,32 +128,24 @@ input:focus{
     line-height: 1;
 }
 
-.toggle:hover{
-    color: var(--text);
-}
+.toggle:hover { color: var(--text); }
+.toggle:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 
-.toggle:focus-visible{
-    outline: 2px solid var(--focus);
-    outline-offset: 2px;
-}
-
-.error-msg{
+.error-msg {
     display: none;
     color: var(--error);
     font-size: 13px;
     margin-top: 6px;
 }
 
-.error-msg.show{
-    display: block;
-}
+.error-msg.show { display: block; }
 
-.field.invalid input{
+.field.invalid input {
     border-color: var(--error);
     background: var(--error-soft);
 }
 
-.row{
+.row {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -183,32 +153,14 @@ input:focus{
     font-size: 14px;
 }
 
-.remember{
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    color: var(--muted);
-}
+.remember { display: flex; align-items: center; gap: 8px; cursor: pointer; color: var(--muted); }
 
-.remember input{
-    accent-color: var(--primary);
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-}
+.remember input { accent-color: var(--primary); width: 16px; height: 16px; cursor: pointer; }
 
-.forgot{
-    color: var(--primary);
-    text-decoration: none;
-    font-weight: 600;
-}
+.forgot { color: var(--primary); text-decoration: none; font-weight: 600; }
+.forgot:hover { text-decoration: underline; }
 
-.forgot:hover{
-    text-decoration: underline;
-}
-
-.btn-primary{
+.btn-primary {
     width: 100%;
     padding: 13px;
     font-size: 15px;
@@ -221,20 +173,11 @@ input:focus{
     transition: background 0.2s ease, transform 0.1s ease;
 }
 
-.btn-primary:hover{
-    background: var(--primary-hover);
-}
+.btn-primary:hover { background: var(--primary-hover); }
+.btn-primary:active { transform: scale(0.99); }
+.btn-primary:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
 
-.btn-primary:active{
-    transform: scale(0.99);
-}
-
-.btn-primary:focus-visible{
-    outline: 3px solid var(--focus);
-    outline-offset: 2px;
-}
-
-.divider{
+.divider {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -243,19 +186,16 @@ input:focus{
     margin: 24px 0 18px;
 }
 
-.divider::before, .divider::after{
+.divider::before, .divider::after {
     content: "";
     flex: 1;
     height: 1px;
     background: var(--border);
 }
 
-.socials{
-    display: flex;
-    gap: 12px;
-}
+.socials { display: flex; gap: 12px; }
 
-.btn-social{
+.btn-social {
     flex: 1;
     display: flex;
     align-items: center;
@@ -272,29 +212,19 @@ input:focus{
     transition: background 0.2s ease, border-color 0.2s ease;
 }
 
-.btn-social:hover{
-    background: var(--primary-soft);
-    border-color: var(--primary);
-}
+.btn-social:hover { background: var(--primary-soft); border-color: var(--primary); }
 
-.signup{
+.signup {
     text-align: center;
     margin-top: 24px;
     font-size: 14px;
     color: var(--muted);
 }
 
-.signup a{
-    color: var(--primary);
-    font-weight: 600;
-    text-decoration: none;
-}
+.signup a { color: var(--primary); font-weight: 600; text-decoration: none; }
+.signup a:hover { text-decoration: underline; }
 
-.signup a:hover{
-    text-decoration: underline;
-}
-
-.toast{
+.toast {
     position: fixed;
     bottom: 28px;
     left: 50%;
@@ -311,10 +241,9 @@ input:focus{
     z-index: 10;
 }
 
-.toast.show{opacity: 1; transform: translateX(-50%) translateY(0);}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-@media(prefers-reduced-motion: reduce){
-    *, *::before, *::after{
-        transition: none !important; animation: none !important;
-    }
+@media (prefers-reduced-motion: reduce) {
+*, *::before, *::after { transition: none !important; animation: none !important; }
 }
+
