@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>게시판 | (주)샘플컴퍼니</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="#" class="logo" aria-label="홈으로 이동">
+                <span class="logo-mark">S</span>
+                <span class="logo-text">샘플컴퍼니</span>
+            </a>
+            <nav class="gnb" aria-label="주 메뉴">
+                <a href="#">회사소개</a>
+                <a href="#">서비스</a>
+                <a href="#" class="active" aria-current="page">게시판</a>
+                <a href="#">고객지원</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container" id="app">
+        <!-- 게시판 헤더 -->
+        <section class="board-head">
+            <h1 class="board-title">공지사항</h1>
+            <p class="board-desc">샘플컴퍼니의 새로운 소식과 안내사항을 전해드립니다.</p>
+        </section>
+
+        <!-- 목록 화면 -->
+        <section id="view-list" class="view" aria-label="게시글 목록">
+            <div class="board-toolbar">
+                <div class="filter-group" role="group" aria-label="카테고리 필터">
+                    <button class="chip is-active" data-category="전체">전체</button>
+                    <button class="chip" data-category="공지">공지</button>
+                    <button class="chip" data-category="이벤트">이벤트</button>
+                    <button class="chip" data-category="소식">소식</button>
+                    <button class="chip" data-category="채용">채용</button>
+                </div>
+
+                <div class="search-group">
+                    <form class="search-form" id="searchForm" role="search">
+                        <label for="searchInput" class="sr-only">검색어</label>
+                        <input type="search" id="searchInput" placeholder="검색어를 입력하세요" />
+                        <button type="submit" class="btn-search" aria-label="검색">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3"/></svg>
+                            검색
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="table-wrap" id="tableWrap">
+                <table class="board-table">
+                    <caption class="sr-only">게시글 목록 - 번호, 카테고리, 제목, 작성자, 작성일, 조회수</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col" class="col-no">번호</th>
+                            <th scope="col" class="col-cat">구분</th>
+                            <th scope="col" class="col-title">제목</th>
+                            <th scope="col" class="col-writer">작성자</th>
+                            <th scope="col" class="col-date">작성일</th>
+                            <th scope="col" class="col-hit">조회</th>
+                        </tr>
+                    </thead>
+                    <tbody id="boardBody"><!-- JS 렌더링 --></tbody>
+                </table>
+                <p class="empty-msg" id="emptyMsg" hidden>검색 결과가 없습니다. 다른 검색어로 찾아보세요.</p>
+            </div>
+
+            <div class="board-footer">
+                <nav class="pagination" id="pagination" aria-label="페이지 이동"><!-- JS 렌더링 --></nav>
+                <button class="btn btn-primary" id="btnWrite" type="button">✚ 글쓰기</button>
+            </div>
+        </section>
+
+        <!-- 상세 화면 -->
+        <section id="view-detail" class="view" aria-label="게시글 상세" hidden>
+            <div class="detail-head" id="detailHead"><!-- JS 렌더링 --></div>
+            <div class="detail-body" id="detailBody"><!-- JS 렌더링 --></div>
+            <div class="detail-attach" id="detailAttach"></div>
+
+            <div class="comment-area">
+                <h2 class="comment-title">댓글<span id="commentCount" class="comment-count"></span></h2>
+                <ul class="comment-list" id="commentList"></ul>
+                <form class="comment-form" id="commentForm">
+                    <label for="commentInput" class="sr-only">댓글 입력</label>
+                    <textarea id="commentInput" rows="2" placeholder="따뜻한 댓글을 남겨주세요." required></textarea>
+                    <button type="submit" class="btn btn-primary">등록</button>
+                </form>
+            </div>
+
+            <div class="detail-nav" id="detailNav"><!-- JS 렌더링 --></div>
+            <div class="detail-actions">
+                <button class="btn" id="btnToList" type="button">목록으로</button>\
+                <div class="detail-actions-right">
+                    <button class="btn" id="btnEdit" type="button">수정</button>
+                    <button class="btn btn-danger" id="btnDelete" type="button">삭제</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 글쓰기/수정 화면 -->
+        <section id="view-form" class="view" aria-label="글쓰기" hidden>
+            <h2 class="form-title" id="formTitle">글쓰기</h2>
+            <form class="write-form" id="writeForm" novalidate>
+                <div class="form-row form-row-inline">
+                    <div class="form-field">
+                        <label for="fCategory">구분<em aria-hidden="true">*</em></label>
+                        <select id="fCategory" required>
+                            <option value="공지">공지</option>
+                            <option value="이벤트">이벤트</option>
+                            <option value="소식">소식</option>
+                            <option value="채용">채용</option>
+                        </select>
+                    </div>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="fNotice" /> 상단 고정(공지로 등록)
+                    </label>
+                </div>
+                <div class="form-field">
+                    <label for="fTitle">제목<em aria-hidden="true">*</em></label>
+                    <input type="text" id="fTitle" maxlength="100" placeholder="제목을 입력하세요(100자 이내)" required />
+                </div>
+
+                <div class="form-field">
+                    <label for="fWriter">작성자<em aria-hidden="trun">*</em></label>
+                    <input type="text" id="fWriter" maxlength="20" placeholder="작성자명" required />
+                </div>
+
+                <div class="form-field">
+                    <label for="fContent">내용<em aria-hidden="true">*</em></label>
+                    <textarea id="fContent" rows="10" placeholder="내용을 입력하세요." required></textarea>
+                </div>
+
+                <div class="form-field">
+                    <label for="fAttach">첨부파일</label>
+                    <input type="file" id="fAttach" multiple />
+                    <p class="form-hint">※ 시안이라 실제 업로드는 처리되지 않습니다.</p>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn" id="btnCancel">취소</button>
+                    <button type="submit" class="btn btn-primary" id="btnSubmit">등록</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>© 2026 Sample Company. All rights reserved.</p>
+            <p class="footer-links"><a href="#">이용약관</a> · <a href="#">개인정보처리방침</a> · <a href="#">찾아오시는 길</a></p>
+        </div>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="./main.js" defer></script>
+</body>
+</html>
