@@ -1,5 +1,5 @@
 /* =====================================================
-   main-v1.js  –  Login v1.0 Interactions
+   main-v3.js  –  Login v3.0 Interactions
    ===================================================== */
 console.log("main.js 연결 성공!");
 

@@ -3,136 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nova - 로그인</title>
+    <title>Nova·로그인</title>
 
-    <link rel="stylesheet" href="./style.css"/>
+    <!-- CSS -->
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <main class="login-shell" aria-label="로그인">
-        <!-- 브랜드 패널 -->
-        <aside class="brand-panel">
-            <div class="brand-logo">
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M12 2l2.4 7.6H22l-6.2 4.5 2.4 7.6-6.2-4.5-6.2 4.5 2.4-7.6L2 9.6h7.6L12 2z" fill="#fff"/>
-                </svg>
-                <span>Nova</span>
-            </div>
+  <main class="login-shell" aria-label="로그인">
+    <!-- 브랜드 패널 -->
+    <aside class="brand-panel">
+      <div class="brand-logo">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 2l2.4 7.6H22l-6.2 4.5 2.4 7.6-6.2-4.5-6.2 4.5 2.4-7.6L2 9.6h7.6L12 2z" fill="#fff"/>
+        </svg>
+        <span>Nova</span>
+      </div>
 
-            <div class="brand-message">
-                <h1>새로운 시작을 위한<br>한 걸음</h1>
-                <p>Nova에 오신 것을 환영합니다. 계정에 로그인하여 나만의 공간에서 더 빠르고 편리하게 시작해 보세요.</p>
-            </div>
+      <div class="brand-message">
+        <h1>새로운 시작을 위한<br>한 걸음</h1>
+        <p>Nova에 오신 것을 환영합니다. 계정에 로그인하여 나만의 공간에서 더 빠르고 편리하게 시작해 보세요.</p>
+      </div>
 
-            <div class="brand-quote">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M12 3l1.9 5.8H20l-5 3.6 1.9 5.8-4.9-3.6-4.9 3.6L9 12.4l-5-3.6h6.1L12 3z" stroke-linejoin="round"/>
-                </svg>
-                <span>매일 더 나은 경험을 설계합니다</span>
-            </div>
-        </aside>
+      <div class="brand-quote">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M12 3l1.9 5.8H20l-5 3.6 1.9 5.8-4.9-3.6-4.9 3.6L9 12.4l-5-3.6h6.1L12 3z" stroke-linejoin="round"/>
+        </svg>
+        <span>매일 더 나은 경험을 설계합니다</span>
+      </div>
+    </aside>
 
-        <!-- 로그인 폼 -->
-        <section class="form-side">
-            <button type="button" class="theme-toggle" id="themeToggle" aria-label="다크 모드 전환">
-                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <circle cx="12" cy="12" r="4.5"/>
-                    <path d="M12 2v2.5M12 19.5V22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M2 12h2.5M19.5 12H22M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" stroke-linecap="round"/>
-                </svg>
-                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" stroke-linejoin="round"/>
-                </svg>
+    <!-- 로그인 폼 -->
+    <section class="form-side">
+      <button type="button" class="theme-toggle" id="themeToggle" aria-label="다크 모드 전환">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="12" cy="12" r="4.5"/>
+          <path d="M12 2v2.5M12 19.5V22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M2 12h2.5M19.5 12H22M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" stroke-linecap="round"/>
+        </svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <div class="form-head">
+        <h2>로그인</h2>
+        <p>계정 정보를 입력하고 시작하세요</p>
+      </div>
+
+      <form id="loginForm" novalidate>
+        <div class="field">
+          <label for="email">이메일</label>
+          <div class="input-wrap">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <rect x="3" y="5" width="18" height="14" rx="3"/>
+              <path d="M3.5 7l8.5 6 8.5-6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" aria-describedby="emailError" required>
+            <span class="error-msg" id="emailError" role="alert">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.5" stroke-linecap="round"/>
+              </svg>
+              <span class="error-text"></span>
+            </span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="password">비밀번호</label>
+          <div class="input-wrap">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <rect x="4" y="10" width="16" height="10" rx="2.5"/>
+              <path d="M8 10V7a4 4 0 0 1 8 0v3" stroke-linecap="round"/>
+            </svg>
+            <input type="password" id="password" name="password" placeholder="비밀번호 입력" autocomplete="current-password" aria-describedby="passwordError" required>
+            <button type="button" class="toggle-pw" id="togglePw" aria-label="비밀번호 보기" aria-pressed="false">
+              <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12z"/>
+                <circle cx="12" cy="12" r="2.8"/>
+              </svg>
+              <svg class="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M3 3l18 18M10.6 5.2A10.5 10.5 0 0 1 12 5c6.5 0 10 7 10 7a17.6 17.6 0 0 1-2.9 3.8M6.6 6.6C4.2 8.2 2 12 2 12s3.5 7 10 7c1.4 0 2.7-.3 3.8-.8" stroke-linecap="round"/>
+                <path d="M9.9 9.9a3 3 0 0 0 4.2 4.2" stroke-linecap="round"/>
+              </svg>
             </button>
+            <span class="error-msg" id="passwordError" role="alert">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.5" stroke-linecap="round"/>
+              </svg>
+              <span class="error-text"></span>
+            </span>
+          </div>
+        </div>
 
-            <div class="form-head">
-                <h2>로그인</h2>
-                <p>계정 정보를 입력하고 시작하세요</p>
-            </div>
+        <div class="row-options">
+          <label class="checkbox">
+            <input type="checkbox" id="remember" name="remember">
+            <span>로그인 상태 유지</span>
+          </label>
+          <a href="#" class="link" aria-label="비밀번호 찾기">비밀번호를 잊으셨나요?</a>
+        </div>
 
-            <form id="loginForm" novalidate>
-                <div class="field">
-                    <label for="email">이메일</label>
-                    <div class="input-wrap">
-                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <rect x="3" y="5" width="18" height="14" rx="3"/>
-                            <path d="M3.5 7l8.5 6 8.5-6" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" aria-describedby="emailError" required>
-                        <span class="error-msg" id="emailError" role="alert">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <circle cs="12" cy="12" r="9"/>
-                                <path d="M12 8v5M12 16.5v.5" stroke-linecap="round"/>
-                            </svg>
-                            <span class="error-text"></span>
-                        </span>
-                    </div>
-                </div>
+        <button type="submit" class="btn-primary" id="submitBtn">
+          <span class="spinner" aria-hidden="true"></span>
+          <span class="btn-label">로그인</span>
+        </button>
 
-                <div class="field">
-                    <label for="password">비밀번호</label>
-                    <div class="input-wrap">
-                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <rect x="4" y="10" width="16" height="10" rx="2.5"/>
-                            <path d="M8 10V7a4 4 0 0 1 8 0v3" stroke-linecap="round"/>
-                        </svg>
-                        <input type="password" id="password" name="password" placeholder="비밀번호 입력" autocomplete="current-password" aria-describedy="passwordError" required>
-                        <button type="button" class="toggle-pw" id="togglePw" aria-label="비밀번호 보기" aria-pressed="false">
-                            <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12z"/>
-                                <circle cx="12" cy="12" r="2.8"/>
-                            </svg>
-                            <svg class="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <path d="M3 3l18 18M10.6 5.2A10.5 10.5 0 0 1 12 5c6.5 0 10 7 10 7a17.6 17.6 0 0 1-2.9 3.8M6.6 6.6C4.2 8.2 2 12 2 12s3.5 7 10 7c1.4 0 2.7-.3 3.8-.8" stroke-linecap="round"/>
-                                <path d="M9.9 9.9a3 3 0 0 0 4.2 4.2" stroke-linecap="round"/>
-                            </svg>
-                        </button>
-                        <span class="error-msg" id="passwordError" role="alert">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <circle cs="12" cy="12" r="9"/>
-                                <path d="M12 8v5M12 16.5v.5" stroke-linecap="round"/>
-                            </svg>
-                            <span class="error-text"></span>
-                        </span>
-                    </div>
-                </div>
+        <div class="divider">또는</div>
 
-                <div class="row-options">
-                    <label class="checkbox">
-                        <input type="checkbox" id="remember" name="remember">
-                        <span>로그인 상태 유지</span>
-                    </label>
-                    <a href="#" class="link" aria-label="비밀번호 찾기">비밀번호를 잊으셨나요?</a>
-                </div>
+        <div class="social-row">
+          <button type="button" class="btn-social" aria-label="Google로 로그인">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="#4285F4" d="M23.5 12.3c0-.9-.1-1.5-.3-2.2H12v4.1h6.5c-.1 1.1-.8 2.7-2.4 3.8l-.1.1 3.5 2.7.2.1c2.2-2 3.8-5 3.8-8.6z"/>
+              <path fill="#34A853" d="M12 24c3.2 0 5.9-1.1 7.9-2.9l-3.8-2.9c-1 .7-2.4 1.2-4.1 1.2-3.1 0-5.8-2.1-6.7-4.9l-.1.1-3.6 2.8-.1.1C3.3 21.3 7.3 24 12 24z"/>
+              <path fill="#FBBC05" d="M5.3 14.5c-.2-.7-.4-1.5-.4-2.5s.1-1.8.4-2.5l-.1-.1-3.6-2.8-.1.1C.6 8.2 0 10 0 12s.6 3.8 1.5 5.3l3.8-2.8z"/>
+              <path fill="#EA4335" d="M12 4.7c2.2 0 3.7 1 4.6 1.8l3.4-3.3C17.9 1.2 15.2 0 12 0 7.3 0 3.3 2.7 1.5 6.7l3.8 2.8c.9-2.8 3.6-4.8 6.7-4.8z"/>
+            </svg>
+            <span>Google</span>
+          </button>
+          <button type="button" class="btn-social" aria-label="Apple로 로그인">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M17.05 12.54c-.03-2.9 2.37-4.3 2.48-4.37-1.35-1.98-3.45-2.25-4.2-2.28-1.79-.18-3.49 1.05-4.4 1.05-.9 0-2.3-1.02-3.78-1-1.94.03-3.73 1.13-4.73 2.87-2.02 3.5-.52 8.68 1.45 11.52.96 1.39 2.1 2.95 3.6 2.89 1.44-.06 1.99-.93 3.73-.93 1.75 0 2.24.93 3.76.9 1.55-.03 2.54-1.41 3.49-2.81 1.1-1.61 1.55-3.17 1.58-3.25-.03-.01-3.03-1.16-3.38-4.59zM14.36 4.4c.8-.97 1.34-2.32 1.19-3.66-1.15.05-2.55.77-3.38 1.74-.74.86-1.39 2.24-1.22 3.56 1.29.1 2.6-.66 3.41-1.64z"/>
+            </svg>
+            <span>Apple</span>
+          </button>
+        </div>
 
-                <button type="submit" class="btn-primary" id="submitBtn">
-                    <span class="spinner" aria-hidden="true"></span>
-                    <span class="btn-label">로그인</span>
-                </button>
-
-                <div class="divider">또는</div>
-
-                <div class="social-row">
-                    <button type="button" class="btn-social" aria-label="Google로 로그인">
-                        <svg viewBox="0 0 24 24" aria-hidden="true">
-                            <path fill="#4285F4" d="M23.5 12.3c0-.9-.1-1.5-.3-2.2H12v4.1h6.5c-.1 1.1-.8 2.7-2.4 3.8l-.1.1 3.5 2.7.2.1c2.2-2 3.8-5 3.8-8.6z"/>
-                            <path fill="#34A853" d="M12 24c3.2 0 5.9-1.1 7.9-2.9l-3.8-2.9c-1 .7-2.4 1.2-4.1 1.2-3.1 0-5.8-2.1-6.7-4.9l-.1.1-3.6 2.8-.1.1C3.3 21.3 7.3 24 12 24z"/>
-                            <path fill="#FBBC05" d="M5.3 14.5c-.2-.7-.4-1.5-.4-2.5s.1-1.8.4-2.5l-.1-.1-3.6-2.8-.1.1C.6 8.2 0 10 0 12s.6 3.8 1.5 5.3l3.8-2.8z"/>
-                            <path fill="#EA4335" d="M12 4.7c2.2 0 3.7 1 4.6 1.8l3.4-3.3C17.9 1.2 15.2 0 12 0 7.3 0 3.3 2.7 1.5 6.7l3.8 2.8c.9-2.8 3.6-4.8 6.7-4.8z"/>
-                        </svg>
-                        <span>Google</span>
-                    </button>
-                    <button type="button" class="btn-social" aria-label="Apple로 로그인">
-                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                            <path d="M17.05 12.54c-.03-2.9 2.37-4.3 2.48-4.37-1.35-1.98-3.45-2.25-4.2-2.28-1.79-.18-3.49 1.05-4.4 1.05-.9 0-2.3-1.02-3.78-1-1.94.03-3.73 1.13-4.73 2.87-2.02 3.5-.52 8.68 1.45 11.52.96 1.39 2.1 2.95 3.6 2.89 1.44-.06 1.99-.93 3.73-.93 1.75 0 2.24.93 3.76.9 1.55-.03 2.54-1.41 3.49-2.81 1.1-1.61 1.55-3.17 1.58-3.25-.03-.01-3.03-1.16-3.38-4.59zM14.36 4.4c.8-.97 1.34-2.32 1.19-3.66-1.15.05-2.55.77-3.38 1.74-.74.86-1.39 2.24-1.22 3.56 1.29.1 2.6-.66 3.41-1.64z"/>
-                        </svg>
-                        <span>Apple</span>
-                    </button>
-                </div>
-
-                <p class="form-foot">아직 계정이 없으신가요?<a href="#" class="link">회원가입</a></p>
-            </form>
-        </section>
+        <p class="form-foot">아직 계정이 없으신가요? <a href="#" class="link">회원가입</a></p>
+      </form>
+    </section>
     </main>
-
-    <script src="./main.js"></script>
+    
+    <script src="./main.js" defer></script>
 </body>
 </html>
