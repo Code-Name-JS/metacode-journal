@@ -176,11 +176,15 @@
     color: var(--text);
   }
 
+   /* 브라우저 기본 비밀번호 아이콘 제거 */
+   input[type="password"]::-ms-reveal{display: none;}
+   input[type="password"]::-ms-clear{display: none;}
+
   .input-wrap { position: relative; }
   .input-wrap .input-icon {
     position: absolute;
     left: 14px;
-    top: 50%;
+    top: 24px;
     transform: translateY(-50%);
     width: 18px;
     height: 18px;
@@ -213,7 +217,7 @@
   .input-wrap .toggle-pw {
     position: absolute;
     right: 8px;
-    top: 50%;
+    top: 24px;
     transform: translateY(-50%);
     width: 34px;
     height: 34px;

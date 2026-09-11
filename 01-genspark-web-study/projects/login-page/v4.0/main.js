@@ -3,6 +3,16 @@
    ===================================================== */
 console.log("main.js 연결 성공!");
 
+
+
+//  ── 데모용 계정(실제 서비스에서는 서버 인증으로 대체) ──
+const DEMO_ACCOUNTS = [
+    {email:'demo@myapp.com', password:'demo1234'},
+    {email:'test@example.com', password:'test5678'},
+];
+
+
+
 (function () {
     "use strict";
 
@@ -96,7 +106,7 @@ console.log("main.js 연결 성공!");
       setTimeout(function () {
         submitBtn.classList.remove("loading");
         submitBtn.disabled = false;
-        var msg = "로그인 성공! (시안 데모)";
+        var msg = "로그인 성공!";
         var existing = document.querySelector(".demo-success");
         if (existing) existing.remove();
         var banner = document.createElement("p");
