@@ -1,14 +1,17 @@
 /* =====================================================
-   main-v3.js  –  Login v3.0 Interactions
-===================================================== */
+   main-v1.js  –  Login v1.0 Interactions
+   ===================================================== */
+console.log("main.js 연결 성공!");
 
-(function () {
+'use strict';
+
+(function() {
     var form = document.getElementById('loginForm');
     var email = document.getElementById('email');
     var password = document.getElementById('password');
     var emailField = document.getElementById('emailField');
     var passwordField = document.getElementById('passwordField');
-    var emailError = document.getElementById('emailEorror');
+    var emailError = document.getElementById('emailError');
     var passwordError = document.getElementById('passwordError');
     var togglePw = document.getElementById('togglePw');
     var toast = document.getElementById('toast');
@@ -29,12 +32,12 @@
         field.querySelector('input').removeAttribute('aria-invalid');
     }
 
-    email.addEventListener('input', function(){
-        if (emailField.classList.contains('invalid')) clearError(emailField, emailError); 
+    email.addEventListener('input', function() {
+        if(emailField.classList.contains('invalid')) clearError(emailField, emailError);
     });
 
-    password.addEventListener('input', function(){
-        if (passwordField.classList.contains('invalid')) clearError(passwordField, passwordError);
+    password.addEventListener('input', function() {
+        if(passwordField.classList.contains('invalid')) celarError(passwordField, passwordError);
     });
 
     togglePw.addEventListener('click', function() {
@@ -42,14 +45,14 @@
         password.type = isPw ? 'text' : 'password';
         togglePw.setAttribute('aria-pressed', String(!isPw));
         togglePw.textContent = isPw ? '🙈' : '👁️';
-        password.focus();
+        password.focus(); 
     });
 
     function showToast(msg) {
         toast.textContent = msg;
         toast.classList.add('show');
         clearTimeout(showToast._t);
-        showToast._t = setTimeout(function () { toast.classList.remove('show');}, 2600);
+        showToast._t = setTimeout(function() { toast.classList.remove('show'); }, 2600);
     }
 
     form.addEventListener('submit', function (e) {
@@ -73,7 +76,7 @@
             showError(passwordField, passwordError, '비밀번호는 8자 이상이어야 합니다.');
             ok = false;
         } else {
-            clearError(passwordField, passwordError);
+            clearError(passwordField, paswordError);
         }
 
         if (ok) {
@@ -81,16 +84,16 @@
             showToast(remember ? '로그인 성공! (상태 유지됨)' : '로그인 성공!');
             form.reset();
         } else {
-            var firstInvalid = form.querSelector('.field.invalid input');
+            var firstInvalid = form.querySelector('.field.invalid input');
             if (firstInvalid) firstInvalid.focus();
         }
     });
 
-    document.getElementById('googleBtn').addEventListener('click', function() {
-        showToast('Google 로그인(데모)');
+    document.getElementById('googleBtn').addEventListener('click', function () {
+        showToast('Google 로그인 (데모)');
     });
 
     document.getElementById('appleBtn').addEventListener('click', function() {
-        showToast('Apple 로그인(데모)');
+        showToast('Apple 로그인 (데모)');
     });
 })();

@@ -5,23 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로그인·Genspark</title>
 
-    <link rel="stylesheet" href="./style.css"/>
+    <!-- CSS -->
+    <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
     <main class="card" aria-labelledby="loginTitle">
         <div class="brand">
             <div class="logo" aria-hidden="true">G</div>
-            <span style="font-weight:700; font-size: 18px;">Genspark</span>
+            <span style="font-weight: 700; font-size: 18px;">Genspark</span>
         </div>
         <h1 id="loginTitle">다시 만나 반가워요</h1>
         <p class="sub">계정에 로그인하여 계속하세요</p>
-    
+
         <form id="loginForm" novalidate>
             <div class="field" id="emailField">
                 <label for="email">이메일</label>
                 <div class="input-wrap">
-                    <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" aria-describedby="emailError">
+                    <input type="email" id="email" name="email" placeholder="you@example.com"
+                    autocomplete="email" aria-describedby="emailError">
                 </div>
                 <p class="error-msg" id="emailError" role="alert"></p>
             </div>
@@ -29,7 +31,8 @@
             <div class="field" id="passwordField">
                 <label for="password">비밀번호</label>
                 <div class="input-wrap">
-                    <input type="password" id="password" name="password" placeholder="비밀번호 입력" autocomplete="current-password" aria-describedby="passwordError">
+                    <input type="password" id="password" name="password" placeholder="비밀번호 입력"
+                    autocomplete="current-password" aria-describedby="passwordError">
                     <button type="button" class="toggle" id="togglePw" aria-label="비밀번호 표시/숨기기" aria-pressed="false">👁️</button>
                 </div>
                 <p class="error-msg" id="passwordError" role="alert"></p>
@@ -58,11 +61,11 @@
             </button>
         </div>
 
-        <p class="signup">계정이 없으신가요? <a href="#">회원가입</a></p>
+        <p class="signup">계정이 없으신가요?<a href="#">회원가입</a></p>
     </main>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-    <script src="./main.js"></script>
+    <script src="./main.js" defer></script>
 </body>
 </html>

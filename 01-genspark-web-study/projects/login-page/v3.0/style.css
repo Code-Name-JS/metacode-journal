@@ -1,27 +1,27 @@
 /* =====================================================
-   style-v3.css  –  Login v3
+   style-v3.css  –  Login v3.0
    ===================================================== */
 
-/* ── CSS Variable ── */
-:root{
-/* Brand */
+
+   
+/* ── CSS 변수 ── */
+:root {
 --bg: #f4f6fb;
 --card: #ffffff;
 --text: #1c2333;
 --muted: #6b7280;
 --border: #e2e8f0;
---primary: #4f46ef;
+--primary: #4f46e5;
 --primary-hover: #4338ca;
---primart-soft: #eef2ff;
+--primary-soft: #eef2ff;
 --error: #dc2626;
 --error-soft: #fef2f2;
---succenss: #16a34a;
+--success: #16a34a;
 --focus: #6366f1;
 --radius: 16px;
 --shadow: 0 20px 45px -20px rgba(30, 41, 59, 0.25);
 --social-border: #d1d5db;
 }
-
 
 @media (prefers-color-scheme: dark) {
 :root{
@@ -36,7 +36,6 @@
 --error: #f87171;
 --error-soft: #3a1d24;
 --success: #4ade80;
---focus: #a5b4fc;
 --shadow: 0 20px 45px -20px rgba(0, 0, 0, 0.6);
 --social-border: #3a435c;
 }
@@ -46,7 +45,9 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
-    background: radial-gradient(600px 400px at 15% 10%, rgba(79, 70, 229, 0.10), transparent 60%), radial-gradient(600px 400px at 90% 90%, rgba(14, 165, 233, 0.10), transparent 60%), var(--bg);
+    background: radial-gradient(600px 400px at 15% 10%, rgba(79, 70, 229, 0.10), transparent 60%),
+      radial-gradient(600px 400px at 90% 90%, rgba(14, 165, 233, 0.10), transparent 60%),
+      var(--bg);
     color: var(--text);
     min-height: 100vh;
     display: flex;
@@ -85,7 +86,7 @@ body {
 }
 
 h1 { font-size: 24px; font-weight: 700; letter-spacing: -0.3px; }
-.sub { color: var(--muted); font-size: 14px; margin: 6px 0 28px; }
+.sub { color: var(--muted); font-size: 14px; margin: 6px 0 28px;}
 
 .field { margin-bottom: 18px; }
 
@@ -94,7 +95,8 @@ label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; }
 .input-wrap { position: relative; }
 
 input[type="email"],
-input[type="password"] {
+input[type="password"],
+input[type="text"] {
     width: 100%;
     padding: 12px 14px;
     font-size: 15px;
@@ -106,11 +108,19 @@ input[type="password"] {
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-input[type="password"] { padding-right: 46px; }
+input[type="password"],
+input[type='text'] {
+    padding-right: 46px ;
+}
 
 input:focus {
     border-color: var(--focus);
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+}
+
+input::placeholder {
+    color: #b1b4bc;
+    opacity: 1;
 }
 
 .toggle {
@@ -203,7 +213,6 @@ input:focus {
     gap: 8px;
     padding: 11px;
     font-size: 14px;
-    font-weight: 600;
     color: var(--text);
     background: var(--card);
     border: 1px solid var(--social-border);
@@ -246,4 +255,3 @@ input:focus {
 @media (prefers-reduced-motion: reduce) {
 *, *::before, *::after { transition: none !important; animation: none !important; }
 }
-
