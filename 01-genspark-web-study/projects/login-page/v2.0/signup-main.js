@@ -516,21 +516,6 @@ function delay(ms) {
 
 
 
-/* -- 흔들기 애니메이션 CSS -- */
-const style = document.createElement('style');
-
-style.textContent = `
-@keyframes shake-v2 {
-    0%, 100%{transform: translateX(0);}
-    15%{transform: translateX(-7px);}
-    30%{transform: translateX(6px);}
-    45%{transform: translateX(-5px);}
-    60%{transform: translateX(4px);}
-    75%{transform: translateX(-3px);}
-    90%{transform: translateX(2px);}
-}
-`;
-
 document.head.appendChild(style);
 
 
