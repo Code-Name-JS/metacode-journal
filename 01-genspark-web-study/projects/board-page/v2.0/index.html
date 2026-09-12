@@ -11,6 +11,151 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+<header class="topbar">
+    <div class="topbar-inner">
+        <a class="brand" href="#" id="brandBtn" aria-label="게시판 첫 화면으로">
+            <span class="brand-mark" aria-hidden="true">
+                <svg width="18" heigth="18" viewBox="0 0 24 24" fill="none"><path d="M12 3c-4.4 0-8 2.9-8 6.6 0 2.1 1.2 4 3 5.2V18l3.1-1.7c.6.1 1.2.2 1.9.2 4.4 0 8-2.9 8-6.6S16.4 3 12 3z" fill="currentColor"/></svg>
+            </span>
+            <span class="brand-text">게시판<em>COMMUNITY BOARD</em></span>
+        </a>
+        <div class="topbar-actions">
+            <button class="btn btn-primary" id="writeBtn" type="button">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                글쓰기
+            </button>
+
+            <button class="icon-btn" id="themeToggle" type="button" aria-label="다크 모드로 전환">
+                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>
+                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M2 12h2.5M19.5 12H22M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+            </button>
+        </div>
+    </div>
+</header>
+
+<main class="container">
+
+    <!-- 목록 뷰 -->
+    <section id="listView" class="view" aria-label="게시글 목록">
+        <div class="board-head">
+            <h1 class="board-title">게시글<span class="total">총 <b id="totalCount">0</b>건</span></h1>
+        </div>
+
+        <div class="toolbar">
+            <nav class="tabs" id="categoryTabs" aira-label="카테고리 필터"></nav>
+            <form class="search" id="searchForm" role="search" aria-label="게시글 검색">
+                <input type="search" id="searchInput" placeholder="제목·작성자·내용 검색" aria-label="검색어">
+                <button class="btn btn-primary" type="submit">검색</button>
+            </form>
+        </div>
+
+        <div class="table-wrap">
+            <table class="board-table">
+                <caption class="sr-only">게시글 목록 - 번호, 제목, 작성자, 작성일, 조회</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">번호</th>
+                        <th scope="col">제목</th>
+                        <th scope="col">작성자</th>
+                        <th scope="col">작성일</th>
+                        <th scope="col">조회</th>
+                    </tr>
+                </thead>
+                <tbody id="postBody"></tbody>
+            </table>
+        </div>
+
+        <nav class="pagination" id="pagination" aria-label="페이지 이동"></nav>
+    </section>
+
+    <!-- 상세 뷰 -->
+    <section id="detailView" class="view" aria-label="게시글 상세" hidden>
+        <div class="detail-card">
+            <button class="btn btn-ghost" id="backBtn" type="button">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                목록으로
+            </button>
+            <div class="detail-head">
+                <span class="chip" id="dCategory"></span>
+                <h2 id="dTitle"></h2>
+                <div class="detail-meta" id="dMets"></div>
+            </div>
+            <div class="detail-attach" id="dAttach" hidden>
+                <div class="attach-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.4 11.1l-8.3 8.3a6 6 0 0 1-8.5-8.5l8.3-8.3a4 4 0 0 1 5.7 5.7l-8.3 8.3a2 2 0 0 1-2.8-2.8l7.8-7.8"/></svg>
+                    첨부파일
+                </div>
+                <div id="dFileList"></div>
+            </div>
+            <div class="detail-content" id="dContent"></div>
+            <div class="detail-nav" id="dNav"></div>
+        </div>
+
+        <div class="comment-box">
+            <h3 class="comment-title">댓글 <b id="cCount">0</b></h3>
+            <ul class="comment-list" id="commentList"></ul>
+            <form class="comment-form" id="commentForm">
+                <input type="text" id="commentInput" placeholder="댓글을 입력하세요" aria-label="댓글 내용" maxlength="300">
+                <button class="btn btn-primary" type="submit">등록</button>
+            </form>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="footer-inner">
+        <span>게시판 시안·데모 버전</span>
+        <span>데이터는 브라우저 메모리에만 존재하며, 새로고침 시 초기화됩니다</span>
+    </div>
+</footer>
+
+<!-- 글쓰기 모달 -->
+<div class="modal-overlay" id="writeModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" id="modalBox">
+        <div class="modal-head">
+            <h3 id="modalTitle">글쓰기</h3>
+            <button class="icon-btn" id="modalClose" type="button" aria-label="닫기">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+        </div>
+        <form id="writeForm" novalidate>
+            <div class="field-row">
+                <div class="field">
+                    <label for="wCategory">카테고리</label>
+                    <select id="wCategory">
+                        <option value="일반">일반</option>
+                        <option value="질문">질문</option>
+                        <option value="자료실">자료실</option>
+                        <option value="후기">후기</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="wAuthor">작성자</label>
+                    <input type="text" id="wAuthor" maxlength="20" placeholder="익명" autocomplete="off">               
+                </div>
+            </div>
+            <div class="field">
+                <label for="wTitle">제목</label>
+                <input type="text" id="wTitle" maxlength="80" placeholder="제목을 입력하세요" autocomplete="off">
+            </div>
+            <div class="field">
+                <label for="wContent">내용</label>
+                <textarce id="wContent" placeholder="내용을 입력하세요"></textarce>
+            </div>
+            <div class="attach-hint">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.4 11.1l-8.3 8.3a6 6 0 0 1-8.5-8.5l8.3-8.3a4 4 0 0 1 5.7 5.7l-8.3 8.3a2 2 0 0 1-2.8-2.8l7.8-7.8"/></svg>
+                파일 첨부는 시안용 표시입니다 - 실제 업로드는 서버 연동이 필요합니다
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-ghost" id="cancelBtn" type="button">취소</button>
+                <button class="btn btn-primary" type="submit">등록</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="./main.js" defer></script>
 </body>
 </html>
