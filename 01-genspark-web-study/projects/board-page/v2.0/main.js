@@ -38,5 +38,96 @@ const POSTS = [
    { id: 14, category: '질문', title: '재택근무할 때 집중 잘 되는 팁 알려주세요', author: '수아', date: daysAgo(13), views: 355, content: '재택근무를 시작했는데 집중이 잘 안 돼서 고민입니다.\n\n다들 어떤 방식으로 업무 집중력을 유지하시나요?', comments: [{author: '시우', text: '폼포도로 25분/5분 루틴 써봐요. 효과 좋아요', date: daysAgo(13)}, {author: '건우', text: '저는 집이 아닌 카페로 나가요. 환경 전환이 중요해요', date: daysAgo(12)}] },
    { id: 15, category: '질문', title: '사진 보정은 어떤 앱 쓰시나요?', author: '건우', date: daysAgo(14), views: 174, content: '최근에 사진 찍는 게 취미가 됐는데, 보정은 아직 어렵네요.\n\n초보에게 괜찮은 보정 앱이나 방법 추천 부탁드려요.', comments: [] },
    { id: 16, category: '질문', title: '자취 시작하는데 필요한 물품이 뭘까요?', author: '다은', date: daysAgo(15), views: 398, content: '다음 달부터 자취를 시작합니다!\n\n꼭 필요한 물품 리스트를 알고 싶어요. 선배님들의 조언 부탁드립니다 🙏', comments: [{author: '태윤', text: '전기포트 + 밥솥 + 후라이팬이면 일단 시작 가능해요', date: daysAgo(15)}, {author: '나은', text: '구비서류(계약서, 신분증 사본) 챙기세요!', date: daysAgo(14)}] },
-   
-]
+   { id: 17, category: '자료실', title: '[자료실] 2026년 캘린더 템플릿 공유합니다', author: '윤서', date: daysAgo(16), views: 621, content: '한 해 동안 쓸 수 있는 캘린더 템플릿을 만들었습니다.\n\n필요하신 분들은 자유롭게 다운로드해서 쓰세요!', files: [{name: '2026_캘린더_템플릿.xlsx', size: '45KB'}, {name: '2026_캘린더_템플릿_사용법.pdf', size: '320KB'}], comments: [{author: '지안', text: '감사합니다! 잘 쓸게요', date: daysAgo(16)}, {author: '민서', text: '와 정성이 대단하세요 👍', date: daysAgo(15)}] },
+   { id: 18, category: '자료실', title: '[자료실] 초보자용 홈트 프로그램 PDF', author: '지우', date: daysAgo(17), views: 448, content: '제가 4주 동안 실제로 해본 홈트 프로그램을 정리해서 올립니다.\n\n주차별 운동 구성과 식단 팁이 포함되어 있어요.', files:[{name: '홈트_프로그램_4주차.pdf', size: '2.1MB'}], comments: [{author: '예린', text: '바로 다운받았어요! 감사해요', date: daysAgo(17)}] },
+   { id: 19, category: '자료실', title: '[자료실] 무료 폰트 모음 링크 정리', author: '태윤', date: daysAgo(18), views: 533, content: '상업적 이용이 가능한 무료 폰트 위주로 정리했습니다.\n\n사용 전에 라이선스는 꼭 확인하세요!', comments: [] },
+   { id: 20, category: '자료실', title: '[자료실] 여행 일정 짤 때 유용한 템플릿', author: '소민', date: daysAgo(19), views: 276, content: '여행 가기 전에 일정 정리할 때 쓰는 엑셀 템플릿입니다.\n\n시간대별로 끌어다 쓰기 쉽게 만들어뒀어요.', files:[{name: '여행_일정표.xlsx', size: '28KB'}], comments: [] },
+   { id: 21, category: '후기', title: '[후기] 새로 산 러닝화 2주 사용 후기', author: '현우', date: daysAgo(20), views: 387, content: '한 달 고민하다가 드디어 러닝화를 질렀습니다.\n\n2주 정도 신어본 결과, 쿠션감은 만족스러운데 사이즈는 반 업 정도 크게 나온 것 같아요. 참고하세요!', comments: [{author: '은우', text: '사이즈 정보 감사합니다!', date: daysAgo(20)}, {author: '서연', text: '색상 이쁘네요 👟', date: daysAgo(19)}] },
+   { id: 22, category: '후기', title: '[후기] 홈트 30일 차! 몸 변화 인증합니다', author: '예린', date: daysAgo(21), views: 742, content: '30일 동안 쉬지 않고 홈트를 해봤습니다.\n\n체중 변화보다는 체형 변화가 더 크게 느껴져요. 허리 라인이 확실히 달라졌어요.\n\n꾸준함이 정말 중요하네요. 다들 화이팅!', comments: [{author: '지훈', text: '대단하세요!! 저도 자극받고 갑니다', date: daysAgo(21)}, {author: '하은', text: '우와 30일 대단해요 💪', date: daysAgo(20)}, {author: '유진', text: '저도 시작해볼게요!', date: daysAgo(19)}] },
+   { id: 23, category: '후기', title: '[후기] 에어프라이어로 만든 간식 성공했어요', author: '지후', date: daysAgo(22), views: 211, content: '집에 굴러다니던 에어프라이어를 드디어 써봤습니다.\n\n감자튀김 + 군고구마 둘 다 성공했어요! 온도와 시간 조절만 잘하면 끝이네요.', comments:[{author: '지안', text: '레시피 공유 부탁드려요!', date: daysAgo(22)}] },
+   { id: 24, category: '후기', title: '[후기] 전자책 리더기 구매 후기', author: '나은', date: daysAgo(23), views: 334, content: '고민 끝에 전자책 리더기를 구매했습니다.\n\n눈의 피로감이 확실히 덜하고, 집중도 잘 돼요. 단점은 화면 전환 속도가 조금 느리다는 점 정도? 전체적으로 만족합니다.', comments: [{author: '시우', text: '저도 사고 싶어지네요 ㅎㅎ', date: daysAgo(23)}] }
+];
+
+
+
+/* -- 상태 -- */
+const state = { category: '전체', keyword: '', page: 1, pageSize: 10, currentId: null, viewed: new Set() };
+let filtered = [];
+
+
+
+/* -- 필터·렌더링 -- */
+const CATS = ['전체', '공지', '질문', '자료실', '후기', '일반'];
+
+function applyFilter(){
+   let list = [...POSTS];
+   if (state.category !== '전체') list = list.filter(p => p.category === state.category);
+   if (state.keyword){
+      const kw = state.keyword.toLowerCase();
+      list = list.filter(p => [p.title, p.author, p.content].some(v => v.toLowerCase().includes(kw)));
+   }
+   list.sort((a, b) => (b.category === '공지') - (a.category == '공지') || b.id - a.id);
+   filtered = list;
+}
+
+function rederTabs(){
+   $('#categoryTabs').innerHTML = CATS.map(c => {
+      const n = c === '전체' ? POSTS.length : POSTS.filter(p => p.category === c).length;
+      return `<button type = "button" class = "tab ${state.category === c? 'is-active' : ''}" data-cat= "${c}">${c} <span style = "opacity: .55; font-size: 12px; font-weight: 600;>${n}</span></button>`;
+   }).join('');
+}
+
+function h1(text){
+   if(!state.keyword) return esc(text);
+   const i = text.toLowerCase().indexOf(state.keyword.toLowerCase());
+   if(i === -1) return esc(text);
+   return esc(text.slice(0, i)) + '<mark>' + esc(text.slice(i, i+state.keyword.length)) + '</mark>' + esc(text.slice(i+state.keyword.length));
+}
+
+function renderList(){
+   applyFilter();
+   $('#totalCount').textContent = nf(filtered.length);
+   const totalPages = Math.max(1, Math.ceil(filtered.length / state.pageSize));
+   if (state.page > totalPages){ state.page = totalPages; }
+   const start = (state.page -1) * state.pageSize;
+   const pagePosts = filtered.slice(start, start + start.pageSize);
+   const totalNonNotice = filtered.filter(x => x.category !== '공지').length;
+
+   const rows = pagePosts.map((p, i) => {
+      const isNotice = p.category == '공지';
+      const nonNoticeBefore = pagePosts.slice(0, i).filter(x => x.category !== '공지').length;
+      const no = nf(totalNonNotice - start - nonNoticeBefore);
+      const titleBadge = isNotice ? '<span class="badge-notice title-badge">공지</span>' : '';
+      const clip = (p.files && p.files.length) ? `<span class="clip" title="첨부파일 ${p.files.length}개"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" strock-linecap="round" stroke-linejoin="round"><path d="M21.4 11.1l-8.3 8.3a6 6 0 0 1-8.5-8.5l8.3-8.3a4 4 0 0 1 5.7 5.7l-8.3 8.3a2 2 0 0 1-2.8-2.8l7.8-7.8"/></svg></span>` : '';
+      return `<tr class = "${isNotice? 'is-notice' : ''}" data-id = "${p.id}">
+         <td class="td-no">${isNotice ? '<span class="badge-notice">공지</span>' : no}</td>
+         <td class='td-title"><div class="title-wrap">${titleBadge}<a class="title-link" href="#${p.id}" data-id="${p.id}>${h1(p.title)}</a>${p.comments.length ? `<span class="c-count">[${p.comments.length}]</span>` : ''}${clip}</div></td>
+         <td class='td-author"><span class="author-cell">${avatarHTML(p.author)}${esc(p.author)}</span></td>
+         <td class="td-date">${p.date}</td>
+         <td class="td-views">${nf(p.views)}</td>
+      </tr>`;
+   });
+
+   $('#postBody').innerHTML = rows.length ? rows.join('') : `<tr><td colspan="5"><div class="empty">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3M8 11h6"/></svg>
+      <p>게시글이 없습니다</p><div class="empty-sub">검색어나 카테고리를 변경해보세요</div></div></td></tr>`;
+
+   rederPagination(totalPages);
+}
+
+function renderPagination(totalPages){
+   let start = Math.max(1, state.page - 3);
+   let end = Math.min(totalPages, start + 6);
+   start = Math.max(1, end - 6);
+   const nums = [];
+   for (let i = start; i <= end; i++) nums.push(i);
+   const arrow = (dir) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${dir==='prev' ? 'M15 18l-6-6 6-6' : 'M9 6l6 6-6 6'}"/></svg>`;
+   $('#pagination').innerHTML = `
+      <button type="button" class="page-btn" data-page="${state.page-1}" ${state.page === 1? 'disabled' : ''} aria-label="이전 페이지">${arrow('prev')}</button>
+      ${nums.map(n => `<button type="button" class="page-btn ${n === state.page? 'is-active' : ''}" data-page="${n}" aria-label="${n}페이지" ${n === state.page? 'aria-current="page"' : ''}>${n}</button>`).join('')}
+      <button type="button" class="page-btn" data-page="${state.page+1}" ${state.page === totalPages? 'disabled' : ''} aria-label="다음 페이지">${arrow('next')}</button>`;
+}
+
+
+
+/* -- 상세 뷰 -- */
