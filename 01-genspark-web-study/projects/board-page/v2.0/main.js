@@ -37,5 +37,6 @@ const POSTS = [
    { id: 13, category: '질문', title: '집에서 만들기 쉬운 요리 있을까요?', author: '지안', date: daysAgo(12), views: 289, content: '요리를 거의 안 해봤는데, 자취를 시작하면서 한두 개는 만들어 먹고 싶어요.\n\n정말 쉬운 요리 추천 부탁드립니다!', comments: [{author: '소민', text: '계란 볶음밥 + 아보카도 토스트 추천!', date: daysAgo(12)}] },
    { id: 14, category: '질문', title: '재택근무할 때 집중 잘 되는 팁 알려주세요', author: '수아', date: daysAgo(13), views: 355, content: '재택근무를 시작했는데 집중이 잘 안 돼서 고민입니다.\n\n다들 어떤 방식으로 업무 집중력을 유지하시나요?', comments: [{author: '시우', text: '폼포도로 25분/5분 루틴 써봐요. 효과 좋아요', date: daysAgo(13)}, {author: '건우', text: '저는 집이 아닌 카페로 나가요. 환경 전환이 중요해요', date: daysAgo(12)}] },
    { id: 15, category: '질문', title: '사진 보정은 어떤 앱 쓰시나요?', author: '건우', date: daysAgo(14), views: 174, content: '최근에 사진 찍는 게 취미가 됐는데, 보정은 아직 어렵네요.\n\n초보에게 괜찮은 보정 앱이나 방법 추천 부탁드려요.', comments: [] },
-
+   { id: 16, category: '질문', title: '자취 시작하는데 필요한 물품이 뭘까요?', author: '다은', date: daysAgo(15), views: 398, content: '다음 달부터 자취를 시작합니다!\n\n꼭 필요한 물품 리스트를 알고 싶어요. 선배님들의 조언 부탁드립니다 🙏', comments: [{author: '태윤', text: '전기포트 + 밥솥 + 후라이팬이면 일단 시작 가능해요', date: daysAgo(15)}, {author: '나은', text: '구비서류(계약서, 신분증 사본) 챙기세요!', date: daysAgo(14)}] },
+   
 ]
