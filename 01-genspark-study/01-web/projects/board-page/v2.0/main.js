@@ -131,3 +131,208 @@ function renderPagination(totalPages){
 
 
 /* -- 상세 뷰 -- */
+function renderComments(p){
+   $('#cCount').textContent = p.comments.length;
+   $('#commentList').innerHTML = p.comments.length
+      ? p.comments.map((c, i) => `<li class = "comment-item">
+         ${avatarHTML(c.author)}
+         <div class="comment-body">
+            <div class="comment-meta"><span class="name">${esc(c.author)}</span><span class="date">${c.date}</span>
+               <button type="button" class="comment-del" data-ci="${i}" aria-label = "댓글 삭제">삭제</button></div>
+            <div class="comment-text">${esc(c.text)}</div>
+         </div>
+      </li>`).join('')
+   :  '<li style="padding: 8px 0; color: var(--muted); font-size: 13.5px">첫 번째 댓글을 남겨보세요.</li>';
+}
+
+function renderDetail(id){
+   const p = POSTS.find(x => x.id === id);
+   if (!p) return;
+   state.currentId = id;
+   if (!state.viewed.has(id)){ state.viewed.add(id); p.views++; }
+
+   $('#dCategory').textContent = p.category;
+   $('#dCategory').calssName = 'chip chip-' + p.category;
+   $('#dTitle').textContent = p.title;
+   $('#dMeta').innerHTML = `${avatarHTML(p.author)}<span style="font-weight: 700; color: var(--text)">${esc(p.author)}</span><span class= "dot">·</span><span>${p.date}</span><span class= "dot">·</span><span>조회 ${nf(p.views)}</span>`;
+
+   if (p.files && p.files.length){
+      $('#dAttach').hidden = false;
+      $('#dFileList').innerHTML = p.files.map(f => `<div class= "file-row">
+         <span class="f-icon"><svg viewBox="0 0 24 24" fill="non" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span>
+         <span class="f-name">${esc(f.name)}</span>
+         <span class="f-size">${f.size}</span>
+      </div>`).join('');
+   } else {
+      $('#dAttach').hidden = true;
+   }
+
+   $('#dContent').innerHTML = p.content.split('\n\n').map(par => `<p>${esc(par).replace(/\n/g,'<br>')}</p>`).join('');
+
+   const idx = filtered.findIndex(x => x.id === id);
+   const next = idx > 0 ? filtered[idx-1] : null;
+   const prev = (idx >= 0 && idx < filtered.length -1) ? filtered[idx +1] : null;
+   const navItem = (item, dir) => item
+      ? `<a href="#${item.id}" class="nav-link" data-id="${item.id}"><span class="dir">${dir} 글</span><span class="t">${esc(item.title)}</span></a>`
+      : `<div class="nav-link is-empty"><span class="dir off">${dir} 글</span><span class="t">${dir} 글이 없습니다</span></div>`;
+   $('#dNav').innerHTML = navItem(prev, '이전') + navItem(next, '다음');
+
+   renderComments(p);
+   showView('detail');
+}
+
+function showView(name){
+   $('#listView').hidden = (name !== 'list');
+   $('#detailView').hidden = (name !== 'detail');
+   if (name === 'list') state.currentId = null;
+   window.scrollTo({ top:0 });
+}
+
+
+
+/* -- 모달·토스트·테마 -- */
+const writeModal = $('#writeModal');
+let lastFocus = null;
+
+function openModal(){
+   lastFocus = document.activeElement;
+   writeModal.hidden = false;
+   document.body.style.overflow = 'hidden';
+   $('#wTitle').focus();
+}
+
+function closeModal(){
+   writeModal.hidden = true;
+   document.body.style.overflow = '';
+   if (lastFocus) lastFocus.focus();
+}
+
+let toastTimer;
+function toast(msg){
+   const t = $('#toast');
+   t.textContent = msg;
+   t.classList.add('show');
+   clearTimeout(toastTimer);
+   toastTimer = setTimeout(() => t.classList.remove('show'), 2200); 
+}
+
+function applyTheme(theme){
+   document.documentElement.setAttribute('data-theme', theme);
+   try { localStorage.setItem('board-theme', theme); } catch(e){}
+}
+
+
+
+/* -- 이벤트 바인딩 -- */
+$('#categoryTabs').addEventListener('click', e => {
+   const btn = e.target.closest('[data-cat]');
+   if (!btn) return;
+   state.category = btn.dataset.cat;
+   state.page = 1;
+   renderTabs(); renderList();
+});
+
+$('#pagination').addEventListener('click', e => {
+   const btn = e.target.closest('[data-page]');
+   state.page = Number(btn.dataset.page);
+   renderList();
+   $('.table-wrap').scrollIntoView({ behavior: 'smooth', block: 'start'});
+});
+
+$('#postBody').addEventListener('click', e => {
+   const el = e.target.closest('[data-id]');
+   if (el) renderDetail(Number(el.dataset.id));
+});
+
+$('#dNav').addEventListener('click', e => {
+   const el = e.target.closest('[data-id]');
+   if (el) renderDetail(Number(el.dataset.id));
+});
+
+$('#commentList').addEventListener('click', e => {
+   const el = e.target.closest('[data-ci]');
+   if (!el) return;
+   const p = POSTS.find(x => x.id === state.currentId);
+   if (!p) return;
+   p.comments.splice(Number(el.dataset.ci), 1);
+   renderComments(p);
+   toast('댓글이 삭제되었습니다');
+});
+
+$('#searchForm').addEventListener('submit', e => {
+   e.preventDefault();
+   state.keyword = $('#searchInput').value.trim();
+   state.page = 1;
+   renderList();
+});
+
+$('#searchInput').addEventListener('search', () => {
+   if (!$('#searchInput').value){
+      state.keyword = '';
+      state.page = 1;
+      renderList();
+   }
+});
+
+$('#backBtn').addEventListener('click', () => showView('list'));
+
+$('#brandBtn').addEventListener('click', e => {
+   e.preventDefault();
+   state.category = '전체'; state.keyword = ''; state.page = 1;
+   $('#searchInput'),value = '';
+   renderTabs(); renderList(); showView('list');
+});
+
+$('#writeBtn').addEventListener('click', openModal);
+$('#modalClose').addEventListener('click', closeModal);
+$('#cancelBtn').addEventListener('click', closeModal);
+writeModal.addEventListener('click', e => { if (e.target === writeModal) closeModal(); });
+
+$('#writeForm').addEventListener('submit', e => {
+   e.preventDefault();
+   const cat = $('#wCategory').value;
+   const author = $('#wAuthor').value.trim() || '익명';
+   const title = $('#Title').value.trim();
+   const content = $('#wContent').value.trim();
+   if (!title){ toast('제목을 입력해주세요'); $('#wTitle').focus(); return; }
+   if (!content){ toast('내용을 입력해주세요'); $('#wContent').focus(); return; }
+   const id = Math.max({ id, category:cat, title, author, date:fmtDate(new Date()), viesw: 0, conetn, files: [], comments: [] });
+   POSTS.unshift({ id, category: cat, title, author, date: fmtDate(new Date()), views: 0, content, files: [], comments: [] });
+   state.category = '전체'; state.keyword = ''; state.page = 1;
+   $('#searchInput').value = '';
+   renderTabs(); renderList();
+   $('#writeForm').reset();
+   closeModal();
+   showView('list');
+   toast('게시글이 등록되었습니다');
+});
+
+$('#commentForm').addEventListener('submit', e => {
+   e.preventDefault();
+   const v = $('#commentInput').value.trim();
+   if (!v || !state.currentId) return;
+   const p = POSTS.find(x => x.id === state.currentId);
+   if (!p) return;
+   p.comments.push({ author: '나', text: v, date: fmtDate(new Date()) });
+   $('#commentInput').value = '';
+   renderComments(p);
+   toast('댓글이 등록되었습니다');
+});
+
+$('#themeToggle').addEventListener('click', () => {
+   const cur = document.documentElement.getAttribute('data-theme');
+   applyTheme(cur === 'dark' ? 'light' : 'dark');
+});
+
+document.addEventListener('keydown', e => {
+   if (e.key !== 'Escape') return;
+   if (!writeModal.hidden) closeModal();
+   else if (state.currentId) showView('list');
+});
+
+
+
+/* -- 초기화 -- */
+applyTheme(((() => { try { return localStorage.getItem('board-theme'); } catch(e){ return null; } })()) || 'light');
+renderTabs();
+renderList();
