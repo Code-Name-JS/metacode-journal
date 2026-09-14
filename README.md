@@ -60,7 +60,7 @@ reflection, participation, and creative interaction.
 
 ## Current Interests
 
-- Frontend Development (HTML / CSS)
+- Frontend Development (HTML / CSS / JavaScript)
 - AI + Creative Production
 - Interactive Web Experiences
 - Data Visualization
@@ -118,6 +118,7 @@ metacode-journal/
 ### Languages
 - HTML
 - CSS
+- JavaScript
 - Python
 
 ### Tools & Platforms
