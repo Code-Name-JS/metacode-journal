@@ -2,8 +2,7 @@
 
 /* ════════════════════════════════════════════
    게시판 시안 — 더미 데이터
-   실제 연동 시 이 배열만 서버 응답으로 교체하면 됩니다.
-   ════════════════════════════════════════════ */
+════════════════════════════════════════════ */
 const POSTS = [
   { id: 1,  category: "공지",   isNotice: true,  title: "홈페이지 리뉴얼 오픈 안내",                                  writer: "운영팀",   date: "2026-09-05", hits: 482,  content: "안녕하세요, 샘플컴퍼니입니다.\n\n보다 나은 서비스 제공을 위해 홈페이지를 전면 리뉴얼하였습니다.\n새로워진 디자인과 개선된 기능을 확인해 보세요.\n\n- 반응형 웹 지원 (모바일/태블릿 최적화)\n- 게시판 및 고객지원 기능 개선\n- 웹 접근성 강화 (키보드 탐색 지원)\n\n이용 중 불편한 점은 고객지원을 통해 알려주세요.\n감사합니다.", attachments: [{ name: "리뉴얼_안내문.pdf", size: "1.2MB" }] },
   { id: 2,  category: "공지",   isNotice: true,  title: "추석 연휴 고객센터 운영 안내",                                writer: "고객지원팀", date: "2026-09-04", hits: 317,  content: "추석 연휴 기간 고객센터 운영 안내입니다.\n\n- 휴무일: 9월 25일(금) ~ 9월 28일(월)\n- 정상 운영: 9월 29일(화) 09:00부터\n\n연휴 중 문의사항은 1:1 문의 게시판에 남겨주시면 순차적으로 답변드리겠습니다.", attachments: [] },
@@ -21,6 +20,7 @@ const POSTS = [
   { id: 14, category: "이벤트", isNotice: false, title: "설문조사 참여하고 커피쿠폰 받아가세요",                       writer: "전략팀",   date: "2026-07-15", hits: 623,  content: "서비스 만족도 설문조사에 참여해 주세요.\n\n소요 시간: 약 3분\n혜택: 참여자 전원 커피 쿠폰 증정\n기간: 7월 31일까지", attachments: [] },
   { id: 15, category: "소식",   isNotice: false, title: "ESG 경영보고서 발간 안내",                                    writer: "경영지원팀", date: "2026-07-10", hits: 98,   content: "2026년 ESG 경영보고서가 발간되었습니다.\n\n환경·사회·지배구조 전 분야의 활동과 성과를 담았습니다.\n첨부파일에서 전문을 확인하실 수 있습니다.", attachments: [{ name: "ESG_경영보고서_2026.pdf", size: "6.5MB" }] },
 ];
+
 
 /* 더미 댓글 */
 const COMMENTS = [
@@ -43,9 +43,10 @@ const state = {
   comments: [...COMMENTS],
 };
 
-/* ══════════ 유틸 ══════════ */
-const $ = (sel) => document.querySelector(sel);
+const POSTS_PER_PAGE = 10;
+const $ = (selector) => document.querySelector(selector);
 
+/* ══════════ 유틸 ══════════ */
 function esc(str) {
   const div = document.createElement("div");
   div.textContent = String(str);
@@ -143,7 +144,7 @@ function renderList() {
 
 function renderPagination(totalPages) {
   const el = $("#pagination");
-  const current = state.page;
+  const current = Number(state.page) || 1; // 타입 안전을 위해 Number 변환 권장
   const groupStart = Math.floor((current - 1) / PAGE_GROUP) * PAGE_GROUP + 1;
   const groupEnd = Math.min(groupStart + PAGE_GROUP - 1, totalPages);
 
@@ -163,16 +164,27 @@ function renderPagination(totalPages) {
   html += btn("››", Math.min(totalPages, groupEnd + 1), { disabled: groupEnd === totalPages, aria: "다음 블록" });
 
   el.innerHTML = html;
+
   el.querySelectorAll(".page-btn").forEach((b) => {
     b.addEventListener("click", () => {
-      state.page = Number(b.dataset.page);
+      const targetPage = Number(b.dataset.page);
+      
+      // 이미 보고 있는 페이지를 다시 누르면 기록이 중복 생성되지 않도록 방지
+      if (state.page === targetPage) return;
+
+      state.page = targetPage;
+
+      // 브라우저 히스토리에 새 페이지 기록 추가 (?page = 숫자 형태로 URL 변경)
+      history.pushState({ page: state.page }, "", `?page=${state.page}`);
+      
+      // 화면 리스트 갱신
       renderList();
     });
   });
 }
 
 /* ══════════ 2. 상세 화면 ══════════ */
-function openDetail(id) {
+function openDetail(id, push = true) {
   const post = POSTS.find((p) => p.id === id);
   if (!post) return;
 
@@ -201,6 +213,11 @@ function openDetail(id) {
   renderComments();
   renderDetailNav(post);
   switchView("detail");
+
+  // push가 true일 때만 히스토리에 기록 (뒤로가기로 접근했을 때 중복 push 방지)
+  if (push) {
+    history.pushState({ view: "detail", id: post.id }, "", `?id=${post.id}`);
+  }
 }
 
 function renderComments() {
@@ -361,8 +378,29 @@ function bindEvents() {
   });
 }
 
+
+// 브라우저 뒤로 가기 / 앞으로 가기 감지
+window.addEventListener("popstate", (e) => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const pageFromUrl = Number(urlParams.get("page")) || 1;
+
+  // 히스토리 상태에 page가 있으면 복구, 없으면 URL 쿼리스트링에서 가져옴
+  state.page = e.state?.page || pageFromUrl;
+
+  // 상세 화면이나 글쓰기 화면에서 뒤로 가기를 눌렀을 때도 대비해 목록 화면으로 전환
+  renderList();
+  switchView("list");
+});
+
+
 /* ══════════ 초기화 ══════════ */
 document.addEventListener("DOMContentLoaded", () => {
+  // 처음 접속 시 URL의 ?page= 값을 읽어와 state에 반영
+  const urlParams = new URLSearchParams(window.location.search);
+  const initialPage = Number(urlParams.get("page")) || 1;
+  state.page = initialPage;
+
+  // 이벤트 바인딩 및 첫 화면 렌더링
   bindEvents();
   renderList();
 });
