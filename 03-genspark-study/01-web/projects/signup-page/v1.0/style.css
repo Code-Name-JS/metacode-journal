@@ -1,0 +1,471 @@
+/* ==========================================================================
+   v1.0 CSS 변수 :
+   색상 테마는 data-theme 속성만 바꾸면 전체가 전환됩니다.
+   ========================================================================== */
+
+:root{
+/* 기본(오로라) 테마 */
+--bg-1: #808b18;
+--bg-2: #0f1630;
+--glow-1: rgba(124, 92, 255, .30);
+--glow-2: rgba(34, 211, 238, .22);
+--aurora-1: #7c5cff;
+--aurora-2: #22d3ee;
+--aurora-3: #ff5c8a;
+--accent: #7c5cff;
+--accent-2: #22d3ee;
+--accent-soft: rgba(124, 92, 255, .38);
+--focus: 0 0 0 4px rgba(124, 92, 255, .26);
+
+/* 공통 토큰 */
+--text: #f2f5ff;
+--text-muted: #9aa4c4;
+--placeholder: #6b769b;
+--card-bg: rgba(255, 255, 255, .065);
+--card-border: rgba(255, 255, 255, .14);
+--field-bg: rgba(255, 255, 255, .05);
+--field-bg-focus: rgba(255, 255, 255, .085);
+--field-border: rgba(255, 255, 255, .26);
+--field-border-hover: rgba(255, 255, 255, .30);
+--ok: #2fe0a0;
+--ok-soft: rgba(47, 224, 160, .12);
+--ok-border: rgba(47, 224, 160, .32);
+--warn: #ffc857;
+--err: #ff6b81;
+--err-glow: rgba(255, 107, 129, .18);
+--radius-lg: 26px;
+--radius: 16px;
+--radius-sm: 12px;
+--shadow: 0 30px 80px rgba(4, 7, 18, .55);
+--speed: .26s;
+}
+
+
+
+/* 선셋(sunset) 테마 */
+html[data-theme="sunset"]{
+--bg-1: #140a12;
+--bg-2: #2a1020;
+--glow-1: rgba(255, 122, 69, .28);
+--glow-2: rgba(255, 77, 109, .22);
+--aurora-1: #ff8a3d;
+--aurora-2: #ff4d6d;
+--aurora-3: #ffd166;
+--accent: #ff7a45;
+--accent-2: #ff4d6d;
+--accent-soft: rgba(255, 122, 69, .38);
+--focus: 0 0 0 4px rgba(255, 122, 69, .26);
+}
+
+
+
+/* 민트 테마 */
+html[data-theme="mint"]{
+--bg-1: #04140f;
+--bg-2: #07211c;
+--glow-1: rgba(32, 227, 178, .24);
+--glow-2: rgba(31, 156, 255, .22);
+--aurora-1: #20e3b2;
+--aurora-2: #1f9cff;
+--aurora-3: #a0ffd9;
+--accent: #12c48b;
+--accent-2: #1f9cff;
+--accent-soft: rgba(32, 227, 178, .34);
+--focus: 0 0 0 4px rgba(32, 227, 178, .24); 
+}
+
+
+
+/* ==========================================================================
+   2. 기본 리셋 & 배경
+   ========================================================================== */
+*, *::before, *::after{box-sizing: border-box;}
+
+html{-webkit-text-size-adjust: 100%;}
+
+body{
+    margin: 0;
+    min-height: 100vh;
+    min-height: 100dvh;
+    font-family: "Pretendard", "Pretendard Variable", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--text);
+    background: var(--bg-1);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+
+
+/* 움직이는 오로라 배경 */
+.bg{
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+    background:
+    radial-gradient(closest-side at 16% 10%, var(--glow-1), transparent 72%),
+    radial-gradient(closest-side at 88% 84%, var(--glow-2), transparent 74%),
+    linear-gradient(160deg, var(--bg-1) 0%, var(--bg-2) 55%, var(--bg-1) 100%);
+}
+
+.blob{
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(72px);
+    mix-blend-mode: screen;
+    opacity: 42;
+    animation: floatBlob 24s ease-in-out infinite;
+}
+
+.blob.b1{
+    width: 44vmax;
+    height: 44vmax;
+    left: -13vmax;
+    top: -15vmax;
+    background: var(--aurora-1);
+}
+
+.blob.b2{
+    width: 38vmax; height: 38vmax; right: -11vmax; bottom: -17vmax;
+    background: var(--aurora-2); animation-delay: -8s;
+}
+
+.blob.b3{
+    width: 30vmax; height: 30vmax; left: 44%; top: 52%; background: var(--aurora-3);
+    opacity: .26; animation-delay: -15s;
+}
+
+@keyframes floatBlob{
+    0%, 100%{ transform: translate3d(0, 0, 0) scale(1); }
+    33%{ transform: translate3d(4vmax, -3vmax, 0) scale(1.08); }
+    66%{ transform: translate3d(-3vmax, 3vmax, 0) scale(.94); }
+}
+
+
+
+/* 미세한 그리드 텍스처 */
+.grid-overlay{
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: .05;
+    background-image:
+    linear-gradient(rgba(255, 255, 255, .6) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, .6) 1px, transparent 1px);
+    background-size: 64px 64px;
+    -webkit-mask-image: radial-grandient(closest-side at 50% 40%, #000 20%, transparent 85%);
+    mask-image: radial-gradient(closest-side at 50% 40%, #000 20%, transparent 85%);
+}
+
+
+
+/* ==========================================================================
+   3. 레이아웃
+   ========================================================================== */
+.stage{
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 20px;
+}
+
+.card{
+    width: 100%;
+    max-width: 1024px;
+    display: grid;
+    grid-template-columns:minmax(0, 1fr) minmax(0, 1.14fr);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, .12);
+    -webkit-backdrop-filter: blur(22px) saturate(150%);
+    backdrop-filter: blur(22px) saturate(150%);
+    overflow: hidden;
+}
+
+
+
+/* -- 좌측 브랜드 패널 -- */
+.brand{
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    padding: 46px 42px;
+    background:
+    radial-gradient(120% 100% at 0% 0%, rgba(255, 255, 255, .18), transparent 58%),
+    linear-gradient(155deg, var(--accent) 0%, var(--accent-2) 100%)
+}
+
+.brand::after{
+    content: "";
+    position: absolute;
+    right: -140px;
+    bottom: -150px;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, .22);
+    box-shadow: 0 0 0 42px rgba(255, 255, 255, .06), 0 0 0 86px rgba(255, 255, 255, .035);
+    pointer-events: none;
+}
+
+.brand > *{ position: relative; z-index: 1; }
+
+.logo{
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: -.02em;
+}
+
+.logo-mark{
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
+    display: grid;
+    place-items: center;
+    border-radius: 13px;
+    background: rgba(255, 255, 255, .20);
+    border: 1px solid rgba(255, 255, 255, .38);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .4);
+}
+
+.logo-mark svg{ width: 21px; height: 21px; }
+
+.brand h1{
+    margin: 0;
+    font-size: 30px;
+    line-height: 1.28;
+    font-weight: 800;
+    letter-spacing: -.035em;
+    color: #fff;
+}
+
+.brand.sub{
+    margin: -10px 0 0;
+    font-size: 14.5px;
+    color: rgba(255, 255, 255, .86);
+    max-width: 30ch;
+}
+
+.benefits{
+    list-style: none;
+    margin: 4px 0 0;
+    padding: 0;
+    display: grid;
+    gap: 15px;
+}
+
+.benefits li{
+    display: flex;
+    gap: 11px;
+    align-items: flex-start;
+    font-size: 14.5px;
+    color: rgba(255, 255, 255, .95);
+}
+
+.benefits li b{ display: block; font-weight: 700; }
+.benefits li span small{ display: block; font-size: 13px; color: rgba(255, 255, 255, .78); }
+.tick{
+    flex: 0 0 22px;
+    width: 22px;
+    height: 22px;
+    margin-top: 2px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 700;
+    background: rgba(255, 255, 255, .24);
+    border: 1px solid rgba(255, 255, 255, .34);
+}
+
+.quote{
+    margin: auto 0 0;
+    padding: 18px 18px 16px;
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, .14);
+    border: 1px solid rgba(255, 255, 255, .24);
+}
+
+.quote blockquote{
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.65;
+    color: #fff;
+}
+
+.quote figcaption{
+    margin-top: 10px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, .82);
+}
+
+
+
+/* -- 우측 폼 패널 -- */
+.pane{
+    padding: 42px 46px;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.eyebrow{
+    margin: 0 0 8px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--accent-2);
+}
+
+.pane-head h2{
+    margin: 0 0 8px;
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: -.03em;
+}
+
+.pane-head p{
+    margin: 0;
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.pane-head a,
+.footnote a{
+    color: var(--accent-2);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--speed);
+}
+
+.pane-head a:hover,
+.footnote a:hover{ border-bottom-color: currentColor; }
+
+#formView{ margin: auto 0; }
+
+form{
+    display: grid;
+    gap: 15px;
+    margin-top: 24px;
+}
+
+
+
+/* -- 입력 필드 -- */
+.field{ display: grid; gap: 7px; }
+.field > label{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.field > label.opt{
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--placeholder);
+}
+
+.input-wrap{ position: relative; display: flex; align-items: center; }
+.input-wrap.lead{
+    position: absolute;
+    left: 15px;
+    width: 19px;
+    height: 19px;
+    color: var(--placeholder);
+    pointer-events: none;
+    transition: color var(--speed);
+}
+.input-wrap:focus-within.lead{ color: var(--accent-2); }
+
+input[type="text"],
+input[type="email"],
+input[type="password"]{
+    width: 100%;
+    height: 54px;
+    padding: 0 48px 0 45px;
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--text);
+    background: var(--field-bg);
+    border: 1px solid var(--radius);
+    outline: none;
+    transition: border-color var(--speed), box-shadow var(--speed), background var(--speed);
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+input::placeholder{ color: var(--placeholder); }
+input:hover:not(:focus){ border-color: var(--field-border-hover); }
+input:focus{
+    border-color:var(--accent);
+    background: var(--field-bg-focus);
+    box-shadow: var(--focus);
+}
+
+input:-webki-autofill{
+    -webkit-text-fill-color: var(--text);
+    -webkit-box-shadow: 0 0 0 1000px rgba(18, 24, 46, .92) inset;
+    box-shadow: 0 0 0 1000px rgba(18, 24, 46, .92) inset;
+}
+
+
+
+/* 상태 아이콘 */
+.status{
+    position: absolute;
+    right: 15px;
+    width: 20px;
+    height: 20px;
+    display: none;
+    pointer-events: none;
+}
+
+.status.ic{ display: none; width: 20px; height: 20px; }
+.field.is-valid.status{ display: block; }
+.field.is-valid.status.ic.ok{ display: block; color: var(--ok); }
+.field.is-invalid.status{ display: block; }
+.field.is-invalid.status.ic.err{ display: block; color: var(--err); }
+.input-wrap.with-toggle.status{ right: 48px; }
+
+.field.is-valid input{ border-color: var(--ok-border); }
+.field.is-invalid input{ border-color: var(--err); box-shadow: 0 0 0 4px var(--err-glow); }
+
+
+
+/* -- 비밀번호 표시 토글 -- */
+.toggle-vis{
+    position: absolute;
+    right: 8px;
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--placeholder);
+    cursor: pointer;
+    transition: color var(--speed), background var(--speed);
+}
