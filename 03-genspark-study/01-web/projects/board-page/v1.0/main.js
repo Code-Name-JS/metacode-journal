@@ -21,11 +21,11 @@ const POSTS = [
   { id: 15, category: "소식",   isNotice: false, title: "ESG 경영보고서 발간 안내",                                    writer: "경영지원팀", date: "2026-07-10", hits: 98,   content: "2026년 ESG 경영보고서가 발간되었습니다.\n\n환경·사회·지배구조 전 분야의 활동과 성과를 담았습니다.\n첨부파일에서 전문을 확인하실 수 있습니다.", attachments: [{ name: "ESG_경영보고서_2026.pdf", size: "6.5MB" }] },
 ];
 
-
-/* 더미 댓글 */
+/* -- 더미 댓글 (특정 샘플 글에만 연결) -- */
+// 예: ID가 1인 샘플 게시글에만 기본 더미 댓글
 const COMMENTS = [
-  { writer: "김민준", date: "2026-09-05 14:20", text: "리뉴얼 축하드려요! 정말 깔끔하고 보기 좋네요 👍" },
-  { writer: "이서연", date: "2026-09-05 15:02", text: "모바일에서도 훨씬 편해진 것 같습니다. 좋은 소식 감사합니다." },
+  { id: 1, writer: "김민준", date: "2026-09-05 14:20", text: "리뉴얼 축하드려요! 정말 깔끔하고 보기 좋네요 👍" },
+  { id: 2, writer: "이서연", date: "2026-09-05 15:02", text: "모바일에서도 훨씬 편해진 것 같습니다. 좋은 소식 감사합니다." },
 ];
 
 const PAGE_SIZE = 8;            // 한 페이지 게시글 수
@@ -43,18 +43,18 @@ const state = {
   comments: [...COMMENTS],
 };
 
-const POSTS_PER_PAGE = 10;
 const $ = (selector) => document.querySelector(selector);
 
 /* ══════════ 유틸 ══════════ */
 function esc(str) {
   const div = document.createElement("div");
-  div.textContent = String(str);
+  div.textContent = String(str ?? "");
   return div.innerHTML;
 }
 
 function showToast(msg) {
   const toast = $("#toast");
+  if (!toast) return;
   toast.textContent = msg;
   toast.classList.add("show");
   clearTimeout(showToast._t);
@@ -66,12 +66,18 @@ function isNew(dateStr) {
   return diff >= 0 && diff < 3;
 }
 
-function views() { return {
-  list: $("#view-list"), detail: $("#view-detail"), form: $("#view-form"),
-}; }
+function views() {
+  return {
+    list: $("#view-list"),
+    detail: $("#view-detail"),
+    form: $("#view-form"),
+  };
+}
 
 function switchView(name) {
-  Object.entries(views()).forEach(([key, el]) => { el.hidden = key !== name; });
+  Object.entries(views()).forEach(([key, el]) => {
+    if (el) el.hidden = key !== name;
+  });
   window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
 }
 
@@ -79,14 +85,17 @@ function switchView(name) {
 function getFilteredPosts() {
   let posts = [...POSTS];
 
-  if (state.category !== "전체") posts = posts.filter((p) => p.category === state.category);
+  if (state.category !== "전체") {
+    posts = posts.filter((p) => p.category === state.category);
+  }
 
   if (state.keyword.trim()) {
     const kw = state.keyword.trim().toLowerCase();
-    posts = posts.filter((p) =>
-      p.title.toLowerCase().includes(kw) ||
-      p.writer.toLowerCase().includes(kw) ||
-      p.content.toLowerCase().includes(kw)
+    posts = posts.filter(
+      (p) =>
+        p.title.toLowerCase().includes(kw) ||
+        p.writer.toLowerCase().includes(kw) ||
+        p.content.toLowerCase().includes(kw)
     );
   }
 
@@ -103,6 +112,8 @@ function getFilteredPosts() {
   return posts.map((p) => (p.isNotice ? { ...p, _no: "" } : { ...p, _no: no-- }));
 }
 
+
+// 함수명을 renderList로 통일하여 호출 오류 해결
 function renderList() {
   const posts = getFilteredPosts();
   const totalPages = Math.max(1, Math.ceil(posts.length / PAGE_SIZE));
@@ -112,26 +123,38 @@ function renderList() {
   const pagePosts = posts.slice(start, start + PAGE_SIZE);
 
   const tbody = $("#boardBody");
-  tbody.innerHTML = pagePosts.map((p) => `
-    <tr class="${p.isNotice ? "is-notice" : ""}">
-      <td class="col-no td-no">
-        ${p.isNotice ? '<span class="pin-icon" title="상단 고정">📌</span>' : esc(p._no)}
-      </td>
-      <td class="td-cat"><span class="badge badge-${p.category}">${p.category}</span></td>
-      <td class="td-title col-title">
-        <a href="#" data-id="${p.id}">${p.isNotice ? "[공지] " : ""}${esc(p.title)}</a>
-        ${isNew(p.date) ? '<span class="new-badge">NEW</span>' : ""}
-        <span class="comment-badge">💬 ${state.comments.length}</span>
-      </td>
-      <td class="col-writer">${esc(p.writer)}</td>
-      <td class="col-date td-date">${p.date}</td>
-      <td class="col-hit">${p.hits}</td>
-    </tr>
-  `).join("");
+  if (!tbody) return;
 
-  $("#emptyMsg").hidden = pagePosts.length > 0;
+  tbody.innerHTML = pagePosts
+    .map((p) => {
+      const commentCount = (state.comments || []).filter(
+        (c) => c.postId === p.id
+      ).length;
 
-  // 제목 클릭 → 상세
+      return `
+      <tr class="${p.isNotice ? "is-notice" : ""}">
+        <td class="col-no td-no">
+          ${p.isNotice ? '<span class="pin-icon" title="상단 고정">📌</span>' : esc(p._no)}
+        </td>
+        <td class="td-cat">
+          <span class="badge badge-${p.category}">${p.category}</span>
+        </td>
+        <td class="td-title col-title">
+          <a href="#" data-id="${p.id}">${p.isNotice ? "[공지] " : ""}${esc(p.title)}</a>
+          ${isNew(p.date) ? '<span class="new-badge">NEW</span>' : ""}
+          <span class="comment-count">💬 ${commentCount}</span>
+        </td>
+        <td class="col-writer">${esc(p.writer)}</td>
+        <td class="col-date td-date">${p.date}</td>
+        <td class="col-hit">${p.hits}</td>
+      </tr>
+    `;
+    })
+    .join("");
+
+  const emptyMsg = $("#emptyMsg");
+  if (emptyMsg) emptyMsg.hidden = pagePosts.length > 0;
+
   tbody.querySelectorAll(".td-title a").forEach((a) => {
     a.addEventListener("click", (e) => {
       e.preventDefault();
@@ -144,6 +167,8 @@ function renderList() {
 
 function renderPagination(totalPages) {
   const el = $("#pagination");
+  if (!el) return;
+
   const current = Number(state.page) || 1; // 타입 안전을 위해 Number 변환 권장
   const groupStart = Math.floor((current - 1) / PAGE_GROUP) * PAGE_GROUP + 1;
   const groupEnd = Math.min(groupStart + PAGE_GROUP - 1, totalPages);
@@ -183,49 +208,91 @@ function renderPagination(totalPages) {
   });
 }
 
+
 /* ══════════ 2. 상세 화면 ══════════ */
+// push 기본값을 true로 설정하여 일반 클릭과 popstate(뒤로가기) 호출을 구분
 function openDetail(id, push = true) {
   const post = POSTS.find((p) => p.id === id);
-  if (!post) return;
+  if (!post) {
+    switchView("list");
+    renderList();
+    return;
+  }
 
-  post.hits += 1; // 조회수 증가 (시안용)
+  post.hits += 1;
   state.currentPost = post;
 
-  $("#detailHead").innerHTML = `
-    <div class="detail-meta">
-      <span class="badge badge-${post.category}">${post.category}</span>
-      <span>작성자 <strong>${esc(post.writer)}</strong></span>
-      <span>작성일 ${post.date}</span>
-      <span>조회 ${post.hits}</span>
-    </div>
-    <h3>${esc(post.title)}</h3>
-  `;
-  $("#detailBody").textContent = post.content;
+  const head = $("#detailHead");
+  if (head) {
+    head.innerHTML = `
+      <div class="detail-meta">
+        <span class="badge badge-${post.category}">${post.category}</span>
+        <span>작성자 <strong>${esc(post.writer)}</strong></span>
+        <span>작성일 ${post.date}</span>
+        <span>조회 ${post.hits}</span>
+      </div>
+      <h3>${esc(post.title)}</h3>
+    `;
+  }
+
+  const body = $("#detailBody");
+  if (body) body.textContent = post.content;
 
   const attach = $("#detailAttach");
-  attach.innerHTML = post.attachments?.length
-    ? `<p class="form-hint" style="margin-bottom:8px">첨부파일</p>` +
-      post.attachments.map((f) => `
-        <a href="#" class="attach-item" onclick="return false;">📎 ${esc(f.name)} <span>(${f.size})</span></a>
-      `).join("")
-    : "";
+  if (attach) {
+    attach.innerHTML = post.attachments?.length
+      ? `<p class="form-hint" style="margin-bottom:8px">첨부파일</p>` +
+        post.attachments.map((f) => `
+          <a href="#" class="attach-item" onclick="return false;">📎 ${esc(f.name)} <span>(${f.size})</span></a>
+        `).join("")
+      : "";
+  }
+
+  // 이전 글에서 작성 중이던 댓글 입력창 초기화
+  const commentInput = $("#commentInput");
+  if (commentInput) commentInput.value = "";
 
   renderComments();
   renderDetailNav(post);
   switchView("detail");
 
-  // push가 true일 때만 히스토리에 기록 (뒤로가기로 접근했을 때 중복 push 방지)
+  // [핵심 수정] 사용자가 직접 클릭해 열었을 때만 히스토리 기록 추가 (뒤로가기/초기 접속 시에는 push 하지 않음)
   if (push) {
     history.pushState({ view: "detail", id: post.id }, "", `?id=${post.id}`);
   }
 }
 
 function renderComments() {
-  $("#commentCount").textContent = `(${state.comments.length})`;
-  $("#commentList").innerHTML = state.comments.map((c) => `
-    <li>
-      <div class="comment-meta"><strong>${esc(c.writer)}</strong><span>${c.date}</span></div>
-      <p>${esc(c.text)}</p>
+  const commentList = $("#commentList");
+  if (!commentList) return;
+
+  if (!state.currentPost) {
+    commentList.innerHTML = "";
+    return;
+  }
+
+  const postComments = (state.comments || []).filter(
+    (c) => c.postId === state.currentPost.id
+  );
+
+  const sortedComments = [...postComments].sort((a, b) => {
+    if (a.isAuthor === b.isAuthor) return 0;
+    return a.isAuthor ? -1 : 1;
+  });
+
+  if (sortedComments.length === 0) {
+    commentList.innerHTML = `<li class="no-comment" style="padding:16px; text-align:center; color: #888;">등록된 댓글이 없습니다.</li>`;
+    return;
+  }
+
+  commentList.innerHTML = sortedComments.map((c) => `
+    <li class="comment-item ${c.isAuthor ? "pinned-comment" : ""}">
+      <div class="header">
+        <strong>${esc(c.writer)}</strong>
+        ${c.isAuthor ? '<span class="badge-author">작성자</span>' : ""}
+        <span class="date">${c.date}</span>
+      </div>
+      <p class="text">${esc(c.text)}</p>
     </li>
   `).join("");
 }
@@ -236,7 +303,10 @@ function renderDetailNav(post) {
   const prev = sorted[idx - 1];
   const next = sorted[idx + 1];
 
-  $("#detailNav").innerHTML = `
+  const nav = $("#detailNav");
+  if (!nav) return;
+
+  nav.innerHTML = `
     <a href="#" class="${prev ? "" : "is-disabled"}" data-id="${prev?.id ?? ""}">
       <span class="nav-label">▲ 이전글</span>
       <span class="nav-title">${prev ? esc(prev.title) : "이전글이 없습니다."}</span>
@@ -248,7 +318,8 @@ function renderDetailNav(post) {
       <span class="col-date">${next?.date ?? ""}</span>
     </a>
   `;
-  $("#detailNav").querySelectorAll("a[data-id]:not(.is-disabled)").forEach((a) => {
+
+  nav.querySelectorAll("a[data-id]:not(.is-disabled)").forEach((a) => {
     a.addEventListener("click", (e) => {
       e.preventDefault();
       openDetail(Number(a.dataset.id));
@@ -262,19 +333,42 @@ function getSortedForNav() {
   );
 }
 
+// 브라우저 뒤로 가기 / 앞으로 가기 감지
+window.addEventListener("popstate", (e) => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const postId = urlParams.get("id");
+
+  if (postId) {
+    // 상세 글 URL이면 상세 화면 렌더링 (push=false로 중복 방지)
+    openDetail(Number(postId), false);
+  } else {
+    // ?id가 없으면 첫 화면(목록)으로 복구
+    state.page = Number(urlParams.get("page")) || 1;
+    state.currentPost = null;
+    state.editingId = null;
+    
+    switchView("list");
+    renderList();
+  }
+});
+
 /* ══════════ 3. 글쓰기 / 수정 ══════════ */
 function openWriteForm(editId = null) {
   state.editingId = editId;
-  $("#formTitle").textContent = editId ? "글수정" : "글쓰기";
-  $("#btnSubmit").textContent = editId ? "수정완료" : "등록";
+  const titleEl = $("#formTitle");
+  const submitBtn = $("#btnSubmit");
+  if (titleEl) titleEl.textContent = editId ? "글수정" : "글쓰기";
+  if (submitBtn) submitBtn.textContent = editId ? "수정완료" : "등록";
 
   if (editId) {
     const post = POSTS.find((p) => p.id === editId);
-    $("#fCategory").value = post.category;
-    $("#fNotice").checked = post.isNotice;
-    $("#fTitle").value = post.title;
-    $("#fWriter").value = post.writer;
-    $("#fContent").value = post.content;
+    if (post) {
+      $("#fCategory").value = post.category;
+      $("#fNotice").checked = post.isNotice;
+      $("#fTitle").value = post.title;
+      $("#fWriter").value = post.writer;
+      $("#fContent").value = post.content;
+    }
   } else {
     $("#writeForm").reset();
   }
@@ -300,11 +394,11 @@ function submitForm(e) {
 
   if (state.editingId) {
     const post = POSTS.find((p) => p.id === state.editingId);
-    Object.assign(post, data);
+    if (post) Object.assign(post, data);
     showToast("수정되었습니다.");
-    openDetail(post.id);
+    openDetail(state.editingId);
   } else {
-    const newId = Math.max(...POSTS.map((p) => p.id)) + 1;
+    const newId = POSTS.length > 0 ? Math.max(...POSTS.map((p) => p.id)) + 1 : 1;
     POSTS.push({ id: newId, date: TODAY, hits: 0, ...data });
     showToast("등록되었습니다.");
     state.category = "전체";
@@ -318,89 +412,113 @@ function submitForm(e) {
 
 /* ══════════ 이벤트 바인딩 ══════════ */
 function bindEvents() {
-  // 카테고리 필터
   document.querySelectorAll(".chip").forEach((chip) => {
     chip.addEventListener("click", () => {
       document.querySelectorAll(".chip").forEach((c) => c.classList.remove("is-active"));
       chip.classList.add("is-active");
+
       state.category = chip.dataset.category;
       state.page = 1;
+      state.keyword = "";
+
+      const searchInput = $("#searchInput");
+      if (searchInput) searchInput.value = "";
+
+      switchView("list");
       renderList();
     });
   });
 
-  // 검색
-  $("#searchForm").addEventListener("submit", (e) => {
-    e.preventDefault();
-    state.keyword = $("#searchInput").value;
-    state.page = 1;
+  const searchForm = $("#searchForm");
+  if (searchForm) {
+    searchForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      state.keyword = $("#searchInput").value;
+      state.page = 1;
+      renderList();
+    });
+  }
+
+  $("#btnWrite")?.addEventListener("click", () => openWriteForm());
+  $("#btnToList")?.addEventListener("click", () => {
+    history.pushState(null, "", window.location.pathname);
     renderList();
+    switchView("list");
   });
 
-  // 글쓰기
-  $("#btnWrite").addEventListener("click", () => openWriteForm());
-
-  // 목록으로
-  $("#btnToList").addEventListener("click", () => { renderList(); switchView("list"); });
-
-  // 수정
-  $("#btnEdit").addEventListener("click", () => {
+  $("#btnEdit")?.addEventListener("click", () => {
     if (state.currentPost) openWriteForm(state.currentPost.id);
   });
 
-  // 삭제
-  $("#btnDelete").addEventListener("click", () => {
+  $("#btnDelete")?.addEventListener("click", () => {
     if (!state.currentPost) return;
     if (!confirm("정말 삭제하시겠습니까?")) return;
     const idx = POSTS.findIndex((p) => p.id === state.currentPost.id);
-    POSTS.splice(idx, 1);
+    if (idx > -1) POSTS.splice(idx, 1);
     showToast("삭제되었습니다.");
     renderList();
     switchView("list");
   });
 
-  // 등록/수정 폼
-  $("#writeForm").addEventListener("submit", submitForm);
-  $("#btnCancel").addEventListener("click", () => {
+  $("#writeForm")?.addEventListener("submit", submitForm);
+  $("#btnCancel")?.addEventListener("click", () => {
     if (state.editingId) openDetail(state.editingId);
     else { renderList(); switchView("list"); }
   });
 
   // 댓글 등록
-  $("#commentForm").addEventListener("submit", (e) => {
-    e.preventDefault();
-    const text = $("#commentInput").value.trim();
-    if (!text) return;
-    state.comments.push({ writer: "방문자", date: TODAY + " (방금)", text });
-    $("#commentInput").value = "";
-    renderComments();
-    showToast("댓글이 등록되었습니다.");
-  });
+  const commentForm = $("#commentForm");
+  if (commentForm) {
+    commentForm.onsubmit = function (e) {
+      e.preventDefault();
+      if (!state.currentPost) return;
+
+      const input = $("#commentInput");
+      const text = input.value.trim();
+      if (!text) return;
+
+      const newComment = {
+        id: Date.now(),
+        postId: state.currentPost.id,
+        writer: "작성자",
+        date: TODAY + " (방금)",
+        text,
+        isAuthor: true,
+      };
+
+      state.comments.push(newComment);
+      input.value = "";
+
+      renderComments();
+      renderList(); // 목록의 댓글 수도 함께 실시간 반영
+      showToast("댓글이 등록되었습니다.");
+    };
+  }
 }
-
-
-// 브라우저 뒤로 가기 / 앞으로 가기 감지
-window.addEventListener("popstate", (e) => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const pageFromUrl = Number(urlParams.get("page")) || 1;
-
-  // 히스토리 상태에 page가 있으면 복구, 없으면 URL 쿼리스트링에서 가져옴
-  state.page = e.state?.page || pageFromUrl;
-
-  // 상세 화면이나 글쓰기 화면에서 뒤로 가기를 눌렀을 때도 대비해 목록 화면으로 전환
-  renderList();
-  switchView("list");
-});
-
 
 /* ══════════ 초기화 ══════════ */
 document.addEventListener("DOMContentLoaded", () => {
-  // 처음 접속 시 URL의 ?page= 값을 읽어와 state에 반영
-  const urlParams = new URLSearchParams(window.location.search);
-  const initialPage = Number(urlParams.get("page")) || 1;
-  state.page = initialPage;
-
-  // 이벤트 바인딩 및 첫 화면 렌더링
   bindEvents();
+
+  $("#btnToList")?.addEventListener("click", () => {
+  // 주소창 파라미터를 지우고 첫 목록 상태로 기록
+  history.pushState({ view: "list", page: state.page }, "", window.location.pathname);
+  state.currentPost = null;
+  switchView("list");
   renderList();
+});
+
+  // URL의 ?id 또는 ?page 확인 후 알맞은 뷰 오픈
+  const urlParams = new URLSearchParams(window.location.search);
+  const postId = urlParams.get("id");
+
+  if (postId) {
+    openDetail(Number(postId), false);
+  } else {
+    state.page = Number(urlParams.get("page")) || 1;
+    history.replaceState({ view: "list", page: state.page }, "", window.location.href);
+  
+    switchView("list");
+    renderList();
+  }
 });
