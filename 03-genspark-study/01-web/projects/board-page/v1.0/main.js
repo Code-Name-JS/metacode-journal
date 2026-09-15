@@ -81,7 +81,7 @@ function switchView(name) {
   window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
 }
 
-/* ══════════ 1. 목록 렌더링 ══════════ */
+/* ══════════ 목록 렌더링 ══════════ */
 function getFilteredPosts() {
   let posts = [...POSTS];
 

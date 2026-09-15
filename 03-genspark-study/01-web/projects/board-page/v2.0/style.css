@@ -239,9 +239,17 @@ a{
 .td-no{width: 64px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap;}
 
 .badge-notice{
-    display: inline-block; font-size: 11px; font-weight: 800; color: var(--primary);
-    background: color-mix(in srgb, var(--primary) 12%, transparent);
-    border: 1px solid var(--primary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #4f6bf5;                 /* 글자색 (파란색) */
+    background-color: #eef2ff;      /* 두 번째 이미지의 연한 파란색 배경 */
+    border-radius: 9999px;         /* 알약 모양 둥근 테두리 (border-radius) */
+    border: 1px solid rgba(79, 107, 245, 0.2); /* 은은한 테두리 (선택사항, 필요 없으면 border: none;) */
+    line-height: 1;
 }
 
 .td-title{max-width: 0; width: auto;}
