@@ -3,6 +3,8 @@
 ===================================================== */
 console.log("main.js 연결 성공!");
 
+
+
 'use strict';
 
 
@@ -23,7 +25,7 @@ const avatarHTML = (name) => `<span class="avatar" style="background:${avatarCol
 /* ════════════════════════════════════════════
    게시판 시안 — 더미 데이터(데모용)
 ════════════════════════════════════════════ */
-const POSTS = [
+const defaultPosts = [
   { id:1,  category:'공지', title:'[공지] 9월 커뮤니티 이용 안내 및 운영 규칙', author:'관리자', date:daysAgo(0), views:3421, content:'안녕하세요, 커뮤니티 관리자입니다.\n\n모든 이용자분들이 편안하게 이용하실 수 있도록 아래 이용 규칙을 안내드립니다.\n\n1) 타인을 존중하는 언어 사용\n2) 광고성 게시물 및 스팸 게시물 금지\n3) 타인의 개인정보 무단 수집 금지\n4) 욕설 · 비방 · 혐오 표현 금지\n\n위 규칙을 지켜 주시면 감사하겠습니다.', files:[{name:'운영규칙_2026.pdf', size:'245KB'},{name:'커뮤니티_가이드라인.pdf', size:'1.2MB'}], comments:[{author:'서연', text:'확인했습니다! 감사합니다', date:daysAgo(0)}] },
   { id:2,  category:'공지', title:'[공지] 게시판 리뉴얼 오픈 기념 이벤트 안내', author:'관리자', date:daysAgo(1), views:2810, content:'게시판이 새롭게 리뉴얼되었습니다. 🎉\n\n리뉴얼 오픈을 기념하여 댓글을 남겨주신 분들 중 추첨을 통해 소정의 선물을 드립니다.\n\n이벤트 기간: 9월 12일 ~ 9월 30일\n참여 방법: 아무 게시글에 댓글 작성', files:[{name:'이벤트_배너.png', size:'512KB'}], comments:[{author:'민서', text:'와 리뉴얼 축하드려요!', date:daysAgo(1)},{author:'지훈', text:'이벤트 참여합니다!', date:daysAgo(0)}] },
   { id:3,  category:'일반', title:'새로 가입했어요, 잘 부탁드립니다!', author:'민서', date:daysAgo(2), views:187, content:'안녕하세요! 오늘 가입한 새내기입니다.\n\n평소에 관심 있던 주제로 이야기 나눌 수 있는 곳을 찾다가 들어오게 됐어요. 잘 부탁드립니다!', comments:[{author:'소민', text:'반가워요! 환영합니다 🎉', date:daysAgo(2)},{author:'태윤', text:'어서오세요~', date:daysAgo(1)}] },
@@ -50,6 +52,8 @@ const POSTS = [
   { id:24, category:'후기', title:'[후기] 전자책 리더기 구매 후기', author:'나은', date:daysAgo(23), views:334, content:'고민 끝에 전자책 리더기를 구매했습니다.\n\n눈의 피로감이 확실히 덜하고, 집중도 잘 돼요. 단점은 화면 전환 속도가 조금 느리다는 점 정도? 전체적으로 만족합니다.', comments:[{author:'시우', text:'저도 사고 싶어지네요 ㅎㅎ', date:daysAgo(23)}] }
 ];
 
+let POSTS = JSON.parse(localStorage.getItem('board-posts')) || defaultPosts;
+
 
 
 /* -- 상태 -- */
@@ -62,10 +66,10 @@ const state = {
    viewed: new Set()
 };
 
-
-
 // 필터링된 배열 변수 선언 필수!
 let filtered = [];
+
+
 
 /* -- 필터·렌더링 -- */
 const CATS = ['전체', '공지', '질문', '자료실', '후기', '일반'];
@@ -157,8 +161,12 @@ function renderPagination(totalPages){
 
 
 /* -- 상세 화면 -- */
-function renderComments(p){
+function renderComments(p) {
+
+   // 댓글 수 동기화
    $('#cCount').textContent = p.comments.length;
+
+   // 댓글 목록 HTML 렌더링 (템플릿 유지)
    $('#commentList').innerHTML = p.comments.length
       ? p.comments.map((c, i) => `<li class="comment-item">
          ${avatarHTML(c.author)}
@@ -171,7 +179,7 @@ function renderComments(p){
    :  '<li style="padding:8px 0;color:var(--muted);font-size:13.5px">첫 번째 댓글을 남겨보세요.</li>';
 }
 
-function renderDetail(id){
+function renderDetail(id, push = true) {
    const p = POSTS.find(x => x.id === id);
    if (!p) return;
    state.currentId = id;
@@ -180,12 +188,12 @@ function renderDetail(id){
    $('#dCategory').textContent = p.category;
    $('#dCategory').className = 'chip chip-' + p.category;
    $('#dTitle').textContent = p.title;
-   $('#dMeta').innerHTML = `${avatarHTML(p.author)}<span style="font-weight: 700; color: var(--text)">${esc(p.author)}</span><span class= "dot">·</span><span>${p.date}</span><span class= "dot">·</span><span>조회 ${nf(p.views)}</span>`;
+   $('#dMeta').innerHTML = `${avatarHTML(p.author)}<span style="font-weight: 700; color: var(--text)">${esc(p.author)}</span><span class="dot">·</span><span>${p.date}</span><span class="dot">·</span><span>조회 ${nf(p.views)}</span>`;
 
    if (p.files && p.files.length){
       $('#dAttach').hidden = false;
-      $('#dFileList').innerHTML = p.files.map(f => `<div class= "file-row">
-         <span class="f-icon"><svg viewBox="0 0 24 24" fill="non" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span>
+      $('#dFileList').innerHTML = p.files.map(f => `<div class="file-row">
+         <span class="f-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span>
          <span class="f-name">${esc(f.name)}</span>
          <span class="f-size">${f.size}</span>
       </div>`).join('');
@@ -205,6 +213,13 @@ function renderDetail(id){
 
    renderComments(p);
    showView('detail');
+
+   // 브라우저 뒤로 가기를 위해 주소창에 ?id=... 히스토리 추가
+   if (push) {
+      const url = new URL(window.location);
+      url.searchParams.set('id', id);
+      history.pushState({ view: 'detail', id }, '', url);
+   }
 }
 
 function showView(name){
@@ -213,6 +228,20 @@ function showView(name){
    if (name === 'list') state.currentId = null;
    window.scrollTo({ top:0 });
 }
+
+// [이 위치에 추가] 브라우저 뒤로 가기 / 앞으로 가기 감지
+window.addEventListener('popstate', () => {
+   const urlParams = new URLSearchParams(window.location.search);
+   const postId = urlParams.get('id');
+
+   if (postId) {
+      renderDetail(Number(postId), false);
+   } else {
+      state.currentId = null;
+      showView('list');
+      renderList();
+   }
+});
 
 
 
@@ -245,6 +274,11 @@ function toast(msg){
 function applyTheme(theme){
    document.documentElement.setAttribute('data-theme', theme);
    try { localStorage.setItem('board-theme', theme); } catch(e){}
+}
+
+
+function savePosts() {
+  localStorage.setItem('board-posts', JSON.stringify(POSTS));
 }
 
 
@@ -290,17 +324,30 @@ document.addEventListener('DOMContentLoaded', () => {
       if (el) renderDetail(Number(el.dataset.id));
    });
 
-   // 댓글 삭제
+   // 댓글 삭제 (이벤트 위임: 동적으로 추가된 삭제 버튼도 전부 처리)
    $('#commentList')?.addEventListener('click', e => {
       const el = e.target.closest('[data-ci]');
       if (!el) return;
       const p = POSTS.find(x => x.id === state.currentId);
       if (!p) return;
+
+      // 해당 댓글 삭제
       p.comments.splice(Number(el.dataset.ci), 1);
+
+      // 2. [필수 추가] localStorage에 변경 사항 저장
+      savePosts();
+
+      // 상세 화면 댓글 목록 및 상세 상단 댓글 수 갱신
       renderComments(p);
+
+      // 게시글 목록 (테이블/카드)의 댓글 수도 함께 갱신
+      if (typeof renderList === 'function') {
+         renderList();
+      }
+
       toast('댓글이 삭제되었습니다');
    });
-
+   
    // 검색
    $('#searchForm')?.addEventListener('submit', e => {
       e.preventDefault();
@@ -364,6 +411,9 @@ document.addEventListener('DOMContentLoaded', () => {
          files: [],
          comments: []
       });
+
+      // [필수 추가] 새 글 등록 후에도 localStorage 저장
+      savePosts();
       
       state.category = '전체';
       state.keyword = '';
@@ -386,11 +436,33 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!v || !state.currentId) return;
       const p = POSTS.find(x => x.id === state.currentId);
       if (!p) return;
-      p.comments.push({ author: '나', text: v, date: fmtDate(new Date()) });
+
+      // 댓글 데이터 추가
+      p.comments.push({
+         id: Date.now(), // 삭제 식별용 고유 ID 권장
+         author: '나',
+         text: v,
+         date: fmtDate(new Date())
+      });
+
+      // [필수 추가] 댓글 등록 시에도 localStorage 저장
+      savePosts();
+
       $('#commentInput').value = '';
+
+      // 댓글 목록 재렌더링
       renderComments(p);
+
+      // 게시글 목록 화면의 댓글 수 동기화
+      if (typeof renderList === 'function') {
+         renderList();
+      }
+
       toast('댓글이 등록되었습니다');
    });
+});
+
+   
 
    // 다크모드
    $('#themeToggle')?.addEventListener('click', () => {
@@ -398,6 +470,8 @@ document.addEventListener('DOMContentLoaded', () => {
       applyTheme(cur === 'dark' ? 'light' : 'dark');
    });
 
+
+   
    // ESC 닫기
    document.addEventListener('keydown', e => {
       if (e.key !== 'Escape') return;
@@ -405,4 +479,3 @@ document.addEventListener('DOMContentLoaded', () => {
       if (modal && !modal.hidden) closeModal();
       else if (state.currentId) showView('list');
    });
-});
