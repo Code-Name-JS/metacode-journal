@@ -7,7 +7,18 @@
 
 
 
-/* -- 검증 규칙 및 헬퍼 함수 (순수 함수) -- */
+/* ==========================================================================
+   1. 검증 규칙 및 헬퍼 함수 (순수 함수)
+   ========================================================================== */
+
+// 애니메이션 트리거 (에러 시 흔들림)
+function shake(el) {
+    if (!el) return;
+    el.classList.remove('shake');
+    void el.offsetWidth; // 리플로우 강제 트리거
+    el.classList.add('shake');
+}
+
 const EMAIL_RE = /^[^\s@]+@[^\s@.]+(?:\.[^\s@.]+)+$/;
 
 function checkName(v) {
@@ -47,7 +58,6 @@ function checkPassword(v) {
     return { ok: true, msg: '안전한 비밀번호입니다.' };
 }
 
-// targetPassword(비교 대상 비밀번호)를 인자로 받아 스코프 의존성 제거
 function checkConfirm(v, targetPassword = '') {
     if (!v) return { ok: false, msg: '비밀번호를 한 번 더 입력해 주세요.' };
     if (v !== targetPassword) return { ok: false, msg: '비밀번호가 일치하지 않습니다.' };
@@ -78,8 +88,9 @@ function paintPassword(v, elements) {
 }
 
 
-
-/* -- DOM 로드 완료 후 실행 -- */
+/* ==========================================================================
+   2. DOM 로드 완료 후 실행
+   ========================================================================== */
 document.addEventListener('DOMContentLoaded', () => {
 
     /* -- DOM 요소 취득 -- */
@@ -87,6 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const formView = document.getElementById('formView');
     const successView = document.getElementById('successView');
     const submitBtn = document.getElementById('submitBtn');
+    const resetBtn = document.getElementById('resetBtn');
     const successMail = document.getElementById('successEmail');
     const termsBox = document.getElementById('terms');
     const agreeAll = document.getElementById('agreeAll');
@@ -97,257 +109,219 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const fieldKeys = ['name', 'email', 'password', 'confirm'];
 
-    // fields 객체 생성 (데이터 가공)
+    // 필드 상태 객체 생성
     const fields = fieldKeys.reduce((acc, key) => {
-        let inputEl = document.getElementById(key);
-        if (!inputEl && key === 'password') {
-            inputEl = document.getElementById('password-input');
-        }
-
         acc[key] = {
-            el: inputEl,
+            el: document.getElementById(key),
             msg: document.getElementById(`${key}Msg`),
             touched: false
         };
         return acc;
     }, {});
 
-    // wrappers 생성 
+    // wrapper 컨테이너 취득 ([data-field="key"])
     const wrappers = {};
     fieldKeys.forEach((k) => {
         wrappers[k] = form?.querySelector(`[data-field="${k}"]`) ?? null;
     });
 
-    // DEFAULT_MSG 생성 
+    // 기본 가이드 메시지 저장
     const DEFAULT_MSG = {};
     fieldKeys.forEach((k) => {
         DEFAULT_MSG[k] = fields[k]?.msg?.textContent?.trim() ?? '';
     });
 
-    // 공통 검증 및 화면 반영 함수
-    function validateField(key) {
-        const field = fields[key];
-        const wrapper = wrappers[key];
-        if (!field?.el) return false;
+    /* ======================================================================
+       3. 필드 상태 렌더링
+       ====================================================================== */
+    function render(key, respectTouched = true) {
+        const f = fields[key];
+        const wrap = wrappers[key];
+        if (!f?.el || !wrap) return false;
 
-        const value = field.el.value;
+        const val = f.el.value;
+        const empty = val === '';
+        
+        // confirm 필드는 비밀번호 원본 값을 전달하여 검증
+        const res = (key === 'confirm')
+            ? VALIDATORS.confirm(val, fields.password.el?.value || '')
+            : VALIDATORS[key](val);
 
-        // confirm 필드는 비밀번호 값도 함께 넘겨서 비교
-        const result = (key === 'confirm')
-          ? VALIDATORS.confirm(value, fields.password.el?.value || '')
-          : VALIDATORS[key](value);
+        wrap.classList.remove('is-valid', 'is-invalid');
+        f.el.removeAttribute('aria-invalid');
 
-        // 에러/성공 메시지 출력
-        if (field.msg) {
-            field.msg.textContent = result.msg;
+        if (res.ok) {
+            if (!empty) wrap.classList.add('is-valid');
+            if (f.msg) f.msg.textContent = res.msg || '';
+        } else if (!respectTouched || f.touched || !empty) {
+            if (empty && !f.touched) {
+                if (f.msg) f.msg.textContent = DEFAULT_MSG[key];
+            } else {
+                wrap.classList.add('is-invalid');
+                f.el.setAttribute('aria-invalid', 'true');
+                if (f.msg) f.msg.textContent = res.msg;
+            }
+        } else {
+            if (f.msg) f.msg.textContent = DEFAULT_MSG[key];
         }
 
-        // UI 스타일(클래스) 업데이트
-        if (wrapper) {
-            wrapper.classList.toggle('error', !result.ok);
-            wrapper.classList.toggle('success', result.ok);
-        }
-
-        return result.ok;
+        return res.ok;
     }
 
-    // 이벤트 리스너 등록 (입력 감지)
+    /* ======================================================================
+       4. 약관 동의 동기화
+       ====================================================================== */
+    function syncTerms() {
+        const checked = termItems.filter((c) => c.checked).length;
+        if (agreeAll) {
+            agreeAll.checked = checked === termItems.length;
+            agreeAll.indeterminate = checked > 0 && checked < termItems.length;
+        }
+
+        const requiredOk = termItems
+            .filter((c) => c.hasAttribute('required'))
+            .every((c) => c.checked);
+
+        if (requiredOk && termsBox) {
+            termsBox.classList.remove('is-invalid');
+        }
+        return requiredOk;
+    }
+
+    // 폼 전체 유효성 평가
+    function checkFormValidity() {
+        const fieldsOk = fieldKeys.every((key) => {
+            const val = fields[key].el?.value || '';
+            return (key === 'confirm')
+                ? VALIDATORS.confirm(val, fields.password.el?.value || '').ok
+                : VALIDATORS[key](val).ok;
+        });
+
+        const termsOk = syncTerms();
+        return fieldsOk && termsOk;
+    }
+
+    // 필드 이벤트 바인딩
     fieldKeys.forEach((key) => {
-        const field = fields[key];
-        if (!field?.el) return;
+        const f = fields[key];
+        if (!f?.el) return;
 
-        field.el.addEventListener('input', () => {
-            field.touched = true;
+        f.el.addEventListener('input', () => {
+            render(key, true);
 
-            // 실시간 검증 실행
-            validateField(key);
-
-            // 비밀번호 수정 시 추가 동작
+            // 비밀번호 변경 시 강도 미터 갱신 및 확인 필드 재검증
             if (key === 'password') {
-                paintPassword(field.el.value, { strength, strengthLbl, ruleList });
-            
-                // 비밀번호 확인 입력창에 이미 값을 넣은 상태라면 일치 여부 재검증
-                if (fields.confirm.touched && fields.confirm.el?.value) {
-                    validateField('confirm');
+                paintPassword(f.el.value, { strength, strengthLbl, ruleList });
+                if (fields.confirm.touched || fields.confirm.el.value) {
+                    render('confirm', true);
                 }
             }
         });
+
+        f.el.addEventListener('blur', () => {
+            f.touched = true;
+            render(key, true);
+        });
     });
 
-    /* -- 비밀번호 표시 토글 이벤트 (개선) -- */
-    const toggleButtons = document.querySelectorAll('.toggle-vis');
+    // 약관 이벤트 바인딩
+    termItems.forEach((item) => {
+        item.addEventListener('change', () => syncTerms());
+    });
 
+    if (agreeAll) {
+        agreeAll.addEventListener('change', () => {
+            termItems.forEach((c) => { c.checked = agreeAll.checked; });
+            syncTerms();
+        });
+    }
+
+    /* -- 비밀번호 보기/숨기기 토글 -- */
+    const toggleButtons = document.querySelectorAll('.toggle-vis');
     toggleButtons.forEach((btn) => {
         btn.addEventListener('click', function () {
-        // 같은 wrapper 또는 부모 컨테이너 내의 input 요소를 동적으로 탐색
-        const container = this.closest('.input-wrapper') || this.parentElement;
-        const targetInput = container ? container.querySelector('input') : null;
+            const container = this.closest('.input-wrap') || this.parentElement;
+            const targetInput = container ? container.querySelector('input') : null;
+            if (!targetInput) return;
 
-        if (!targetInput) return;
-
-        // aria-pressed 속성 전환
-        const isPressed = this.getAttribute('aria-pressed') === 'true';
-        const nextState = !isPressed;
-        this.setAttribute('aria-pressed', String(nextState));
-
-        // input type 전환
-        targetInput.type = nextState ? 'text' : 'password';
-    });
-  });
-});
-        
-
-
-/* -- 필드 상태 렌더링 -- */
-function render(key, respectTouched) {
-    const f = fields[key];
-    const res = VALIDATORS[key](f.el.value);
-    const wrap = wrappers[key];
-    const empty = f.el.value === '';
-
-    wrap.classList.remove('is-valid', 'is-invalid');
-    f.el.removeAttribute('aria-invalid');
-
-    if (res.ok) {
-        if (!empty) wrap.classList.add('is-invalid');
-        f.msg.textContent = res.msg;
-    } else if (!respectTouched || f.touched || !empty) {
-        if (empty && !f.touched) {
-            f.msg.textContent = DEFAULT_MSG[key];
-        } else {
-            wrap.classList.add('is-invalid');
-            f.el.setAttribute('aria-invalid', 'true');
-            f.msg.textContent = res.msg;
-        }
-    } else {
-        f.msg.textContent = DEFAULT_MSG[key];
-    }
-    return res.ok;
-}
-
-function syncTerms() {
-    const checked = termItems.filter(function (c) { return c.checked; }).length;
-    agreeAll.checked = checked === termItems.length;
-    agreeAll.indeterminate = checked > 0 && checked < termItems.length;
-    const requiredOk = termItems
-        .filter(function (c) { return c.hasAttribut('required'); })
-        .every(function (c) { return c.checked; });
-    if (requiredOk) termsBox.classList.remove('is-invalid');
-    return requiredOk;
-}
-
-
-
-/* -- 이벤트 연결 -- */
-Object.keys(fields).forEach(function (key) {
-   const f = fields[key];
-   
-   f.el.addEventListener('input', function () {
-    render(key, true);
-    if (key === 'password') {
-        paintPassword(f.el.value);
-        if (fields.confirm.el.value) render('confirm', true);
-    }
-   });
-
-   f.el.addEventListener('blur', function () {
-    f.touched = true;
-    render(key, false);
-   });
-});
-
-
-
-/* -- 약관 동의 -- */
-agreeAll.addEventListener('change', function () {
-    termItems.forEach(function (c) { c.checked = agreeAll.checked; });
-    syncTerms();
-});
-
-termItems.forEach(function (c) {
-    c.addEventListener('change', function () {
-        if (syncTerms()) return;
-        termsBox.classList.add('is-invalid');
-    });
-});
-
-
-
-/* -- 제출 -- */
-function shake(el) {
-    el.classList.remove('shake');
-    void el.offsetWidth;
-    el.classList.add('shake');
-}
-
-function setLoading(on) {
-    submitBtn.disabled = on;
-    submitBtn.classList.toggle('is-loading', on);
-    submitBtn.querySelector('.btn-text').textContent = on ? '계정을 만드는 중...' : '계정 만들기';
-}
-
-form.addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    const allOk = true;
-    const firstBad = null;
-
-    Object.keys(fields).forEach(function (key) {
-        fields[key].touched = true;
-        const ok = render(key, false);
-        if (!ok) {
-            allOk = false;
-            if (!firstBad) firstBad = fields[key].el;
-        }
+            const isPressed = this.getAttribute('aria-pressed') === 'true';
+            const nextState = !isPressed;
+            this.setAttribute('aria-pressed', String(nextState));
+            targetInput.type = nextState ? 'text' : 'password';
+        });
     });
 
-    paintPassword(fields.password.el.value);
-
-    const termsOk = syncTerms();
-    if (!termsOk) termsBox.classList.add('is-invalid');
-
-    if (!allOk || !termsOk) {
-        if (firstBad) {
-            firstBad.focus();
-            shake(wrappers[firstBad.id]);
-        } else if (!termsOk) {
-            shake(termsBox);
+    /* ======================================================================
+       5. 폼 전송(Submit) 방어벽 & 6. 제출
+       ====================================================================== */
+    function setLoading(on) {
+        if (!submitBtn) return;
+        submitBtn.disabled = on;
+        submitBtn.classList.toggle('is-loading', on);
+        const btnText = submitBtn.querySelector('.btn-text');
+        if (btnText) {
+            btnText.textContent = on ? '계정을 만드는 중...' : '계정 만들기';
         }
-        return;
     }
 
-    // 서버가 없는 시안이므로 로딩 상태만 시뮬레이션합니다
-    setLoading(true);
-    window.setTimeout(function () {
-        setLoading(false);
-        successMail.textContent = fields.email.el.value.trim();
-        formView.hidden = true;
-        successView.hidden = false;
-        successView.scrollIntoView({ block: 'center', behavior: 'smooth' });
-    }, 1100);
+    if (form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // 전체 필드 강제 검사 (respectTouched: false)
+            let allFieldsOk = true;
+            fieldKeys.forEach((key) => {
+                const ok = render(key, false);
+                if (!ok) {
+                    allFieldsOk = false;
+                    shake(wrappers[key]);
+                }
+            });
+
+            // 필수 약관 검증
+            const termsOk = syncTerms();
+            if (!termsOk && termsBox) {
+                termsBox.classList.add('is-invalid');
+                shake(termsBox);
+            }
+
+            if (!allFieldsOk || !termsOk) {
+                return;
+            }
+
+            // 제출 시뮬레이션
+            setLoading(true);
+
+            setTimeout(() => {
+                setLoading(false);
+
+                if (successMail) {
+                    successMail.textContent = fields.email.el.value.trim();
+                }
+
+                formView.hidden = true;
+                successView.hidden = false;
+                successView.scrollIntoView({ block: 'center', behavior: 'smooth' });
+            }, 1000);
+        });
+    }
+
+    // 다시 작성하기 버튼
+    if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+            form.reset();
+            fieldKeys.forEach((key) => {
+                fields[key].touched = false;
+                wrappers[key]?.classList.remove('is-valid', 'is-invalid');
+                if (fields[key].msg) fields[key].msg.textContent = DEFAULT_MSG[key];
+            });
+            paintPassword('', { strength, strengthLbl, ruleList });
+            termsBox?.classList.remove('is-invalid');
+            successView.hidden = true;
+            formView.hidden = false;
+        });
+    }
 });
-
-
-
-/* -- 처음부터 다시 -- */
-document.getElementById('resetBtn').addEventListener('click', function () {
-    form.reset();
-    Object.keys(fields).forEach(function (k) {
-        fields[k].touched = false;
-        wrappers[k].classList.remove('is-valid', 'is-invalid');
-        fields[k].msg.textContent = DEFAULT_MSG[k];
-    });
-
-    paintPassword('');
-    termsBox.classList.remove('is-invalid');
-    syncTerms();
-    successView.classList.remove('show');
-    successView.hidden = true;
-    formView.hidden = false;
-    fields.name.el.focus();
-});
-
-
 
 /* -- 테마 전환 -- */
 const themeDots = Array.prototype.slice.call(document.querySelectorAll('.theme-switch .dot'));
