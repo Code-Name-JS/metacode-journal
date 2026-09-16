@@ -349,16 +349,20 @@ body{
 }
 
 .pane-head a,
-.footnote a{
-    color: var(--accent-2);
-    font-weight: 600;
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-    transition: border-color var(--speed);
+.footnote a,
+.terms a {
+  color: var(--accent-2);
+  font-weight: 600;
+  text-decoration: none !important;
+  border-bottom: none !important; /* 테두리 밑줄 제거 */
 }
 
 .pane-head a:hover,
-.footnote a:hover{ border-bottom-color: currentColor; }
+.footnote a:hover,
+.terms a:hover { 
+  text-decoration: none !important;
+  border-bottom: none !important; /* 호버 시에도 밑줄이 생기지 않도록 방지 */
+}
 
 #formView{ margin: auto 0; }
 
@@ -407,14 +411,14 @@ form{
 
 
 /* -- 안내 및 에러 메시지(사용 가능한 이름/이메일입니다 등) -- */
-.field .msg {
+.field .msg,
+#checkboxMsg {
   width: 100% !important;
   text-align: left !important;
   align-self: flex-start !important;
   margin: 6px 0 0 0 !important;
   padding: 0 !important;
 }
-
 
 
 /* -- 비밀번호 전용 추가 요소(강도 바, 규칙 목록) 좌측 정렬 -- */
@@ -426,6 +430,44 @@ form{
   align-items: center !important;
   margin: 6px 0 0 0 !important;
   padding: 0 !important;
+}
+
+
+
+[data-field].is-invalid .input-wrap .lead {
+    display: none !important;
+}
+
+
+
+[data-field].is-invalid .input-wrap .status .ic.err {
+    display: block !important;
+}
+
+
+
+[data-field].is-invalid .input-wrap .status {
+    position: absolute;
+    left: 1rem; /* input 내부 패딩에 맞춰 조절 */
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+}
+
+
+[data-field].is-valid .input-wrap .status .ic.ok {
+    display: block;
+}
+
+
+/* -- 메시지 텍스트도 빨간색으로 유지할 경우 -- */
+.input-wrap.is-invalid::before,
+.input-wrap.is-invalid::after {
+  display: flex !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 
@@ -485,7 +527,7 @@ form{
 
 /* -- 하단 '안전한 비밀번호입니다.' 안내 문구 -- */
 .field[data-field="password"] .msg,
-.field[data-field="password"] #passwordMsg {
+.field[data-field="password"] #passwordMsg{
   width: 100% !important;
   text-align: left !important;
   align-self: flex-start !important;
@@ -504,6 +546,7 @@ form{
 }
 
 .input-wrap .lead {
+  display: block;
   position: absolute;
   left: 15px;
   width: 19px;
@@ -516,6 +559,10 @@ form{
 
 .input-wrap:focus-within .lead {
   color: var(--accent-2);
+}
+
+.input-wrap .status .ic {
+    display: none;
 }
 
 
@@ -798,6 +845,15 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
   border-color: var(--err);
 }
 
+#terms #checkboxMsg {
+    display: none;
+}
+
+#terms.is-invalid #checkboxMsg {
+    display: block !important;
+    color: #e53e3e !important;
+}
+
 .check {
   position: relative;
   display: flex;
@@ -1065,7 +1121,7 @@ html[data-theme="mint"] .badge.must {
   font-size: 14.5px;
   line-height: 1.75;
   color: var(--text-muted);
-  max-width: 34ch;
+  max-width: 50ch;
 }
 
 .success p b {

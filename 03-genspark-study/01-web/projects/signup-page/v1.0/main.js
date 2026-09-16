@@ -3,7 +3,7 @@
    ===================================================== */
 
 (function () {
-   'use strict'
+   'use strict';
 
 
 
@@ -73,7 +73,7 @@ const VALIDATORS = {
 
 const LEVEL_LABEL = { 0: '강도 —', 1: '매우 약함', 2: '보통', 3: '강함', 4: '매우 강함' };
 
-function paintPassword(v, elements) {
+function paintPassword(v= '', elements = {}) {
     const { strength, strengthLbl, ruleList } = elements;
     const r = scorePassword(v);
 
@@ -130,6 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fieldKeys.forEach((k) => {
         DEFAULT_MSG[k] = fields[k]?.msg?.textContent?.trim() ?? '';
     });
+    
 
     /* ======================================================================
        3. 필드 상태 렌더링
@@ -188,19 +189,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return requiredOk;
     }
 
-    // 폼 전체 유효성 평가
-    function checkFormValidity() {
-        const fieldsOk = fieldKeys.every((key) => {
-            const val = fields[key].el?.value || '';
-            return (key === 'confirm')
-                ? VALIDATORS.confirm(val, fields.password.el?.value || '').ok
-                : VALIDATORS[key](val).ok;
-        });
-
-        const termsOk = syncTerms();
-        return fieldsOk && termsOk;
-    }
-
     // 필드 이벤트 바인딩
     fieldKeys.forEach((key) => {
         const f = fields[key];
@@ -251,9 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    /* ======================================================================
-       5. 폼 전송(Submit) 방어벽 & 6. 제출
-       ====================================================================== */
+    /* -- 폼 제출 핸들러 -- */
     function setLoading(on) {
         if (!submitBtn) return;
         submitBtn.disabled = on;
@@ -271,11 +257,14 @@ document.addEventListener('DOMContentLoaded', () => {
             // 전체 필드 강제 검사 (respectTouched: false)
             let allFieldsOk = true;
             fieldKeys.forEach((key) => {
+                fields[key].touched = true;
                 const ok = render(key, false);
                 if (!ok) {
                     allFieldsOk = false;
+                    if (wrappers[key]) {
                     shake(wrappers[key]);
                 }
+            }
             });
 
             // 필수 약관 검증
@@ -285,31 +274,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 shake(termsBox);
             }
 
-            if (!allFieldsOk || !termsOk) {
-                return;
-            }
-
+            if (!allFieldsOk || !termsOk) return;
+    
             // 제출 시뮬레이션
             setLoading(true);
 
             setTimeout(() => {
                 setLoading(false);
-
                 if (successMail) {
                     successMail.textContent = fields.email.el.value.trim();
                 }
-
-                formView.hidden = true;
-                successView.hidden = false;
-                successView.scrollIntoView({ block: 'center', behavior: 'smooth' });
+                if (formView) formView.hidden = true;
+                if (successView) {
+                    successView.hidden = false;
+                    successView.scrollIntoView({ block: 'center', behavior: 'smooth' });
+                }
             }, 1000);
         });
     }
 
-    // 다시 작성하기 버튼
+    // 리셋 버튼
     if (resetBtn) {
         resetBtn.addEventListener('click', () => {
-            form.reset();
+            form?.reset();
             fieldKeys.forEach((key) => {
                 fields[key].touched = false;
                 wrappers[key]?.classList.remove('is-valid', 'is-invalid');
@@ -317,38 +304,37 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             paintPassword('', { strength, strengthLbl, ruleList });
             termsBox?.classList.remove('is-invalid');
-            successView.hidden = true;
-            formView.hidden = false;
+            if (successView) successView.hidden = true;
+            if (formView) formView.hidden = false;
         });
     }
-});
 
-/* -- 테마 전환 -- */
-const themeDots = Array.prototype.slice.call(document.querySelectorAll('.theme-switch .dot'));
-themeDots.forEach(function (dot) {
-    dot.addEventListener('click', function () {
-        const theme = dot.getAttribute('data-theme-set');
-        document.documentElement.setAttribute('data-theme', theme);
-        themeDots.forEach(function (d) {
-            d.setAttribute('aria-pressed', String(d === dot));
+
+    /* -- 테마 전환 -- */
+    const themeDots = Array.prototype.slice.call(document.querySelectorAll('.theme-switch .dot'));
+    themeDots.forEach(function (dot) {
+        dot.addEventListener('click', function () {
+            const theme = dot.getAttribute('data-theme-set');
+            document.documentElement.setAttribute('data-theme', theme);
+            themeDots.forEach((d) => d.setAttribute('aria-pressed', String(d === dot)));
+            
+            try { window.localStorage.setItem('aurora-theme', theme); } catch (err) { /* 무시 */ }
         });
-
-        try { window.localStorage.setItem('aurora-theme', theme); } catch (err) { /* 무시 */ }
     });
-});
 
-try {
-    const saved = window.localStorage.getItem('aurora-theme');
-    if (saved) {
-        const match = themeDots.filter(function (d) { return d.getAttribute('data-theme-set') === saved; })[0];
-        if (match) match.click();
-    }
-} catch (err) { /* 무시 */}
-
+    try {
+        const saved = window.localStorage.getItem('aurora-theme');
+        if (saved) {
+            const match = themeDots.filter(function (d) { return d.getAttribute('data-theme-set') === saved; })[0];
+            if (match) match.click();
+        }
+    } catch (err) { /* 무시 */}
 
 
-/* -- 초기 상태 -- */
-paintPassword('');
-syncTerms();
 
+    /* -- 초기 상태 -- */
+    paintPassword('', { strength, strengthLbl, ruleList });
+    syncTerms();
+    });
 })();
+        
