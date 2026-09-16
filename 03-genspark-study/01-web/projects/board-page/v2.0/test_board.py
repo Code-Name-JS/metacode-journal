@@ -2,7 +2,7 @@ import os
 from playwright.sync_api import sync_playwright
 
 def run_verification():
-    file_path = os.path.abspath("index.html")
+    file_path = os.path.abspath("src/index.html")
     file_url = f"file://{file_path}"
 
     with sync_playwright() as p:
@@ -41,3 +41,8 @@ def run_verification():
 
 if __name__ == "__main__":
     run_verification()
+
+# 터미널 호출 Command 명령어
+'''
+python -c "import playwright; print('playwright OK')"; Get-Command chromium, google-chrome, chrome -ErrorAction SilentlyContinue | Select-Object -First 5 Source; python --version; node --version
+'''
