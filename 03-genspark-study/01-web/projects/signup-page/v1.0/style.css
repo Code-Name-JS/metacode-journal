@@ -435,30 +435,15 @@ form{
 
 
 [data-field].is-invalid .input-wrap .lead {
-    display: none !important;
+    display: block !important;
 }
-
-
 
 [data-field].is-invalid .input-wrap .status .ic.err {
     display: block !important;
 }
 
-
-
-[data-field].is-invalid .input-wrap .status {
-    position: absolute;
-    left: 1rem; /* input 내부 패딩에 맞춰 조절 */
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    align-items: center;
-    pointer-events: none;
-}
-
-
 [data-field].is-valid .input-wrap .status .ic.ok {
-    display: block;
+    display: block !important;
 }
 
 
@@ -545,8 +530,18 @@ form{
   align-items: center;
 }
 
+.input-wrap input {
+  padding-left: 45px !important;  /* 왼쪽 기본 아이콘 공간 */
+  padding-right: 45px !important; /* 오른쪽 상태 아이콘 공간 */
+}
+
+.input-wrap.with-toggle input {
+  padding-right: 74px !important; /* 상태 아이콘 + 눈 모양 버튼 공간 확보 */
+}
+
+
 .input-wrap .lead {
-  display: block;
+  display: block !important;
   position: absolute;
   left: 15px;
   width: 19px;
@@ -561,9 +556,22 @@ form{
   color: var(--accent-2);
 }
 
+.input-wrap .status {
+    position: absolute;
+    right: 1rem; /* 일반 입력창 우측 여백 */
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+}
+
+
 .input-wrap .status .ic {
     display: none;
 }
+
+
 
 
 
@@ -622,7 +630,7 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
 /* -- 비밀번호 표시/숨김 토글 버튼 -- */
 .toggle-vis {
   position: absolute;
-  right: 14px;
+  right: 14px; /* 평소 오른쪽 끝 */
   top: 50%;
   transform: translateY(-50%);
   background: none;
@@ -633,7 +641,8 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2;
+  z-index: 3;
+  transition: right 0.2s ease; /* 위치 이동 시 부드러운 애니메이션 */
 }
 
 .toggle-vis:hover {
@@ -675,27 +684,37 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
   display: block;
 }
 
+.field.is-invalid .toggle-vis,
+[data-field].is-invalid .toggle-vis,
+.field.is-valid .toggle-vis,
+[data-field].is-valid .toggle-vis {
+  right: 44px !important; /* 오른쪽 끝 상태 아이콘 너비 + 여백만큼 왼쪽으로 비켜섬 */
+}
 
 
 /* -- 상태 아이콘 (유효성 검증) -- */
 .status {
   position: absolute;
-  left: 14px;
+  right: 14px !important;
+  left: auto !important;
   top: 50%;
   transform: translateY(-50%);
   color: #7b8499;
   display: flex;
+  align-items: center;
+  justify-content: center;
   pointer-events: none;
+  z-index: 2;
 }
 
 .status .ic {
-  display: none;
+  display: none !important;
   width: 20px;
   height: 20px;
 }
 
 .input-wrap.with-toggle .status {
-  right: 48px;
+  right: 14px !important;
 }
 
 .field.is-valid .status,
@@ -703,14 +722,22 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
   display: block;
 }
 
-.field.is-valid .status .ic.ok {
-  display: block;
+.field.is-valid .status .ic.ok,
+[data-field].is-valid .status .ic.ok {
+  display: block !important;
   color: var(--ok);
 }
 
-.field.is-invalid .status .ic.err {
-  display: block;
+.field.is-invalid .status .ic.err,
+[data-field].is-invalid .status .ic.err {
+  display: block !important;
   color: var(--err);
+}
+
+.field.is-invalid .input-wrap .lead,
+[data-field].is-invalid .input-wrap .lead {
+  display: block !important;
+  color: var(--placeholder);
 }
 
 .field.is-valid input {
