@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const successMail = document.getElementById('successEmail');
     const termsBox = document.getElementById('terms');
     const agreeAll = document.getElementById('agreeAll');
-    const termItems = [...document.querySelectorAll('.term-item')]
+    const termItems = [...document.querySelectorAll('.term-item')];
     const strength = document.getElementById('strength');
     const strengthLbl = document.getElementById('strengthLabel');
     const ruleList = document.getElementById('rules');
@@ -99,21 +99,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // fields 객체 생성 (데이터 가공)
     const fields = fieldKeys.reduce((acc, key) => {
+        let inputEl = document.getElementById(key);
+        if (!inputEl && key === 'password') {
+            inputEl = document.getElementById('password-input');
+        }
+
         acc[key] = {
-            el: document.getElementById(key),
+            el: inputEl,
             msg: document.getElementById(`${key}Msg`),
             touched: false
         };
         return acc;
     }, {});
 
-    // wrappers 생성 (fields 생성 직후 바로 연결)
+    // wrappers 생성 
     const wrappers = {};
     fieldKeys.forEach((k) => {
         wrappers[k] = form?.querySelector(`[data-field="${k}"]`) ?? null;
     });
 
-    // DEFAULT_MSG 생성 (초기 HTML에 적힌 안내 문구 백업)
+    // DEFAULT_MSG 생성 
     const DEFAULT_MSG = {};
     fieldKeys.forEach((k) => {
         DEFAULT_MSG[k] = fields[k]?.msg?.textContent?.trim() ?? '';
@@ -162,16 +167,35 @@ document.addEventListener('DOMContentLoaded', () => {
                 paintPassword(field.el.value, { strength, strengthLbl, ruleList });
             
                 // 비밀번호 확인 입력창에 이미 값을 넣은 상태라면 일치 여부 재검증
-                if (fields.confirm.touched && fields.confirm.el.value) {
+                if (fields.confirm.touched && fields.confirm.el?.value) {
                     validateField('confirm');
                 }
             }
         });
     });
+
+    /* -- 비밀번호 표시 토글 이벤트 (개선) -- */
+    const toggleButtons = document.querySelectorAll('.toggle-vis');
+
+    toggleButtons.forEach((btn) => {
+        btn.addEventListener('click', function () {
+        // 같은 wrapper 또는 부모 컨테이너 내의 input 요소를 동적으로 탐색
+        const container = this.closest('.input-wrapper') || this.parentElement;
+        const targetInput = container ? container.querySelector('input') : null;
+
+        if (!targetInput) return;
+
+        // aria-pressed 속성 전환
+        const isPressed = this.getAttribute('aria-pressed') === 'true';
+        const nextState = !isPressed;
+        this.setAttribute('aria-pressed', String(nextState));
+
+        // input type 전환
+        targetInput.type = nextState ? 'text' : 'password';
+    });
+  });
 });
-
         
-
 
 
 /* -- 필드 상태 렌더링 -- */
@@ -230,20 +254,6 @@ Object.keys(fields).forEach(function (key) {
     f.touched = true;
     render(key, false);
    });
-});
-
-
-
-/* -- 비밀번호 표시 토글 -- */
-const toggleBtn = document.getElementById('togglePassword');
-toggleBtn.addEventListener('click', function () {
-    const on = toggleBtn.getAttribute('aria-pressed') === 'true';
-    const next = !on;
-    fields.password.el.type = next ? 'text' : 'password';
-    toggleBtn.setAttribute('aria-pressed', String(next));
-    toggleBtn.setAttribute('aria-label', next ? '비밀번호 숨기기' : '비밀번호 표시');
-    toggleBtn.classList.toggle('is-on', next);
-    fields.password.el.focus();
 });
 
 
@@ -354,9 +364,9 @@ themeDots.forEach(function (dot) {
 });
 
 try {
-    var saved = window.localStorage.getItem('aurora-theme');
+    const saved = window.localStorage.getItem('aurora-theme');
     if (saved) {
-        var match = themeDots.filter(function (d) { return d.getAttribute('data-theme-set') === saved; })[0];
+        const match = themeDots.filter(function (d) { return d.getAttribute('data-theme-set') === saved; })[0];
         if (match) match.click();
     }
 } catch (err) { /* 무시 */}

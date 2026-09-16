@@ -7,75 +7,75 @@
 
 :root{
 /* -- 기본(오로라) 테마 -- */
---bg-1: #808b18;
---bg-2: #0f1630;
---glow-1: rgba(124, 92, 255, .30);
---glow-2: rgba(34, 211, 238, .22);
---aurora-1: #7c5cff;
---aurora-2: #22d3ee;
---aurora-3: #ff5c8a;
---accent: #7c5cff;
---accent-2: #22d3ee;
---accent-soft: rgba(124, 92, 255, .38);
---focus: 0 0 0 4px rgba(124, 92, 255, .26);
+--bg-1:#080b18;
+--bg-2:#0f1630;
+--glow-1:rgba(124,92,255,.30);
+--glow-2:rgba(34,211,238,.22);
+--aurora-1:#7c5cff;
+--aurora-2:#22d3ee;
+--aurora-3:#ff5c8a;
+--accent:#7c5cff;
+--accent-2:#22d3ee;
+--accent-soft:rgba(124,92,255,.38);
+--focus:0 0 0 4px rgba(124,92,255,.26);
 
 
 
 /* -- 공통 토큰 -- */
---text: #f2f5ff;
---text-muted: #9aa4c4;
---placeholder: #6b769b;
---card-bg: rgba(255, 255, 255, .065);
---card-border: rgba(255, 255, 255, .14);
---field-bg: rgba(255, 255, 255, .05);
---field-bg-focus: rgba(255, 255, 255, .085);
---field-border: rgba(255, 255, 255, .26);
---field-border-hover: rgba(255, 255, 255, .30);
---ok: #2fe0a0;
---ok-soft: rgba(47, 224, 160, .12);
---ok-border: rgba(47, 224, 160, .32);
---warn: #ffc857;
---err: #ff6b81;
---err-glow: rgba(255, 107, 129, .18);
---radius-lg: 26px;
---radius: 16px;
---radius-sm: 12px;
---shadow: 0 30px 80px rgba(4, 7, 18, .55);
---speed: .26s;
+--text:#f2f5ff;
+--text-muted:#9aa4c4;
+--placeholder:#6b769b;
+--card-bg:rgba(255,255,255,.065);
+--card-border:rgba(255,255,255,.14);
+--field-bg:rgba(255,255,255,.05);
+--field-bg-focus:rgba(255,255,255,.085);
+--field-border:rgba(255,255,255,.16);
+--field-border-hover:rgba(255,255,255,.30);
+--ok:#2fe0a0;
+--ok-soft:rgba(47,224,160,.12);
+--ok-border:rgba(47,224,160,.32);
+--warn:#ffc857;
+--err:#ff6b81;
+--err-glow:rgba(255,107,129,.18);
+--radius-lg:26px;
+--radius:16px;
+--radius-sm:12px;
+--shadow:0 30px 80px rgba(4,7,18,.55);
+--speed:.26s;
 }
 
 
 
 /* -- 선셋(sunset) 테마 -- */
 html[data-theme="sunset"]{
---bg-1: #140a12;
---bg-2: #2a1020;
---glow-1: rgba(255, 122, 69, .28);
---glow-2: rgba(255, 77, 109, .22);
---aurora-1: #ff8a3d;
---aurora-2: #ff4d6d;
---aurora-3: #ffd166;
---accent: #ff7a45;
---accent-2: #ff4d6d;
---accent-soft: rgba(255, 122, 69, .38);
---focus: 0 0 0 4px rgba(255, 122, 69, .26);
+--bg-1:#140a12;
+--bg-2:#2a1020;
+--glow-1:rgba(255,122,69,.28);
+--glow-2:rgba(255,77,109,.22);
+--aurora-1:#ff8a3d;
+--aurora-2:#ff4d6d;
+--aurora-3:#ffd166;
+--accent:#ff7a45;
+--accent-2:#ff4d6d;
+--accent-soft:rgba(255,122,69,.38);
+--focus:0 0 0 4px rgba(255,122,69,.26);
 }
 
 
 
 /* -- 민트 테마 -- */
 html[data-theme="mint"]{
---bg-1: #04140f;
---bg-2: #07211c;
---glow-1: rgba(32, 227, 178, .24);
---glow-2: rgba(31, 156, 255, .22);
---aurora-1: #20e3b2;
---aurora-2: #1f9cff;
---aurora-3: #a0ffd9;
---accent: #12c48b;
---accent-2: #1f9cff;
---accent-soft: rgba(32, 227, 178, .34);
---focus: 0 0 0 4px rgba(32, 227, 178, .24); 
+--bg-1:#04140f;
+--bg-2:#07211c;
+--glow-1:rgba(32,227,178,.24);
+--glow-2:rgba(31,156,255,.22);
+--aurora-1:#20e3b2;
+--aurora-2:#1f9cff;
+--aurora-3:#a0ffd9;
+--accent:#12c48b;
+--accent-2:#1f9cff;
+--accent-soft:rgba(32,227,178,.34);
+--focus:0 0 0 4px rgba(32,227,178,.24);
 }
 
 
@@ -498,9 +498,9 @@ form{
 /* -- 입력 필드 래퍼 및 좌측 리드 아이콘 -- */
 .input-wrap {
   position: relative;
+  width: 100%;
   display: flex;
   align-items: center;
-  width: 100%;
 }
 
 .input-wrap .lead {
@@ -575,18 +575,18 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
 /* -- 비밀번호 표시/숨김 토글 버튼 -- */
 .toggle-vis {
   position: absolute;
-  right: 8px;
-  width: 36px;
-  height: 36px;
-  display: grid;
-  place-items: center;
-  border: 0;
-  border-radius: 10px;
-  background: transparent;
-  color: var(--placeholder);
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 4px;
+  margin: 0;
   cursor: pointer;
-  padding: 0;
-  transition: color var(--speed), background var(--speed);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
 }
 
 .toggle-vis:hover {
@@ -602,24 +602,30 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
 .toggle-vis svg {
   width: 20px;
   height: 20px;
+  color: #7b8499;
+  transition: color 0.2s;
+}
+
+.toggle-vis:hover svg {
+  color: #c0c7dc; /* 호버 시 가독성을 위한 하이라이트 */
 }
 
 .toggle-vis .eye {
-  display: none;
+  display: block;
 }
 
 .toggle-vis .eye-off {
-  display: block;
+  display: none;
 }
 
 .toggle-vis[aria-pressed="true"] .eye,
 .toggle-vis.is-on .eye {
-  display: block;
+  display: none;
 }
 
 .toggle-vis[aria-pressed="true"] .eye-off,
 .toggle-vis.is-on .eye-off {
-  display: none;
+  display: block;
 }
 
 
@@ -627,10 +633,11 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
 /* -- 상태 아이콘 (유효성 검증) -- */
 .status {
   position: absolute;
-  right: 15px;
-  width: 20px;
-  height: 20px;
-  display: none;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #7b8499;
+  display: flex;
   pointer-events: none;
 }
 
