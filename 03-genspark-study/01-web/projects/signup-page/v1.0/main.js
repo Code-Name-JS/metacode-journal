@@ -6,36 +6,8 @@
    'use strict'
 
 
-/* -- DOM 요소 -- */
-const form = document.getElementById('signupForm');
-const formView = document.getElementById('formView');
-const successView = document.getElementById('successView');
-const submitBtn = document.getElementById('submitBtn');
-const succnessMail = document.getElementById('successEmail');
-const termsBox = document.getElementById('terms');
-const agreeAll = document.getElementById('agreeAll');
-const termItems = Array.prototype.slice.call(document.querySelectorAll('.term-item'));
-const strength = document.getElementById('strength');
-const strengthLb1 = document.getElementById('strengthLabel');
-const ruleList = document.getElementById('rules');
 
-const fields = {
-    name: { el: document.getElementById('name'), msg: document.getElementById('nameMsg'), touched: false },
-    email: { el: document.getElementById('email'), msg: document.getElementById('emailMsg'), touched: false },
-    password: { el: document.getElementById('password'), msg: document.getElementById('passwordMsg'), touched: false },
-    confirm: { el: document.getElementById('confirm'), msg: document.getElementById('confirmMsg'), touched: false }
-};
-const wrappers = {};
-Object.keys(fields).forEach(function (k) {
-    wrappers[k] = form.querySelector('[data-field="' + k + '"]');
-});
-
-const DEFAULT_MSG = {};
-Object.keys(fields).forEach(function (k) { DEFAULT_MSG[k] = fields[k].msg.textContent; });
-
-
-
-/* -- 검증 규칙 -- */
+/* -- 검증 규칙 및 헬퍼 함수 (순수 함수) -- */
 const EMAIL_RE = /^[^\s@]+@[^\s@.]+(?:\.[^\s@.]+)+$/;
 
 function checkName(v) {
@@ -62,9 +34,9 @@ function scorePassword(v) {
         mix: hasLetter && hasDigit,
         special: hasSpecial
     };
-    const n = (passed.len ? 1 : 0) + (passed.mix ? 1 : 0) + (passed.special ? 1 : 0);
-    n += (v.length >= 12) ? 1 : 0;
-    return { passed: passed, level: Math.min(n, 4) };
+    let n = (passed.len ? 1 : 0) + (passed.mix ? 1 : 0) + (passed.special ? 1 : 0);
+    if (v.length >= 12) n += 1;
+    return { passed, level: Math.min(n, 4) };
 }
 
 function checkPassword(v) {
@@ -75,9 +47,10 @@ function checkPassword(v) {
     return { ok: true, msg: '안전한 비밀번호입니다.' };
 }
 
-function checkConfirm(v) {
+// targetPassword(비교 대상 비밀번호)를 인자로 받아 스코프 의존성 제거
+function checkConfirm(v, targetPassword = '') {
     if (!v) return { ok: false, msg: '비밀번호를 한 번 더 입력해 주세요.' };
-    if (v !== fields.password.el.value) return { ok: false, msg: '비밀번호가 일치하지 않습니다.' };
+    if (v !== targetPassword) return { ok: false, msg: '비밀번호가 일치하지 않습니다.' };
     return { ok: true, msg: '비밀번호가 일치합니다.' };
 }
 
@@ -90,14 +63,114 @@ const VALIDATORS = {
 
 const LEVEL_LABEL = { 0: '강도 —', 1: '매우 약함', 2: '보통', 3: '강함', 4: '매우 강함' };
 
-function paintPassword(v) {
+function paintPassword(v, elements) {
+    const { strength, strengthLbl, ruleList } = elements;
     const r = scorePassword(v);
-    strength.setAttribute('data-level', v ? String(r.level) : '0');
-    strengthLb1.textContent = v ? LEVEL_LABEL[r.level] : LEVEL_LABEL[0];
-    Array.prototype.forEach.call(ruleList.children, function (li) {
-        li.classList.toggle('met', !!r.passed[li.getAttribute('data-rule')]);
-    });
+
+    if (strength) strength.setAttribute('data-level', v ? String(r.level) : '0');
+    if (strengthLbl) strengthLbl.textContent = v ? LEVEL_LABEL[r.level] : LEVEL_LABEL[0];
+
+    if (ruleList) {
+        Array.from(ruleList.children).forEach((li) => {
+            li.classList.toggle('met', !!r.passed[li.getAttribute('data-rule')]);
+        });
+    }
 }
+
+
+
+/* -- DOM 로드 완료 후 실행 -- */
+document.addEventListener('DOMContentLoaded', () => {
+
+    /* -- DOM 요소 취득 -- */
+    const form = document.getElementById('signupForm');
+    const formView = document.getElementById('formView');
+    const successView = document.getElementById('successView');
+    const submitBtn = document.getElementById('submitBtn');
+    const successMail = document.getElementById('successEmail');
+    const termsBox = document.getElementById('terms');
+    const agreeAll = document.getElementById('agreeAll');
+    const termItems = [...document.querySelectorAll('.term-item')]
+    const strength = document.getElementById('strength');
+    const strengthLbl = document.getElementById('strengthLabel');
+    const ruleList = document.getElementById('rules');
+
+    const fieldKeys = ['name', 'email', 'password', 'confirm'];
+
+    // fields 객체 생성 (데이터 가공)
+    const fields = fieldKeys.reduce((acc, key) => {
+        acc[key] = {
+            el: document.getElementById(key),
+            msg: document.getElementById(`${key}Msg`),
+            touched: false
+        };
+        return acc;
+    }, {});
+
+    // wrappers 생성 (fields 생성 직후 바로 연결)
+    const wrappers = {};
+    fieldKeys.forEach((k) => {
+        wrappers[k] = form?.querySelector(`[data-field="${k}"]`) ?? null;
+    });
+
+    // DEFAULT_MSG 생성 (초기 HTML에 적힌 안내 문구 백업)
+    const DEFAULT_MSG = {};
+    fieldKeys.forEach((k) => {
+        DEFAULT_MSG[k] = fields[k]?.msg?.textContent?.trim() ?? '';
+    });
+
+    // 공통 검증 및 화면 반영 함수
+    function validateField(key) {
+        const field = fields[key];
+        const wrapper = wrappers[key];
+        if (!field?.el) return false;
+
+        const value = field.el.value;
+
+        // confirm 필드는 비밀번호 값도 함께 넘겨서 비교
+        const result = (key === 'confirm')
+          ? VALIDATORS.confirm(value, fields.password.el?.value || '')
+          : VALIDATORS[key](value);
+
+        // 에러/성공 메시지 출력
+        if (field.msg) {
+            field.msg.textContent = result.msg;
+        }
+
+        // UI 스타일(클래스) 업데이트
+        if (wrapper) {
+            wrapper.classList.toggle('error', !result.ok);
+            wrapper.classList.toggle('success', result.ok);
+        }
+
+        return result.ok;
+    }
+
+    // 이벤트 리스너 등록 (입력 감지)
+    fieldKeys.forEach((key) => {
+        const field = fields[key];
+        if (!field?.el) return;
+
+        field.el.addEventListener('input', () => {
+            field.touched = true;
+
+            // 실시간 검증 실행
+            validateField(key);
+
+            // 비밀번호 수정 시 추가 동작
+            if (key === 'password') {
+                paintPassword(field.el.value, { strength, strengthLbl, ruleList });
+            
+                // 비밀번호 확인 입력창에 이미 값을 넣은 상태라면 일치 여부 재검증
+                if (fields.confirm.touched && fields.confirm.el.value) {
+                    validateField('confirm');
+                }
+            }
+        });
+    });
+});
+
+        
 
 
 
@@ -237,7 +310,7 @@ form.addEventListener('submit', function (e) {
     setLoading(true);
     window.setTimeout(function () {
         setLoading(false);
-        succnessMail.textContent = fields.email.el.value.trim();
+        successMail.textContent = fields.email.el.value.trim();
         formView.hidden = true;
         successView.hidden = false;
         successView.scrollIntoView({ block: 'center', behavior: 'smooth' });

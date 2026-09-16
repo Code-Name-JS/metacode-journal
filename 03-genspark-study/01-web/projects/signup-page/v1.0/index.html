@@ -10,197 +10,210 @@
     <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
+<!-- 배경 레이어 -->
+<div class="bg" aria-hidden="true">
+  <span class="blob b1"></span>
+  <span class="blob b2"></span>
+  <span class="blob b3"></span>
+</div>
+<div class="grid-overlay" aria-hidden="true"></div>
 
-    <!-- 배경 레이어 -->
-    <div class="bg" aria-hidden="true">
-        <span class="blob b1"></span>
-        <span class="blob b2"></span>
-        <span class="blob b3"></span>
-    </div>
-    <div class="grid-overlay" aria-hidden="true"></div>
+<!-- 테마 전환 -->
+<div class="theme-switch" role="group" aria-label="테마 색상 선택">
+  <button class="dot" type="button" data-theme-set="aurora" aria-pressed="true" aria-label="오로라 테마"><span></span></button>
+  <button class="dot" type="button" data-theme-set="sunset" aria-pressed="false" aria-label="선셋 테마"><span></span></button>
+  <button class="dot" type="button" data-theme-set="mint" aria-pressed="false" aria-label="민트 테마"><span></span></button>
+</div>
 
-    <!-- 테마 전환 -->
-    <div class="theme-switch" role="group" aria-label="테마 색상 선택">
-        <button class="dot" type="button" data-theme-set="aurora" aria-pressed="true" aria-label="오로라 테마"><span></span></button>
-        <button class="dot" type="button" data-theme-set="sunset" aria-pressed="false" aria-label="선셋 테마"><span></span></button>
-        <button class="dot" type="button" data-theme-set="mint" aria-pressed="false" aria-label="민트 테마"><span></span></button>
-    </div>
+<main class="stage">
+<section class="card" aria-labelledby="pageTitle">
 
-    <mian class="stage">
-        <section class="card" aria-labelledby="pageTitle">
 
-            <!-- 좌측 브랜드 패널 -->
-            <aside class="brand">
-                <div class="logo">
-                    <span class="logo-mark" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 2.8 20 7v10l-8 4.2L4 17V7l8-4.2Z"/>
-                            <path d="M12 12v9.2M12 12 4 7M12 12l8-5"/>
+
+    <!-- ===================== 좌측 브랜드 패널 ===================== -->
+    <aside class="brand">
+        <div class="logo">
+            <span class="logo-mark" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2.8 20 7v10l-8 4.2L4 17V7l8-4.2Z"/>
+                <path d="M12 12v9.2M12 12 4 7M12 12l8-5"/>
+                </svg>
+            </span>
+            <span>Aurora</span>
+        </div>
+
+        <h1>지금 합류하고<br>팀의 워크플로를<br>한 단계 끌어올리세요</h1>
+        <p class="sub">가입 후 3분이면 첫 프로젝트를 만들 수 있습니다. 신용카드 등록 없이 바로 시작하세요.</p>
+
+        <ul class="benefits">
+            <li>
+                <span class="tick" aria-hidden="true">✓</span>
+                <span><b>무료로 시작</b><small>14일 동안 모든 기능을 제한 없이 사용</small></span>
+            </li>
+            <li>
+                <span class="tick" aria-hidden="true">✓</span>
+                <span><b>실시간 협업</b><small>팀원 초대와 동시 편집을 기본 제공</small></span>
+            </li>
+            <li>
+                <span class="tick" aria-hidden="true">✓</span>
+                <span><b>데이터 보호</b><small>전 구간 암호화와 2단계 인증 지원</small></span>
+            </li>
+        </ul>
+
+        <figure class="quote">
+            <blockquote>“온보딩 흐름을 바꾼 뒤 첫 주 이탈률이 눈에 띄게 줄었어요.”</blockquote>
+            <figcaption>김하늘 · 프로덕트 리드</figcaption>
+        </figure>
+    </aside>
+
+
+
+    <!-- ===================== 우측 폼 패널 ===================== -->
+    <div class="pane">
+
+        <!-- ---------- 가입 폼 ---------- -->
+        <div id="formView">
+            <header class="pane-head">
+            <p class="eyebrow">Create account</p>
+            <h2 id="pageTitle">회원가입</h2>
+            <p>이미 계정이 있으신가요? <a href="#">로그인</a></p>
+            </header>
+
+            <form id="signupForm" novalidate>
+
+                <!-- 이름 -->
+                <div class="field" data-field="name">
+                    <label for="name">이름</label>
+                    <div class="input-wrap">
+                        <svg class="lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="12" cy="8" r="3.6"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/>
                         </svg>
-                    </span>
-                    <span>Aurora</span>
-                </div>
-
-                <h1>지금 합류하고<br>팀의 워크플로를<br>한 단계 끌어올리세요</h1>
-                <p class="sub">가입 후 3분이면 첫 프로젝트를 만들 수 있습니다. 신용카드 등록 없이 바로 시작하세요.</p>
-            
-                <ul class="benefits">
-                    <li>
-                        <span class="tick" aria-hidden="true">✓</span>
-                        <span><b>무료로 시작</b><small>14일 동안 모든 기능을 제한 없이 사용</small></span>
-                    </li>
-                    <li>
-                        <span class="tick" aria-hidden="true">✓</span>
-                        <span><b>실시간 협업</b><small>팀원 초대와 동시 편집을 기본 제</small></span>
-                    </li>
-                    <li>
-                        <span class="tick" aria-hidden="true">✓</span>
-                        <span><b>데이터 보호</b><small>전 구간 암호화와 2단계 인증 지원</small></span>
-                    </li>
-                </ul>
-
-                <figure class="quote">
-                    <blockquote>"온보딩 흐름을 바꾼 뒤 첫 주 이탈률이 눈에 띄게 줄었어요."</blockquote>
-                    <figcaption>김하늘 · 프로덕트 리드</figcaption>
-                </figure>
-            </aside>
-
-            <!-- 우측 폼 패널 -->
-            <div class="pane">
-
-                <!-- 가입 폼 -->
-                <div id="formView">
-                    <header class="pane-head">
-                        <p class="eyebrow">Create account</p>
-                        <h2 id="pageTitle">회원가입</h2>
-                        <p>이미 계정이 있으신가요? <a href="#">로그인</a></p>
-                    </header>
-
-                    <form id="signupForm" novalidate>
-
-                        <!-- 이름 -->
-                        <div class="field" data-field="name">
-                            <label for="name">이름</label>
-                            <div class="input-wrap">
-                                <svg class="'lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                    <circle cs="12" cy="8" r="3.6"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/>
-                                </svg>
-                                <input id="name" name="name" type="text" placeholder="홍길동" autocomplete="name" inputmode="text" required aria-describedb="nameMsg">
-                                <span class="status" aria-hidden="true">
-                                    <svg class="ic ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8 12.4 2.7 2.7L16 9.6"/></svg>
-                                    <svg class="ic err" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.6v5.2M12 16.4h.01"/></svg>
-                                </span>
-                            </div>
-                            <p class="msg" id="nameMsg" role="status">실명 또는 활동명을 2자 이상 입력해 주세요.</p>
-                        </div>
-
-                        <!-- 이메일 -->
-                        <div class="field" data-field="email">
-                            <label for="email">이메일</label>
-                            <div class="input-wrap">
-                                <svg class="lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                    <rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7.5 8 5.2 8-5.2"/>
-                                </svg>
-                                <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" inputmode="email" spellcheck="false" required aria-describedby="emailMsg">
-                                <span class="status" aria-hidden="true">
-                                    <svg class="ic ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8 12.4 2.7 2.7L16 9.6"/></svg>
-                                    <svg class="ic err" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.6v5.2M12 16.4h.01"/></svg>
-                                </span>
-                            </div>
-                            <p class="msg" id="emailMsg" role="status">로그인과 알림 수신에 사용됩니다.</p>
-                        </div>
-
-                        <!-- 비밀번호 -->
-                        <div class="field" data-field="password">
-                            <label for="password">비밀번호</label>
-                            <div class="input-wrap with-toggle">
-                                <svg class="lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                    <rect x="4.5" y="10.5" width="15" height="10" rx="2.6"/><path d="M8.2 10.5V8a3.8 3.8 0 0 1 7.6 0v2.5"/>
-                                </svg>
-                                <input id="password" name="password" type="password" placeholder="8자 이상 입력" autocomplete="new-password" required minlength="8" aria-describedby="passwordMsg">
-                                <span class="status" aria-hidden="true">
-                                    <svg class="ic ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8 12.4 2.7 2.7L16 9.6"/></svg>
-                                    <svg class="ic err" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.6v5.2M12 16.4h.01"/></svg>
-                                </span>
-                                <button class="toggle-vis" type="button" id="togglePassword" aria-label="비밀번호 표시" aria-pressed="false">
-                                    <svg class="eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecpa="round" stroke-linejoin="round">"M2.6 12S6 5.8 12 5.8 21.4 12 21.4 12 18 18.2 12 18.2 2.6 12 2.6 12Z"/><circle cx="12" cy="12" r="3.1"/></svg>
-                                    <svg class="eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l16 16"/><path d="M9.7 6.3A9.6 9.6 0 0 1 12 5.8c6 0 9.4 6.2 9.4 6.2a17 17 0 0 1-3.5 4.2M6.5 7.7A17 17 0 0 0 2.6 12S6 18.2 12 18.2a9.3 9.3 0 0 0 3.6-.7"/><path d="M9.9 10.1a3.1 3.1 0 0 0 4.3 4.3"/></svg>
-                                </button>
-                            </div>
-                            <div class="strength" id="strength" date-level="0">
-                                <span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-                                <span class="strength-label" id="strengthLabel" aria-live="polite">강도 —</span>
-                            </div>
-                            <ul class="rules" id="rules">
-                                <li data-rule="len">8자 이상</li>
-                                <li data-rule="mix">영문 + 숫자</li>
-                                <li data-rule="special">특수문자 1개</li>
-                            </ul>
-                            <p class="msg" id="passwordMsg" role="status">추측하기 어려운 조합을 권장합니다.</p>
-                        </div>
-
-                        <!-- 비밀번호 확인 -->
-                        <div class="field" data-field="confirm">
-                            <label for="confirm">비밀번호 확인</label>
-                            <div class="input-wrap">
-                                <svg class="lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                    <rect x="4.5" y="10.5" width="15" height="10" rx="2.6"/><path d="M8.2 10.5V8a3.8 3.8 0 0 1 7.6 0v2.5"/><path d="m9.6 15.4 1.6 1.6 3.2-3.2"/>
-                                </svg>
-                                <input id="confirm" name="confirm" type="password" placeholder="다시 한 번 입력" autocomplete="new-password" required aria-describedby="confirmMsg">
-                                <span class="status" aria-hidden="true">
-                                    <svg class="ic ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cs="12" cy="12" r="9"/><path d="m8 12.4 2.7 2.7L16 9.6"/></svg>
-                                    <svg class="ic err" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cs="12" cy="12" r="9"/><path d="M12 7.6v5.2M12 16.4h.01"/></svg>
-                                </span>
-                            </div>
-                            <p class="msg" id="confirmMsg" role="status">비밀번호를 한 번 더 입력해 주세요.</p>
-                        </div>
-
-                        <!-- 약관 동의 -->
-                        <div class="terms" id="terms">
-                            <label class="check all">
-                                <input type="checkbox" id="areeAll">
-                                <span class="box" aria-hidden="true"></span>
-                                <span class="txt">전체 동의하기</span>
-                            </label>
-                            <span class="divider" aria-hidden="true"></span>
-                            <label class="check">
-                                <input type="checkbox" class="term-item" name="agreeTerms" required>
-                                <span class="box" aria-hidden="true"></span>
-                                <span class="txt">개인정보 수집·이용 동의 <em class="badge must">필</em></span>
-                            </label>
-                            <label class="check">
-                                <input type="checkbox" class="term-item" name="agreemarketing">
-                                <span class="box" aria-hidden="true"></span>
-                                <span class="txt">마케팅 정보 수신 동의 <em class="badge opt">선</em></span>
-                            </label>
-                        </div>
-
-                        <button class="btn-primary" type="submit" id="submitBtn">
-                            <span class="spinner" aria-hidden="true"></span>
-                            <span class="btn-text">계정 만들기</span>
-                        </button>
-
-                        <p class="footnote">가입 시 <a href="#">이용약관</a> 및 <a href="#">개인정보 처리방침</a>에 동의한 것으로 간주됩니다.</p>
-                    </form>
-                </div>
-
-                <!-- 성공 화면 -->
-                <div class="success" id="successView" hidden>
-                    <div class="success-badge">
-                        <svg class="check-svg" viewBox="0 0 72 72" aria-hidden="true">
-                            <circle cx="36" cy="36" r="26"/>
-                            <path d="M24.5 37.2 33 45.5l16-18"/>
-                        </svg>
+                        <input id="name" name="name" type="text" placeholder="홍길동" autocomplete="name" inputmode="text" required aria-describedby="nameMsg">
+                        <span class="status" aria-hidden="true">
+                            <svg class="ic ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8 12.4 2.7 2.7L16 9.6"/></svg>
+                            <svg class="ic err" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.6v5.2M12 16.4h.01"/></svg>
+                        </span>
                     </div>
-                    <h3>가입이 완료되었습니다</h3>
-                    <p><b id="successEmail">you@example.com</b> 으로 인증 메일을 보냈습니다.<br>메일함에서 링크를 눌러 계정을 활성화해 주세요.</p>
-                    <button class="btn-ghost" type="button" id="resetBtn">처음부터 다시 작</button>
+                    <p class="msg" id="nameMsg" role="status">실명 또는 활동명을 2자 이상 입력해 주세요.</p>
                 </div>
-            </div>
-        </section>
-    </mian>
 
-    <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","spa":2}' crossorigin="anonymous"></script>
-    <script src="./main.js" defer></script>
+                <!-- 이메일 -->
+                <div class="field" data-field="email">
+                    <label for="email">이메일</label>
+                    <div class="input-wrap">
+                        <svg class="lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7.5 8 5.2 8-5.2"/>
+                        </svg>
+                        <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" inputmode="email" spellcheck="false" required aria-describedby="emailMsg">
+                        <span class="status" aria-hidden="true">
+                            <svg class="ic ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8 12.4 2.7 2.7L16 9.6"/></svg>
+                            <svg class="ic err" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.6v5.2M12 16.4h.01"/></svg>
+                        </span>
+                    </div>
+                    <p class="msg" id="emailMsg" role="status">로그인과 알림 수신에 사용됩니다.</p>
+                </div>
+
+                <!-- 비밀번호 -->
+                <div class="field" data-field="password">
+                    <label for="password">비밀번호</label>
+                    <div class="input-wrap with-toggle">
+                        <svg class="lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <rect x="4.5" y="10.5" width="15" height="10" rx="2.6"/><path d="M8.2 10.5V8a3.8 3.8 0 0 1 7.6 0v2.5"/>
+                        </svg>
+                        <input id="password" name="password" type="password" placeholder="8자 이상 입력" autocomplete="new-password" required minlength="8" aria-describedby="passwordMsg">
+                        <span class="status" aria-hidden="true">
+                            <svg class="ic ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8 12.4 2.7 2.7L16 9.6"/></svg>
+                            <svg class="ic err" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.6v5.2M12 16.4h.01"/></svg>
+                        </span>
+                        <button class="toggle-vis" type="button" id="togglePassword" aria-label="비밀번호 표시" aria-pressed="false">
+                            <svg class="eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2.6 12S6 5.8 12 5.8 21.4 12 21.4 12 18 18.2 12 18.2 2.6 12 2.6 12Z"/><circle cx="12" cy="12" r="3.1"/></svg>
+                            <svg class="eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l16 16"/><path d="M9.7 6.3A9.6 9.6 0 0 1 12 5.8c6 0 9.4 6.2 9.4 6.2a17 17 0 0 1-3.5 4.2M6.5 7.7A17 17 0 0 0 2.6 12S6 18.2 12 18.2a9.3 9.3 0 0 0 3.6-.7"/><path d="M9.9 10.1a3.1 3.1 0 0 0 4.3 4.3"/></svg>
+                        </button>
+                    </div>
+
+                    <!-- 비밀번호 강도 게이지 바 & 라벨 -->
+                    <div class="strength" id="strength" data-level="0">
+                        <span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+                        <span class="strength-label" id="strengthLabel" aria-live="polite">강도 —</span>
+                    </div>
+
+                    <!-- 비밀번호 규칙 목록 -->
+                    <ul class="rules" id="rules">
+                        <li data-rule="len">8자 이상</li>
+                        <li data-rule="mix">영문·숫자 조합</li>
+                        <li data-rule="special">특수문자 1개 이상</li>
+                    </ul>
+  
+                    <p class="msg" id="passwordMsg" role="status">추측하기 어려운 조합을 권장합니다.</p>
+                </div>
+
+                <!-- 비밀번호 확인 -->
+                <div class="field" data-field="confirm">
+                    <label for="confirm">비밀번호 확인</label>
+                    <div class="input-wrap">
+                        <svg class="lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <rect x="4.5" y="10.5" width="15" height="10" rx="2.6"/><path d="M8.2 10.5V8a3.8 3.8 0 0 1 7.6 0v2.5"/><path d="m9.6 15.4 1.6 1.6 3.2-3.2"/>
+                        </svg>
+                        <input id="confirm" name="confirm" type="password" placeholder="다시 한 번 입력" autocomplete="new-password" required aria-describedby="confirmMsg">
+                        <span class="status" aria-hidden="true">
+                            <svg class="ic ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8 12.4 2.7 2.7L16 9.6"/></svg>
+                            <svg class="ic err" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.6v5.2M12 16.4h.01"/></svg>
+                        </span>
+                    </div>
+                    <p class="msg" id="confirmMsg" role="status">비밀번호를 한 번 더 입력해 주세요.</p>
+                </div>
+                
+                <!-- 약관 동의 -->
+                <div class="terms" id="terms">
+                    <label class="check all">
+                        <input type="checkbox" id="agreeAll">
+                        <span class="box" aria-hidden="true"></span>
+                        <span class="txt">전체 동의하기</span>
+                    </label>
+                    <span class="divider" aria-hidden="true"></span>
+                    <label class="check">
+                        <input type="checkbox" class="term-item" name="agreeTerms" required>
+                        <span class="box" aria-hidden="true"></span>
+                        <span class="txt">이용약관 동의 <em class="badge must">필수</em></span>
+                    </label>
+                    <label class="check">
+                        <input type="checkbox" class="term-item" name="agreePrivacy" required>
+                        <span class="box" aria-hidden="true"></span>
+                        <span class="txt">개인정보 수집·이용 동의 <em class="badge must">필수</em></span>
+                    </label>
+                    <label class="check">
+                        <input type="checkbox" class="term-item" name="agreeMarketing">
+                        <span class="box" aria-hidden="true"></span>
+                        <span class="txt">마케팅 정보 수신 동의 <em class="badge opt">선택</em></span>
+                    </label>
+                </div>
+
+                <button class="btn-primary" type="submit" id="submitBtn">
+                    <span class="spinner" aria-hidden="true"></span>
+                    <span class="btn-text">계정 만들기</span>
+                </button>
+
+                <p class="footnote">가입 시 <a href="#">이용약관</a> 및 <a href="#">개인정보 처리방침</a>에 동의한 것으로 간주됩니다.</p>
+            </form>
+        </div>
+
+        <!-- ---------- 성공 화면 ---------- -->
+        <div class="success" id="successView" hidden>
+            <div class="success-badge">
+                <svg class="check-svg" viewBox="0 0 72 72" aria-hidden="true">
+                    <circle cx="36" cy="36" r="26"/>
+                    <path d="M24.5 37.2 33 45.5l16-18"/>
+                </svg>
+            </div>
+            <h3>가입이 완료되었습니다</h3>
+            <p><b id="successEmail">you@example.com</b> 으로 인증 메일을 보냈습니다.<br>메일함에서 링크를 눌러 계정을 활성화해 주세요.</p>
+            <button class="btn-ghost" type="button" id="resetBtn">처음부터 다시 작성</button>
+        </div>
+    </div>
+</section>
+</main>
+
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","spa":2}' crossorigin="anonymous"></script>
+<script src="./main.js" defer></script>
 </body>
 </html>
