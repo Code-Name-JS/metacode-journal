@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>회원가입 — Aurora</title>
+<style>
+  :root {
+    --bg: #f4f6fb;
+    --surface: #ffffff;
+    --brand: #4f6bfa;
+    --brand-dark: #3a52d8;
+    --brand-soft: #eef1ff;
+    --text: #1c2030;
+    --text-sub: #6b7280;
+    --line: #dfe3ee;
+    --error: #e5484d;
+    --error-bg: #fdebec;
+    --ok: #2f9e6e;
+    --radius: 14px;
+    --shadow: 0 24px 60px -20px rgba(38, 50, 120, .25);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #10131c;
+      --surface: #191d29;
+      --brand: #7c92ff;
+      --brand-dark: #5f76f0;
+      --brand-soft: #232a45;
+      --text: #eef0f8;
+      --text-sub: #9aa1b5;
+      --line: #2c3245;
+      --error: #ff7175;
+      --error-bg: #3a2226;
+      --ok: #4fce94;
+      --shadow: 0 24px 60px -20px rgba(0, 0, 0, .6);
+    }
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .card {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    width: 100%;
+    max-width: 1020px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+
+  /* ---------- 좌측 브랜드 패널 ---------- */
+  .side {
+    position: relative;
+    background: linear-gradient(160deg, var(--brand) 0%, var(--brand-dark) 100%);
+    color: #fff;
+    padding: 56px 44px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+  }
+  .side::before, .side::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,.12);
+  }
+  .side::before { width: 320px; height: 320px; top: -110px; right: -110px; }
+  .side::after { width: 220px; height: 220px; bottom: -80px; left: -70px; background: rgba(255,255,255,.08); }
+
+  .logo {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 800; font-size: 20px; letter-spacing: .5px;
+  }
+  .logo-mark {
+    width: 34px; height: 34px; border-radius: 10px;
+    background: rgba(255,255,255,.22);
+    display: grid; place-items: center; font-size: 17px;
+  }
+  .side h1 {
+    font-size: clamp(26px, 3vw, 34px);
+    line-height: 1.32;
+    font-weight: 800;
+    position: relative; z-index: 1;
+  }
+  .side h1 span { opacity: .75; font-weight: 600; }
+  .side ul {
+    list-style: none;
+    display: grid; gap: 14px;
+    font-size: 15px;
+    position: relative; z-index: 1;
+  }
+  .side li { display: flex; align-items: center; gap: 10px; opacity: .92; }
+  .side li::before {
+    content: '✓';
+    width: 22px; height: 22px; flex: 0 0 22px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.2);
+    display: grid; place-items: center;
+    font-size: 12px; font-weight: 700;
+  }
+  .side small { position: relative; z-index: 1; opacity: .65; font-size: 13px; }
+
+  /* ---------- 우측 폼 ---------- */
+  .panel { padding: 52px 48px; display: flex; flex-direction: column; justify-content: center; }
+  .panel h2 { font-size: 26px; font-weight: 800; margin-bottom: 6px; }
+  .panel > p { color: var(--text-sub); font-size: 14px; margin-bottom: 30px; }
+
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  .field { margin-bottom: 18px; }
+  .field label {
+    display: block;
+    font-size: 13px; font-weight: 600;
+    margin-bottom: 7px;
+  }
+  .field label .req { color: var(--error); margin-left: 2px; }
+  .field input {
+    width: 100%;
+    padding: 13px 14px;
+    font-size: 15px;
+    font-family: inherit;
+    color: var(--text);
+    background: var(--brand-soft);
+    border: 1.5px solid transparent;
+    border-radius: var(--radius);
+    outline: none;
+    transition: border-color .15s, background .15s, box-shadow .15s;
+  }
+  .field input:focus {
+    border-color: var(--brand);
+    background: var(--surface);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--brand) 18%, transparent);
+  }
+  .field input[aria-invalid="true"] { border-color: var(--error); background: var(--error-bg); }
+  .field input[aria-invalid="false"].touched:not(:placeholder-shown) { border-color: var(--ok); }
+
+  .pwd-wrap { position: relative; }
+  .pwd-wrap input { padding-right: 52px; }
+  .toggle-pwd {
+    position: absolute; right: 8px; top: 50%;
+    transform: translateY(-50%);
+    border: none; background: none; cursor: pointer;
+    font-size: 17px; padding: 6px; line-height: 1;
+    color: var(--text-sub); border-radius: 8px;
+  }
+  .toggle-pwd:focus-visible { outline: 2px solid var(--brand); }
+
+  .msg {
+    display: none;
+    margin-top: 6px;
+    font-size: 12.5px;
+    color: var(--error);
+  }
+  .msg.show { display: block; }
+
+  /* 비밀번호 강도 바 */
+  .strength { display: flex; gap: 5px; margin-top: 8px; }
+  .strength i {
+    flex: 1; height: 4px; border-radius: 4px;
+    background: var(--line); transition: background .2s;
+  }
+  .strength i.on-1 { background: var(--error); }
+  .strength i.on-2 { background: #f2a541; }
+  .strength i.on-3 { background: var(--ok); }
+  .strength-label { font-size: 12px; color: var(--text-sub); margin-top: 5px; }
+
+  /* 약관 */
+  .terms {
+    display: flex; align-items: flex-start; gap: 10px;
+    margin: 4px 0 22px;
+    font-size: 13.5px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .terms input {
+    width: 18px; height: 18px; margin-top: 1px;
+    accent-color: var(--brand); cursor: pointer; flex: 0 0 18px;
+  }
+  .terms a { color: var(--brand); text-decoration: none; font-weight: 600; }
+  .terms a:hover { text-decoration: underline; }
+
+  .submit {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px; font-weight: 700;
+    font-family: inherit;
+    color: #fff;
+    background: var(--brand);
+    border: none; border-radius: var(--radius);
+    cursor: pointer;
+    transition: background .15s, transform .1s;
+  }
+  .submit:hover:not(:disabled) { background: var(--brand-dark); }
+  .submit:active:not(:disabled) { transform: scale(.985); }
+  .submit:disabled { opacity: .45; cursor: not-allowed; }
+  .submit:focus-visible { outline: 3px solid color-mix(in srgb, var(--brand) 45%, transparent); outline-offset: 2px; }
+
+  .login-link { text-align: center; font-size: 13.5px; color: var(--text-sub); margin-top: 22px; }
+  .login-link a { color: var(--brand); font-weight: 700; text-decoration: none; }
+  .login-link a:hover { text-decoration: underline; }
+
+  .success-banner {
+    display: none;
+    background: color-mix(in srgb, var(--ok) 14%, transparent);
+    border: 1px solid var(--ok);
+    color: var(--ok);
+    border-radius: var(--radius);
+    padding: 13px 16px;
+    font-size: 14px; font-weight: 600;
+    margin-bottom: 18px;
+  }
+  .success-banner.show { display: block; }
+
+  /* ---------- 반응형 ---------- */
+  @media (max-width: 860px) {
+    .card { grid-template-columns: 1fr; max-width: 460px; }
+    .side { padding: 36px 32px; gap: 20px; }
+    .side ul { display: none; }
+    .side small { display: none; }
+    .panel { padding: 36px 32px; }
+  }
+  @media (max-width: 480px) {
+    body { padding: 16px 12px; }
+    .row { grid-template-columns: 1fr; gap: 0; }
+    .panel { padding: 30px 22px; }
+    .side { padding: 28px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<main class="card" aria-label="회원가입">
+  <section class="side">
+    <div class="logo"><span class="logo-mark">◆</span>Aurora</div>
+    <h1>새로운 시작을<br>함께 만들어요<br><span>지금 가입하면 무료 크레딧 증정</span></h1>
+    <ul>
+      <li>1분 만에 완료되는 간편 가입</li>
+      <li>모든 기능 무료로 체험 가능</li>
+      <li>언제든 해지, 숨은 요금 없음</li>
+    </ul>
+    <small>© 2026 Aurora Inc. All rights reserved.</small>
+  </section>
+
+  <section class="panel">
+    <h2>회원가입</h2>
+    <p>아래 정보를 입력해 계정을 만들어 보세요.</p>
+
+    <div class="success-banner" id="successBanner" role="status">🎉 회원가입이 완료되었습니다! 입력하신 이메일로 인증 메일을 발송했습니다.</div>
+
+    <form id="signupForm" novalidate>
+      <div class="row">
+        <div class="field">
+          <label for="name">이름 <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="name" name="name" placeholder="홍길동" required autocomplete="name" aria-invalid="false">
+          <p class="msg" id="nameMsg">이름을 입력해 주세요.</p>
+        </div>
+        <div class="field">
+          <label for="phone">전화번호</label>
+          <input type="tel" id="phone" name="phone" placeholder="010-1234-5678" autocomplete="tel" aria-invalid="false" inputmode="tel">
+          <p class="msg" id="phoneMsg">전화번호 형식이 올바르지 않습니다.</p>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="email">이메일 <span class="req" aria-hidden="true">*</span></label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="email" aria-invalid="false" inputmode="email">
+        <p class="msg" id="emailMsg">올바른 이메일 주소를 입력해 주세요.</p>
+      </div>
+
+      <div class="field">
+        <label for="password">비밀번호 <span class="req" aria-hidden="true">*</span></label>
+        <div class="pwd-wrap">
+          <input type="password" id="password" name="password" placeholder="8자 이상, 영문·숫자·특수문자 조합" required autocomplete="new-password" aria-invalid="false" aria-describedby="strengthLabel">
+          <button type="button" class="toggle-pwd" data-target="password" aria-label="비밀번호 표시">👁</button>
+        </div>
+        <div class="strength" aria-hidden="true"><i></i><i></i><i></i></div>
+        <p class="strength-label" id="strengthLabel">비밀번호 강도: —</p>
+        <p class="msg" id="passwordMsg">8자 이상이며 영문, 숫자, 특수문자를 모두 포함해야 합니다.</p>
+      </div>
+
+      <div class="field">
+        <label for="password2">비밀번호 확인 <span class="req" aria-hidden="true">*</span></label>
+        <div class="pwd-wrap">
+          <input type="password" id="password2" name="password2" placeholder="비밀번호를 다시 입력해 주세요" required autocomplete="new-password" aria-invalid="false">
+          <button type="button" class="toggle-pwd" data-target="password2" aria-label="비밀번호 표시">👁</button>
+        </div>
+        <p class="msg" id="password2Msg">비밀번호가 일치하지 않습니다.</p>
+      </div>
+
+      <label class="terms">
+        <input type="checkbox" id="terms">
+        <span><a href="#" onclick="return false;">이용약관</a> 및 <a href="#" onclick="return false;">개인정보 처리방침</a>에 동의합니다. <span class="req" aria-hidden="true">*</span></span>
+      </label>
+
+      <button type="submit" class="submit" id="submitBtn" disabled>가입하기</button>
+    </form>
+
+    <p class="login-link">이미 계정이 있으신가요? <a href="#" onclick="return false;">로그인</a></p>
+  </section>
+</main>
+
+<script>
+'use strict';
+
+const $ = (s, c = document) => c.querySelector(s);
+const form = $('#signupForm');
+const submitBtn = $('#submitBtn');
+const termsCheck = $('#terms');
+
+const rules = {
+  name: v => v.trim().length >= 2,
+  email: v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()),
+  phone: v => v.trim() === '' || /^01[016789]-?\d{3,4}-?\d{4}$/.test(v.trim()),
+  password: v => v.length >= 8 && /[A-Za-z]/.test(v) && /\d/.test(v) && /[^A-Za-z0-9]/.test(v),
+  password2: v => v !== '' && v === $('#password').value,
+};
+
+const validators = ['name', 'email', 'phone', 'password', 'password2'];
+
+function setFieldState(id, valid) {
+  const input = $('#' + id);
+  const msg = $('#' + id + 'Msg');
+  input.setAttribute('aria-invalid', valid ? 'false' : 'true');
+  msg.classList.toggle('show', !valid && input.value.trim() !== '');
+}
+
+function strengthOf(pw) {
+  if (!pw) return 0;
+  let score = 0;
+  if (pw.length >= 8) score++;
+  if (pw.length >= 12) score++;
+  if (/[A-Z]/.test(pw) && /[a-z]/.test(pw)) score++;
+  if (/\d/.test(pw) && /[^A-Za-z0-9]/.test(pw)) score++;
+  return Math.min(3, Math.max(1, Math.ceil(score * 3 / 4)));
+}
+
+function updateStrength() {
+  const pw = $('#password').value;
+  const bars = document.querySelectorAll('.strength i');
+  const label = $('#strengthLabel');
+  const s = strengthOf(pw);
+  bars.forEach((bar, i) => {
+    bar.className = '';
+    if (i < s) bar.className = 'on-' + s;
+  });
+  label.textContent = '비밀번호 강도: ' + (pw === '' ? '—' : ['약함', '보통', '강함', '매우 강함'][s - 1] ?? '—');
+}
+
+function updateSubmit() {
+  const allValid = validators.every(id => rules[id]($('#' + id).value));
+  submitBtn.disabled = !(allValid && termsCheck.checked);
+}
+
+validators.forEach(id => {
+  const input = $('#' + id);
+  input.addEventListener('blur', () => {
+    input.classList.add('touched');
+    setFieldState(id, rules[id](input.value));
+  });
+  input.addEventListener('input', () => {
+    input.classList.add('touched');
+    setFieldState(id, rules[id](input.value));
+    updateSubmit();
+  });
+});
+
+$('#password').addEventListener('input', () => { updateStrength(); updateSubmit(); });
+
+document.querySelectorAll('.toggle-pwd').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const input = $('#' + btn.dataset.target);
+    const show = input.type === 'password';
+    input.type = show ? 'text' : 'password';
+    btn.textContent = show ? '🙈' : '👁';
+    btn.setAttribute('aria-label', show ? '비밀번호 숨기기' : '비밀번호 표시');
+    input.focus();
+  });
+});
+
+termsCheck.addEventListener('change', updateSubmit);
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  let focusTarget = null;
+  validators.forEach(id => {
+    const ok = rules[id]($('#' + id).value);
+    setFieldState(id, ok);
+    if (!ok && !focusTarget) focusTarget = id;
+  });
+  if (focusTarget) { $('#' + focusTarget).focus(); return; }
+  if (!termsCheck.checked) { termsCheck.focus(); return; }
+  $('#successBanner').classList.add('show');
+  form.reset();
+  submitBtn.disabled = true;
+  document.querySelectorAll('.strength i').forEach(b => b.className = '');
+  $('#strengthLabel').textContent = '비밀번호 강도: —';
+  validators.forEach(id => $('#' + id).setAttribute('aria-invalid', 'false'));
+  $('#successBanner').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+});
+</script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","spa":2}' crossorigin="anonymous"></script>
+</body>
+</html>
