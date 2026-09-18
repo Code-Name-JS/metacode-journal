@@ -34,7 +34,7 @@
                 <div class="field">
                     <label for="name">이름 <span class="req" aria-hidden="true">*</span></label>
                     <input type="text" id="name" name="name" placeholder="홍길동" required autocomplete="name" aria-invalid="false">
-                    <p class="msg" id="nameMsg">이름 형식이 올바르지 않습니다.</p>
+                    <p class="msg" id="nameMsg">이름이 올바르지 않습니다.</p>
                 </div>
                 <div class="field">
                     <label for="phone">전화번호 <span class="req" aria-hidden="true">*</span></label>
@@ -63,17 +63,19 @@
             <div class="field">
                 <label for="password2">비밀번호 확인 <span class="req" aria-hidden="true">*</span></label>
                 <div class="pwd-wrap">
-                    
                     <input type="password" id="password2" name="password2" placeholder="비밀번호를 다시 입력해 주세요" required autocomplete="new-password" aria-invalid="false">
                     <button type="button" class="toggle-pwd" data-target="password2" aria-label="비밀번호 표시">👁</button>
                 </div>
                 <p class="msg" id="password2Msg">비밀번호가 일치하지 않습니다.</p>
             </div>
 
-            <label class="terms">
-                <input type="checkbox" id="terms">
-                <span><a href="#" onclick="return false;">이용약관</a> 및 <a href="#" onclick="return false;">개인정보 처리방침</a>에 동의합니다. <span class="req" aria-hidden="true">*</span></span>
-            </label>
+            <div class="field">
+                <label class="terms">
+                    <input type="checkbox" id="terms" name="terms" required aria-invalid="false">
+                    <span><a href="#" onclick="return false;">이용약관</a> 및 <a href="#" onclick="return false;">개인정보 처리방침</a>에 동의합니다. <span class="req" aria-hidden="true">*</span></span>
+                </label>
+                <p class="msg" id="termsMsg">이용약관에 동의해주세요.</p>
+            </div>
 
             <button type="submit" class="submit" id="submitBtn">가입하기</button>
         </form>

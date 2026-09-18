@@ -132,7 +132,40 @@ body {
     font-size: 13px; font-weight: 600;
     margin-bottom: 7px;
 }
+
+/* 필수 표시(*) 색상 */
+.req {
+  color: #ef4444;
+  margin-left: 2px;
+}
 .field label .req { color: var(--error); margin-left: 2px; }
+
+/* input 요소에 붙을 애니메이션 정의 */
+.shake {
+    animation: shakeEffect 0.4s ease-in-out;
+}
+
+@keyframes shakeEffect {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+}
+
+/* Edge 및 Chromium 계열 브라우저의 기본 비밀번호 표시/숨기기 아이콘 제거 */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
+/* Chrome/WebKit 계열 일부 자동완성 및 데코레이션 제거 */
+input[type="password"]::-webkit-credentials-auto-fill-button {
+  display: none !important;
+  visibility: hidden;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+}
+
 .field input {
     width: 100%;
     padding: 13px 14px;
@@ -187,20 +220,48 @@ body {
 
 
 
-/* -- 약관 -- */
-.terms {
-    display: flex; align-items: flex-start; gap: 10px;
-    margin: 4px 0 22px;
-    font-size: 13.5px;
-    cursor: pointer;
-    user-select: none;
+/* -- 약관 레이블 컨테이너 -- */
+label.terms {
+  display: flex;
+  align-items: center;    /* 체크박스와 텍스트 수직 가운데 정렬 */
+  gap: 8px;               /* 체크박스와 텍스트 사이 간격 */
+  margin: 4px 0 6px;
+  font-size: 13.5px;
+  cursor: pointer;
+  user-select: none;
 }
-.terms input {
-    width: 18px; height: 18px; margin-top: 1px;
-    accent-color: var(--brand); cursor: pointer; flex: 0 0 18px;
+
+/* -- 체크박스 -- */
+label.terms input[type="checkbox"] {
+  margin: 0;              /* 위아래 여백 완전 제거 (정렬 틀어짐 방지) */
+  width: 18px;
+  height: 18px;
+  accent-color: var(--brand);
+  cursor: pointer;
+  flex-shrink: 0;         /* 공간 부족 시 체크박스 찌그러짐 방지 */
 }
-.terms a { color: var(--brand); text-decoration: none; font-weight: 600; }
-.terms a:hover { text-decoration: underline; }
+
+/* -- 내부 텍스트 영역 -- */
+label.terms span {
+  display: inline-block;
+  line-height: 1.4;
+  /* HTML에 입력된 공백(띄어쓰기)을 그대로 렌더링 */
+  white-space: pre-wrap; 
+  /* 한글 단어 단위로 줄바꿈되어 문맥이 끊기지 않도록 설정 */
+  word-break: keep-all; 
+}
+
+/* 링크 요소 사이 간격이 붙는 것을 방지 */
+label.terms a {
+  color: var(--brand);
+  text-decoration: underline;
+  font-weight: 600;
+  display: inline;
+}
+
+label.terms a:hover {
+  text-decoration: none;
+}
 
 .submit {
     width: 100%;

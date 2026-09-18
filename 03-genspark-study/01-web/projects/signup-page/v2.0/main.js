@@ -18,15 +18,17 @@ const passwordInput = document.getElementById('password');
 const password2Input = document.getElementById('password2');
 const strengthBars = document.querySelectorAll('.strength i');
 const strengthLabel = document.getElementById('strengthLabel');
+const termsMsg = document.getElementById('termsMsg');
 
-const validatorKeys = ['name', 'phone', 'email', 'password', 'password2'];
+const validatorKeys = ['name', 'email', 'phone', 'password', 'password2', 'terms'];
 
 const inputElements = {
     name: document.getElementById('name'),
-    phone: document.getElementById('phone'),
     email: document.getElementById('email'),
-    password: passwordInput,
-    password2: password2Input
+    phone: document.getElementById('phone'),
+    password: document.getElementById('password'),
+    password2: document.getElementById('password2'),
+    terms: document.getElementById('terms')
 };
 
 const getMsgElement = (id) => document.getElementById(`${id}Msg`);
@@ -35,9 +37,11 @@ const getMsgElement = (id) => document.getElementById(`${id}Msg`);
 /* ==========================================================================
    2. 개별 검증 함수 정의
    ========================================================================== */
-// 이름: 공백 제외 2자 이상
+// 이름: 공백 제외 2~5자 완성형 한글만 허용
 function checkName(v) {
-    return typeof v === 'string' && v.trim().length >= 2;
+    if (typeof v !== 'string') return false;
+    const trimmed = v.trim();
+    return /^[가-힣]{2,5}$/.test(trimmed);
 }
 
 // 이메일: 표준 이메일 형식
@@ -68,13 +72,25 @@ function checkPassword2(v) {
     return Boolean(passwordInput) && v.length > 0 && v === passwordInput.value;
 }
 
+// 약관 동의 검증: 체크 여부(true) 확인
+function checkTerms(v) {
+    // 1) input.checked(boolean)가 전달되었을 경우
+    if (typeof v === 'boolean') {
+        return v === true;
+    }
+    // 2) 요소 직접 확인 또는 fallback 처리
+    const termsEl = inputElements?.terms || document.getElementById('terms');
+    return termsEl ? termsEl.checked : false;
+}
+
 // 검증 함수 맵
 const VALIDATORS = {
     name: checkName,
     email: checkEmail,
     phone: checkPhone,
     password: checkPassword,
-    password2: checkPassword2
+    password2: checkPassword2,
+    terms: checkTerms // [추가]
 };
 
 
@@ -86,7 +102,7 @@ const VALIDATORS = {
 function shake(el) {
     if (!el) return;
     el.classList.remove('shake');
-    void el.offestWidth; // 리플로우 강제 트리거
+    void el.offsetWidth; // 리플로우 강제 트리거
     el.classList.add('shake');
 }
 
@@ -102,10 +118,13 @@ function setFieldState(id, valid) {
     if (msg && input) {
         // [수정] 빈 문자열이어도 valid가 false이고 touched 상태면 에러를 노출
         const isErrorVisible = !valid && (input.classList.contains('touched') || input.value.trim() !== '');
+        
+        // 이전 상태와 비교하여 '에러 상태로 새롭게 진입한 경우'에만 shake 실행
+        const wasError = msg.classList.contains('show');
         msg.classList.toggle('show', isErrorVisible);
     
         // 에러 상태일 때 input 요소에 흔들림 애니메이션 실행
-        if (isErrorVisible) {
+        if (isErrorVisible && !wasError) {
             shake(input);
         }
     }
@@ -145,8 +164,6 @@ function validateAll() {
 
     validatorKeys.forEach((key) => {
         const input = inputElements[key];
-
-        // input 요소가 없으면 건너뜁니다.
         if (!input) return;
 
         const isValid = VALIDATORS[key]?.(input.value) ?? false;
@@ -190,6 +207,25 @@ if (form) {
     });
 }
 
+// 이름 입력 시: 한글 이외 문자 실시간 제거 및 검증
+const nameInputEl = inputElements?.['name'] || document.getElementById('name');
+if (nameInputEl) {
+    nameInputEl.addEventListener('input', (e) => {
+        const originalValue = e.target.value;
+        // 한글(완성형/자음/모음) 및 공백을 제외한 문자 제거
+        const filteredValue = originalValue.replace(/[^ㄱ-ㅎ|ㅏ-ㅣ|가-힣\s]/g, '');
+
+        if (originalValue !== filteredValue) {
+            e.target.value = filteredValue;
+        }
+
+        // 기존 폼 검증 엔진과 상태 동기화
+        if (typeof setFieldState === 'function' && VALIDATORS?.['name']) {
+            setFieldState('name', VALIDATORS['name'](e.target.value));
+        }
+    });
+}
+
 // 비밀번호 입력 시: 강도 측정 + 확인(password2) 재동기화
 if (passwordInput) {
     passwordInput.addEventListener('input', () => {
@@ -222,7 +258,12 @@ togglePwdButtons.forEach((btn) => {
 
 // 약관 동의 체크박스 상태 변경 대응
 if (termsCheck) {
-    termsCheck.addEventListener('change', validateAll);
+    termsCheck.addEventListener('change', () => {
+        checkTerms(); // termsMsg의 .show 클래스 및 aria-invalid 갱신
+        if (typeof validateAll === 'function') {
+            validateAll();
+        }
+    });
 }
 
 // 폼 최종 제출 처리
@@ -237,7 +278,9 @@ if (form) {
             const input = inputElements[id];
             if (!input) return;
 
-            const isValid = VALIDATORS[id]?.(input.value) ?? false;
+            // input 타입이 checkbox이면 checked 값을, 아니면 value를 전달
+            const val = input.type === 'checkbox' ? input.checked : input.value;
+            const isValid = VALIDATORS[id]?.(val) ?? false;
 
             input.classList.add('touched');
             setFieldState(id, isValid);
@@ -247,19 +290,29 @@ if (form) {
             }
         });
 
-        // [단계 2] 오류 항목 우선 포커스
+        // [단계 2] 일반 입력창 오류 항목 우선 포커스 (약관 검사 전에 먼저 탈출)
         if (focusTarget) {
             focusTarget.focus();
             return;
         }
 
-        // [단계 3] 약관 동의 여부 체크 및 포커스
-        if (termsCheck && !termsCheck.checked) {
-            termsCheck.focus();
-            return;
+        // [단계 3] 약관 동의 여부 검증 (에러 메시지 표시, 애니메이션, 포커스)
+        if (termsCheck) {
+            const isTermsValid = checkTerms(); // 정의해둔 검증 함수 실행 (에러 메시지 자동 노출)
+
+            if (!isTermsValid) {
+                // 체크박스 또는 라벨 요소 흔들림 효과 트리거
+                const termsWrapper = termsCheck.closest('.terms') || termsCheck;
+                if (typeof shake === 'function') {
+                    shake(termsWrapper);
+                }
+
+                termsCheck.focus();
+                return; // 약관 미동의 시 제출 중단
+            }
         }
 
-        // [단계 4] 최종 유효성 검증 확인
+        // [단계 4] 최종 유효성 검증 확인 (버튼 활성화 상태 등 전체 점검)
         if (!validateAll()) {
             return;
         }
@@ -283,7 +336,8 @@ if (form) {
         if (strengthLabel) {
             strengthLabel.textContent = '비밀번호 강도: —';
         }
-
+    
+        // 일반 필드 리셋
         validatorKeys.forEach((id) => {
             const el = inputElements[id];
             const msg = getMsgElement(id);
@@ -296,6 +350,15 @@ if (form) {
                 msg.classList.remove('show');
             }
         });
+
+        // [추가] 약관 체크박스 및 메시지 초기화
+        if (termsCheck) {
+            termsCheck.checked = false;
+            termsCheck.setAttribute('aria-invalid', 'false');
+        }
+        if (termsMsg) {
+            termsMsg.classList.remove('show'); // 약관 에러 메시지 숨김
+        }
     });
-}    
+}
 })();
