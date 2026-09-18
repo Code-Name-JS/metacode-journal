@@ -205,18 +205,25 @@ body {
 .submit {
     width: 100%;
     padding: 15px;
-    font-size: 16px; font-weight: 700;
+    font-size: 16px; 
+    font-weight: 700;
     font-family: inherit;
     color: #fff;
-    background: var(--brand);
-    border: none; border-radius: var(--radius);
+    background: var(--brand, #3b82f6); /* 변수 미정의 대비 fallback 추가 */
+    border: none; 
+    border-radius: var(--radius, 8px);
     cursor: pointer;
-    transition: background .15s, transform .1s;
+    transition: background .15s, transform .1s, opacity .15s;
 }
-.submit:hover:not(:disabled) { background: var(--brand-dark); }
-.submit:active:not(:disabled) { transform: scale(.985); }
-.submit:disabled { opacity: .45; cursor: not-allowed; }
-.submit:focus-visible { outline: 3px solid color-mix(in srgb, var(--brand) 45%, transparent); outline-offset: 2px; }
+
+.submit:hover { background: var(--brand-dark, #1d4ed8);  }
+.submit:active { transform: scale(.985); }
+/* disabled가 필요할 때만 약하게 적용하고 커서는 기본 유지 */
+.submit:disabled { opacity: .5; cursor: not-allowed; }
+.submit:focus-visible { 
+    outline: 3px solid color-mix(in srgb, var(--brand, #3b82f6) 45%, transparent); 
+    outline-offset: 2px; 
+}
 
 .login-link { text-align: center; font-size: 13.5px; color: var(--text-sub); margin-top: 22px; }
 .login-link a { color: var(--brand); font-weight: 700; text-decoration: none; }
