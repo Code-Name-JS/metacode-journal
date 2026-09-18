@@ -151,7 +151,7 @@ body {
     box-shadow: 0 0 0 4px color-mix(in srgb, var(--brand) 18%, transparent);
 }
 .field input[aria-invalid="true"] { border-color: var(--error); background: var(--error-bg); }
-.field input[aira-invalid="false"].touched:not(:placeholder-shown) { border-color: var(--ok); }
+.field input[aria-invalid="false"].touched:not(:placeholder-shown) { border-color: var(--ok); }
 
 .pwd-wrap { position: relative; }
 .pwd-wrap input { padding-right: 52px; }

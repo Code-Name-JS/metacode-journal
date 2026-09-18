@@ -14,7 +14,7 @@
 <main class="card" aria-label="회원가입">
     <section class="side">
         <div class="logo"><span class="logo-mark">◆</span>Aurora</div>
-        <h1> 새로운 시작을<br>함께 만들어요<br><span>지금 가입하면 무료 크레딧 증</span></h1>
+        <h1> 새로운 시작을<br>함께 만들어요<br><span>가입하면 무료 크레딧 증정</span></h1>
         <ul>
             <li>1분 만에 완료되는 간편 가입</li>
             <li>모든 기능 무료로 체험 가능</li>
@@ -34,10 +34,10 @@
                 <div class="field">
                     <label for="name">이름 <span class="req" aria-hidden="true">*</span></label>
                     <input type="text" id="name" name="name" placeholder="홍길동" required autocomplete="name" aria-invalid="false">
-                    <p class="msg" id="nameMsg">이름을 입력해 주세요.</p>
+                    <p class="msg" id="nameMsg">이름 형식이 올바르지 않습니다.</p>
                 </div>
                 <div class="field">
-                    <label for="phone">전화번호</label>
+                    <label for="phone">전화번호 <span class="req" aria-hidden="true">*</span></label>
                     <input type="tel" id="phone" name="phone" placeholder="010-1234-5678" autocomplete="tel" aria-invalid="false" inputmode="tel">
                     <p class="msg" id="phoneMsg">전화번호 형식이 올바르지 않습니다.</p>
                 </div>
@@ -50,7 +50,7 @@
             </div>
 
             <div class="field">
-                <label for="password">비밀번호 <span class="req" aria-hidden="true">&</span></label>
+                <label for="password">비밀번호 <span class="req" aria-hidden="true">*</span></label>
                 <div class="pwd-wrap">
                     <input type="password" id="password" name="password" placeholder="8자 이상, 영문·숫자·특수문자 조합" required autocomplete="new-password" aria-invalid="false" aria-describedby="strengthLabel">
                     <button type="button" class="toggle-pwd" data-target="password" aria-label="비밀번호 표시">👁</button>
@@ -63,7 +63,8 @@
             <div class="field">
                 <label for="password2">비밀번호 확인 <span class="req" aria-hidden="true">*</span></label>
                 <div class="pwd-wrap">
-                    <input type="password" id="paswword2" name="password2" placeholder="비밀번호를 다시 입력해 주세요" required autocomplete="new-password" aria-invalid="false">
+                    
+                    <input type="password" id="password2" name="password2" placeholder="비밀번호를 다시 입력해 주세요" required autocomplete="new-password" aria-invalid="false">
                     <button type="button" class="toggle-pwd" data-target="password2" aria-label="비밀번호 표시">👁</button>
                 </div>
                 <p class="msg" id="password2Msg">비밀번호가 일치하지 않습니다.</p>
@@ -71,7 +72,7 @@
 
             <label class="terms">
                 <input type="checkbox" id="terms">
-                <span><a href="#" onclick="return false;">이용약관</a> 및 <a href="#" onclick="return false;">개인정보 처리방</a>에 동의합니다. <span class="req" aria-hidden="true">*</span></span>
+                <span><a href="#" onclick="return false;">이용약관</a> 및 <a href="#" onclick="return false;">개인정보 처리방침</a>에 동의합니다. <span class="req" aria-hidden="true">*</span></span>
             </label>
 
             <button type="submit" class="submit" id="submitBtn" disabled>가입하기</button>
