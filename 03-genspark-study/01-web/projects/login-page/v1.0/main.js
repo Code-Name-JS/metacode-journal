@@ -7,7 +7,7 @@ console.log("main.js 연결 성공!");
 
 
 
-//  ── 데모용 계정(실제 서비스에서는 서버 인증으로 대체) ──
+/* -- 데모용 계정(실제 서비스에서는 서버 인증으로 대체) -- */
 const DEMO_ACCOUNTS = [
     {email:'demo@myapp.com', password:'demo1234'},
     {email:'test@example.com', password:'test5678'},
