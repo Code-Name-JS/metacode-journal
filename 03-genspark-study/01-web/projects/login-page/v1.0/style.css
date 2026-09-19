@@ -56,8 +56,12 @@
 /* ==================================================
    리셋 & 베이스
    ================================================== */
+/* -- 전역 초기화(Global Reset) -- */
 *, *::before, *::after{box-sizing: border-box; margin: 0; padding: 0;}
 
+
+
+/* -- 페이지 기본 스타일 -- */
 html{font-size: 16px; scroll-behavior: smooth;}
 
 body{
@@ -76,7 +80,7 @@ body{
 
 
 
-/* ── 배경 블롭 ── */
+/* -- 배경 장식 요소 -- */
 .bg-blobs{position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;}
 
 .blob{
@@ -88,21 +92,18 @@ body{
     will-change: transform;
     contain: layout;
 }
-
 .blob-1{
     width: 500px; height: 500px;
     background: radial-gradient(circle, #b8b0ff 0%, #6c63ff 100%);
     top: -180px; left: -140px;
     animation-delay: 0s;
 }
-
 .blob-2{
     width: 420px; height: 420px;
     background: radial-gradient(circle, #ffb3c1 0%, #ff6584 100%);
     bottom: -160px; right: -120px;
     animation-delay: -3s;
 }
-
 .blob-3{
     width: 280px; height: 280px;
     background: radial-gradient(circle, #a0f0c8 0%, #34d399 100%);
@@ -110,6 +111,12 @@ body{
     animation-delay: -5s;
 }
 
+
+
+/* ==================================================
+   배경 요소 부유 애니메이션
+   - 위아래로 이동하며 자연스럽게 확대/축소
+   ================================================== */
 @keyframes float{
     0%, 100%{transform: translateY(0) scale(1);}
     50%{transform: translateY(-28px) scale(1.04);}
@@ -117,7 +124,9 @@ body{
 
 
 
-/* ── 로그인 래퍼 ── */
+/* ==================================================
+   로그인 페이지 전체 컨테이너 (Login Page Wrapper)
+   ================================================== */
 .login-wrapper{
     position: relative;
     z-index: 1;
@@ -127,7 +136,7 @@ body{
 
 
 
-/* ── 카드 ── */
+/* -- 로그인 카드 -- */
 .login-card{
     background: var(--surface);
     border-radius: var(--radius-xl);
@@ -138,6 +147,9 @@ body{
     animation: card-in .55s cubic-bezier(.22,.68,0,1.2) both;
 }
 
+
+
+/* -- 카드 등장 애니메이션 -- */
 @keyframes card-in{
     from{opacity: 0; transform: translateY(32px) scale(.97);}
     to{opacity: 1; transform: translateY(0) scale(1);}
@@ -145,12 +157,15 @@ body{
 
 
 
-/* ── 헤더 ── */
+/* -- 카드 상단 영역 및 제목 -- */
 .card-header{
     text-align: center;
     margin-bottom: 2rem;
 }
 
+
+
+/* -- 메인 카드 → 브랜드 아이콘 -- */
 .brand-icon{
     width: 58px; height: 58px;
     margin: 0 auto 1rem;
@@ -163,18 +178,25 @@ body{
     animation: icon-pop .6s .3s cubic-bezier(.22,.68,0,1.4) both;
 }
 
+
+
+/* -- 브랜드 아이콘 등장 애니메이션 -- */
 @keyframes icon-pop{
     from{transform: scale(.5) rotate(-20deg); opacity: 0;}
     to{transform: scale(1) rotate(0deg); opacity: 1;}
 }
 
+
+
+/* ==================================================
+   브랜드 영역
+   ================================================== */
 .brand-name{
     font-size: 1.75rem;
     font-weight: 700;
     letter-spacing: -.4px;
     color: var(--text-primary);
 }
-
 .brand-tagline{
     margin-top: .35rem;
     font-size: .925rem;
@@ -184,7 +206,9 @@ body{
 
 
 
-/* ── 소셜 버튼 ── */
+/* ==================================================
+   소셜 로그인 & 버튼
+   ================================================== */
 .social-login{
     display: flex;
     flex-direction: column;
@@ -192,6 +216,9 @@ body{
     margin-bottom: 1.4rem;
 }
 
+
+
+/* -- 소셜 버튼 -- */
 .btn-social{
     display: flex;
     align-items: center;
@@ -209,41 +236,26 @@ body{
     color: var(--text-primary);
     background: var(--surface-2);
 }
-
-.btn-social:hover{
-    background: #fff;
-    box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
-}
-
-.btn-social:active{
-    transform: translateY(0);
-    box-shadow: var(--shadow-sm);
-}
-
-.btn-google{
-    background: #fff;
-    color: var(--text-primary);
-    border-color: var(--border);
-}
-
-.btn-google:hover{
-    background: #f8f9fa;
-}
-
-.btn-github{
-    background: #24292e;
-    color: #fff;
-    border-color: #24292e;
-}
-
-.btn-github:hover{
-    background: #1b1f23;
-}
+.btn-social:hover{ background: #fff; box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.btn-social:active{ transform: translateY(0); box-shadow: var(--shadow-sm); }
 
 
 
-/* ── 구분선 ── */
+/* -- 구글 로그인 버튼 -- */
+.btn-google{ background: #fff; color: var(--text-primary); border-color: var(--border); }
+.btn-google:hover{ background: #f8f9fa; }
+
+
+
+/* -- 깃허브 로그인 버튼 -- */
+.btn-github{ background: #24292e; color: #fff; border-color: #24292e; }
+.btn-github:hover{ background: #1b1f23; }
+
+
+
+/* ==================================================
+   구분선
+   ================================================== */
 .divider{
     display: flex;
     align-items: center;
@@ -255,17 +267,13 @@ body{
     letter-spacing: .5px;
     text-transform: uppercase;
 }
-
-.divider::before, .divider::after{
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-}
+.divider::before, .divider::after{ content: ''; flex: 1; height: 1px; background: var(--border); }
 
 
 
-/* ── 폼 ── */
+/* ==================================================
+   로그인 폼
+   ================================================== */
 .login-form{
     display: flex;
     flex-direction: column;
@@ -274,26 +282,25 @@ body{
 
 
 
-/* ── 필드 그룹 ── */
+/* ==================================================
+   입력 필드 그룹
+   ================================================== */
 .field-group{
     display: flex;
     flex-direction: column;
     gap: .4rem;
 }
-
 .field-label{
     font-size: .85rem;
     font-weight: 600;
     color: var(--text-primary);
     letter-spacing: .1px;
 }
-
 .field-input-wrap{
     position: relative;
     display: flex;
     align-items: center;
 }
-
 .field-icon{
     position: absolute;
     left: .95rem;
@@ -302,7 +309,6 @@ body{
     pointer-events: none;
     transition: color var(--transition);
 }
-
 .field-input{
     width: 100%;
     padding: .78rem 1rem .78rem 2.6rem;
@@ -315,30 +321,30 @@ body{
     transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
     outline: none;
 }
-
 .field-input::placeholder{color: var(--text-muted);}
-
 .field-input:focus{
     border-color: var(--border-focus);
     background: #fff;
     box-shadow: 0 0 0 4px rgba(108,99,255,.12);
 }
-
 .field-input:focus + .field-icon,
 .field-group:focus-within .field-icon{color: var(--primary);}
 
 
 
-/* 브라우저 기본 비밀번호 아이콘 제거 */
+/* ==================================================
+   브라우저 기본 비밀번호 아이콘 제거
+   ================================================== */
 input[type="password"]::-ms-reveal{display: none;}
 input[type="password"]::-ms-clear{display: none;}
 
 
 
-/* ── 유효성 상태 ── */
+/* ==================================================
+   유효성 상태(입력 필드 그룹의 에러/성공 검증)
+   ================================================== */
 .field-group.is-error  .field-input{border-color: var(--danger);  box-shadow: 0 0 0 4px rgba(239,68,68,.1);}
 .field-group.is-success .field-input{border-color: var(--success); box-shadow: 0 0 0 4px rgba(34,197,94,.1);}
-
 .field-error{
     min-height: 1rem;
     font-size: .8rem;
@@ -351,15 +357,13 @@ input[type="password"]::-ms-clear{display: none;}
     transform: translateY(-4px);
     transition: opacity var(--transition), transform var(--transition);
 }
-
-.field-group.is-error .field-error{
-    opacity: 1;
-    transform: translateY(0);
-}
+.field-group.is-error .field-error{ opacity: 1; transform: translateY(0); }
 
 
 
-/* ── 비밀번호 토글 ── */
+/* ==================================================
+   비밀번호 토글
+   ================================================== */
 .btn-toggle-pw{
     position: absolute;
     right: .9rem;
@@ -372,12 +376,11 @@ input[type="password"]::-ms-clear{display: none;}
     line-height: 1;
     transition: color var(--transition);
 }
-
 .btn-toggle-pw:hover{color: var(--primary);}
 
 
 
-/* ── 옵션 행 ── */
+/* -- 옵션 행 -- */
 .options-row{
     display: flex;
     justify-content: space-between;
@@ -387,7 +390,9 @@ input[type="password"]::-ms-clear{display: none;}
 
 
 
-/* ── 커스텀 체크박스 ── */
+/* ==================================================
+   커스텀 체크박스
+   ================================================== */
 .checkbox-wrap{
     display: flex;
     align-items: center;
@@ -397,8 +402,6 @@ input[type="password"]::-ms-clear{display: none;}
     cursor: pointer;
     user-select: none;
 }
-
-/* display: none 대신 키보드 포커스가 가능한 숨김 방식 사용 */
 .checkbox-wrap input[type="checkbox"]{
     position: absolute;
     opacity: 0;
@@ -408,12 +411,10 @@ input[type="password"]::-ms-clear{display: none;}
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
 }
-
 .checkbox-wrap input[type="checkbox"]:focus-visible ~ .custom-check {
     outline: 2px solid var(--primary);
     outline-offset: 2px;
 }
-
 .custom-check{
     width: 18px; height: 18px;
     border: 2px solid var(--border);
@@ -423,12 +424,10 @@ input[type="password"]::-ms-clear{display: none;}
     transition: background var(--transition), border-color var(--transition);
     flex-shrink: 0;
 }
-
 .checkbox-wrap input:checked ~ .custom-check{
     background: var(--primary);
     border-color: var(--primary);
 }
-
 .custom-check::after{
     content: '';
     width: 5px; height: 9px;
@@ -437,9 +436,13 @@ input[type="password"]::-ms-clear{display: none;}
     transform: rotate(45deg) translateY(-1px);
     display: none;
 }
-
 .checkbox-wrap input:checked ~ .custom-check::after{display: block;}
 
+
+
+/* ==================================================
+   비밀번호 찾기 링크
+   ================================================== */
 .link-forgot{
     font-size: .84rem;
     color: var(--primary);
@@ -447,12 +450,13 @@ input[type="password"]::-ms-clear{display: none;}
     font-weight: 500;
     transition: color var(--transition), opacity var(--transition);
 }
-
 .link-forgot:hover {color: var(--primary-dark); opacity: .85;}
 
 
 
-/* ── 제출 버튼 ── */
+/* ==================================================
+   제출 버튼
+   ================================================== */
 .btn-submit{
     width: 100%;
     padding: .85rem 1rem;
@@ -471,7 +475,6 @@ input[type="password"]::-ms-clear{display: none;}
     position: relative;
     overflow: hidden;
 }
-
 .btn-submit::before{
     content: '';
     position: absolute; inset: 0;
@@ -479,7 +482,6 @@ input[type="password"]::-ms-clear{display: none;}
     opacity: 0;
     transition: opacity var(--transition);
 }
-
 .btn-submit:hover::before{opacity: 1;}
 .btn-submit:hover{transform: translateY(-2px); box-shadow:0 10px 28px rgba(108, 99, 255, .45);}
 .btn-submit:active{transform: translateY(0); box-shadow:0 4px 12px rgba(108, 99, 255, .3);}
@@ -489,27 +491,19 @@ input[type="password"]::-ms-clear{display: none;}
 .btn-submit.loading .btn-text{display: none;}
 .btn-submit.loading .btn-spinner{display: inline-block;}
 
-/* ── 제출 버튼 완료(성공) 상태 ── */
 .btn-submit.is-success {
     background: linear-gradient(135deg, #22c55e 0%, #4ade80 100%);
     box-shadow: 0 6px 20px rgba(34, 197, 94, 0.35);
-    cursor: default;
-    pointer-events: none; /* 성공 후 중복 클릭 방지 */
+    cursor: default; pointer-events: none;
 }
-
-/* 성공 상태일 때는 loading 클래스가 있더라도 텍스트를 반드시 표시 */
-.btn-submit.is-success .btn-text {
-    display: inline-block !important;
-}
-
-/* 성공 시 로딩 스피너 숨김 보장 */
-.btn-submit.is-success .btn-spinner {
-    display: none;
-}
+.btn-submit.is-success .btn-text { display: inline-block !important; }
+.btn-submit.is-success .btn-spinner { display: none; }
 
 
 
-/* ── 토스트 ── */
+/* ==================================================
+   알림 메시지 / 토스트 알림
+   ================================================== */
 .toast {
   margin-top: .25rem;
   padding: .7rem 1rem;
@@ -524,11 +518,13 @@ input[type="password"]::-ms-clear{display: none;}
   animation: toast-in .3s ease both;
 }
 
+
+
+/* -- 알림 메시지 / 토스트 알림 애니메이션 -- */
 @keyframes toast-in{
     from{opacity: 0; transform: translateY(6px);}
     to{opacity: 1; transform: translateY(0);}
 }
-
 .toast.show{display: flex;}
 .toast.success{background: #dcfce7; color: #166534; border: 1px solid #bbf7d0;}
 .toast.error{background: #fee2e2; color: #991b1b; border: 1px solid #fecaca;}
@@ -536,7 +532,9 @@ input[type="password"]::-ms-clear{display: none;}
 
 
 
-/* ── 카드 푸터 ── */
+/* ==================================================
+   카드 하단 영역
+   ================================================== */
 .card-footer{
     text-align: center;
     margin-top: 1.5rem;
@@ -544,6 +542,9 @@ input[type="password"]::-ms-clear{display: none;}
     color: var(--text-secondary);
 }
 
+
+
+/* -- 회원가입 링크 -- */
 .link-signup{
     color: var(--primary);
     font-weight: 600;
@@ -551,12 +552,14 @@ input[type="password"]::-ms-clear{display: none;}
     margin-left: .3rem;
     transition: color var(--transition);
 }
-
 .link-signup:hover {color: var(--primary-dark);}
 
 
 
-/* ── 반응형 ── */
+/* ==================================================
+   애니메이션
+   ================================================== */
+/* -- 반응형 애니메이션 -- */
 @media (prefers-reduced-motion: reduce) {
     .blob, .login-card, .brand-icon {
         animation: none !important;
@@ -564,7 +567,9 @@ input[type="password"]::-ms-clear{display: none;}
     }
 }
 
-/* ── 카드 흔들림 애니메이션 ── */
+
+
+/* -- 카드 흔들림 애니메이션 -- */
 @keyframes shake {
     0%, 100% { transform: translateX(0); }
     15% { transform: translateX(-8px); }
