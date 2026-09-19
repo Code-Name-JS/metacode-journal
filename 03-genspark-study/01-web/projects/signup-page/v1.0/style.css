@@ -443,10 +443,13 @@ body{
 
 
 /*==================================================
-   폼 뷰
+   폼 영역
   ================================================== */
 #formView{ margin: auto 0; }
 
+
+
+/* -- 폼 레이아웃 -- */
 form{
     display: grid;
     gap: 15px;
@@ -1052,11 +1055,17 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
   border-radius: 7px;
 }
 
+
+
+/* -- 인용문 -- */
 .divider {
   height: 1px;
   background: rgba(255, 255, 255, .10);
 }
 
+
+
+/* -- 상태 및 정보 표시 배지 -- */
 .badge {
   font-style: normal;
   font-size: 11px;
@@ -1065,7 +1074,6 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
   border-radius: 99px;
   line-height: 1.5;
 }
-
 .badge.must {
   color: var(--accent-2);
   background: rgba(34, 211, 238, .12);
@@ -1074,7 +1082,6 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
 html[data-theme="sunset"] .badge.must {
   background: rgba(255, 77, 109, .14);
 }
-
 html[data-theme="mint"] .badge.must {
   background: rgba(31, 156, 255, .14);
 }
@@ -1131,6 +1138,9 @@ html[data-theme="mint"] .badge.must {
   filter: saturate(.85) brightness(.96);
 }
 
+
+
+/* -- 스피너 -- */
 .spinner {
   display: none;
   width: 18px;
@@ -1149,10 +1159,16 @@ html[data-theme="mint"] .badge.must {
   transform: none;
 }
 
+
+
+/* -- 회전 애니메이션 -- */
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
 
+
+
+/* -- 하단 노트 영역 -- */
 .footnote {
   margin: 12px 0 0;
   font-size: 12px;
@@ -1190,6 +1206,9 @@ html[data-theme="mint"] .badge.must {
   box-shadow: 0 0 0 10px rgba(47, 244, 160, .06);
 }
 
+
+
+/* -- svg 체크 -- */
 .check-svg {
   width: 66px;
   height: 66px;
@@ -1239,6 +1258,9 @@ html[data-theme="mint"] .badge.must {
   word-break: break-all;
 }
 
+
+
+/* -- 고스트 버튼 -- */
 .btn-ghost {
   margin-top: 6px;
   padding: 12px 26px;
@@ -1252,13 +1274,11 @@ html[data-theme="mint"] .badge.must {
   cursor: pointer;
   transition: background var(--speed), border-color var(--speed), transform var(--speed);
 }
-
 .btn-ghost:hover {
   background: rgba(255, 255, 255, .1);
   border-color: var(--field-border-hover);
   transform: translateY(-1px);
 }
-
 .btn-ghost:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
