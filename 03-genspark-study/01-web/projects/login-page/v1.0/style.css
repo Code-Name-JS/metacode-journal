@@ -69,7 +69,7 @@ body{
     background: var(--bg);
     color: var(--text-primary);
     min-height: 100vh;
-    min-height: 100dvh; /* 최신 뷰포트 단위 지원 */
+    min-height: 100dvh;
     display: flex;
     align-items: center;
     justify-content: center;

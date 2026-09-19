@@ -1,10 +1,14 @@
-/* =====================================================
-   style-v2.css  –  Login v2 (Split Layout · Dark Panel)
-   ===================================================== */
+/* ==========================================================================
+   v2.0 CSS 변수
+   ========================================================================== */
 
-/* ── CSS 변수 ── */
+
+   
+/* ==================================================
+   전역 변수
+   ================================================== */
 :root{
-/* 브랜드 */
+/* -- 색상 변수 -- */
 --c-bg: #0d0f1a;
 --c-panel: #111320;
 --c-surface: #161928;
@@ -29,25 +33,38 @@
 --c-err: #ef4444;
 --c-ok: #22c55e;
 
+/* -- 모서리 반경 변수 -- */
 --r-sm: 8px;
 --r-md: 12px;
 --r-lg: 20px;
 --r-xl: 28px;
 --r-2xl: 40px;
 
+/* -- 애니메이션 변수 -- */ 
 --dur: .22s;
 --ease: cubic-bezier(.4, 0, .2, 1);
 
+/* -- 그림자 변수 -- */
 --shadow-card: 0 24px 80px rgba(0, 0, 0, .14), 0 8px 28px rgba(0, 0, 0, .08);
+
+/* -- 폰트 변수 -- */
 --font-base: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 --font-head: 'Space Grotesk', var(--font-base);
 }
 
 
 
-/* ── 리셋 ── */
+/* ==================================================
+   리셋 & 베이스
+   ================================================== */
+/* -- 전역 초기화(Global Reset) -- */
 *, *::before, *::after{box-sizing: border-box; margin: 0; padding: 0;}
+
+
+
+/* -- 페이지 기본 스타일 -- */
 html{font-size: 16px;}
+
 body{
     font-family: var(--font-base);
     background: #f1f4fb;
@@ -60,7 +77,9 @@ body{
 
 
 
-/* ── 페이지 래퍼 ── */
+/* ==================================================
+   로그인 페이지 전체 컨테이너 (Login Page Wrapper)
+   ================================================== */
 .page-wrap{
     display: flex;
     width: 100%;
@@ -72,6 +91,9 @@ body{
     animation: page-in .6s var(--ease) both;
 }
 
+
+
+/* -- 페이지 애니메이션 -- */
 @keyframes page-in{
     from{opacity: 0; transform: translateY(30px) scale(.98);}
     to{opacity: 1; transform: translateY(0) scale(1);}
@@ -79,9 +101,9 @@ body{
 
 
 
-/* ══════════════════════════════════════
-   LEFT PANEL (Dark Visual)
-══════════════════════════════════════ */
+/* ==================================================
+   왼쪽 패널 ( 다크 버전 )
+   ================================================== */
 .panel-left{
     flex: 0 0 42%;
     background: var(--c-bg);
@@ -92,20 +114,12 @@ body{
     padding: 2.4rem 2rem;
     overflow: hidden;
 }
-
-
-
-/* 노이즈 텍스처 */
 .panel-noise{
     position: absolute; inset: 0;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
     pointer-events: none;
     z-index: 0;
 }
-
-
-
-/* 그라디언트 블롭 */
 .panel-left::before{
     content: '';
     position: absolute;
@@ -115,7 +129,6 @@ body{
     top: -160px; left: -120px;
     pointer-events: none;
 }
-
 .panel-left::after{
     content: '';
     position: absolute;
@@ -125,10 +138,6 @@ body{
     bottom: -100px; right: -80px;
     pointer-events: none;
 }
-
-
-
-/* 로고 */
 .panel-logo{
     display: flex;
     align-items: center;
@@ -137,13 +146,15 @@ body{
     z-index: 1;
 }
 
+
+
+/* -- 로고 --- */
 .logo-dot{
     width: 10px; height: 10px;
     border-radius: 50%;
     background: var(--c-cyan);
     box-shadow: 0 0 12px var(--c-cyan);
 }
-
 .logo-text{
     font-family: var(--font-head);
     font-size: 1.15rem;
@@ -154,22 +165,23 @@ body{
 
 
 
-/* ── 중앙 orbit 영역 ── */
+/* ==================================================
+   중앙 일러스트 영역
+   ================================================== */
 .panel-center{
     text-align: center;
     position: relative; z-index: 1;
     padding: 1rem 0;
 }
 
+
+
+/* -- 중앙 orbit의 전체 영역 -- */
 .orbit-wrap{
     position: relative;
     width: 200px; height: 200px;
     margin: 0 auto 2rem;
 }
-
-
-
-/* Rotating ring */
 .orbit{
     position: absolute;
     border-radius: 50%;
@@ -177,17 +189,19 @@ body{
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
 }
-
 .orbit-1{width: 200px; height: 200px; animation: spin-cw 9s linear infinite;}
 .orbit-2{width: 148px; height: 148px; animation: spin-ccw 7s linear infinite;}
 .orbit-3{width: 96px; height: 96px; animation: spin-cw 5s linear infinite;}
 
+
+
+/* -- 시계 방향 회전 애니메이션 -- */
 @keyframes spin-cw{to{transform: translate(-50%, -50%) rotate(360deg);}}
 @keyframes spin-ccw{to{transform: translate(-50%, -50%) rotate(-360deg);}}
 
 
 
-/* Rotating dot */
+/* -- orbit 포인트 -- */
 .orbit-dot{
     position: absolute;
     width: 10px; height: 10px;
@@ -196,13 +210,18 @@ body{
     transform: translateX(-50%);
 }
 
+
+
+/*-- 포인트 컬러 -- */
 .dot-cyan{background: var(--c-cyan); box-shadow: 0 0 10px var(--c-cyan);}
 .dot-pink{background: var(--c-pink); box-shadow: 0 0 10px var(--c-pink);}
 .dot-yellow{background: var(--c-yellow); box-shadow: 0 0 10px var(--c-yellow);}
 
 
 
-/* 중심 코어 */
+/* ==================================================
+   중심 아이콘
+   ================================================== */
 .orbit-core{
     position: absolute;
     top: 50%; left: 50%;
@@ -216,11 +235,16 @@ body{
     animation: core-pulse 3s ease-in-out infinite;
 }
 
+
+/* -- 중심 펄스 애니메이션 -- */
 @keyframes core-pulse{
     0%, 100%{box-shadow: 0 0 0 10px rgba(79, 124, 255, .12), 0 0 40px rgba(79, 124, 255, .35);}
     50%{box-shadow: 0 0 0 20px rgba(79, 124, 255, .05), 0 0 60px rgba(79, 124, 255, .5);}
 }
 
+
+
+/* -- 패널 -- */
 .panel-heading{
     font-family: var(--font-head);
     font-size: 1.45rem;
@@ -230,16 +254,13 @@ body{
     line-height: 1.35;
     margin-bottom: .7rem;
 }
-
-.panel-sub{
-    font-size: .875rem;
-    color: var(--c-text-muted);
-    line-height: 1.7;
-}
+.panel-sub{font-size: .875rem; color: var(--c-text-muted); line-height: 1.7;}
 
 
 
-/* ── 스탯 ── */
+/* ==================================================
+   하단 패널 상태 영역
+   ================================================== */
 .panel-stats{
     display: flex;
     align-items: center;
@@ -252,40 +273,20 @@ body{
     padding: 1rem 1.2rem;
 }
 
+
+
+/* -- 상태 -- */
 .stat-item{text-align: center;}
-
-.stat-num{
-    font-family: var(--font-head);
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #fff;
-}
-
-.stat-unit{
-    font-size: .7rem;
-    color: var(--c-cyan);
-    font-weight: 600;
-    margin-left: 2px;
-}
-
-.stat-label{
-    display: block;
-    font-size: .72rem;
-    color: var(--c-text-muted);
-    margin-top: .15rem;
-}
-
-.stat-divider{
-    width: 1px;
-    height: 36px;
-    background: rgba(255, 255, 255, .1);
-}
+.stat-num{font-family: var(--font-head); font-size: 1.5rem; font-weight: 700; color: #fff;}
+.stat-unit{font-size: .7rem; color: var(--c-cyan); font-weight: 600; margin-left: 2px;}
+.stat-label{display: block; font-size: .72rem; color: var(--c-text-muted); margin-top: .15rem;}
+.stat-divider{width: 1px; height: 36px; background: rgba(255, 255, 255, .1);}
 
 
 
-/* ══════════════════════════════════════
-   RIGHT PANEL (Form)
-══════════════════════════════════════ */
+/* ==================================================
+   오른쪽 패널 (폼)
+   ================================================== */
 .panel-right{
     flex: 1;
     background: #fff;
@@ -298,20 +299,63 @@ body{
 
 
 
-/* 모바일 로고(데스크탑 숨김) */
-.mobile-logo{
-    display: none;
-    align-items: center;
-    gap: .5rem;
-    margin-bottom: 1.8rem;
-}
-
+/* ==================================================
+   모바일 로고(데스크탑 숨김)
+   ================================================== */
+.mobile-logo{display: none; align-items: center; gap: .5rem; margin-bottom: 1.8rem;}
 .mobile-logo .logo-dot{background: var(--c-primary); box-shadow: 0 0 8px var(--c-primary);}
 .mobile-logo .logo-text{color: var(--c-text-body);}
 
 
 
-/* ── 탭 ── */
+/* ==================================================
+   입력 폼 섹션
+   ================================================== */
+.form-section{flex: 1;}
+
+
+
+/* -- 인증 폼 -- */
+.auth-form{display: flex; flex-direction: column; gap: 1.1rem;}
+.auth-form .hidden{display: none;}
+
+
+
+/* -- 폼 제목 --*/
+.form-title{
+    font-family: var(--font-head);
+    font-size: 1.55rem;
+    font-weight: 700;
+    color: var(--c-text-body);
+    letter-spacing: -.4px;
+    margin-bottom: .1rem;
+}
+
+
+
+/* -- 웨이브 애니메이션 -- */
+.wave{display: inline-block; animation: wave 1.4s ease-in-out infinite; transform-origin: 70% 70%;}
+@keyframes wave{
+    0%, 100%{transform: rotate(0deg);}
+    20%{transform: rotate(-15deg);}
+    40%{transform: rotate(14deg);}
+    60%{transform: rotate(-8deg);}
+    80%{transform: rotate(8deg);}
+}
+
+
+/* -- 폼 설명 문구 -- */
+.form-desc{
+    font-size: .875rem;
+    color: var(--c-text-sub);
+    margin-bottom: .4rem;
+}
+
+
+
+/* ==================================================
+   탭: 로그인 / 회원가입
+   ================================================== */
 .tab-group{
   display: flex;
   gap: 0;
@@ -322,7 +366,6 @@ body{
   margin-bottom: 2rem;
   width: fit-content;
 }
-
 .tab{
   position: relative; z-index: 1;
   padding: .52rem 1.4rem;
@@ -336,9 +379,7 @@ body{
   cursor: pointer;
   transition: color var(--dur) var(--ease);
 }
-
-.tab.active{ color: var(--c-text-body); }
-
+.tab.active{color: var(--c-text-body);}
 .tab-indicator{
   position: absolute;
   top: 4px; left: 4px;
@@ -349,73 +390,36 @@ body{
   box-shadow: 0 1px 4px rgba(0,0,0,.1);
   transition: transform var(--dur) var(--ease);
 }
-
-.tab-group.on-signup .tab-indicator{
-  transform: translateX(100%);
-}
-
-.tab-group:hover .tab-signup:hover ~ .tab-indicator {
-    transform: translateX(100%);
-}
-
-.tab-group:has(#tab-signup:hover) .tab-indicator {
-    transform: translateX(100%);
-}
-
-.tab-group:has(#tab-login:hover) .tab-indicator {
-    transform: translateX(0);
-}
+.tab-group.on-signup .tab-indicator{transform: translateX(100%);}
+.tab-group:hover .tab-signup:hover ~ .tab-indicator {transform: translateX(100%);}
+.tab-group:has(#tab-signup:hover) .tab-indicator {transform: translateX(100%);}
+.tab-group:has(#tab-login:hover) .tab-indicator {transform: translateX(0);}
 
 
 
-/* ── 폼 ── */
-.form-section{flex: 1;}
-.auth-form{display: flex; flex-direction: column; gap: 1.1rem;}
-.auth-form .hidden{display: none;}
-
-.form-title{
-    font-family: var(--font-head);
-    font-size: 1.55rem;
-    font-weight: 700;
-    color: var(--c-text-body);
-    letter-spacing: -.4px;
-    margin-bottom: .1rem;
-}
-
-.wave{display: inline-block; animation: wave 1.4s ease-in-out infinite; transform-origin: 70% 70%;}
-
-@keyframes wave{
-    0%, 100%{transform: rotate(0deg);}
-    20%{transform: rotate(-15deg);}
-    40%{transform: rotate(14deg);}
-    60%{transform: rotate(-8deg);}
-    80%{transform: rotate(8deg);}
-}
-
-.form-desc{
-    font-size: .875rem;
-    color: var(--c-text-sub);
-    margin-bottom: .4rem;
-}
-
-
-
-/* 필드 */
+/* ==================================================
+   필드
+   ================================================== */
 .field{display: flex; flex-direction: column; gap: .38rem;}
 
+
+
+/* -- 비밀번호 라벨 규칙 -- */
 .field label,
 .label-row label {
   font-size: .82rem;
   font-weight: 600;
   color: var(--c-text-body);
 }
-
 .label-row{
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
+
+
+/* -- 비밀번호를 잊어버림 -- */
 .forgot{
   font-size: .8rem;
   color: var(--c-primary);
@@ -423,15 +427,18 @@ body{
   font-weight: 500;
   transition: opacity var(--dur);
 }
-
 .forgot:hover{opacity: .75;}
 
+
+
+/* ==================================================
+   비밀번호 입력창 & 표시/숨기기
+   ================================================== */
 .input-box{
     position: relative;
     display: flex;
     align-items: center;
 }
-
 .input-box > i:first-child{
     position: absolute;
     left: .95rem;
@@ -440,7 +447,6 @@ body{
     pointer-events: none;
     transition: color var(--dur);
 }
-
 .input-box input{
     width: 100%;
     padding: .78rem 1rem .78rem 2.6rem;
@@ -453,27 +459,29 @@ body{
     outline: none;
     transition: border-color var(--dur), box-shadow var(--dur), background var(--dur);
 }
-
 .input-box input::placeholder{color: #b8c4d8;}
-
 .input-box input:focus{
     border-color: var(--c-border-f);
     background: #fff;
     box-shadow: 0 0 0 4px rgba(79, 124, 255, .11);
 }
-
 .input-box:focus-within > i:first-child{color: var(--c-primary);}
 
 
-/* 브라우저 기본 비밀번호 아이콘 제거 */
+
+/* -- 브라우저 기본 비밀번호 아이콘 제거 -- */
 input[type="password"]::-ms-reveal{display: none;}
 input[type="password"]::-ms-clear{display: none;}
 
 
-/* 상태 */
+
+/* -- 필드 에러와 비밀번호 입력창 -- */
 .field.is-err .input-box input{border-color: var(--c-err); box-shadow: 0 0 0 4px rgba(239, 68, 68, .09);}
 .field.is-ok .input-box input{border-color: var(--c-ok); box-shadow: 0 0 0 4px rgba(34, 197, 94, .09);}
 
+
+
+/* -- 에러 문구 -- */
 .err-msg{
     font-size: .78rem;
     color: var(--c-err);
@@ -484,8 +492,14 @@ input[type="password"]::-ms-clear{display: none;}
     transition: opacity var(--dur), transform var(--dur);
 }
 
+
+
+/* -- 필드 에러와 에러 문구 -- */
 .field.is-err .err-msg{opacity: 1; transform: translateY(0);}
 
+
+
+/* -- 눈 버튼 -- */
 .eye-btn{
     position: absolute;
     right: .85rem;
@@ -497,12 +511,13 @@ input[type="password"]::-ms-clear{display: none;}
     padding: .3rem;
     transition: color var(--dur);
 }
-
 .eye-btn:hover{color:var(--c-primary);}
 
 
 
-/* -- 체크박스 -- */
+/* ==================================================
+   로그인 유지
+   ================================================== */
 .check-label{
     display: flex; align-items: flex-start; gap: .55rem;
     font-size: .83rem;
@@ -512,9 +527,7 @@ input[type="password"]::-ms-clear{display: none;}
     line-height: 1.5;
     margin-top: -.1rem;
 }
-
 .check-label input[type="checkbox"]{display: none;}
-
 .check-box{
     width: 17px; height: 17px;
     flex-shrink: 0;
@@ -526,12 +539,10 @@ input[type="password"]::-ms-clear{display: none;}
     position: relative;
     display: flex; align-items: center; justify-content: center;
 }
-
 .check-label input:checked ~ .check-box{
     background: var(--c-primary);
     border-color: var(--c-primary);
 }
-
 .check-box::after{
     content:'';
     width: 5px; height: 8px;
@@ -540,13 +551,19 @@ input[type="password"]::-ms-clear{display: none;}
     transform: rotate(43deg) translateY(-1px);
     display: none;
 }
-
 .check-label input:checked ~ .check-box::after{display: block;}
+
+
+
+/* -- 인라인 링크 -- */
 .inline-link{color: var(--c-primary); text-decoration: none; font-weight: 600;}
 .inline-link:hover{text-decoration: underline;}
 
 
 
+/* ==================================================
+   제출
+   ================================================== */
 /* -- 메인 버튼 -- */
 .btn-main{
     display: flex; align-items: center; justify-content: center;
@@ -568,13 +585,7 @@ input[type="password"]::-ms-clear{display: none;}
     box-shadow: 0 6px 20px rgba(79, 124, 255, .32);
     margin-top: .2rem;
 }
-
-.btn-main::after{
-    content: '';
-    position: absolute; inset: 0;
-    background: linear-gradient(135deg, rgba(255, 255, 255, .15) 0%, transparent 60%);
-}
-
+.btn-main::after{content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255, 255, 255, .15) 0%, transparent 60%);}
 .btn-main:hover{background: var(--c-primary-h); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(79, 124, 255, .42);}
 .btn-main:active{transform: translateY(0); box-shadow: 0 4px 12px rgba(79, 124, 255, .28);}
 .btn-main:disabled{opacity: .65; cursor: not-allowed; transform: none;}
@@ -589,7 +600,9 @@ input[type="password"]::-ms-clear{display: none;}
 
 
 
-/* -- 알림 배너 -- */
+/* ==================================================
+   알림 배너
+   ================================================== */
 .alert-banner{
     border-radius: var(--r-sm);
     font-size: .85rem;
@@ -600,19 +613,16 @@ input[type="password"]::-ms-clear{display: none;}
     transition: max-height .3s var(--ease), padding .3s var(--ease);
     text-align: center;
 }
-
-.alert-banner.show{
-    padding: .65rem 1rem;
-    max-height: 80px;
-}
-
+.alert-banner.show{padding: .65rem 1rem; max-height: 80px;}
 .alert-banner.success{background: #dcfce7; color: #166534; border: 1px solid #bbf7d0;}
 .alert-banner.error{background: #fee2e2; color: #991b1b; border: 1px solid #fecaca;}
 .alert-banner.info{background: #eff6ff; color: #1d4ed9; border: 1px solid #bfdbfe;}
 
 
 
-/* -- 구분선 -- */
+/* ==================================================
+   구분선
+   ================================================== */
 .or-line{
     display: flex; align-items: center; gap: .7rem;
     font-size: .75rem; font-weight: 600;
@@ -620,16 +630,14 @@ input[type="password"]::-ms-clear{display: none;}
     letter-spacing: .8px;
     text-transform: uppercase;
 }
-
-.or-line::before, .or-line::after{
-    content: ''; flex: 1; height: 1px; background: #edf0f7;
-}
+.or-line::before, .or-line::after{content: ''; flex: 1; height: 1px; background: #edf0f7;}
 
 
 
-/* -- 소셜 버튼 -- */
+/* ==================================================
+   소셜 버튼
+   ================================================== */
 .social-row{display: flex; gap: .6rem;}
-
 .btn-social-v2{
     flex: 1;
     display: flex; align-items: center; justify-content: center; gap: .45rem;
@@ -644,76 +652,44 @@ input[type="password"]::-ms-clear{display: none;}
     cursor: pointer;
     transition: background var(--dur), border-color var(--dur), transform var(--dur), box-shadow var(--dur);
 }
-
 .btn-social-v2:hover{
     background: #fff;
     border-color: var(--c-primary);
     transform: translateY(-2px);
     box-shadow: 0 4px 14px rgba(79, 124, 255, .12);
 }
-
 .btn-social-v2:active{transform: translateY(0);}
 
 
 
-/* Google */
-#s-google {
-    background: #fff;
-    border-color: #d9d9d9;
-    color: #333;
-}
-
-#s-google:hover {
-    background: #f8f8f8;
-    border-color: #bdbdbd;
-}
+/* -- Google -- */
+#s-google {background: #fff; border-color: #d9d9d9; color: #333;}
+#s-google:hover {background: #f8f8f8; border-color: #bdbdbd;}
 
 
-/* 카카오 */
-#s-kakao {
-    background: #FEE500;
-    border-color: #FEE500;
-    color: #3A1D1D;
-}
 
-#s-kakao:hover {
-    background: #f5db00;
-    border-color: #f5db00;
-    box-shadow: 0 4px 14px rgba(254, 229, 0, .35);
-}
+/* -- 카카오 -- */
+#s-kakao {background: #FEE500; border-color: #FEE500; color: #3A1D1D;}
+#s-kakao:hover {background: #f5db00; border-color: #f5db00; box-shadow: 0 4px 14px rgba(254, 229, 0, .35);}
 
 
-/* 네이버 */
-#s-naver {
-    background: #03C75A;
-    border-color: #03C75A;
-    color: #fff;
-}
 
-#s-naver:hover {
-    background: #02b350;
-    border-color: #02b350;
-    box-shadow: 0 4px 14px rgba(3, 199, 90, .35);
-}
+/* -- 네이버 -- */
+#s-naver {background: #03C75A; border-color: #03C75A; color: #fff;}
+#s-naver:hover {background: #02b350; border-color: #02b350; box-shadow: 0 4px 14px rgba(3, 199, 90, .35);}
 
 
-/* Google 아이콘 */
-#s-google img {
-    width: 18px;
-    height: 18px;
-    flex-shrink: 0;
-}
+
+/* -- Google 아이콘 -- */
+#s-google img {width: 18px; height: 18px; flex-shrink: 0;}
 
 
-/* 카카오 아이콘 */
-#s-kakao svg {
-    width: 18px;
-    height: 18px;
-    flex-shrink: 0;
-}
+
+/* -- 카카오 아이콘 -- */
+#s-kakao svg {width: 18px; height: 18px; flex-shrink: 0;}
 
 
-/* 네이버 N */
+/* -- 네이버 N -- */
 .naver-n {
     width: 18px;
     height: 18px;
@@ -730,14 +706,18 @@ input[type="password"]::-ms-clear{display: none;}
 
 
 
-/* ── 비밀번호 강도 ── */
+/* ==================================================
+   비밀번호 강도
+   ================================================== */
 .strength-wrap {
   display: flex; align-items: center; gap: .6rem;
   margin-top: .35rem;
 }
-
 .strength-bar{display: flex; gap: 4px; flex: 1;}
 
+
+
+/* -- 비밀번호 강도 표시 막대 -- */
 .sb{
     flex: 1; height: 4px;
     border-radius: 999px;
@@ -761,7 +741,9 @@ input[type="password"]::-ms-clear{display: none;}
 
 
 
-/* -- 하단 힌트 -- */
+/* ==================================================
+   하단 힌트
+   ================================================== */
 .bottom-hint{
     text-align: center;
     font-size: .77rem;
@@ -772,25 +754,16 @@ input[type="password"]::-ms-clear{display: none;}
 
 
 
-/* ══════════════════════════════════════
-   RESPONSIVE
-══════════════════════════════════════ */
+/* ==================================================
+   반응형 화면 너비 720px 이하
+   ================================================== */
 @media(max-width: 720px){
 body{padding: 0;}
 
-.page-wrap{
-    flex-direction: column;
-    border-radius: 0;
-    min-height: 100dvh;
-    box-shadow: none;
-}
+.page-wrap{flex-direction: column; border-radius: 0; min-height: 100dvh; box-shadow: none;}
 
 .panel-left{display: none;}
-
-.panel-right{
-    padding: 2.2rem 1.6rem 2rem;
-    justify-content: flex-start;
-}
+.panel-right{padding: 2.2rem 1.6rem 2rem; justify-content: flex-start;}
 
 .mobile-logo{display: flex;}
 
@@ -802,6 +775,11 @@ body{padding: 0;}
 .btn-social-v2{flex: none;}
 }
 
+
+
+/* ==================================================
+   반응형 화면 너비 480px 이하
+   ================================================== */
 @media(max-width: 480px){
 .panel-right{padding: 1.8rem 1.2rem 1.6rem;}
 }
