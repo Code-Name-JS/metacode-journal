@@ -30,7 +30,7 @@
 
 ## 프로젝트 구조
 
-projects에는 앞으로 bulletin-board-page, login-join-page, login-page 이외의 다양한 page 프로젝트 파일을 생성할 예정입니다.
+projects에는 앞으로 board-page, login-page, signup-page 이외의 다양한 page 프로젝트 파일을 생성할 예정입니다.
 
 각 프로젝트는 v1.0, v2.0, v3.0과 같은 버전으로 관리합니다.
 
@@ -39,15 +39,15 @@ projects에는 앞으로 bulletin-board-page, login-join-page, login-page 이외
 
 ```plaintext
 projects/
-├── bulletin-board-page/
-├── login-join-page/
+├── board-page/
+├── login-page/
 │   └── v1.0/
 │       ├── index.html
 │       ├── style.css
 │       ├── main.js
 │       └── README.md
 │
-└── login-page/
+└── signup-page/
     ├── v1.0/
     ├── v2.0/
     ├── v3.0/
@@ -72,9 +72,10 @@ projects/
 
 ## 프로젝트 목록
 
-- bulletin-board-page
-- login-join-page
+- board-page
+- cart-page
 - login-page
+- signup-page
 
 ---
 
@@ -91,8 +92,9 @@ projects/
 
 ## 향후 계획
 
-- bulletin-board-Page 시안 v1.0 ~ v5.0 제작 예정
-- login-join-Page 시안 v2.0 ~ v5.0 제작 예정
+- board-page 시안 v1.0 ~ v4.0 제작 예정
+- signup-page 시안 v1.0 ~ v4.0 제작 예정
+- cart-page 시안 v1.0 ~ v4.0 제작 예정
 - 추후 페이지 시안이 추가되면 계속 수정될 예정입니다.
 
 ---
