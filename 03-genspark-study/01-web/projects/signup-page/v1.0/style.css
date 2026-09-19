@@ -1,45 +1,71 @@
 /* ==========================================================================
-   v1.0 CSS 변수 :
-   색상 테마는 data-theme 속성만 바꾸면 전체가 전환됩니다.
+   v1.0 CSS
    ========================================================================== */
 
 
-
+   
+/* ==================================================
+   전역 변수
+   ================================================== */
 :root{
 /* -- 기본(오로라) 테마 -- */
+/* -- 배경 색상 -- */
 --bg-1:#080b18;
 --bg-2:#0f1630;
+
+/* -- 글로우 효과 -- */
 --glow-1:rgba(124,92,255,.30);
 --glow-2:rgba(34,211,238,.22);
+
+/* -- 색상 -- */
 --aurora-1:#7c5cff;
 --aurora-2:#22d3ee;
 --aurora-3:#ff5c8a;
+
+/* -- 강조 색상 -- */
 --accent:#7c5cff;
 --accent-2:#22d3ee;
 --accent-soft:rgba(124,92,255,.38);
+
+/* -- 포커스 표시 효과 -- */
 --focus:0 0 0 4px rgba(124,92,255,.26);
 
 
 
 /* -- 공통 토큰 -- */
+/* -- 텍스트 색상 -- */
 --text:#f2f5ff;
 --text-muted:#9aa4c4;
 --placeholder:#6b769b;
+
+/* -- 카드 배경 및 테두리 -- */
 --card-bg:rgba(255,255,255,.065);
 --card-border:rgba(255,255,255,.14);
+
+/* -- 입력 필드 배경 -- */
 --field-bg:rgba(255,255,255,.05);
 --field-bg-focus:rgba(255,255,255,.085);
+
+/* -- 입력 필드 테두리 -- */
 --field-border:rgba(255,255,255,.16);
 --field-border-hover:rgba(255,255,255,.30);
+
+/* -- 상태 색상 -- */
 --ok:#2fe0a0;
 --ok-soft:rgba(47,224,160,.12);
 --ok-border:rgba(47,224,160,.32);
+
 --warn:#ffc857;
+
 --err:#ff6b81;
 --err-glow:rgba(255,107,129,.18);
+
+/* -- 모서리 둥글기 -- */
 --radius-lg:26px;
 --radius:16px;
 --radius-sm:12px;
+
+/* -- 그림자 및 전환 속도 -- */
 --shadow:0 30px 80px rgba(4,7,18,.55);
 --speed:.26s;
 }
@@ -48,16 +74,26 @@
 
 /* -- 선셋(sunset) 테마 -- */
 html[data-theme="sunset"]{
+
+/* -- 배경 색상 -- */
 --bg-1:#140a12;
 --bg-2:#2a1020;
+
+/* -- 글로우 효과 -- */
 --glow-1:rgba(255,122,69,.28);
 --glow-2:rgba(255,77,109,.22);
+
+/* -- 색상 -- */
 --aurora-1:#ff8a3d;
 --aurora-2:#ff4d6d;
 --aurora-3:#ffd166;
+
+/* -- 강조 색상 -- */
 --accent:#ff7a45;
 --accent-2:#ff4d6d;
 --accent-soft:rgba(255,122,69,.38);
+
+/* -- 포커스 표시 효과 -- */
 --focus:0 0 0 4px rgba(255,122,69,.26);
 }
 
@@ -65,24 +101,39 @@ html[data-theme="sunset"]{
 
 /* -- 민트 테마 -- */
 html[data-theme="mint"]{
+/* -- 배경 색상 -- */
 --bg-1:#04140f;
 --bg-2:#07211c;
+
+/* -- 글로우 효과 -- */
 --glow-1:rgba(32,227,178,.24);
 --glow-2:rgba(31,156,255,.22);
+
+/* -- 색상 -- */
 --aurora-1:#20e3b2;
 --aurora-2:#1f9cff;
 --aurora-3:#a0ffd9;
+
+/* -- 강조 색상 -- */
 --accent:#12c48b;
 --accent-2:#1f9cff;
 --accent-soft:rgba(32,227,178,.34);
+
+/* -- 포커스 표시 효과 -- */
 --focus:0 0 0 4px rgba(32,227,178,.24);
 }
 
 
 
-/* -- 기본 리셋 & 배경 -- */
+/* ==================================================
+   리셋 & 베이스
+   ================================================== */
+/* -- 전역 초기화(Global Reset) -- */
 *, *::before, *::after{box-sizing: border-box;}
 
+
+
+/* -- 페이지 기본 스타일 -- */
 html{-webkit-text-size-adjust: 100%;}
 
 body{
@@ -101,7 +152,7 @@ body{
 
 
 
-/* -- 움직이는 오로라 배경 -- */
+/* -- 오로라 배경 장식 요소 -- */
 .bg{
     position: fixed;
     inset: 0;
@@ -113,7 +164,6 @@ body{
     radial-gradient(closest-side at 88% 84%, var(--glow-2), transparent 74%),
     linear-gradient(160deg, var(--bg-1) 0%, var(--bg-2) 55%, var(--bg-1) 100%);
 }
-
 .blob{
     position: absolute;
     border-radius: 50%;
@@ -122,7 +172,6 @@ body{
     opacity: 42;
     animation: floatBlob 24s ease-in-out infinite;
 }
-
 .blob.b1{
     width: 44vmax;
     height: 44vmax;
@@ -130,17 +179,21 @@ body{
     top: -15vmax;
     background: var(--aurora-1);
 }
-
 .blob.b2{
     width: 38vmax; height: 38vmax; right: -11vmax; bottom: -17vmax;
     background: var(--aurora-2); animation-delay: -8s;
 }
-
 .blob.b3{
     width: 30vmax; height: 30vmax; left: 44%; top: 52%; background: var(--aurora-3);
     opacity: .26; animation-delay: -15s;
 }
 
+
+
+/* ==================================================
+   배경 요소 부유 애니메이션
+   - 위아래로 이동하며 자연스럽게 확대/축소
+   ================================================== */
 @keyframes floatBlob{
     0%, 100%{ transform: translate3d(0, 0, 0) scale(1); }
     33%{ transform: translate3d(4vmax, -3vmax, 0) scale(1.08); }
@@ -149,7 +202,7 @@ body{
 
 
 
-/* -- 미세한 그리드 텍스처 -- */
+/* -- 배경 레이어: 그리드 텍스처 -- */
 .grid-overlay{
     position: fixed;
     inset: 0;
@@ -166,7 +219,7 @@ body{
 
 
 
-/* -- 레이아웃 -- */
+/* -- 상태 -- */
 .stage{
     position: relative;
     z-index: 1;
@@ -178,6 +231,9 @@ body{
     padding: 48px 20px;
 }
 
+
+
+/* -- 카드 -- */
 .card{
     width: 100%;
     max-width: 1024px;
@@ -193,8 +249,9 @@ body{
 }
 
 
-
-/* -- 좌측 브랜드 패널 -- */
+/* ==================================================
+   왼쪽 브랜드 패널
+   ================================================== */
 .brand{
     position: relative;
     overflow: hidden;
@@ -206,7 +263,6 @@ body{
     radial-gradient(120% 100% at 0% 0%, rgba(255, 255, 255, .18), transparent 58%),
     linear-gradient(155deg, var(--accent) 0%, var(--accent-2) 100%)
 }
-
 .brand::after{
     content: "";
     position: absolute;
@@ -219,9 +275,11 @@ body{
     box-shadow: 0 0 0 42px rgba(255, 255, 255, .06), 0 0 0 86px rgba(255, 255, 255, .035);
     pointer-events: none;
 }
-
 .brand > *{ position: relative; z-index: 1; }
 
+
+
+/* -- 브랜드 로고 -- */
 .logo{
     display: flex;
     align-items: center;
@@ -230,7 +288,6 @@ body{
     font-weight: 800;
     letter-spacing: -.02em;
 }
-
 .logo-mark{
     width: 40px;
     height: 40px;
@@ -242,9 +299,11 @@ body{
     border: 1px solid rgba(255, 255, 255, .38);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, .4);
 }
-
 .logo-mark svg{ width: 21px; height: 21px; }
 
+
+
+/* -- 브랜드 제목 -- */
 .brand h1{
     margin: 0;
     font-size: 30px;
@@ -253,7 +312,6 @@ body{
     letter-spacing: -.035em;
     color: #fff;
 }
-
 .brand.sub{
     margin: -10px 0 0;
     font-size: 14.5px;
@@ -261,6 +319,11 @@ body{
     max-width: 30ch;
 }
 
+
+
+/* ==================================================
+   헤택 목록
+   ================================================== */
 .benefits{
     list-style: none;
     margin: 4px 0 0;
@@ -268,7 +331,6 @@ body{
     display: grid;
     gap: 15px;
 }
-
 .benefits li{
     display: flex;
     gap: 11px;
@@ -276,9 +338,12 @@ body{
     font-size: 14.5px;
     color: rgba(255, 255, 255, .95);
 }
-
 .benefits li b{ display: block; font-weight: 700; }
 .benefits li span small{ display: block; font-size: 13px; color: rgba(255, 255, 255, .78); }
+
+
+
+/* -- 혜택 목록 체크 표시 -- */
 .tick{
     flex: 0 0 22px;
     width: 22px;
@@ -293,6 +358,11 @@ body{
     border: 1px solid rgba(255, 255, 255, .34);
 }
 
+
+
+/* ==================================================
+   인용문 영역
+   ================================================== */
 .quote{
     margin: auto 0 0;
     padding: 18px 18px 16px;
@@ -300,14 +370,12 @@ body{
     background: rgba(255, 255, 255, .14);
     border: 1px solid rgba(255, 255, 255, .24);
 }
-
 .quote blockquote{
     margin: 0;
     font-size: 14px;
     line-height: 1.65;
     color: #fff;
 }
-
 .quote figcaption{
     margin-top: 10px;
     font-size: 12.5px;
@@ -317,15 +385,21 @@ body{
 
 
 
-/* -- 우측 폼 패널 -- */
+/*==================================================
+   오른쪽 폼 패널
+  ================================================== */
+/* -- 패널 -- */
 .pane{
-    padding: 42px 46px;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    text-align: left; /* 전체 좌측 정렬 강제 */
+  padding: 42px 46px;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  text-align: left;
 }
 
+
+
+/* -- 계정 생성 안내 문구 -- */
 .eyebrow{
     margin: 0 0 8px;
     font-size: 12px;
@@ -335,13 +409,15 @@ body{
     color: var(--accent-2);
 }
 
+
+
+/* -- 가입 폼 헤더 -- */
 .pane-head h2{
     margin: 0 0 8px;
     font-size: 25px;
     font-weight: 800;
     letter-spacing: -.03em;
 }
-
 .pane-head p{
     margin: 0;
     font-size: 14px;
@@ -364,6 +440,11 @@ body{
   border-bottom: none !important; /* 호버 시에도 밑줄이 생기지 않도록 방지 */
 }
 
+
+
+/*==================================================
+   폼 뷰
+  ================================================== */
 #formView{ margin: auto 0; }
 
 form{
@@ -375,7 +456,10 @@ form{
 
 
 
-/* -- 이름, 이메일, 비밀번호 등 모든 입력 필드 컨테이너 좌측 강제 정렬 -- */
+/*==================================================
+   입력 필드 컨테이너
+  ================================================== */
+/* -- 이름, 이메일, 비밀번호 등 모든 오른쪽 강제 정렬 -- */
 .field {
   display: flex !important;
   flex-direction: column !important;
@@ -394,7 +478,6 @@ form{
   margin: 0 !important;
   padding: 0 !important;
 }
-
 .field > label.opt {
   font-size: 11.5px;
   font-weight: 600;
@@ -434,6 +517,9 @@ form{
 
 
 
+/*==================================================
+   입력 필드 유효성 검사 상태
+  ================================================== */
 [data-field].is-invalid .input-wrap .lead {
     display: block !important;
 }
@@ -445,6 +531,7 @@ form{
 [data-field].is-valid .input-wrap .status .ic.ok {
     display: block !important;
 }
+
 
 
 /* -- 메시지 텍스트도 빨간색으로 유지할 경우 -- */
@@ -522,24 +609,22 @@ form{
 
 
 
-/* -- 입력 필드 래퍼 및 좌측 리드 아이콘 -- */
+/*==================================================
+   입력 필드 래퍼 및 좌측 리드 아이콘
+  ================================================== */
 .input-wrap {
   position: relative;
   width: 100%;
   display: flex;
   align-items: center;
 }
-
 .input-wrap input {
   padding-left: 45px !important;  /* 왼쪽 기본 아이콘 공간 */
   padding-right: 45px !important; /* 오른쪽 상태 아이콘 공간 */
 }
-
 .input-wrap.with-toggle input {
   padding-right: 74px !important; /* 상태 아이콘 + 눈 모양 버튼 공간 확보 */
 }
-
-
 .input-wrap .lead {
   display: block !important;
   position: absolute;
@@ -551,11 +636,9 @@ form{
   transition: color var(--speed);
   flex-shrink: 0;
 }
-
 .input-wrap:focus-within .lead {
   color: var(--accent-2);
 }
-
 .input-wrap .status {
     position: absolute;
     right: 1rem; /* 일반 입력창 우측 여백 */
@@ -565,17 +648,15 @@ form{
     align-items: center;
     pointer-events: none;
 }
-
-
 .input-wrap .status .ic {
     display: none;
 }
 
 
 
-
-
-/* -- Input 기본 및 브라우저 컨트롤 제어 -- */
+/*==================================================
+   Input 기본 및 브라우저 컨트롤 제어
+  ================================================== */
 input[type="text"],
 input[type="email"],
 input[type="password"] {
@@ -593,32 +674,26 @@ input[type="password"] {
   -webkit-appearance: none;
   appearance: none;
 }
-
 input::placeholder {
   color: var(--placeholder);
 }
-
 input:hover:not(:focus) {
   border-color: var(--field-border-hover);
 }
-
 input:focus {
   border-color: var(--accent);
   background: var(--field-bg-focus);
   box-shadow: var(--focus);
 }
-
 input:-webkit-autofill {
   -webkit-text-fill-color: var(--text);
   -webkit-box-shadow: 0 0 0 1000px rgba(18, 24, 46, .92) inset;
   box-shadow: 0 0 0 1000px rgba(18, 24, 46, .92) inset;
 }
-
 input[type="password"]::-ms-reveal,
 input[type="password"]::-ms-clear {
   display: none;
 }
-
 input[type="password"]::-webkit-credentials-auto-fill-button {
   visibility: hidden;
   display: none !important;
@@ -627,7 +702,9 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
 
 
 
-/* -- 비밀번호 표시/숨김 토글 버튼 -- */
+/*==================================================
+   비밀번호 표시/숨김 토글 버튼
+  ================================================== */
 .toggle-vis {
   position: absolute;
   right: 14px; /* 평소 오른쪽 끝 */
@@ -644,41 +721,33 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
   z-index: 3;
   transition: right 0.2s ease; /* 위치 이동 시 부드러운 애니메이션 */
 }
-
 .toggle-vis:hover {
   color: var(--text);
   background: rgba(255, 255, 255, .07);
 }
-
 .toggle-vis:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
-
 .toggle-vis svg {
   width: 20px;
   height: 20px;
   color: #7b8499;
   transition: color 0.2s;
 }
-
 .toggle-vis:hover svg {
   color: #c0c7dc; /* 호버 시 가독성을 위한 하이라이트 */
 }
-
 .toggle-vis .eye {
   display: block;
 }
-
 .toggle-vis .eye-off {
   display: none;
 }
-
 .toggle-vis[aria-pressed="true"] .eye,
 .toggle-vis.is-on .eye {
   display: none;
 }
-
 .toggle-vis[aria-pressed="true"] .eye-off,
 .toggle-vis.is-on .eye-off {
   display: block;
@@ -692,7 +761,10 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
 }
 
 
-/* -- 상태 아이콘 (유효성 검증) -- */
+
+/*==================================================
+   상태 아이콘 (유효성 검증)
+  ================================================== */
 .status {
   position: absolute;
   right: 14px !important;
@@ -706,7 +778,6 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
   pointer-events: none;
   z-index: 2;
 }
-
 .status .ic {
   display: none !important;
   width: 20px;
@@ -751,7 +822,9 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
 
 
 
-/* -- 안내 / 오류 메시지 -- */
+/*==================================================
+   안내 / 오류 메시지
+  ================================================== */
 .msg {
   margin: 0;
   min-height: 16px;
@@ -772,7 +845,9 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
 
 
 
-/* -- 비밀번호 강도 게이지 & 라벨 -- */
+/*==================================================
+   비밀번호 강도 게이지 & 라벨
+  ================================================== */
 .strength {
   display: flex;
   align-items: center;
@@ -813,7 +888,9 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
 
 
 
-/* -- 비밀번호 규칙 체크리스트 -- */
+/*==================================================
+   비밀번호 규칙 체크리스트
+  ================================================== */
 .rules {
   justify-content: flex-start; /* 규칙 칩들을 왼쪽부터 나열 */
   list-style: none;
@@ -857,7 +934,9 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
 
 
 
-/* -- 약관 동의 체크박스 -- */
+/*==================================================
+   약관 동의 체크박스
+  ================================================== */
 .terms {
   display: grid;
   gap: 11px;
@@ -1007,7 +1086,9 @@ html[data-theme="mint"] .badge.must {
 
 
 
-/* -- 버튼 -- */
+/*==================================================
+   버튼
+  ================================================== */
 .btn-primary {
   position: relative;
   width: 100%;
@@ -1082,7 +1163,9 @@ html[data-theme="mint"] .badge.must {
 
 
 
-/* -- 성공 화면 및 고스트 버튼 -- */
+/*==================================================
+   성공 화면 및 고스트 버튼
+  ================================================== */
 .success {
   display: grid;
   place-items: center;
@@ -1183,7 +1266,9 @@ html[data-theme="mint"] .badge.must {
 
 
 
-/* -- 흔들림 피드백 -- */
+/*==================================================
+   흔들림 애니메이션
+  ================================================== */
 @keyframes shake{
     10%, 90%{ transform: translateX(-2px); }
     20%, 80%{ transform: translateX(3px); }
@@ -1194,7 +1279,9 @@ html[data-theme="mint"] .badge.must {
 
 
 
-/* -- 테마 전환 -- */
+/*==================================================
+   테마 전환
+  ================================================== */
 .theme-switch{
   position:fixed;
   top:20px;
@@ -1248,7 +1335,9 @@ html[data-theme="mint"] .badge.must {
 
 
 
-/* -- 반응형 -- */
+/*==================================================
+   반응형 화면 너비 최대 축소 920px 이하
+  ================================================== */
 @media (max-width: 920px){
     .card{ grid-template-columns:1fr; max-width: 580px; }
     .brand{ padding: 26px 28px 24px; gap: 12px; }
@@ -1259,6 +1348,11 @@ html[data-theme="mint"] .badge.must {
     .success{ margin: auto; }
 }
 
+
+
+/*==================================================
+   반응형 화면 너비 최대 축소 560px 이하
+  ================================================== */
 @media (max-width: 560px){
     .stage{ padding: 20px 12px 28px; align-items:flex-start; }
     .card{ border-radius: 20px; }
@@ -1276,6 +1370,11 @@ html[data-theme="mint"] .badge.must {
     .theme-switch .dot{ width:26px; height:26px; }
 }
 
+
+
+/*==================================================
+   반응형 화면 너비 최대 축소 360px 이하
+  ================================================== */
 @media (max-width: 360px){
     .brand.sub{display: none;}
     .rules{gap: 4px 10px;}
@@ -1283,7 +1382,9 @@ html[data-theme="mint"] .badge.must {
 
 
 
-/* -- 모션 최소화 설정 존중 --*/
+/*==================================================
+   모션 최소화 설정 존중
+  ================================================== */
 @media (prefers-reduced-motion:reduxe){
     *,*::before,*::after{
     animation-duration: .001ms !important;
