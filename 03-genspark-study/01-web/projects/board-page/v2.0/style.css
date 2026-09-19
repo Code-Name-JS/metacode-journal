@@ -1,53 +1,104 @@
-/* ═════════════════════════════════════════════════
-   게시판 시안 — Design Tokens (CSS Variables)
-══════════════════════════════════════════════════ */
+/* ==========================================================================
+   v2.0 CSS
+   ========================================================================== */
 
+
+
+/* ==================================================
+   리셋 & 베이스
+   ================================================== */
+/* -- 전역 초기화(Global Reset) -- */
 *{box-sizing: border-box; margin: 0; padding: 0;}
 
+
+
+/* ==================================================
+   전역 변수
+   ================================================== */
 :root{
-    --primary: #4F6BF5;
-    --primary-strong: #3A54D6;
-    --primary-weak: #EDF1FE;
-    --on-primary: #FFFFFF;
-    --bg: #F4F6FB;
-    --surface: #FFFFFF;
-    --surface-2: #F8FAFD;
-    --text: #1B1F2B;
-    --muted: #687086;
-    --border: #E4E8F2;
-    --border-strong: #D3D9E6;
-    --notice-bg: #F0F4FF;
-    --danger: #E5484D;
-    --radius: 14px;
-    --radius-sm: 8px;
-    --shadow-sm: 0 1px 2px rgba(20, 25, 45, .05), 0 2px 10px rgba(20, 25, 45, .05);
-    --shadow-lg: 0 16px 48px rgba(20, 25, 45, .18);
-    --font: -apple-system, BlinkMacSystemFont,"Segoe UI",Roboto,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;
-    --chip-q-bg: #FFF4E0; --chip-q-tx: #B25E00;
-    --chip-f-bg: #E0F5EF; --chip-f-tx: #0B7A5C;
-    --chip-r-bg: #FDE7EF; --chip-r-tx: #C2255C;
+/* -- 브랜드 색상 -- */
+--primary: #4F6BF5;
+--primary-strong: #3A54D6;
+--primary-weak: #EDF1FE;
+--on-primary: #FFFFFF;
+
+/* -- 배경 색상 -- */
+--bg: #F4F6FB;
+--surface: #FFFFFF;
+--surface-2: #F8FAFD;
+
+/* -- 텍스트 색상 -- */
+--text: #1B1F2B;
+--muted: #687086;
+
+/* -- 테두리 색상 -- */
+--border: #E4E8F2;
+--border-strong: #D3D9E6;
+
+/* -- 상태 색상 -- */
+--notice-bg: #F0F4FF;
+--danger: #E5484D;
+
+/* -- 모서리 둥글기 -- */
+--radius: 14px;
+--radius-sm: 8px;
+
+/* -- 그림자 색상 -- */
+--shadow-sm: 0 1px 2px rgba(20, 25, 45, .05), 0 2px 10px rgba(20, 25, 45, .05);
+--shadow-lg: 0 16px 48px rgba(20, 25, 45, .18);
+
+/* -- 폰트 -- */
+--font: -apple-system, BlinkMacSystemFont,"Segoe UI",Roboto,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;
+
+/* -- chip 배경 & 텍스트 색상 -- */
+--chip-q-bg: #FFF4E0; --chip-q-tx: #B25E00;
+--chip-f-bg: #E0F5EF; --chip-f-tx: #0B7A5C;
+--chip-r-bg: #FDE7EF; --chip-r-tx: #C2255C;
 }
 
+
+
+/* ==================================================
+   다크 테마 전역 변수
+   ================================================== */
 [data-theme="dark"]{
-    --primart: #7C93FF;
-    --primary-strong: #9FB0FF;
-    --primary-weak: #232A45;
-    --on-primary: #0E1017;
-    --bg: #0E1017;
-    --surface: #171A24;
-    --surface-2: #1D2130;
-    --text: #EAECF4;
-    --muted: #9AA1B5;
-    --border: #272C3D;
-    --border-strong: #363D55;
-    --notice-bg: #1A2138;
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, .35), 0 2px 10px rgba(0, 0, 0, .3);
-    --shadow-lg: 0 16px 48px rgba(0, 0, 0, .55);
-    --chip-q-bg: #3A2E14; --chip-q-tx: #F5B85E;
-    --chip-f-bg: #0F2B24; --chip-f-tx: #5FD0A8;
-    --chip-r-bg: #341C26; --chip-r-tx: #F47BA6; 
+/* -- 브랜드 색상 -- */
+--primart: #7C93FF;
+--primary-strong: #9FB0FF;
+--primary-weak: #232A45;
+--on-primary: #0E1017;
+
+/* -- 배경 색상 -- */
+--bg: #0E1017;
+--surface: #171A24;
+--surface-2: #1D2130;
+
+/* -- 텍스트 색상 -- */
+--text: #EAECF4;
+--muted: #9AA1B5;
+
+/* -- 테두리 색상 -- */
+--border: #272C3D;
+--border-strong: #363D55;
+
+/* -- 상태 색상 -- */
+--notice-bg: #1A2138;
+
+/* -- 그림자 색상 -- */
+--shadow-sm: 0 1px 2px rgba(0, 0, 0, .35), 0 2px 10px rgba(0, 0, 0, .3);
+--shadow-lg: 0 16px 48px rgba(0, 0, 0, .55);
+
+/* -- chip 배경 & 텍스트 색상 -- */
+--chip-q-bg: #3A2E14; --chip-q-tx: #F5B85E;
+--chip-f-bg: #0F2B24; --chip-f-tx: #5FD0A8;
+--chip-r-bg: #341C26; --chip-r-tx: #F47BA6; 
 }
 
+
+
+/* ==================================================
+   페이지 기본 스타일
+   ================================================== */
 html{ scroll-behavior: smooth; scroll-padding-top: 78px; }
 
 body{
@@ -94,14 +145,15 @@ a{
 
 
 
-/* -- 헤더 -- */
+/* ==================================================
+   헤더
+   ================================================== */
 .topbar{
     position: sticky; top: 0; z-index: 50;
     background: color-mix(in srgb, var(--surface) 82%, transparent);
     -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); 
     border-bottom: 1px solid var(--border);
 }
-
 .topbar-inner{
     max-width: 980px;
     margin: 0 auto;
@@ -112,12 +164,14 @@ a{
     gap: 12px;
 }
 
+
+
+/* -- 브랜드 -- */
 .brand{
     display: flex;
     align-items: center;
     gap: 10px;
 }
-
 .brand-mark{
     width: 34px;
     height: 34px;
@@ -128,13 +182,11 @@ a{
     color: #fff;
     flex: none;
 }
-
 .brand-text{
     font-size: 18px;
     font-weight: 800;
     letter-spacing: -.3px;
 }
-
 .brand-text em{
     font-style: normal;
     font-size: 10px;
@@ -147,15 +199,18 @@ a{
 
 .topbar-actions{display: flex; align-items: center; gap: 8px;}
 
+
+
+/* ==================================================
+   버튼
+   ================================================== */
 .btn{
     display: inline-flex; align-items: center; justify-content: center; gap: 6px;
     border-radius: 10px; padding: 9px 16px; font-size: 14px; font-weight: 600;
     transition: transform .12s ease, box-shadow .12s ease, background .15s ease, color .15s ease, border-color .15s ease;
     white-space: nowrap;
 }
-
 .btn:active{transform:scale(.97);}
-
 .btn-primary{
     background: var(--primary);
     color: var(--on-primary);
@@ -166,6 +221,11 @@ a{
 .btn-ghost{background: transparent; color: var(--muted); border: 1px solid var(--border)}
 .btn-ghost:hover{color: var(--text); border-color: var(--border-strong); background: var(--surface-2);}
 
+
+
+/* ==================================================
+   아이콘 버튼
+   ================================================== */
 .icon-btn{
     width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center;
     color: var(--muted); border: 1px solid var(--border); background: var(--surface);
@@ -187,7 +247,10 @@ a{
 
 
 
-/* -- 목록 헤더 + 탭 + 검색 -- */
+/* ==================================================
+   목록 헤더 + 탭 + 검색
+   ================================================== */
+/* -- 목록 헤더 -- */
 .board-head{display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; margin-bottom: 16px; flex-wrap: wrap;}
 .board-title{font-size: 24px; font-weight: 800; letter-spacing: -.5px;}
 .board-title .total{font-size: 14px; font-weight: 600; color: var(--muted); margin-left: 8px;}
@@ -195,6 +258,9 @@ a{
 
 .toolbar{display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 18px; flex-wrap: wrap;}
 
+
+
+/* -- 탭-- */
 .tabs{display: flex; gap: 8px; overflow-x: auto; overflow-y: hidden; padding-bottom: 4px;}
 .tabs::-webkit-scrollbar{display: none;}
 
@@ -206,6 +272,9 @@ a{
 .tab:hover{color: var(--primary); border-color: var(--primary);}
 .tab.is-active{background: var(--primary); border-color: var(--primary); color: var(--on-primary); box-shadow: 0 4px 12px color-mix(in srgb, var(--primary) 30%, transparent);}
 
+
+
+/* -- 검색-- */
 .search{display: flex; gap: 0; flex: none;}
 .search input{
     width: 230px; padding: 9px 14px; border: 1px solid var(--border); border-right: none;
@@ -217,7 +286,9 @@ a{
 
 
 
-/* --  테이블 -- */
+/* ==================================================
+   테이블
+   ================================================== */
 table {
     width: 100%;
     table-layout: fixed; /* 너비 비율을 CSS로 제어하기 위해 필수 */
@@ -256,6 +327,9 @@ table td:nth-child(5){
     box-shadow: var(--shadow-sm); overflow: hidden;
 }
 
+
+
+/* -- 테이블 열 제목 -- */
 .col-num{width: 60px; flex-shrink: 0;}
 .col-author{width: 120px; flex-shrink: 0;}
 .col-date{width: 110px; flex-shrink: 0;}
@@ -263,6 +337,9 @@ table td:nth-child(5){
 
 .col-title{flex: 1; min-width: 0;}
 
+
+
+/* -- 테이블 행 제목 -- */
 .board-row{display: flex; align-items: center; width: 100%;}
 
 .board-table{width: 100%; border-collapse: collapse; font-size: 14px;}
@@ -277,6 +354,8 @@ table td:nth-child(5){
 .board-table tbody tr.is-notice{background: var(--notice-bg);}
 .board-table tbody tr.is-notice:hover{background: color-mix(in srgb, var(--notice-bg) 60%, var(--surface-2));}
 
+
+/* -- 상단 고정 공지 -- */
 .td-no{width: 64px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap;}
 
 .badge-notice{
