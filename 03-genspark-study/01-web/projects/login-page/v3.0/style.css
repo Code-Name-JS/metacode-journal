@@ -1,48 +1,96 @@
-/* =====================================================
-   style-v3.css  –  Login v3.0
-   ===================================================== */
+/* ==========================================================================
+   v3.0 CSS
+   ========================================================================== */
 
 
    
-/* ── CSS 변수 ── */
+/* ==================================================
+   전역 변수
+   ================================================== */
 :root {
+/* -- 기본 배경 및 카드 -- */
 --bg: #f4f6fb;
 --card: #ffffff;
+
+/* -- 텍스트 및 보조 텍스트 -- */
 --text: #1c2333;
 --muted: #6b7280;
+
+/* -- 테두리 -- */
 --border: #e2e8f0;
+
+/* -- 주요 색상 -- */
 --primary: #4f46e5;
 --primary-hover: #4338ca;
 --primary-soft: #eef2ff;
+
+/* -- 에러 상태 -- */
 --error: #dc2626;
 --error-soft: #fef2f2;
+
+/* -- 성공 상태 -- */
 --success: #16a34a;
+
+/* -- 포커스 상태 -- */
 --focus: #6366f1;
+
+/* -- 공통 디자인 -- */
 --radius: 16px;
 --shadow: 0 20px 45px -20px rgba(30, 41, 59, 0.25);
+
+/* -- 소셜 로그인 -- */
 --social-border: #d1d5db;
 }
 
+
+
+/* ==================================================
+   다크 모드 전역 변수
+   ================================================== */
 @media (prefers-color-scheme: dark) {
 :root{
+/* -- 배경 색상 -- */
 --bg: #0f1420;
 --card: #171d2e;
+
+/* - 텍스트 색상 -- */
 --text: #eef1f8;
 --muted: #9aa3b5;
+
+/* 테두리 색상 -- */
 --border: #2a3247;
+
+/* -- 강조 색상 -- */
 --primary: #818cf8;
 --primary-hover: #a5b4fc;
 --primary-soft: #232b45;
+
+/* -- 오류 색상 -- */
 --error: #f87171;
 --error-soft: #3a1d24;
+
+/* -- 성공 색상 -- */
 --success: #4ade80;
+
+/* -- 그림자 -- */
 --shadow: 0 20px 45px -20px rgba(0, 0, 0, 0.6);
+
+/* -- 소셜 버튼 테두리 색상 -- */
 --social-border: #3a435c;
 }
 }
 
+
+
+/* ==================================================
+   리셋 & 베이스
+   ================================================== */
+/* -- 전역 초기화(Global Reset) -- */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+
+
+/* -- 페이지 기본 스타일 -- */
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
     background: radial-gradient(600px 400px at 15% 10%, rgba(79, 70, 229, 0.10), transparent 60%),
@@ -56,6 +104,11 @@ body {
     padding: 24px;
 }
 
+
+
+/* ==================================================
+   메인 카드
+   ================================================== */
 .card {
     width: 100%;
     max-width: 420px;
@@ -66,6 +119,11 @@ body {
     padding: 40px 36px 32px;
 }
 
+
+
+/* ==================================================
+   브랜드
+   ================================================== */
 .brand {
     display: flex;
     align-items: center;
@@ -73,6 +131,9 @@ body {
     margin-bottom: 8px;
 }
 
+
+
+/* -- 브랜드 로고 -- */
 .logo {
     width: 40px;
     height: 40px;
@@ -85,9 +146,19 @@ body {
     font-size: 20px;
 }
 
+
+
+/* ==================================================
+   로그인 타이틀(loginTitle)
+   ================================================== */
 h1 { font-size: 24px; font-weight: 700; letter-spacing: -0.3px; }
 .sub { color: var(--muted); font-size: 14px; margin: 6px 0 28px;}
 
+
+
+/* ==================================================
+   로그인 형식(loginForm)
+   ================================================== */
 .field { margin-bottom: 18px; }
 
 label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; }
@@ -109,20 +180,16 @@ input[type="text"] {
 }
 
 input[type="password"],
-input[type='text'] {
-    padding-right: 46px ;
-}
+input[type='text'] { padding-right: 46px ; }
 
-input:focus {
-    border-color: var(--focus);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
-}
+input:focus { border-color: var(--focus); box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25); }
+input::placeholder { color: #b1b4bc; opacity: 1; }
 
-input::placeholder {
-    color: #b1b4bc;
-    opacity: 1;
-}
 
+
+/* ==================================================
+   비밀번호 강도 표시 영역
+   ================================================== */
 .toggle {
     position: absolute;
     right: 6px;
@@ -141,6 +208,9 @@ input::placeholder {
 .toggle:hover { color: var(--text); }
 .toggle:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 
+
+
+/* -- 오류 메시지 -- */
 .error-msg {
     display: none;
     color: var(--error);
@@ -150,11 +220,21 @@ input::placeholder {
 
 .error-msg.show { display: block; }
 
+
+
+/* ==================================================
+   유효성 상태(입력 필드와 입력창)
+   ================================================== */
 .field.invalid input {
     border-color: var(--error);
     background: var(--error-soft);
 }
 
+
+
+/* ==================================================
+   로그인 형식(loginForm) 행
+   ================================================== */
 .row {
     display: flex;
     align-items: center;
@@ -163,13 +243,21 @@ input::placeholder {
     font-size: 14px;
 }
 
-.remember { display: flex; align-items: center; gap: 8px; cursor: pointer; color: var(--muted); }
 
+
+/* -- 로그인 상태 유지 -- */
+.remember { display: flex; align-items: center; gap: 8px; cursor: pointer; color: var(--muted); }
 .remember input { accent-color: var(--primary); width: 16px; height: 16px; cursor: pointer; }
 
+
+
+/* -- 비밀번호 찾기 -- */
 .forgot { color: var(--primary); text-decoration: none; font-weight: 600; }
 .forgot:hover { text-decoration: underline; }
 
+
+
+/* -- 로그인 버튼 -- */
 .btn-primary {
     width: 100%;
     padding: 13px;
@@ -187,6 +275,11 @@ input::placeholder {
 .btn-primary:active { transform: scale(0.99); }
 .btn-primary:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
 
+
+
+/* ==================================================
+   구분선
+   ================================================== */
 .divider {
     display: flex;
     align-items: center;
@@ -195,7 +288,6 @@ input::placeholder {
     font-size: 13px;
     margin: 24px 0 18px;
 }
-
 .divider::before, .divider::after {
     content: "";
     flex: 1;
@@ -203,8 +295,12 @@ input::placeholder {
     background: var(--border);
 }
 
-.socials { display: flex; gap: 12px; }
 
+
+/* ==================================================
+   소셜 로그인 & 버튼
+   ================================================== */
+.socials { display: flex; gap: 12px; }
 .btn-social {
     flex: 1;
     display: flex;
@@ -220,19 +316,23 @@ input::placeholder {
     cursor: pointer;
     transition: background 0.2s ease, border-color 0.2s ease;
 }
-
 .btn-social:hover { background: var(--primary-soft); border-color: var(--primary); }
 
+
+
+/* -- 회원가입 -- */
 .signup {
     text-align: center;
     margin-top: 24px;
     font-size: 14px;
     color: var(--muted);
 }
-
 .signup a { color: var(--primary); font-weight: 600; text-decoration: none; }
 .signup a:hover { text-decoration: underline; }
 
+
+
+/* -- 안내 문구 -- */
 .toast {
     position: fixed;
     bottom: 28px;
@@ -249,9 +349,13 @@ input::placeholder {
     transition: opacity 0.25s ease, transform 0.25s ease;
     z-index: 10;
 }
-
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
+
+
+/* -- 동작 감소 애니메이션 -- */
 @media (prefers-reduced-motion: reduce) {
+
+/* -- 전역 초기화(Global Reset) -- */
 *, *::before, *::after { transition: none !important; animation: none !important; }
 }
