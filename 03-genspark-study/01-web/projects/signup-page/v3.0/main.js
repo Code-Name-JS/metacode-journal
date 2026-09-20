@@ -7,8 +7,12 @@
 
 
    
+    /* -- 유틸리티 함수의 규칙 -- */
     const $ = (s, c = document) => c.querySelector(s);
 
+
+
+    /* -- index.html 문서에 작성된 css 선택자 함수 -- */
     const form     = $('#signupForm');
     const nameEl   = $('#name');
     const emailEl  = $('#email');
@@ -46,7 +50,7 @@
 
 
 
-    /* -- 검증 -- */
+    /* -- 함수 검증 -- */
     const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[A-Za-z]{2,}$/;
 
     const validateName = (silent = false) => {
