@@ -11,12 +11,14 @@
 <body>
     <main class="shell">
         <!-- 브랜드 패널 -->
-        <section class="brand" aira-hidden="false">
-            <div class="logo"><spans class="mark">✦</spans>Aurora</div>
-            <div>
-                <h1>몇 분이면 끝나는<br>가장 빠른 시작</h1>
-                <p>하나의 계정으로 프로젝트, 팀 협업, 자동화까지 한 번에 관리하세요.</p>
+        <section class="brand" aria-hidden="false">
+            <div class="logo">
+                <span class="mark">✦</span>
+                <span class="text">Aurora</span>
             </div>
+            <h1>몇 분이면 끝나는<br>가장 빠른 시작</h1>
+            <p>하나의 계정으로 프로젝트, 팀 협업, 자동화까지 한 번에 관리하세요.</p>
+            
             <ul class="perks">
                 <li><span class="tick">✓</span><span><b>무료 플랜</b> · 카드 등록 없이 바로 시작</span></li>
                 <li><span class="tick">✓</span><span><b>30일 체험</b> · Pro 기능 전부 개방</span></li>
@@ -58,7 +60,7 @@
                 <div class="field" id="f-password">
                     <label class="label" for="password">
                         비밀번호<span class="req" aria-hidden="true">*</span>
-                        <span class="hint">8자 이상 · 영문+숫자 조합</span>
+                        <span class="hint">8자 이상 · 영문 + 숫자 조합</span>
                     </label>
                     <div class="control">
                         <input id="password" name="password" type="password" placeholder="••••••••" autocomplete="new-password" required aria-describedby="err-password strengthText" />
@@ -86,7 +88,7 @@
                 <label class="terms" id="termsBox" for="terms">
                     <input id="terms" name="terms" type="checkbox" required aria-describedby="err-terms" />
                     <span>
-                        <a href="#terms" id="lnkTerms">이용약관</a> 및 <a href="#privacy" id="lnkPrivacy">개인정보 처리방침</a>에 동의합니다. <span class="req" aria-hidden="true">*</span>
+                        <a href="#" id="lnkTerms">이용약관</a> 및 <a href="#privacy" id="lnkPrivacy">개인정보 처리방침</a>에 동의합니다. <span class="req" aria-hidden="true">*</span>
                     </span>
                 </label>
                 <p class="msg" id="err-terms" role="status" aria-live="polite" style="margin-top: -8px"></p>

@@ -50,32 +50,40 @@
 /* ==================================================
    페이지 기본 스타일
    ================================================== */
-html, body { height: 100% }
+html{-webkit-text-size-adjust: 100%;}
 
 body {
     margin: 0;
+    min-height: 100vh;
+    min-height: 100dvh;
+    line-height: 1.55;
     font-family: "Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
     color: var(--ink);
     background:
     radial-gradient(900px 500px at 12% 8%, #6d5efc 0%, transparent 55%),
     radial-gradient(800px 520ox at 92% 92%, #06b6d4 0%, transparent 55%),
     var(--bg);
-    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 32px 20px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
 }
 
 
 
-/* -- 메인 컨테이너 -- */
+/* ==================================================
+   메인 컨테이너
+   ================================================== */
 .shell {
     width: 100%;
     max-width: 1040px;
     display: grid;
     grid-template-columns: 1.05fr .95fr;
     background: var(--card);
+    border: 1px solid var(--line);
     border-radius: 24px;
     overflow: hidden;
     box-shadow: var(--shadow);
@@ -84,10 +92,11 @@ body {
 
 
 /* ==================================================
-   왼쪽 브랜드 패널
+   브랜드 패널
    ================================================== */
 .brand {
     position: relative;
+    overflow: hidden;
     padding: 44px 40px;
     color: #fff;
     background: linear-gradient(160deg, #4f46e5 0%, #6d28d9 55%, #0ea5e9 130%);
@@ -99,25 +108,53 @@ body {
 .brand::after {
     content: "";
     position: absolute; inset: 0;
+    right: -140px;
+    bottom: -150px;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, .22);
     background-image: radial-gradient(rgba(255, 255, 255, .22) 1px, transparent 1px);
     background-size: 18px 18px;
+    box-shadow: 0 0 0 42px rgba(255, 255, 255, .06), 0 0 0 86px rgba(255, 255, 255, .035);
     opacity: .35;
     pointer-events: none;
 }
-.brand h1 { margin: 0; font-size: 30px; line-height: 1.28; font-weight: 800; position: relative; z-index: 1; }
-.brand p { margin: 0; color: rgba(255, 255, 255, .86); font-size: 14.5px; line-height: 1.7; position: relative; z-index: 1; }
+.brand > *{ position: relative; z-index: 1; }
+.brand h1 { margin: 0; font-size: 40px; line-height: 1.28; font-weight: 700; position: relative; z-index: 1; }
+.brand p { margin: 0; color: rgba(255, 255, 255, .86); font-size: 15px; font-weight: 400; line-height: 1.7; position: relative; z-index: 1; }
 
 
 
-/* -- 로고 -- */
-.logo { display: flex; align-items: center; gap: 10; font-weight: 800; letter-spacing: .2px; font-size: 18px; position: relative; z-index: 1; }
-.logo .mark {
-    width: 34px; height: 34px; border-radius: 10px;
-    background: rgba(255, 255, 255, .18);
-    border: 1px solid rgba(255, 255, 255, .35);
-    display: grid; place-items: center; font-size: 17px;
+/* -- 브랜드 로고 -- */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    letter-spacing: .2px;
+    position: relative;
+    z-index: 1;
 }
 
+
+
+.logo .mark {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, .18);
+    border: 1px solid rgba(255, 255, 255, .35);
+    display: grid;
+    place-items: center;
+    font-size: 25px;
+}
+
+
+
+.logo .text {
+    font-size: 25px;
+}
 
 
 /* -- 서비스 혜택 목록 -- */
@@ -144,7 +181,7 @@ body {
     border-radius: 14px; padding: 14px 16px; font-size: 13px; line-height: 1.6;
     color: rgba(255, 255, 255, .94);
 }
-.quote span { display: block; margin-top: 8px; font-size: 12px; color: rgba(255, 255, 255, .7); }
+.quote span { display: block; margin-top: 12px; font-size: 12px; color: rgba(255, 255, 255, .7); }
 
 
 
@@ -152,14 +189,14 @@ body {
    오른쪽 폼 영역
    ================================================== */
 /* -- 폼 영역 -- */
-.form-wrap { padding: 40px 38px 34px;}
+.form-wrap { padding: 25px 45px; display: flex; flex-direction: column; justify-content: center; }
 
 
 
 /* -- 폼 헤더 영역 -- */
-.form-head { margin-bottom: 22px; }
-.form-head h2 { margin: 0 0 6px; font-size: 23px; font-weight: 800; letter-spacing: -.2px; }
-.form-head p { margin: 0; color: var(--muted); font-size: 14px; }
+.form-head { margin-top: 19px; margin-bottom: -9px; }
+.form-head h2 { margin: 0px; font-size: 23px; font-weight: 800; letter-spacing: -.2px; }
+.form-head p { margin-bottom: 25px; color: var(--muted); font-size: 14px; }
 .form-head a { color: var(--brand); font-weight: 700; text-decoration: none; }
 .form-head a:hover { text-decoration: underline; }
 
@@ -174,7 +211,7 @@ form { display: grid; gap: 16px; }
    회원가입 입력 필드
    ================================================== */
 /* -- 입력 필드 영역 -- */
-.field { margin-bottom: 18px; }
+.field { margin-bottom: -11px; }
 
 
 
@@ -182,13 +219,15 @@ form { display: grid; gap: 16px; }
 .label {
     display: flex;
     align-items: center;
+    font-size: 14px;
+    margin-bottom: 2.5px;
 }
 
 
 
 /* -- 입력 필드 라벨(필수 입력 표시/힌트) -- */
 .req { color: var(--err); margin-left: 2px;}
-.hint { margin-left: auto; font-weight: 500; font-size: 12px; color: var(--muted); }
+.hint { margin-left: auto; font-weight: 300; font-size: 12px; color: var(--muted); }
 
 
 
@@ -201,7 +240,7 @@ form { display: grid; gap: 16px; }
 input[type="text"], input[type="email"], input[type="password"]{
     width: 100%;
     padding: 13px 44px 13px 14px;
-    font-size: 14.5px;
+    font-size: 14px;
     font-family: inherit;
     color: var(--ink);
     background: #f8fafc;
@@ -247,7 +286,7 @@ input[aria-invalid = "true"]:focus {
 /* ==================================================
    비밀번호 강도 표시 영역
    ================================================== */
-.meter { display: flex; gap: 6px; margin-top: 2px; }
+.meter { display: flex; gap: 6px; margin-top: 10px; margin-bottom: -15px; }
 .meter i { flex: 1; height: 6px; border-radius: 99px; background: #e2e8f0; transition: background .2s; }
 .meter[data-score="1"] i:nth-child(-n+1) { background: #dc2626; }
 .meter[data-score="2"] i:nth-child(-n+2) { background: #f59e0b; }
@@ -275,7 +314,7 @@ input[aria-invalid = "true"]:focus {
 /* -- 버튼 -- */
 .btn {
     appearance: none; border: 0; cursor: pointer;
-    width: 100%; padding: 14px 18px;
+    width: 100%; padding: 14px 18px; margin-top: -18px;
     font-family: inherit; font-size: 15px; font-weight: 800; letter-spacing: .2px;
     color: #fff; border-radius: 12px;
     background: linear-gradient(180deg, #5b52f0, #4338ca);
@@ -298,8 +337,8 @@ input[aria-invalid = "true"]:focus {
 /* -- 소셜 로그인 버튼 목록 -- */
 .socials { display: grid; gap: 10px; grid-template-columns: 1fr 1fr; }
 .social {
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    padding: 12px; border: 1.5px solid var(--line); border-radius: 12px;
+    display: flex; align-items: center; justify-content: center; gap: 5px;
+    padding: 15px; border: 1.5px solid var(--line); border-radius: 12px;
     background: #fff; font-family: inherit; font-size: 13.5px; font-weight: 700; color: #334155;
     cursor: pointer; transition: background .15s, border-color .15s;
 }
@@ -309,7 +348,7 @@ input[aria-invalid = "true"]:focus {
 
 
 /* -- 하단 안내 문구 -- */
-.foot { margin-top: 18px; text-align: center; font-size: 12.5px; color: var(--muted); line-height: 1.6; }
+.foot { margin-top: 0; text-align: center; font-size: 12.5px; color: var(--muted); line-height: 1.6; }
 
 
 
