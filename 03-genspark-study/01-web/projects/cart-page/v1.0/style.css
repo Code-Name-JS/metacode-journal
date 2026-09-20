@@ -1,0 +1,208 @@
+/* ==========================================================================
+   v1.0 CSS 변수
+   ========================================================================== */
+
+
+
+/* ==================================================
+   리셋 & 베이스
+   ================================================== */
+/* -- 전역 초기화(Global Reset) -- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+
+
+/* ==================================================
+   전역 변수
+   ================================================== */
+:root {
+/* -- 배경 색상 -- */ 
+--bg: #f4f5fa;
+--card: #ffffff;
+--ink: #191b23;
+--ink2: #667085;
+--ink3: #98a2b3;
+
+/* -- 테두리 색상 -- */ 
+--line: #e6e8f0;
+--brand: #5b5bd6;
+--brand-dark: #4747c2;
+--brand-soft: #eef0ff;
+
+/* -- 상태 색상 -- */ 
+--green: #0e9f6e;
+--green-soft: #e6f7f1;
+--red: #e5484d;
+--red-soft: #feefef;
+
+/* -- 모서리 둥글기 -- */ 
+--radius: 16px;
+
+/* -- 그림자 색상 -- */
+--shadow: 0 10px 30px rgba(25, 27, 35, .07);
+
+/* -- heade topbar h 스타일 -- */
+--topbar-h: 64px;
+}
+
+
+
+/* ==================================================
+   페이지 기본 스타일
+   ================================================== */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+
+
+/* -- 숨김 속성 요소 기본 스타일 -- */
+[hidden] { display: none !important; }
+
+
+
+/* -- 버튼 기본 스타일 -- */
+button { font: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
+
+
+
+/* -- SVG 기본 스타일 -- */
+svg { display: block; }
+
+
+
+/* ==================================================
+   header 전체 컨테이너
+   ================================================== */
+.container { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+
+
+
+/* ==================================================
+   상단 바
+   ================================================== */
+.topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255, 255, 255, .92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+}
+.topbar-in { height: var(--topbar-h); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+
+
+
+/* ==================================================
+    브랜드
+   ================================================== */
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 19px; letter-spacing: -.02em; text-decoration: none; color: inherit; }
+.brand-mark { width: 34px; height: 34px; border-radius: 10px; background: linear-gradient(135deg #6a5cf5, #9b5cf6); display: grid; place-items: center; color: #fff; }
+
+
+
+/* ==================================================
+    네비게이션 상단 바
+   ================================================== */
+.topnav { display: flex; gap: 4px; }
+.topnav a { color: var(--ink2); text-decoration: none; font-size: 14px; font-weight: 600; padding: 8px 14px; border-radius: 10px; transition: .15s; }
+.topnav a:hover, .topnav a.active { background: var(--brand-soft); color: var(--brand); }
+
+
+
+/* ==================================================
+    640px 이하 반응형 스타일
+   ================================================== */
+@media (max-width: 640px) { .topnav { display: none; } }
+
+
+
+/* ==================================================
+    head 페이지
+   ================================================== */
+.page-head { display: flex; align-items: center; justify-content: space-between; margin: 32px 0 20px; gap: 12px; }
+h1 { font-size: 26px; letter-spacing: -.02em; display: flex; align-items: center; gap: 10px; }
+.count-badge { min-width: 30px; height: 30px; padding: 0 9px; border-radius: 999px; background: var(--brand); color: #fff; font-size: 15px; display: grid; place-items: center; font-weight: 700; }
+.link-btn { color: var(--ink2); font-size: 13px; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.link-btn:hover { color: var(--red); }
+
+
+
+/* ==================================================
+    장바구니 레이아웃
+   ================================================== */
+.cart-layout { display: grid; grid-template-columns: 1fr 356px; gap: 24px; align-items: start; padding-bottom: 80px; }
+
+
+
+/* -- 1020px 이하 반응형 스타일 -- */
+@media (max-width: 1020px) { .cart-layout { grid-template-columns: 1fr; } }
+
+
+
+/* ==================================================
+    상품 목록
+   ================================================== */
+.panel { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+
+
+
+/* ==================================================
+    리스트 툴바(toolabar)
+   ================================================== */
+.list-toolbar { display: flex; align-items: center; justify-content: space-between; padding: 16px 2px; border-bottom: 1px solid var(--line); }
+.check-all { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 14px; cursor: pointer; }
+.check-all em { font-style: normal; color: var(--ink2); font-weight: 600; font-size: 13px; }
+.ghost-btn { padding: 8px 14px; border-radius: 10px; border: 1px solid var(--line); font-size: 13px; font-weight: 700; color: var(--ink2); transition: .15s; }
+.ghost-btn:hover { border-color: var(--red); color: var(--red); background: var(--red-soft); }
+
+
+
+/* ==================================================
+    커스텀 체크박스
+   ================================================== */
+input[type="checkbox"].cb {
+    appearance: none; -webkit-appearance: none;
+    width: 20px; height: 20px; flex: none;
+    border: 2px solid #cfd3e1; border-radius: 6px;
+    background: #fff; cursor: pointer; position: relative; transition: .15s;
+}
+input[type="checkbox"].cb:hover { border-color: var(--brand); }
+input[type="checkbox"].cb:checked { background: var(--brand); border-color: var(--brand); }
+input[type="checkbox"].cb:checked::after {
+    content: ''; position: absolute; left: 4px; top: 0.5px;
+    width: 5px; height: 10px; border: solid #fff; border-width: 0 2.5px 2.5px 0;
+    transform: rotate(45deg);
+}
+input[type="checkbox"].cb:indeterminate { background: var(--brand); border-color: var(--brand); }
+input[type="checkbox"].db:indeterminate::after { content: ''; position: absolute; left: 2.5px; top: 6.5px; width: 10px; height: 2.5px; background: #fff; border-radius: 2px; }
+
+
+
+/* ==================================================
+    장바구니 행
+   ================================================== */
+.card-list { list-style: none; }
+.item {
+    display: grid;
+    grid-template-columns: auto 72px 1fr 150px 130px;
+    grid-template-areas: "check thumb info qty total";
+    gap: 18px; align-items: center;
+    padding: 20px; border-bottom: 1px solid var(--line);
+    transition: background .15s;
+}
+.item:last-child { border-bottom: 0; }
+.item:hover { background: #fafbff; }
+.cell-check { grid-area: check; }
+.cell-thumb {
+    grid-area: thumb; width: 72px; height: 72px; border-radius: 14px;
+    display: grid; place-items: center; font-size: 32px;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .04);
+}
+.item-name { font-weight: 700; font-size: 15px; letter-spacing: -.01em; }
+.item-meta { color: var(--ink2); font-size: 13px; margin-top: 4px; }
+.cell-qty { grid-area: qty; justify-self: start; }
+.cell-right { grid-area: total; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; text-align: right; }
+.line-total { font-weight: 800; font-size: 16px; letter-spacing: -.01em; }
