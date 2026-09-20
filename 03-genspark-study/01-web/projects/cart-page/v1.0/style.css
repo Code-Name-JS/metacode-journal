@@ -76,14 +76,7 @@ svg { display: block; }
 
 
 /* ==================================================
-   header 전체 컨테이너
-   ================================================== */
-.container { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
-
-
-
-/* ==================================================
-   상단 바
+   header 상단 바
    ================================================== */
 .topbar {
     position: sticky; top: 0; z-index: 100;
@@ -91,6 +84,13 @@ svg { display: block; }
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--line);
 }
+
+
+
+/* ==================================================
+   header/main 컨테이너
+   ================================================== */
+.container { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
 .topbar-in { height: var(--topbar-h); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 
 
@@ -104,7 +104,7 @@ svg { display: block; }
 
 
 /* ==================================================
-    네비게이션 상단 바
+    상단 메뉴
    ================================================== */
 .topnav { display: flex; gap: 4px; }
 .topnav a { color: var(--ink2); text-decoration: none; font-size: 14px; font-weight: 600; padding: 8px 14px; border-radius: 10px; transition: .15s; }
