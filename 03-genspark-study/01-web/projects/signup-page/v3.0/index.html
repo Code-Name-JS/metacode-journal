@@ -9,6 +9,108 @@
     <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
+    <main class="shell">
+        <!-- 브랜드 패널 -->
+        <section class="brand" aira-hidden="false">
+            <div class="logo"><spans class="mark">✦</spans>Aurora</div>
+            <div>
+                <h1>몇 분이면 끝나는<br>가장 빠른 시작</h1>
+                <p>하나의 계정으로 프로젝트, 팀 협업, 자동화까지 한 번에 관리하세요.</p>
+            </div>
+            <ul class="perks">
+                <li><span class="tick">✓</span><span><b>무료 플랜</b> · 카드 등록 없이 바로 시작</span></li>
+                <li><span class="tick">✓</span><span><b>30일 체험</b> · Pro 기능 전부 개방</span></li>
+                <li><span class="tick">✓</span><span><b>언제든 해지</b> · 위약금 없음</span></li>
+            </ul>
+            <figure class="quote">
+                "가입 절차가 3분도 안 걸렸어요. 온보딩이 이렇게 쉬울 줄 몰랐습니다."
+                <span>— 김서연, 프로덕트 매니저</span>
+            </figure>
+        </section>
 
+        <!-- 회원가입 폼 -->
+        <section class="form-wrap">
+            <header class="form-head">
+                <h2>회원가입</h2>
+                <p>이미 계정이 있으신가요?<a href="#login" id="toLogin">로그인</a></p>
+            </header>
+
+            <form id="signupForm" novalidate>
+                <!-- 이름 -->
+                <div class="field" id="f-name">
+                    <label class="label" for="name">이름<span class="req" aria-hidden="true">*</span></label>
+                    <div class="control">
+                        <input id="name" name="name" type="text" placeholder="홍길동" autocomplete="name" required aria-describedby="err-name" />
+                    </div>
+                    <p class="msg" id="err-name" role="status" aria-live="polite"></p>
+                </div>
+
+                <!-- 이메일 -->
+                <div class="field" id="f-email">
+                    <label class="label" for="email">이메일<span class="req" aria-hidden="true">*</span></label>
+                    <div class="control">
+                        <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required aria-describedby="err-email" />
+                    </div>
+                    <p class="msg" id="err-email" role="status" aria-live="polite"></p>
+                </div>
+
+                <!-- 비밀번호 -->
+                <div class="field" id="f-password">
+                    <label class="label" for="password">
+                        비밀번호<span class="req" aria-hidden="true">*</span>
+                        <span class="hint">8자 이상 · 영문+숫자 조합</span>
+                    </label>
+                    <div class="control">
+                        <input id="password" name="password" type="password" placeholder="••••••••" autocomplete="new-password" required aria-describedby="err-password strengthText" />
+                        <button class="icon-btn" type="button" id="togglePw" aria-label="비밀번호 표시" aria-pressed="false" title="비밀번호 표시">
+                            <svg width="20" height="20" viewBOx="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="meter" id="meter" data-score="0" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+                    <p class="msg" id="err-passwrod" role="status" aria-live="polite"></p>
+                    <p class="msg" id="strengthText" aria-live="polite"></p>
+                </div>
+
+                <!-- 비밀번호 확인 -->
+                <div class="field" id="f-confirm">
+                    <label class="label" for="confirm">비밀번호 확인<span class="req" aria-hidden="true">*</span></label>
+                    <div class="control">
+                        <input id="confirm" name="confirm" type="password" placeholder="••••••••" autocomplete="new-password" required aria-describedby="err-confirm" />
+                    </div>
+                    <p class="msg" id="err-confirm" role="status" aria-live="polite"></p>
+                </div>
+
+                <!-- 약관 -->
+                <label class="terms" id="termsBox" for="terms">
+                    <input id="terms" name="terms" type="checkbox" required aria-describedby="err-terms" />
+                    <span>
+                        <a href="#terms" id="lnkTerms">이용약관</a> 및 <a href="#privacy" id="lnkPrivacy">개인정보 처리방침</a>에 동의합니다. <span class="req" aria-hidden="true">*</span>
+                    </span>
+                </label>
+                <p class="msg" id="err-terms" role="status" aria-live="polite" style="margin-top: -8px"></p>
+                <button class="btn" type="submit" id="submitBtn" disabled>가입하기</button>
+                
+                <div class="divider">또는</div>
+                <div class="socials">
+                    <button class="social" type="button" data-provider="Google">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M23 12.2c0-.8-.1-1.6-.2-2.3H12v4.4h6.2a5.3 5.3 0 0 1-2.3 3.5v2.9h3.7c2.2-2 3.4-5 3.4-8.5Z"/><path fill="#34A853" d="M12 24c3.1 0 5.7-1 7.6-2.8l-3.7-2.9c-1 .7-2.3 1.1-3.9 1.1-3 0-5.5-2-6.4-4.7H1.8v3A12 12 0 0 0 12 24Z"/><path fill="#FBBC05" d="M5.6 14.7a7.2 7.2 0 0 1 0-4.6v-3H1.8a12 12 0 0 0 0 10.6l3.8-3Z"/><path fill="#EA4335" d="M12 4.8c1.7 0 3.2.6 4.4 1.7l3.2-3.2A12 12 0 0 0 1.8 7.1l3.8 3C6.5 6.7 9 4.8 12 4.8Z"/></svg>
+                        Google
+                    </button>
+                    <button class="social" type="button" data-provider="GitHub">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#0f172a" d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.8.1-.8.1-.8 1.2.1 1.9 1.3 1.9 1.3 1.1 1.9 2.9 1.3 3.6 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.4 3.9 18.4 4.2 18.4 4.2c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.2 0 4.7-2.8 5.7-5.5 6 .4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/></svg>
+                        GitHub
+                    </button>
+                </div>
+
+                <p class="foot">가입 시 Aurora의 서비스 약관과 개인정보 처리방침에 동의한 것으로 간주됩니다.</p>
+            </form>
+        </section>
+    </main>
+
+    <div class="toast" id="toast" role="alert" aria-live="assertive"></div>
+
+    <script src="./main.js" defer></script>
 </body>
 </html>
