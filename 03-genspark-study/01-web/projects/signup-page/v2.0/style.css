@@ -197,10 +197,6 @@ body {
 
 
 /* 필수 표시(*) 색상 */
-.req {
-  color: #ef4444;
-  margin-left: 2px;
-}
 .field label .req { color: var(--error); margin-left: 2px; }
 
 

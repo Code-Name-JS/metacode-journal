@@ -31,11 +31,19 @@
 --err: #dc2626;
 
 /* -- 모서리 둥글기 -- */
---radius: 16px;
+--radius: 14px;
 
 /* -- 그림자 -- */
 --shadow: 0 24px 60px -20px rgba(15,23,42,.45);
 }
+
+
+
+/* ==================================================
+   리셋 & 베이스
+   ================================================== */
+/* -- 전역 초기화(Global Reset) -- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 
 
@@ -166,14 +174,21 @@ form { display: grid; gap: 16px; }
    회원가입 입력 필드
    ================================================== */
 /* -- 입력 필드 영역 -- */
-.field { display: grid; gap: 6px; }
+.field { margin-bottom: 18px; }
+
+
+
+/* 필수 표시(*) 색상 */
+.label {
+    display: flex;
+    align-items: center;
+}
 
 
 
 /* -- 입력 필드 라벨(필수 입력 표시/힌트) -- */
-.label { font-size: 13.5px; font-weight: 700; color: #334155; display: flex; justify-content: space-between; align-items: baseline; }
-.label .req { color: var(--err); font-weight: 800; }
-.label .hint { font-weight: 500; font-size: 12px; color: var(--muted); }
+.req { color: var(--err); margin-left: 2px;}
+.hint { margin-left: auto; font-weight: 500; font-size: 12px; color: var(--muted); }
 
 
 
@@ -302,12 +317,15 @@ input[aria-invalid = "true"]:focus {
    알림 메시지 / 토스트 알림
    ================================================== */
 .toast {
-    position: fixed; left: 50%; top: 22px; transform: translate(-50%, -140%);
-    background: #0f172a; color: #fff; padding: 12px 18px; border-radius: 12px;
+    position: fixed; top: 22px; left: 50%; transform: translate(-50%, -150%);
+    visibility: hidden; opacity: 0;
+    max-width: 92vw; padding: 12px 18px;
+    background: #0f172a; color: #fff; border-radius: 12px;
     font-size: 13.5px; font-weight: 600; box-shadow: 0 18px 40px -14px rgba(0, 0, 0, .6);
-    transition: transform .35s cubic-bezier(.2, .9, .3, 1.2); z-index: 50; max-width: 92vw;
+    transition: transform .35s cubic-bezier(.2, .9, .3, 1.2), opacity 0.25s ease, visibility 0s linear 0.35s;
+    z-index: 9999; 
 }
-.toast.show { transform: translate(-50%, 0); }
+.toast.show { transform: translate(-50%, 0); visibility: visible; opacity: 1; transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.2), opacity 0.25s ease; }
 .toast.ok { background: #15803d; }
 .toast.bad { background: #b91c1c; }
 
