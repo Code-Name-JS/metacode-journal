@@ -31,7 +31,7 @@
         </section>
 
         <!-- 회원가입 폼 -->
-        <section class="form-wrap">
+        <section id="form-wrap" class="form-wrap">
             <header class="form-head">
                 <h2>회원가입</h2>
                 <p>이미 계정이 있으신가요?<a href="#login" id="toLogin"> 로그인</a></p>
@@ -65,13 +65,13 @@
                     <div class="control">
                         <input id="password" name="password" type="password" placeholder="••••••••" autocomplete="new-password" required aria-describedby="err-password strengthText" />
                         <button class="icon-btn" type="button" id="togglePw" aria-label="비밀번호 표시" aria-pressed="false" title="비밀번호 표시">
-                            <svg width="20" height="20" viewBOx="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                 <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>
                             </svg>
                         </button>
                     </div>
                     <div class="meter" id="meter" data-score="0" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-                    <p class="msg" id="err-passwrod" role="status" aria-live="polite"></p>
+                    <p class="msg" id="err-password" role="status" aria-live="polite"></p>
                     <p class="msg" id="strengthText" aria-live="polite"></p>
                 </div>
 
