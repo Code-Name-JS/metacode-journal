@@ -269,7 +269,7 @@ Spring 기반 애플리케이션의 기능을 확장하고 다양한 백엔드 �
 
 ---
 
-# 📂 Repository Structure
+# Repository Structure
 
 ```text
 01-codeit-backend-java-spring/
@@ -292,7 +292,7 @@ Spring 기반 애플리케이션의 기능을 확장하고 다양한 백엔드 �
 
 ---
 
-# 📝 학습 기록
+# 학습 기록
 
 각 과정에서 학습한 내용과 실습 결과를 정리합니다.
 
@@ -312,7 +312,7 @@ Spring 기반 애플리케이션의 기능을 확장하고 다양한 백엔드 �
 
 ---
 
-# 💡 Learning Notes
+# Learning Notes
 
 학습 과정에서 새롭게 이해한 개념과 시행착오를 기록합니다.
 
@@ -346,7 +346,7 @@ Spring 기반 애플리케이션의 기능을 확장하고 다양한 백엔드 �
 
 ---
 
-# 🎯 최종 목표
+# 최종 목표
 
 Java와 Spring 생태계에 대한 이해를 바탕으로
 
