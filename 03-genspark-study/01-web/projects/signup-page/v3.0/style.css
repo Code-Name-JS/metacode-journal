@@ -211,7 +211,7 @@ form { display: grid; gap: 16px; }
    회원가입 입력 필드
    ================================================== */
 /* -- 입력 필드 영역 -- */
-.field { margin-bottom: -11px; }
+.field { margin-bottom: -5px; }
 
 
 

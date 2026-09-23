@@ -47,18 +47,28 @@
     /* 특정 DOM요소의 입력 유효성 상태(오류 여부)를 웹 접근성 표준 속성(aria-invalid)으로 표시하거나 해제하는 기능 수행 */
     const markInvalid = (el, bad) => {
         if (!el) return;
-        bad ? el.setAttribute('aria-invalid', 'true') : el.removeAttribute('aria-invalid');
+
+        if (bad) {
+            el.setAttribute('aria-invalid', 'true');
+        } else {
+            el.removeAttribute('aria-invalid');
+        }
     };
 
     /* Toast 팝업 UI 표시 함수 */
     let toastTimer;
+    
     const toast = (text, type = 'ok') => {
         if (!toastEl) return;
+
         toastEl.textContent = text;
         toastEl.className = 'toast ' + type;
-        requestAnimationFrame(() => toastEl.classList.add('show'));
+        
+        requestAnimationFrame(() => { toastEl.classList.add('show'); });
+        
         clearTimeout(toastTimer);
-        toastTimer = setTimeout(() => toastEl.classList.remove('show'), 3200);
+
+        toastTimer = setTimeout(() => { toastEl.classList.remove('show'); }, 3200);
     };
 
     /* 데모용 서버 통신 모의 함수 */
@@ -77,19 +87,27 @@
 
     const validateName = (silent = false) => {
         const v = nameEl ? nameEl.value.trim() : '';
-        let ok = true, text = '';
+        
+        let ok = true,
+        text = '';
+        
         if (!v) { ok = false; text = '이름을 입력해 주세요.'; }
         else if (v.length < 2) { ok = false; text = '이름은 2자 이상이어야 합니다.'; }
         else if (v.length > 40) { ok = false; text = '이름은 40자 이내로 입력해 주세요.'; }
 
         markInvalid(nameEl, !ok);
+
         if (silent && ok) return true;
+
         return setField('f-name', 'err-name', ok, ok ? '사용 가능한 이름입니다.' : text);
     };
 
     const validateEmail = () => {
         const v = emailEl ? emailEl.value.trim() : '';
-        let ok = true, text = '';
+        
+        let ok = true,
+        text = '';
+
         if (!v) { ok = false; text = '이메일을 입력해 주세요.'; }
         else if (!EMAIL_RE.test(v)) { ok = false; text = '올바른 이메일 형식이 아닙니다. (예: you@example.com)'; }
 
@@ -98,11 +116,14 @@
     };
 
     const scorePassword = (v) => {
+        
         let s = 0;
+
         if (v.length >= 8) s++;
         if (v.length >= 12) s++;
         if (/[A-Za-z]/.test(v) && /\d/.test(v)) s++;
         if (/[^A-Za-z0-9]/.test(v)) s++;
+        
         return Math.min(s, 4);
     };
 
@@ -110,14 +131,20 @@
     const STRENGTH_COLOR = ['', 'var(--err)', 'var(--warn)', 'var(--brand)', 'var(--ok)'];
 
     const validatePassword = () => {
+        
         const v = pwEl ? pwEl.value : '';
-        let ok = true, text = '';
+        
+        let ok = true,
+        text = '';
+
         if (!v) { ok = false; text = '비밀번호를 입력해 주세요.'; }
         else if (v.length < 8) { ok = false; text = '비밀번호는 8자 이상이어야 합니다.'; }
         else if (!/[A-Za-z]/.test(v) || !/\d/.test(v)) { ok = false; text = '영문과 숫자를 모두 포함해 주세요.'; }
 
         const s = v ? scorePassword(v) : 0;
+        
         if (meter) meter.dataset.score = String(s);
+        
         markInvalid(pwEl, !ok);
 
         setField('f-password', 'err-password', ok, ok ? '사용 가능한 비밀번호입니다.' : text);
@@ -134,21 +161,28 @@
         }
 
         if (cfEl && cfEl.value) validateConfirm();
+        
         return ok;
     };
 
     const validateConfirm = () => {
+        
         const v = cfEl ? cfEl.value : '';
-        let ok = true, text = '';
+        
+        let ok = true,
+        text = '';
+
         if (!v) { ok = false; text = '비밀번호를 한 번 더 입력해 주세요.'; }
         else if (pwEl && v !== pwEl.value) { ok = false; text = '비밀번호가 일치하지 않습니다.'; }
 
         markInvalid(cfEl, !ok);
+
         return setField('f-confirm', 'err-confirm', ok, ok ? '비밀번호가 일치합니다.' : text);
     };
 
     const validateTerms = () => {
         if (!termsEl) return false;
+
         const ok = termsEl.checked;
         if (termsBox) termsBox.classList.toggle('invalid', !ok);
         termsEl.setAttribute('aria-invalid', ok ? 'false' : 'true');
@@ -159,6 +193,7 @@
             msg.style.color = ok ? 'var(--ok)' : 'var(--err)';
             msg.style.fontWeight = '600';
         }
+
         return ok;
     };
 
@@ -166,18 +201,22 @@
 
     /* -- 전체 입력 폼 상태 및 가입 버튼 활성화 검증 -- */
     const checkAll = () => {
-        if (!nameEl || !emailEl || !pwEl || !cfEl || !termsEl || !submitBtn) return false;
+        if (!nameEl || !emailEl || !pwEl || !cfEl || !termsEl || !submitBtn) {
+            return false;
+        }
 
         const isNameValid = nameEl.value.trim().length >= 2 && nameEl.value.trim().length <= 40;
-        const isEmailValid = EMAIL_RE.test(emailEl.value.trim()); // emaiEl 오타 수정
+        const isEmailValid = EMAIL_RE.test(emailEl.value.trim());
         const isPwValid = pwEl.value.length >= 8 && /[A-Za-z]/.test(pwEl.value) && /\d/.test(pwEl.value);
         const isCfValid = cfEl.value.length > 0 && cfEl.value === pwEl.value;
         const isTermsValid = termsEl.checked;
 
         const ok = isNameValid && isEmailValid && isPwValid && isCfValid && isTermsValid;
-        submitBtn.disabled = !ok;
-        submitBtn.setAttribute('aria-disabled', ok ? 'false' : 'true');
-        return ok;
+        
+        submitBtn.disabled = false;
+        submitBtn.setAttribute('aria-disabled', 'false');
+        
+        return true;
     };
 
 
@@ -204,7 +243,7 @@
     }
 
     document.querySelectorAll('.social').forEach(btn => {
-        btn.addEventListener('click', () => toast(`${btn.dataset.provider} 소셜 로그인은 데모에서 동작하지 않습니다.`, 'bad'));
+        btn.addEventListener('click', () => { toast(`${btn.dataset.provider} 소셜 로그인은 데모에서 동작하지 않습니다.`, 'bad'); });
     });
 
     ['#toLogin', '#lnkTerms', '#lnkPrivacy'].forEach(sel => {
@@ -233,6 +272,7 @@
                 toast('입력한 내용을 다시 확인해 주세요.', 'bad');
                 const firstBad = form.querySelector('[aria-invalid="true"], .terms.invalid input');
                 (firstBad || nameEl)?.focus();
+                
                 return;
             }
 
