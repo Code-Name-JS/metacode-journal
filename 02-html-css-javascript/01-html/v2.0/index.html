@@ -8,17 +8,21 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <h2>Live output</h2>
-    <br>
+    <div class="box">
+        <h2>Live output</h2>
+        <div class="output"></div>
+        <br>
 
-    <h2>Editable code</h2>
-    <p>Press Esc to move focus away from the code area (Tab inserts a tab character).</p>
-    <textarea>&lt;p&gt;A link to my favorite website.&lt;/p&gt;</textarea>
+        <h2>Editable code</h2>
+        <div class="small-text">Press Esc to move focus away from the code area (Tab inserts a tab character).</div>
+        <textarea id="code" placeholder="&lt;p&gt;A link to my favorite website.&lt;/p&gt;"></textarea>
 
-    <div>
-        <input>
-        <input>
+        <div class="button">
+            <input id="reset" type="button" value="Reset" />
+            <input id="solution" type="button" value="Show solution" />
+        </div>
     </div>
+
     <script src="./script.js" defer></script>
 </body>
 </html>
