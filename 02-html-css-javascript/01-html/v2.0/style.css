@@ -1,5 +1,6 @@
 body {
     display: flex;
+    height: 500px;
     align-items: center;
     justify-content: center;
 }
@@ -7,7 +8,7 @@ body {
 .box {
     width: 100%;
     max-width: 600px;
-    height: 350px;
+    height: 410px;
     background-color: #f0f0f0;
     padding: 15px;
     align-items: center;
