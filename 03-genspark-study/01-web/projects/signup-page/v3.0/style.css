@@ -204,7 +204,7 @@ input[aria-invalid="true"]:focus {
 
 
 /* -- 비밀번호 강도 -- */
-.meter { display: flex; gap: 5px; margin-top: 5px; }
+.meter { display: flex; gap: 5px; margin-top: -15px; }
 .meter i { flex: 1; height: 5.5px; border-radius: 100px; background: #e2e8f0; transition: background .2s; }
 .meter[data-score="1"] i:nth-child(-n+1) { background: #dc2626; }
 .meter[data-score="2"] i:nth-child(-n+2) { background: #f59e0b; }
