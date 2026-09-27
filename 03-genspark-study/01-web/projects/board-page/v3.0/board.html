@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>게시판 시안</title>
+<style>
+  :root {
+    --bg: #f4f6fb;
+    --surface: #ffffff;
+    --text: #1a2233;
+    --text-sub: #64748b;
+    --border: #e2e8f0;
+    --primary: #4f46e5;
+    --primary-soft: #eef2ff;
+    --primary-hover: #4338ca;
+    --notice: #f59e0b;
+    --notice-soft: #fffbeb;
+    --shadow: 0 1px 3px rgba(15, 23, 42, .08), 0 8px 24px rgba(15, 23, 42, .06);
+    --radius: 14px;
+  }
+  html[data-theme="dark"] {
+    --bg: #0f1420;
+    --surface: #171e2e;
+    --text: #e5eaf5;
+    --text-sub: #94a3b8;
+    --border: #2a3550;
+    --primary: #818cf8;
+    --primary-soft: #232a45;
+    --primary-hover: #a5b4fc;
+    --notice: #fbbf24;
+    --notice-soft: #2b2415;
+    --shadow: 0 1px 3px rgba(0, 0, 0, .4), 0 8px 24px rgba(0, 0, 0, .3);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Pretendard", "Noto Sans KR", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    transition: background .3s, color .3s;
+  }
+  .container { max-width: 1080px; margin: 0 auto; padding: 32px 20px 80px; }
+
+  /* ── Header ── */
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 28px; gap: 16px; flex-wrap: wrap;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand .logo {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: linear-gradient(135deg, var(--primary), #a78bfa);
+    display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 18px;
+  }
+  .brand h1 { font-size: 22px; letter-spacing: -.5px; }
+  .brand p { font-size: 12.5px; color: var(--text-sub); }
+  .theme-btn {
+    border: 1px solid var(--border); background: var(--surface); color: var(--text);
+    width: 42px; height: 42px; border-radius: 50%; cursor: pointer; font-size: 18px;
+    box-shadow: var(--shadow); transition: transform .2s;
+  }
+  .theme-btn:hover { transform: rotate(20deg) scale(1.08); }
+
+  /* ── Toolbar ── */
+  .toolbar { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
+  .search-box { position: relative; flex: 1; min-width: 200px; }
+  .search-box input {
+    width: 100%; padding: 11px 14px 11px 40px; border: 1px solid var(--border);
+    border-radius: 10px; background: var(--surface); color: var(--text); font-size: 14px;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .search-box input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-soft); }
+  .search-box::before {
+    content: "🔍"; position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+    font-size: 14px; opacity: .6;
+  }
+  select.category {
+    padding: 11px 12px; border: 1px solid var(--border); border-radius: 10px;
+    background: var(--surface); color: var(--text); font-size: 14px; cursor: pointer;
+  }
+  select.category:focus { outline: none; border-color: var(--primary); }
+  .btn {
+    padding: 11px 20px; border: none; border-radius: 10px; font-size: 14px; font-weight: 600;
+    cursor: pointer; transition: background .2s, transform .1s;
+  }
+  .btn:active { transform: scale(.97); }
+  .btn-primary { background: var(--primary); color: #fff; }
+  .btn-primary:hover { background: var(--primary-hover); }
+  .btn-ghost { background: transparent; color: var(--text-sub); border: 1px solid var(--border); }
+  .btn-ghost:hover { color: var(--text); border-color: var(--primary); }
+
+  /* ── Table ── */
+  .board-wrap { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+  table { width: 100%; border-collapse: collapse; }
+  thead th {
+    text-align: left; padding: 14px 18px; font-size: 12.5px; color: var(--text-sub);
+    border-bottom: 1px solid var(--border); background: var(--primary-soft); font-weight: 600;
+    white-space: nowrap;
+  }
+  tbody tr { border-bottom: 1px solid var(--border); cursor: pointer; transition: background .15s; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: var(--primary-soft); }
+  tbody td { padding: 14px 18px; font-size: 14px; vertical-align: middle; }
+  .col-no { width: 64px; color: var(--text-sub); }
+  .col-cat { width: 96px; }
+  .col-author { width: 110px; }
+  .col-date { width: 100px; color: var(--text-sub); font-size: 13px; white-space: nowrap; }
+  .col-views { width: 72px; color: var(--text-sub); text-align: right; }
+  .badge {
+    display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 11.5px; font-weight: 600;
+  }
+  .badge.notice { background: var(--notice-soft); color: var(--notice); border: 1px solid var(--notice); }
+  .badge.cat { background: var(--primary-soft); color: var(--primary); }
+  td.title-cell { font-weight: 500; }
+  tr.notice td.title-cell { font-weight: 700; }
+  tr.notice td.title-cell::after {
+    content: "📌"; margin-left: 6px; font-size: 12px;
+  }
+  .comment-count { color: var(--primary); font-size: 12.5px; font-weight: 600; margin-left: 6px; }
+  .empty-row { text-align: center; padding: 60px 0 !important; color: var(--text-sub); }
+
+  /* ── Pagination ── */
+  .pagination { display: flex; justify-content: center; gap: 6px; margin-top: 24px; }
+  .page-btn {
+    min-width: 38px; height: 38px; border: 1px solid var(--border); border-radius: 10px;
+    background: var(--surface); color: var(--text-sub); font-size: 14px; cursor: pointer;
+    transition: all .2s;
+  }
+  .page-btn:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); }
+  .page-btn.active { background: var(--primary); border-color: var(--primary); color: #fff; font-weight: 700; }
+  .page-btn:disabled { opacity: .35; cursor: default; }
+
+  /* ── Detail ── */
+  .detail { display: none; }
+  .detail-card { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+  .detail-head { padding: 28px 28px 20px; border-bottom: 1px solid var(--border); }
+  .detail-meta { display: flex; gap: 8px; margin-bottom: 12px; }
+  .detail-head h2 { font-size: 22px; letter-spacing: -.4px; margin-bottom: 14px; }
+  .detail-info { display: flex; gap: 18px; font-size: 13px; color: var(--text-sub); flex-wrap: wrap; }
+  .detail-body { padding: 28px; min-height: 160px; font-size: 15px; white-space: pre-line; }
+  .btn-back { margin-bottom: 18px; }
+
+  /* ── Comments ── */
+  .comments { padding: 24px 28px 28px; border-top: 1px solid var(--border); }
+  .comments h3 { font-size: 16px; margin-bottom: 16px; }
+  .comment { display: flex; gap: 12px; padding: 14px 0; border-bottom: 1px dashed var(--border); }
+  .comment:last-child { border-bottom: none; }
+  .avatar {
+    width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+    background: linear-gradient(135deg, #6366f1, #ec4899);
+    display: grid; place-items: center; color: #fff; font-size: 14px; font-weight: 700;
+  }
+  .comment .c-body { flex: 1; }
+  .comment .c-name { font-size: 13px; font-weight: 700; }
+  .comment .c-date { font-size: 12px; color: var(--text-sub); margin-left: 8px; }
+  .comment .c-text { font-size: 14px; margin-top: 4px; }
+  .comment-form { display: flex; gap: 10px; margin-top: 18px; }
+  .comment-form input {
+    flex: 1; padding: 12px 14px; border: 1px solid var(--border); border-radius: 10px;
+    background: var(--bg); color: var(--text); font-size: 14px;
+  }
+  .comment-form input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-soft); }
+
+  /* ── Modal ── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, .55);
+    z-index: 100; align-items: center; justify-content: center; padding: 20px;
+    backdrop-filter: blur(3px);
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--surface); border-radius: 18px; width: 100%; max-width: 560px;
+    padding: 28px; box-shadow: 0 24px 64px rgba(0,0,0,.3);
+    animation: pop .25s ease;
+  }
+  @keyframes pop { from { transform: translateY(16px); opacity: 0; } to { transform: none; opacity: 1; } }
+  .modal h3 { font-size: 19px; margin-bottom: 20px; }
+  .modal label { display: block; font-size: 13px; font-weight: 600; margin: 14px 0 6px; }
+  .modal input[type="text"], .modal textarea, .modal select {
+    width: 100%; padding: 12px 14px; border: 1px solid var(--border); border-radius: 10px;
+    background: var(--bg); color: var(--text); font-size: 14px; font-family: inherit;
+  }
+  .modal textarea { min-height: 130px; resize: vertical; }
+  .modal input:focus, .modal textarea:focus, .modal select:focus {
+    outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-soft);
+  }
+  .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 24px; }
+
+  /* ── Responsive: table → card ── */
+  @media (max-width: 720px) {
+    thead { display: none; }
+    tbody tr { display: block; padding: 14px 16px; }
+    tbody td { display: block; padding: 3px 0; width: auto !important; text-align: left !important; }
+    .col-no, .col-date, .col-views { display: none; }
+    tr.notice td.title-cell::after { content: " 공지"; font-size: 11px; color: var(--notice); }
+    .mobile-meta { display: flex; gap: 10px; font-size: 12px; color: var(--text-sub); margin-top: 6px; }
+    .detail-head, .detail-body, .comments { padding: 20px; }
+    .comment-form { flex-direction: column; }
+  }
+  .mobile-meta { display: none; }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="brand">
+      <div class="logo">N</div>
+      <div>
+        <h1>새로움 게시판</h1>
+        <p>Community Board · 시안 v1.0</p>
+      </div>
+    </div>
+    <button class="theme-btn" id="themeToggle" title="다크 모드 전환" aria-label="다크 모드 전환">🌙</button>
+  </header>
+
+  <!-- ══════════ 목록 뷰 ══════════ -->
+  <section id="listView">
+    <div class="toolbar">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="제목 또는 내용 검색…" aria-label="검색">
+      </div>
+      <select class="category" id="categoryFilter" aria-label="카테고리 필터">
+        <option value="all">전체</option>
+        <option value="공지">공지</option>
+        <option value="일반">일반</option>
+        <option value="질문">질문</option>
+        <option value="이벤트">이벤트</option>
+      </select>
+      <button class="btn btn-primary" id="writeBtn">✏️ 글쓰기</button>
+    </div>
+
+    <div class="board-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th class="col-no">번호</th>
+            <th class="col-cat">분류</th>
+            <th>제목</th>
+            <th class="col-author">작성자</th>
+            <th class="col-date">작성일</th>
+            <th class="col-views">조회</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+    <div class="pagination" id="pagination"></div>
+  </section>
+
+  <!-- ══════════ 상세 뷰 ══════════ -->
+  <section id="detailView" class="detail">
+    <button class="btn btn-ghost btn-back" onclick="showList()">← 목록으로</button>
+    <div class="detail-card">
+      <div class="detail-head">
+        <div class="detail-meta" id="detailBadges"></div>
+        <h2 id="detailTitle"></h2>
+        <div class="detail-info">
+          <span id="detailAuthor"></span>
+          <span id="detailDate"></span>
+          <span id="detailViews"></span>
+        </div>
+      </div>
+      <div class="detail-body" id="detailBody"></div>
+      <div class="comments">
+        <h3 id="commentCount"></h3>
+        <div id="commentList"></div>
+        <form class="comment-form" id="commentForm">
+          <input type="text" id="commentInput" placeholder="따뜻한 댓글을 남겨보세요" aria-label="댓글 입력">
+          <button class="btn btn-primary" type="submit">등록</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 글쓰기 모달 ══════════ -->
+  <div class="modal-overlay" id="writeModal">
+    <form class="modal" id="writeForm">
+      <h3>새 글 작성</h3>
+      <label for="wCategory">분류</label>
+      <select id="wCategory">
+        <option value="일반">일반</option>
+        <option value="질문">질문</option>
+        <option value="이벤트">이벤트</option>
+      </select>
+      <label for="wTitle">제목</label>
+      <input type="text" id="wTitle" placeholder="제목을 입력하세요" required>
+      <label for="wBody">내용</label>
+      <textarea id="wBody" placeholder="내용을 입력하세요" required></textarea>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" onclick="closeModal()">취소</button>
+        <button type="submit" class="btn btn-primary">등록하기</button>
+      </div>
+    </form>
+  </div>
+</div>
+</body>
+</html>
