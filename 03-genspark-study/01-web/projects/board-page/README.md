@@ -1,6 +1,9 @@
 # 공지사항 페이지 시안 (v1.0 ~ v4.0 기반)
 
 ## v1.0 - 시안 이미지
+
+http://127.0.0.1:5501/metacode-journal/03-genspark-study/01-web/projects/board-page/v1.0/index.html
+
 ![프로젝트 대표 이미지](./img/preview-1.0.png)
 
 ![프로젝트 대표 이미지](./img/preview-1.1.png)
