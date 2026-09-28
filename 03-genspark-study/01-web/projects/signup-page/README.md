@@ -4,23 +4,17 @@
 
 ## 회원가입 페이지 시안 v1.0
 
-http://127.0.0.1:5501/metacode-journal/03-genspark-study/01-web/projects/signup-page/v1.0/index.html
-
 ![프로젝트 대표 이미지](./img/preview-1.0.png)
 
 ---
 
 ## 회원가입 페이지 시안 v2.0
 
-http://127.0.0.1:5501/metacode-journal/03-genspark-study/01-web/projects/signup-page/v2.0/index.html
-
 ![프로젝트 대표 이미지](./img/preview-2.0.png)
 
 ---
 
 ## 회원가입 페이지 시안 v3.0
-
-http://127.0.0.1:5501/metacode-journal/03-genspark-study/01-web/projects/signup-page/v3.0/index.html
 
 ![프로젝트 대표 이미지](./img/preview-3.2.png)
 
