@@ -51,7 +51,6 @@ projects/
     ├── v1.0/
     ├── v2.0/
     ├── v3.0/
-    ├── v4.0/
     └── README.md
 ```
 
@@ -92,9 +91,9 @@ projects/
 
 ## 향후 계획
 
-- board-page 시안 v1.0 ~ v4.0 제작 예정
-- signup-page 시안 v1.0 ~ v4.0 제작 예정
-- cart-page 시안 v1.0 ~ v4.0 제작 예정
+- board-page 시안 v1.0 ~ v3.0 제작 예정
+- signup-page 시안 v1.0 ~ v3.0 제작 예정
+- cart-page 시안 v1.0 ~ v3.0 제작 예정
 - 추후 페이지 시안이 추가되면 계속 수정될 예정입니다.
 
 ---

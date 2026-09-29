@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="모모샵 장바구니 데모 - HTML/CSS/JS 단일 파일 장바구니 리스트 페이지">
+
+    <title>장바구니 - 모모샵·Genspark</title>
+
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <header class="topbar">
+        <div class="container topbar-in">
+            <a class="brand" href="#">
+                <span class="brand-mark" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1.6"/><circle cx="19" cy="21" r="1.6"/><path d="M2 3h3l2.7 12.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6L21 7H6"/></svg>
+                </span>
+                모모샵
+            </a>
+            <nav class="topnav" aria-label="주 메뉴">
+                <a href="#">홈</a>
+                <a href="#">신상품</a>
+                <a href="#">베스트</a>
+                <a href="#" class="active" aria-current="page">장바구니</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="page-head">
+            <h1>장바구니 <span class="count-badge" id="headCount">0</span></h1>
+            <button type="button" class="link-btn" id="resetBtn">샘플 데이터 초기화</button>
+        </div>
+
+        <div class="cart-layout">
+            <!-- 상품 목록 -->
+            <section class="panel" aria-label="담은 상품 목록">
+                <div id="listWrap">
+                    <div class="list-toolbar">
+                        <label class="check-all">
+                            <input type="checkbox" class="cb" id="checkAll">
+                            <span>전체선택 <em id="selCount">(0/0)</em></span>
+                        </label>
+                        <button type="button" class="ghost-btn" id="deleteSelected">선택삭제</button>
+                    </div>
+                    <ul class="cart-list" id="cartList"></ul>
+                </div>
+
+                <div class="empty" id="emptyState" hidden>
+                    <div class="empty-emoji" aria-hidden="true">🛒</div>
+                    <h2>장바구니가 비어 있습니다</h2>
+                    <p>샘플 상품을 다시 담아 다양한 기능을 체험해 보세요.</p>
+                    <button type="button" class="btn-soft" id="emptyReset">샘플 상품 담아보기</button>
+                </div>
+            </section>
+
+            <!-- 주문 요약 -->
+            <aside class="summary" aria-label="주문 요약">
+                <div class="panel summary-card">
+                    <h2>주문 예상 금액</h2>
+
+                    <div class="ship-progress">
+                        <p class="ship-label" id="shipLabel"></p>
+                        <div class="progress" id="shipProgress" role="progressbar" aria-label="무료배송 달성 현황" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                            <div class="progress-fill" id="shipFill" style="width:0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="coupon-box">
+                        <label for="couponSelect">할인쿠폰</label>
+                        <select id="couponSelect">
+                            <option value="none">사용 가능한 쿠폰 선택</option>
+                            <option value="pct10">10% 할인 쿠폰 (최대 30,000원)</option>
+                            <option vlaue="save5000">5,000원 정액 쿠폰 (5만원 이상)</option>
+                        </select>
+                    </div>
+
+                    <div class="sum-rows">
+                        <div class="sum-row"><span>선택 상품 금액</span><b id="sumSubtotal">0원</b></div>
+                        <div class="sum-row discount"><span>쿠폰 할인</span><b id="sumDiscount">0원</b></div>
+                        <div class="sum-row ship"><span>배송비</span><b id="sumShip">0원</b></div>
+                    </div>
+
+                    <div class="sum-total">
+                        <span>총 결제 금액</span>
+                        <b id="sumTotal" aria-live="polite">0원</b>
+                    </div>
+                    <p class="points-note" id="sumPoints"></p>
+
+                    <button type="button" class="btn-primary" id="checkoutBtn">총 <span id="checkoutCount">0</span>개 상품 주문하기</button>
+                    <p class="summary-note">
+                        본 페이지는 데모이며 실제 결제가 진행되지 않습니다.<br>
+                        장바구니 상태는 브라우저(localStorage)에 자동 저장됩니다.
+                    </p>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="container">© 2026 MOMOSHOP DEMO — 학습용 데모 페이지</footer>
+
+    <!-- 모바일 하단 결제 바 -->
+    <div class="mobile-bar" id="mobileBar" hidden>
+        <div>
+            <p class="mb-label">총 결제 금액</p>
+            <p class="mb-total" id="mbTotal" aria-live="polite">0원</p>
+        </div>
+        <button type="button" class="btn-primary" id="mobileCheckout">주문하기</button>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="./script.js" defer></script>
+    <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","spa":2}' crossorigin="anonymous"></script>
+</body>
+</html>
