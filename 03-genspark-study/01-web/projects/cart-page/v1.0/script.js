@@ -6,7 +6,7 @@
 
 
 
-/* -- 유틸 변수 규칙 -- */
+/* -- 유틸 규칙 -- */
 const $ = (s, c = document) => c.querySelector(s);
 const $$ = (s, c = document) => [...c.querySelectorAll(s)];
 
@@ -14,7 +14,7 @@ const $$ = (s, c = document) => [...c.querySelectorAll(s)];
 
 /* -- 상태 & 상수 설정 -- */
 const SHIPPING_FEE = 3000; // 기본 배송비
-const FREE_SHIPPING_MIN = 500000; // 무료배송 기준 금액
+const FREE_SHIPPING_MIN = 50000; // 무료배송 기준 금액
 const QTY_MIN = 1, QTY_MAX = 99;
 const STORAGE_KEY = 'cart-page-demo-v1';
 
@@ -112,13 +112,16 @@ function renderList() {
     const ca = $('#checkAll');
     ca.checked = state.items.length > 0 && checked === state.items.length;
     ca.indeterminate = checked > 0 && checked < state.items.length;
-    $('#selCount').textContent = `(${checked}/${state.itmes.length})`;
+    $('#selCount').textContent = `(${checked}/${state.items.length})`;
 }
 
 function renderSummary() {
     const sel = state.items.filter(i => i.checked);
     const subtotal = sel.reduce((s, i) => s + i.price * i.qty, 0);
-    const discount = COUPONS[state.coupon]?.calc?.(subtotal) ?? 0;
+    
+    const rawDiscount = COUPONS[state.coupon]?.calc?.(subtotal) ?? 0;
+    const discount = Math.min(subtotal, Math.max(0, rawDiscount));
+
     const ship = sel.length === 0 ? 0 : (subtotal >= FREE_SHIPPING_MIN ? 0 : SHIPPING_FEE);
     const total = subtotal - discount + ship;
     const points = Math.floor((subtotal - discount) * 0.01);
@@ -139,13 +142,13 @@ function renderSummary() {
     $('#shipProgress').setAttribute('aria-valuenow', String(Math.round(pct)));
     const label = $('#shipLabel');
     if (subtotal >= FREE_SHIPPING_MIN) {
-        label.textContent = `🎉 ${fmt(FREE_SHIPPING_MIN)}원 이상 — 무료배송!`;
+        label.textContent = `🎉 ${fmt(FREE_SHIPPING_MIN)} 이상 — 무료배송!`;
         label.classList.add('done');
     } else if (subtotal > 0) {
-        label.textContent = `${fmt(FREE_SHIPPING_MIN - subtotal)}원 더 담으면 무료배송`;
+        label.textContent = `${fmt(FREE_SHIPPING_MIN - subtotal)} 더 담으면 무료배송`;
         label.classList.remove('done');
     } else {
-        label.textContent = `${fmt(FREE_SHIPPING_MIN)}원 이상 주문 시 무료배송`;
+        label.textContent = `${fmt(FREE_SHIPPING_MIN)} 이상 주문 시 무료배송`;
         label.classList.remove('done');
     }
 }
@@ -187,8 +190,11 @@ $('#cartList').addEventListener('click', e => {
 
 $('#cartList').addEventListener('change', e => {
     const t = e.target;
-    const item = state.items.find(i => i.id === t.dataset?.id);
+    const id = t.closest('[data-id]')?.dataset.id;
+    const item = state.items.find(i => String(i.id) === id);
     if (!item) return;
+
+    console.log(t.dataset.id, state.items.map(i => i.id));
 
     if (t.classList.contains('item-check')) {
         item.checked = t.checked;

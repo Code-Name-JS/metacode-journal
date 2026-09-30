@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charste="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>장바구니 | MONGLE STORE | GenSpark</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <header class="topbar">
+        <div class="wrap topbar__inner">
+            <a href="#" class="brand">
+                <span class="brand__mark">M</span>
+                <span class="brand__name">MONGLE STOPE</span>
+            </a>
+            <nav class="topnav">
+                <a href="#" class="topnav__link">베스트</a>
+                <a href="#" class="topnav__link">신상품</a>
+                <a href="#" class="topnav__link is-active">장바구니</a>
+                <a href="#" class="topnav__link">마이페이지</a>
+            </nav>
+            <button class="iconbtn" type="button" aria-label="검색">
+                <svg viewBox="0 0 24 24" width="20" heigth="20"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><line x1="16.5" y1="16.5" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+        </div>
+    </header>
+
+    <main class="wrap page">
+        <div class="page__head">
+            <h1 class="page__title">장바구니</h1>
+            <p class="page__desc" id="cartSummaryText">선택한 상품을 확인하고 주문을 완료하세요.</p>
+        </div>
+        <div class="steps" aria-hidden="true">
+            <span class="steps__item is-done">01 장바구니</span>
+            <span class="steps__bar"></span>
+            <span class="steps__item">02 주문서</span>
+            <span class="steps__bar"></span>
+            <span class="steps__item">03 결제완료</span>
+        </div>
+
+        <!-- 담긴 상품이 있을 때 -->
+        <section class="layout" id="cartLayout">
+            <div class="cart">
+                <div class="cart__toolbar">
+                    <label class="check">
+                        <input type="checkbox" id="selectAll" checked />
+                        <span class="check__box"></span>
+                        <span class="check__label">전체 선택<b id="selectAllCount">(0/0)</b></span>
+                    </label>
+                    <button class="linkbtn" type="button" id="removeSelected">선택 삭제</button>
+                </div>
+
+                <ul class="cart__list" id="cartList"><!-- JS 렌더 --></ul>
+                
+                <div class="cart__foot">
+                    <button class="ghostbtn" type="button" id="clearCart">장바구니 비우기</button>
+                    <a href="#" class="ghostbtn ghostbtn--link">쇼핑 계속하기 →</a>
+                </div>
+            </div>
+
+            <aside class="summary" id="summary">
+                <h2 class="summary__title">주문 요약</h2>
+
+                <div class="freeship" id="freeShipBox">
+                    <div class="freeship__row">
+                        <span id="freeShipText">무료배송까지 <b>0원</b> 남았어요</span>
+                        <span class="freeship__icon">🚚</span>
+                    </div>
+                    <div class="freeship__track"><div class="freeship__fill" id="freeShipFill"></div></div>
+                </div>
+
+                <dl class="summary__list">
+                    <div class="summary__row">
+                        <dt>상품 금액</dt>
+                        <dd id="sumItems">0원</dd>
+                    </div>
+                    <div class="summary__row">
+                        <dt>선택 상품 할인</dt>
+                        <dd class="minus" id="sumDiscount">0원</dd>
+                    </div>
+                    <div class="summary__row">
+                        <dt>배송비</dt>
+                        <dd class="sumShipping">0월</dd>
+                    </div>
+                    <div class="summary__row summary__row--total">
+                        <dt>결제 예상 금액</dt>
+                        <dd id="sumTotal">0원</dd>
+                    </div>
+                </dl>
+
+                <div class="pointbox">
+                    <span class="pointbox__badge">P</span>
+                    <span>구매 시 <b id="sumPoint">OP</b>적립 예정</span>
+                </div>
+
+                <button class="paybtn" type="button" id="payButton">
+                    <span id="payButtonCount">0</span>개 상품 주문하기
+                </button>
+                <p class="summary__note">쿠폰·포인트는 주문서에서 적용할 수 있어요.</p>
+            </aside>
+        </section>
+
+        <!-- 비어있을 때 -->
+        <section class="empty" id="emptyState" hidden>
+            <div class="empty__art">
+                <span class="empty__emoji">🛒</span>
+            </div>
+            <h2 class="empty__title">장바구니가 비어 있어요</h2>
+            <p class="empty__desc">마음에 드는 상품을 담아보세요.<br />담은 상품은 여기에 안전하게 보관됩니다.</p>
+            <button class="paybtn paybtn--empty" type="button" id="restoreltems">추천 상품 담아보기</button>
+        </section>
+    </main>
+
+    <footer class="foot">
+        <div class="wrap foot__inner">
+            <p>© 2026 MONGLE STORE. 모든 상품 가격은 부가세 포함 금액입니다.</p>
+            <p class="foot__links"><a href="#">이용약관</a> · <a href="#">개인정보처리방침</a> · <a href="#">고객센터</a></p>
+        </div>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
