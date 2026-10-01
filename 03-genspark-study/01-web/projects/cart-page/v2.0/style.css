@@ -173,8 +173,8 @@ input { font-family: inherit; }
 
 
 /* -- empty -- */
-.empty { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 70px 24px; text-align: center; }
-.empty__art { width: 104px; margin: 0 auto 20px; border-radius: 50%; background: linear-gradient(140deg, #eef2f7, #e0e8f2); display: grid; place-items: center; }
+.empty { background: transparent; border: none; border-radius: 0; box-shadow: none; padding: 60px 24px; text-align: center; }
+.empty__art { width: 104px; height: 104px; margin: 0 auto 20px; border-radius: 50%; background: linear-gradient(140deg, #eef2f7, #e0e8f2); display: grid; place-items: center; }
 .empty__emoji { font-size: 46px; filter: grayscale(.15); }
 .empty__title { margin: 0 0 10px; font-size: 20px; font-weight: 800; letter-spacing: -.02em; }
 .empty__desc { margin: 0 0 24px; color: var(--ink-3); font-size: 14.5px; line-height: 1.65; }

@@ -41,6 +41,7 @@
 
         <!-- 담긴 상품이 있을 때 -->
         <section class="layout" id="cartLayout">
+            <!-- 왼쪽: 장바구니 카드 영역 -->
             <div class="cart">
                 <div class="cart__toolbar">
                     <label class="check item__check">
@@ -51,14 +52,26 @@
                     <button class="linkbtn" type="button" id="removeSelected">선택 삭제</button>
                 </div>
 
+                <!-- 상품이 있을 때 채워지는 리스트 -->
                 <ul class="cart__list" id="cartList"><!-- JS 렌더 --></ul>
                 
+                <!-- 장바구니가 비었을 때 노출되는 안내 화면 -->
+                <section class="empty" id="emptyState" hidden>
+                    <div class="empty__art">
+                        <span class="empty__emoji">🛒</span>
+                    </div>
+                    <h2 class="empty__title">장바구니가 비어 있어요</h2>
+                    <p class="empty__desc">마음에 드는 상품을 담아보세요.<br />담은 상품은 여기에 안전하게 보관됩니다.</p>
+                    <button class="paybtn paybtn--empty" type="button" id="restoreltems">추천 상품 담아보기</button>
+                </section>
+
                 <div class="cart__foot">
                     <button class="ghostbtn" type="button" id="clearCart">장바구니 비우기</button>
                     <a href="#" class="ghostbtn ghostbtn--link">쇼핑 계속하기 →</a>
                 </div>
             </div>
 
+            <!-- 오른쪽: 주문 요약 사이드바 -->
             <aside class="summary" id="summary">
                 <h2 class="summary__title">주문 요약</h2>
 
@@ -99,16 +112,6 @@
                 </button>
                 <p class="summary__note">쿠폰·포인트는 주문서에서 적용할 수 있어요.</p>
             </aside>
-        </section>
-
-        <!-- 비어있을 때 -->
-        <section class="empty" id="emptyState" hidden>
-            <div class="empty__art">
-                <span class="empty__emoji">🛒</span>
-            </div>
-            <h2 class="empty__title">장바구니가 비어 있어요</h2>
-            <p class="empty__desc">마음에 드는 상품을 담아보세요.<br />담은 상품은 여기에 안전하게 보관됩니다.</p>
-            <button class="paybtn paybtn--empty" type="button" id="restoreltems">추천 상품 담아보기</button>
         </section>
     </main>
 
