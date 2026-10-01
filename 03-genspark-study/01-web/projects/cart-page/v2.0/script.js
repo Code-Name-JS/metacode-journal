@@ -62,23 +62,36 @@ function toast(msg) {
 
 /* -- 렌더링 -- */
 function renderCart() {
-    // 빈 장바구니
+    // 빈 장바구니 분기 처리
     if (cart.length === 0) {
         cartLayoutEl.hidden = true;
         emptyStateEl.hidden = false;
-        cartSummaryTextEl.textContent = '담긴 상품이 없습니다.';
-        updateMobileBar(0,0);
+
+        // 기존 장바구니 DOM 비우기
+        cartListEl.innerHTML = '';
+
+        if (cartSummaryTextEl) {
+            cartSummaryTextEl.textContent = '담긴 상품이 없습니다.';
+        }
+
+        // 금액, 전체선택 체크박스, 모바일 바 등 상태 초기화
+        updateTotals();
+        updateSelectAllState();
+        if (typeof updateMobileBar === 'function') {
+            updateMobileBar(0, 0);
+        }
         return;
     }
 
+    // 상품이 있을 때 레이아웃 노출
     cartLayoutEl.hidden = false;
     emptyStateEl.hidden = true;
 
+    // 상품 목록 렌더링
     cartListEl.innerHTML = cart.map((item) =>
         `<li class="item" data-id="${item.id}">
             <label class="check item__check">
                 <input type="checkbox" class="item__checkbox" ${item.checked ? 'checked' : ''} aria-label="${item.name} 선택" />
-                <!-- 커스텀 체크박스 렌더링용 태그 추가 -->
                 <span class="check__box"></span>
             </label>
 
@@ -106,6 +119,7 @@ function renderCart() {
         </li>`
     ).join('');
 
+    // 합계 및 선택 상태 갱신
     updateTotals();
     updateSelectAllState();
 }
