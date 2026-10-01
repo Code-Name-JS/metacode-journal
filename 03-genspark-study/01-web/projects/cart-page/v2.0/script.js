@@ -2,18 +2,33 @@
    main-v2.js  –  cart v2.0 Interactions
 ===================================================== */
 
+/* -- 기본 설정 -- */
 const FREE_SHIPPING_THRESHOLD = 30000; // 무료배송 기준 금액
 const BASE_SHIPPING = 3000; // 기본 배송비
 const POINT_RATE = 0.01; // 적립률 1%
 
 
 
+/* -- 유틸 -- */
+const won = (num) => Number(num).toLocaleString('ko-KR') + '원';
+const wonShort = (num) => Number(num).toLocaleString('ko-KR') + '원';
+
+let toaseTimer = null;
+function toast(msg) {
+    toastEl.textContent = msg;
+    toastEl.classList.add('is-show');
+    clearTimeout(toaseTimer);
+    toaseTimer = setTimeout(() => toastEl.classList.remove('is-show'), 1800);
+}
+
+
+
 /* -- 상품 데이터 (썸네일은 이모지 + CSS 그라데이션으로 처리 ) -- */
 const PRODUCTS = [
-    { id: 'p1', brand: 'MONGLE BASIC', name: '오버핏 코튼 라운드 티셔츠 (5 color)', option: '아이보리/M', price: 19900, oldPrice: 29000, qty: 2, emoji: '👕' },
-    { id: 'p2', brand: 'MONGLE DENIM', name: '와이드 원턱 데님 팬츠 - 워시드 블루', option: '블루/30', price: 42900, oldPrice: null, qty: 1, emoji: '👖' },
-    { id: 'p3', brand: 'MONGLE ACC', name: '데일리 미니 크로스백 (가죽)', option: '브라운 / FREE', price: 35800, oldPrice: 45000, qty: 1, emoji: '👜' },
-    { id: 'p4', brand: 'MONGLE SHOES', name: '클래식 스웨이드 스니커즈', option: '그레이/250', price: 59000, oldPrice: 79000, qty: 1, emoji: '👟' }    
+    { id: 'p1', brand: 'MONGLE BASIC', name: '오버핏 코튼 라운드 티셔츠 (5 color)', option: '아이보리/M', price: 19900, oldPrice: 29000, discountRate: 31, qty: 2, emoji: '👕' },
+    { id: 'p2', brand: 'MONGLE DENIM', name: '와이드 원턱 데님 팬츠 - 워시드 블루', option: '블루/30', price: 42900, oldPrice: null, discountRate: 0, qty: 1, emoji: '👖' },
+    { id: 'p3', brand: 'MONGLE ACC', name: '데일리 미니 크로스백 (가죽)', option: '브라운 / FREE', price: 35800, oldPrice: 45000, discountRate: 20, qty: 1, emoji: '👜' },
+    { id: 'p4', brand: 'MONGLE SHOES', name: '클래식 스웨이드 스니커즈', option: '그레이/250', price: 59000, oldPrice: 79000, discountRate: 25, qty: 1, emoji: '👟' }    
 ];
 
 
@@ -23,8 +38,9 @@ let cart = PRODUCTS.map(p => ({...p, checked: true}));
 
 
 
-/* -- DOM -- */
+/* -- DOM 요소 -- */
 const $ = (sel) => document.querySelector(sel);
+
 const cartListEl = $('#cartList');
 const cartLayoutEl = $('#cartLayout');
 const emptyStateEl = $('#emptyState');
@@ -32,9 +48,9 @@ const selectAllEl = $('#selectAll');
 const selectAllCountEl = $('#selectAllCount');
 const cartSummaryTextEl = $('#cartSummaryText');
 
-const sumltemsEl = $('#sumltems');
+const sumItemsEl = $('#sumItems') || $('#sumltems');
 const sumDiscountEl = $('#sumDiscount');
-const sumShippingEl = $('#sumShipping');
+const sumShippingEl = document.querySelector('#sumShipping') || document.querySelector('.sumShipping');
 const sumTotalEl = $('#sumTotal');
 const sumPointEl = $('#sumPoint');
 const payButtonEl = $('#payButton');
@@ -43,20 +59,6 @@ const freeShipBoxEl = $('#freeShipBox');
 const freeShipTextEl = $('#freeShipText');
 const freeShipFillEl = $('#freeShipFill');
 const toastEl = $('#toast');
-
-
-
-/* -- 유틸 -- */
-const won = (n) => n.toLocaleString('ko-KR') + '원';
-const wonShort = (n) => n.toLocaleString('ko-KR') + '원';
-
-let toaseTimer = null;
-function toast(msg) {
-    toastEl.textContent = msg;
-    toastEl.classList.add('is-show');
-    clearTimeout(toaseTimer);
-    toaseTimer = setTimeout(() => toastEl.classList.remove('is-show'), 1800);
-}
 
 
 
@@ -101,11 +103,17 @@ function renderCart() {
                 <div class="item__brand">${item.brand}</div>
                 <h3 class="item__name">${item.name}</h3>
                 <span class="item__opt">옵션 · ${item.option}</span>
+                
+                <!-- 수량이 곱해진 판매가와 정가 -->
                 <div class="item__price">
-                    ${won(item.price)}
-                    ${item.oldPrice ? `<span class="old">${won(item.oldPrice)}</span>` : ''}
+                    ${won(item.price * item.qty)}
+                    ${item.oldPrice ? `<span class="old">${won(item.oldPrice * item.qty)}</span>` : ''}
                 </div>
-                ${item.oldPrice ? `<div class="item__each">개당 ${won(item.price)} ·${Math.round((1 - item.price / item.oldPrice) * 100)}% 할인 </div>` : ''}
+
+                <!-- 개당 단가 및 고유 할인율(31%, 20%, 25%) 동적 표시 -->
+                ${item.oldPrice && item.discountRate > 0 ? `
+                    <div class="item__each">개당 ${won(item.price)} ·${item.discountRate}% 할인</div>
+                ` : ''}
             </div>
 
             <div class="item__side">
@@ -126,45 +134,199 @@ function renderCart() {
 
 
 
+// 상품을 장바구니에 추가할 때
+function addToCart(product, qty = 1) {
+    const originalPrice = Number(product.price); // 정가
+    const isDiscounted = product.discountRate === 31; // 또는 31% 할인 조건
+
+    // 31% 할인 적용 단가 계산 (소수점 처리: 반올림 또는 절사)
+    const salePrice = isDiscounted
+        ? Math.round(originalPrice * (1 - 0.31))
+        : originalPrice;
+
+    const existingItem = cart.find(i => i.id === product.id);
+
+    if (existingItem) {
+        //이미 담긴 상품이면 수량만 증가 (단가는 절대 변경하지 않음)
+        existingItem.qty += Number(qty);
+    } else {
+        cart.push({
+            id: product.id,
+            name: product.name,
+            oldPrice: isDiscounted ? originalPrice : null, // 정가
+            price: salePrice, // 31% 할인가
+            qty: Number(qty), // 수량은 항상 Number 타입
+            checked: true
+        });
+    }
+
+    updateTotals();
+}
+
+// 수량 변경 함수
+function changeQuantity(productId, newQty) {
+    const item = cart.find(i => i.id === productId);
+    if (!item) return;
+
+    // 수량은 반드시 1 이상의 정수(Number)로 유지
+    const parsedQty = parseInt(newQty, 10);
+    item.qty = isNan(parsedQty) || parsedQty < 1 ? 1 : parsedQty;
+
+    // 수량 변경 후 즉시 화면 갱신
+    updateTotals();
+}
+
 /* -- 합계 계산 -- */
 function calc() {
     const selected = cart.filter(i => i.checked);
 
+    // 실제 결제 대상 총액
     const itemsTotal = selected.reduce((s, i) => s + i.price * i.qty, 0);
-    // 정가 대비 할인액
-    const discount = selected.reduce((s, i) => s + (i.oldPrice ? (i.oldPrice - i.price) * i.qty: 0), 0);
+    
+    // 정가 대비 할인애 계산
+    const discount = selected.reduce((s, i) => s + (i.oldPrice ? (i.oldPrice - i.price) * i.qty : 0), 0);
+
+    // [수정] 30,000원 이상( >= )일 때 무료(0원), 미만일 때 기본 배송비(3,000원)
     const shipping = (selected.length === 0 || itemsTotal >= FREE_SHIPPING_THRESHOLD) ? 0 : BASE_SHIPPING;
 
-    return { itemsTotal, discount, shipping, total: itemsTotal + shipping, count: selected.length, qty: selected.reduce((s, i) => s + i.qty, 0)};
+    return {
+        itemsTotal,
+        discount,
+        shipping,
+        total: itemsTotal + shipping,
+        count: selected.length,
+        qty: selected.reduce((s, i) => s + i.qty, 0)
+    };
 }
 
+
+
+/* -- 화면 합계 업데이트 - */
 function updateTotals() {
     const c = calc();
 
-    sumltemsEl.textContent = won(c.itemsTotal);
-    sumDiscountEl.textContent = '-' + won(c.discount);
-    sumShippingEl.textContent = c.shipping === 0 ? (c.itemsTotal > 0 ? '무료' : '0원' ) : won(c.shipping);
-    sumTotalEl.textContent = won(c.total);
-    sumPointEl.textContent = Math.floor(c.total * POINT_RATE).toLocaleString('ko-KR') + 'P';
-    payButtonCountEl.textContent = c.count;
-    payButtonEl.disabled = c.count === 0;
+    // 주문 금액 및 할인 표시
+    if (sumItemsEl) sumItemsEl.textContent = won(c.itemsTotal);
+    if (sumDiscountEl) sumDiscountEl.textContent = (c.discount > 0 ? '-' : '') + won(c.discount);
+    
+    // 배송비 표시 수정 (3만원 초과 시 무료, 3만원 이하 시 3,000원, 미선택 시 0원)
+    if (sumShippingEl) {
+        if (c.count === 0) {
+            sumShippingEl.textContent = '0원';
+        } else {
+            sumShippingEl.textContent = c.shipping === 0 ? '무료' : won(c.shipping);
+        }
+    }
 
-    // 요약 문구
-    cartSummaryTextEl.textContent = c.count > 0 ? `총${c.count}개 상품 · ${c.qty}개 수량을 선택했어요.` : '주문할 상품을 선택해 주세요.';
+    // 결제 총액 및 포인트
+    if (sumTotalEl) sumTotalEl.textContent = won(c.total);
+    if (sumPointEl) sumPointEl.textContent = Math.floor(c.total * POINT_RATE).toLocaleString('ko-KR') + 'P';
 
-    // 무료배송 진행바
-    const remain = FREE_SHIPPING_THRESHOLD - c.itemsTotal;
-    const pct = Math.min(100, Math.round((c.itemsTotal / FREE_SHIPPING_THRESHOLD) * 100));
-    freeShipFillEl.style.width = (c.itemsTotal > 0 ? Math.max(pct, 4) : 0) + '%';
+    // 주문 버튼 및 요약 문구
+    if (payButtonCountEl) payButtonCountEl.textContent = c.count;
+    if (payButtonEl) payButtonEl.disabled = c.count === 0;
 
-    if (c.itemsTotal >= FREE_SHIPPING_THRESHOLD) {
-        freeShipBoxEl.classList.add('is-free');
-        freeShipTextEl.innerHTML = '무료배송 조건 달성! 🎉 배송비 0원';
-    } else {
-        freeShipBoxEl.classList.remove('is-free');
-        freeShipTextEl.innerHTML = `무료배송까지<b>${wonShort(Math.max(remain, 0))}</b> 남았어요`;
+    if (cartSummaryTextEl) {
+        cartSummaryTextEl.textContent = c.count > 0 
+            ? `총 ${c.count}개 상품 · ${c.qty}개 수량을 선택했어요.` 
+            : '주문할 상품을 선택해 주세요.';
+    }
+
+    // 무료배송 프로그레스 바 & 달성 문구 수정
+    if (freeShipFillEl && freeShipBoxEl && freeShipTextEl) {
+        
+        // 남은 금액 계산 (30,000원 초과 기준이므로 남은 금액이 0원 이하일 때 달성)
+        const remain = FREE_SHIPPING_THRESHOLD - c.itemsTotal;
+        const pct = Math.min(100, Math.round((c.itemsTotal / FREE_SHIPPING_THRESHOLD) * 100));
+        
+        freeShipFillEl.style.width = (c.itemsTotal > 0 ? Math.max(pct, 4) : 0) + '%';
+
+        // 30,000원 "초과( > )"일 때 무료배송 달성
+        if (c.itemsTotal >= FREE_SHIPPING_THRESHOLD) {
+            freeShipBoxEl.classList.add('is-free');
+            freeShipTextEl.innerHTML = '무료배송 조건 달성! 🎉 배송비 0원';
+        } else {
+            freeShipBoxEl.classList.remove('is-free');
+
+            // 아직 달성 전이면 남은 금액 표시 (정확히 30,000원일 때는 1원 이상 더 담아야 하므로 최소 1원 이상 표시)
+            const neededAmount = Math.max(remain, 0);
+            freeShipTextEl.innerHTML = `무료배송까지 <b>${wonShort(neededAmount)}</b> 남았어요`;
+        }
     }
 }
+
+
+
+/* -- 수량 변경 처리 함수 -- */
+function changeQuantity(id, diff) {
+    const item = cart.find(i => i.id === id);
+    if (!item) return;
+
+    const nextQty = item.qty + diff;
+    if (nextQty < 1) return; // 최소 1개 유지
+
+    item.qty = nextQty;
+
+    // 해당 아이템의 화면 수량 및 개별 금액 갱신
+    const rowEl = document.querySelector(`[data-id="${id}"]`);
+    if (rowEl) {
+
+        // 수량 표시 업데이트
+        const qtyEl = rowEl.querySelector('.qty__num');
+        if (qtyEl) qtyEl.textContent = item.qty;
+
+        // 수량이 1개일 때 '_' 버튼 disabled 처리
+        const decBtnEl = rowEl.querySelector('[data-act="dec"]');
+        if (decBtnEl) {
+            decBtnEl.disabled = item.qty <= 1;
+        }
+
+        // 수량이 반영된 판매가 및 정가 갱신 (.item__price)
+        const priceBoxEl = rowEl.querySelector('.item__price');
+        if (priceBoxEl) {
+            const totalPrice = won(item.price * item.qty);
+            const totalOldPrice = item.oldPrice ? `<span class="old">${won(item.oldPrice * item.qty)}</span>` : '';
+            
+            // 기존 렌더링 형식과 동일하게 주입
+            priceBoxEl.innerHTML = `\n${totalPrice}\n${totalOldPrice}\n`;
+        }
+    }
+
+    // 하단 결제 예상 금액 및 총합 재계산
+    updateTotals();
+}
+
+
+
+/* -- 31% 할인 신규 상품 추가 함수 -- */
+function add31PercentDiscountProduct(originalProduct) {
+    const originalPrice = Number(originalProduct.price);
+    // 31% 할인 적용 가격 (10원 단위 반올림)
+    const salePrice = Math.round((originalPrice * (1 - 0.31)) / 10) * 10;
+
+    const existing = cart.find(i => i.id === originalProduct.id);
+    if (existing) {
+        existing.qty += 1;
+    } else {
+        cart.push({
+            id: originalProduct.id,
+            brand: originalProduct.brand || 'MONGLE',
+            name: originalProduct.name,
+            option: originalProduct.option || '기본',
+            price: salePrice,             // 31% 할인된 실 결제 단가
+            oldPrice: originalPrice,     // 원래 정가
+            qty: 1,
+            emoji: originalProduct.emoji || '🎁',
+            checked: true
+        });
+    }
+
+    // 렌더링 함수가 있다면 호출 (예: renderCart())
+    if (typeof renderCart === 'function') renderCart();
+    updateTotals();
+}
+
+
 
 function updateSelectAllState() {
     const all = cart.length > 0 && cart.every(i => i.checked);
@@ -251,6 +413,15 @@ cartListEl.addEventListener('click', (e) => {
     // 수량 변경 → DOM 최소 갱신
     li.querySelector('.qty__num').textContent = item.qty;
     li.querySelector('[data-act="dec"]').disabled = item.qty <= 1;
+
+    // [추가된 부분] 수량이 적용된 개별 상품 금액(.item__price) 즉시 갱신
+    const priceBoxEl = li.querySelector('.item__price');
+    if (priceBoxEl) {
+        const totalPrice = won(item.price * item.qty);
+        const totalOldPrice = item.oldPrice ? `<span class="old">${won(item.oldPrice * item.qty)}</span>` : '';
+        priceBoxEl.innerHTML = `\n            ${totalPrice}\n            ${totalOldPrice}\n        `;
+    }
+
     updateTotals();
     updateSelectAllState();
 });
