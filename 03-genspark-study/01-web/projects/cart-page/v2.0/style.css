@@ -102,7 +102,7 @@ input { font-family: inherit; }
 .check__box { width: 21px; height: 21px; border-radius: 7px; border: 1.5px solid #cfd6dd; background: #fff; display: grid; place-items: center; transition: .15s; flex: none; }
 .check__box::after { content: ""; width: 10px; height: 6px; border-left: 2.4px solid #fff; border-bottom: 2.4px solid #fff; transform: rotate(-45deg) scale(.4); opacity: 0; transition: .15s; }
 .check input:checked + .check__box { background: var(--brand); border-color: var(--brand); }
-.check input:checked + .check_boox::after { opacity: 1; transform: rotate(-45deg) scale(1); }
+.check input:checked + .check_box::after { opacity: 1; transform: rotate(-45deg) scale(1); }
 .check input:focus-visible + .check__box { box-shadow: 0 0 0 3px var(--brand-soft); }
 .check__label { font-size: 14.5px; font-weight: 700; color: var(--ink); }
 .check__label b { color: var(--ink-3); font-weight: 700; font-size: 13px; }

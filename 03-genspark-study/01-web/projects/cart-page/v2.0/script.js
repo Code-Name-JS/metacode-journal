@@ -54,8 +54,8 @@ let toaseTimer = null;
 function toast(msg) {
     toastEl.textContent = msg;
     toastEl.classList.add('is-show');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toastEl.classList.remove('is-show'), 1800);
+    clearTimeout(toaseTimer);
+    toaseTimer = setTimeout(() => toastEl.classList.remove('is-show'), 1800);
 }
 
 
@@ -78,6 +78,8 @@ function renderCart() {
         `<li class="item" data-id="${item.id}">
             <label class="check item__check">
                 <input type="checkbox" class="item__checkbox" ${item.checked ? 'checked' : ''} aria-label="${item.name} 선택" />
+                <!-- 커스텀 체크박스 렌더링용 태그 추가 -->
+                <span class="check__box"></span>
             </label>
 
             <div class="item__thumb" aria-hidden="true">${item.emoji}</div>
@@ -88,14 +90,14 @@ function renderCart() {
                 <span class="item__opt">옵션 · ${item.option}</span>
                 <div class="item__price">
                     ${won(item.price)}
-                    ${item.oldPrice ? `<span class="old">${won(item.oldPrice)}</span>` : '' }
+                    ${item.oldPrice ? `<span class="old">${won(item.oldPrice)}</span>` : ''}
                 </div>
-                ${item.oldPrice ? `<div class="item__each">개당 ${won(item.price)} · ${Math.round((1-item.price / item.oldPrice) * 100)}% 할인 </div>` : '' }
+                ${item.oldPrice ? `<div class="item__each">개당 ${won(item.price)} ·${Math.round((1 - item.price / item.oldPrice) * 100)}% 할인 </div>` : ''}
             </div>
 
             <div class="item__side">
                 <div class="qty" role="group" aria-label="수량 변경">
-                    <button class="qty__btn" type="button" data-act="dec" ${item.qty <= 1 ? 'disabled' : '' } aria-label="수량 감소">-</button>
+                    <button class="qty__btn" type="button" data-act="dec" ${item.qty <= 1 ? 'disabled' : ''} aria-label="수량 감소">-</button>
                     <span class="qty__num" aria-live="polite">${item.qty}</span>
                     <button class="qty__btn" type="button" data-act="inc" aria-label="수량 증가">+</button>
                 </div>
@@ -110,7 +112,7 @@ function renderCart() {
 
 
 
-/* -- 합계 게산 -- */
+/* -- 합계 계산 -- */
 function calc() {
     const selected = cart.filter(i => i.checked);
 
@@ -197,7 +199,8 @@ function updateMobileBar(total, count) {
 cartListEl.addEventListener('change', (e) => {
     const li = e.target.closest('.item');
     if (!li) return;
-    const item = cart.find(i => i.id === li.dataset.id);
+
+    const item = cart.find(i => String(i.id) === li.dataset.id);
     if (!item) return;
 
     if(e.target.classList.contains('item__checkbox')) {
@@ -211,10 +214,11 @@ cartListEl.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-act]');
     if (!btn) return;
     const li = e.target.closest('.item');
-    const item = cart.find(i => i.id === li.dataset.id);
+    const item = cart.find(i => String(i.id) === li.dataset.id);
     if (!item) return;
 
-    const act = btn.datset.act;
+    const act = btn.dataset.act;
+
     if (act === 'inc') {
         if (item.qty >= 99) { toast('최대 99개까지 담을 수 있어요,'); return; }
         item.qty += 1;
@@ -225,6 +229,8 @@ cartListEl.addEventListener('click', (e) => {
         cart = cart.filter(i => i.id !== item.id);
         toast(`'${item.name}'을(를) 삭제했어요.`);
         renderCart();
+        updateTotals(); // 삭제 후 합계 갱신
+        updateSelectAllState(); // 삭제 후 전체 선택 상태 갱신
         return;
     }
         
