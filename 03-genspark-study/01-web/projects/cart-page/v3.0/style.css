@@ -186,7 +186,7 @@ body {
     appearance: textfield; -moz-appearance: textfield;
 }
 .qty input::-webkit-outer-spin-button,
-.qty input::-webkit-inner-spin-botton { -webkit-appearnance: none; margin: 0; }
+.qty input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 .qty input:focus { outline: 2px solid var(--brand); outline-offset: -2px; }
 
 .remove-btn {
@@ -281,7 +281,7 @@ body {
     opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s;
     z-index: 50; max-width: 90vw;
 }
-.toast .is-on { opacity: 1; transform: translate(-50%, 0); }
+.toast.is-on { opacity: 1; transform: translate(-50%, 0);; }
 
 
 
