@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>장바구니 · 마이스토어 · GenSpark</title>
+
+    <link rel="stylesheet" href="./style.css"/>
+</head>
+<body>
+
+    <header class="topbar">
+        <div class="topbar__inner">
+            <a class="logo" href="#">마이<span>스토어</span></a>
+            <nav class="crumbs" aria-label="현재 위치">
+                <span>홈</span><span class="crumbs__sep">/</span><strong>장바구니</strong>
+            </nav>
+        </div>
+    </header>
+
+    <main class="wrap">
+        <div class="page-head">
+            <h1 class="page-head__title">장바구니</h1>
+            <p class="page-head__desc">담아두신 상품<b id="headCount">0</b>개를 확인해 주세요.</p>
+        </div>
+
+        <div class="layout">
+
+            <!-- 상품 목록 -->
+            <section class="card cart" aria-labelledby="cartTitle">
+                <h2 class="sr-only" id="cartTitle">장바구니 상품 목록</h2>
+
+                <div class="cart__toolbar" id="toolbar">
+                    <label class="check">
+                        <input type="checkbox" id="checkAll"/>
+                        <span class="check__label">전체 선택<b id="allCount">(0/0)</b></span>
+                    </label>
+                    <button type="button" class="link-btn" id="deleteSelected">선택 삭제</button>
+                </div>
+
+                <ul class="items" id="itemList"></ul>
+
+                <div class="empty" id="emptyState" hidden>
+                    <div class="empty__icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                              <circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/>
+                              <path d="M2 3h2.2l2.3 11.2a2 2 0 0 0 2 1.6h8.6a2 2 0 0 0 2-1.6L21 7H5.2"/>
+                        </svg>
+                    </div>
+                    <p class="empty__title">장바구니가 비어 있어요</p>
+                    <p class="empty__desc">마음에 드는 상품을 담아보세요.</p>
+                    <button type="button" class="ghost-btn" id="restoreBtn">샘플 상품 담기</button>
+                </div>
+            </section>
+
+            <!-- 결제 요약 -->
+            <aside class="card summary" aria-labelledby="summaryTitle">
+                <h2 class="summary__title" id="summaryTitle">결제 금액</h2>
+
+                <div class="ship" id="shipBox">
+                    <p class="ship__text" id="shipText">무료배송까지 <b>0원</b> 남았어요</p>
+                    <div class="ship__bar"><span id="shipBar"></span></div>
+                </div>
+
+                <dl class="rows">
+                    <div class="row">
+                        <dt>상품 금액</dt>
+                        <dd id="sumSubtotal">0원</dd>
+                    </div>
+
+                    <div class="row">
+                        <dt>배송비</dt>
+                        <dd id="sumShipping">0원</dd>
+                    </div>
+
+                    <div class="row row-total">
+                        <dt>총 결제 금액</dt>
+                        <dd id="sumTotal">0원</dd>
+                    </div>
+                </dl>
+
+                <button type="button" class="primary-btn" id="orderBtn">주문하기</button>
+                <p class="summary__note">쿠폰과 적립금은 주문서에서 사용할 수 있어요.</p>
+            </aside>
+        </div>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="./script.js" defer></script>
+</body>
+</html>
