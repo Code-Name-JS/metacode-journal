@@ -185,6 +185,10 @@ input[type='text'] { padding-right: 46px ; }
 input:focus { border-color: var(--focus); box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25); }
 input::placeholder { color: #b1b4bc; opacity: 1; }
 
+/* 브라우저 기본 비밀번호 표시/숨기기·지우기 버튼 숨김 (Edge 등) – 커스텀 .toggle 버튼만 사용 */
+input::-ms-reveal,
+input::-ms-clear { display: none; }
+
 
 
 /* ==================================================
