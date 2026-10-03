@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>마이페이지 | SHOPLY | GenSpark</title>
+    
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="preconnect" href="https//fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+    <!-- 모바일 상단 바 -->
+    <header class="topbar">
+        <button class="topbar__menu" id="menuToggle" aria-label="메뉴 열기" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+
+        <a class="topbar__logo" href="#">SHOPLY</a>
+
+        <div class="topbar__actions">
+            <button class="icon-btn" aria-label="알림">
+                <svg viewBox="0 0 24 24"><path d="M12 22a2.5 2.5 0 0 0 2.45-2h-4.9A2.5 2.5 0 0 0 12 22Zm7-6v-5a7 7 0 0 0-5.5-6.83V3a1.5 1.5 0 0 0-3 0v1.17A7 7 0 0 0 5 11v5l-1.6 1.6A1 1 0 0 0 4.1 19.3h15.8a1 1 0 0 0 .7-1.7Z"/></svg>
+                <i class="dot"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="layout">
+
+        <!-- 사이드 바 -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar__brand">SHOPLY</div>
+            <nav class="nav">
+                <p class="nav__label">쇼핑</p>
+                <a class="nav__item" href="#"><span class="ic">🛍️</span>홈</a>
+                <a class="nav__item is-active" href="#"><span class="ic">👤</span>마이페이지</a>
+                <a class="nav__item" href="#"><span class="ic">❤️</span>찜한 상품 <b class="badge">12</b></a>
+                <a class="nav__item" href="#"><span class="ic">🧾</span>주문/배송 조회</a>
+                <a class="nav__item" href="#"><span class="ic">✍️</span>리뷰 관리 <b class="badge badge--warn">3</b></a>
+
+                <p class="nav__label">혜택</p>
+                <a class="nav__item" href="#"><span class="ic">🎁</span>쿠폰함</a>
+                <a class="nav__item" href="#"><span class="ic">💰</span>포인트</a>
+                <a class="nav__item" href="#"><span class="ic">💳</span>멤버십 등급</a>
+
+                <p class="nav__label">설정</p>
+                <a class="nav__item" href="#"><span class="ic">⚙️</span>게정 설정</a>
+                <a class="nav__item" href="#"><span class="ic">🔔</span>알림 설정</a>
+                <a class="nav__item" href="#"><span class="ic">🚪</span>로그아웃</a>
+            </nav>
+
+            <div class="sidebar__help">
+                <strong>고객센터</strong>
+                <p>평일 09:00 - 18:00</p>
+                <p class="num">1588-0000</p>
+            </div>
+        </aside>
+
+        <div class="scrim" id="scrim"></div>
+
+        <!-- 본문 -->
+        <main class="main">
+
+            <!-- 프로필 헤더 -->
+            <section class="profile">
+                <div class="profile__left">
+                    <div class="avatar">
+                        <span>김</span>
+                        <button class="avatar__edit" aria-label="프로필 사진 변경">✎</button>
+                    </div>
+                    
+                    <div class="profile__meta">
+                        <p class="profile__hello">안녕하세요,</p>
+                        <h1 class="profile__name">김지우 <span class="chip chip--vip">VIP</span></h1>
+                        <p class="profile__sub">jiwoo.kim@example.com · 가입 2년차</p>
+                    </div>
+                </div>
+
+                <div class="profile__right">
+                    <div class="grade">
+                        <div class="grade__head">
+                            <span>다음 등급까지</span>
+                            <b>32,400원</b>
+                        </div>
+
+                        <div class="grade__bar"><i style="width: 68%"></i></div>
+                        
+                        <small>VVIP까지 68% 달성 · 이번 달 15,600원 적립</small>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 요약 카드 -->
+            <section class="cards">
+                <article class="card card--point">
+                    <div class="card__top"><span>보유 포인트</span><span class="card__ic">💰</span></div>
+                    <strong class="card__value">128,500<small>P</small></strong>
+                    <p class="card__sub">7일 내 소멸 예정<b>1,200P</b></p>
+                    <button class="card__btn" data-tab-jump="point">내역 보기</button>
+                </article>
+
+                <article class="card card--order">
+                    <div class="card__top"><span>배송 중</span><span class="card__ic">🚚</span></div>
+                    <strong class="card__value">2<small>건</small></strong>
+                    <p class="card__sub">오늘 도착 예정 <b>1건</b></p>
+                    <button class="card__btn" data-tab-jump="orders">배송 조회</button>
+                </article>
+
+                <article class="card card--wish">
+                    <div class="card__top"><span>찜한 상품</span><span class="card__ic">❤️</span></div>
+                    <strong class="card__value">12<smaill>개</smaill></strong>
+                    <p class="card__sub">가격 하락 알림 <b>3개</b></p>
+                    <button class="card__btn" data-tab-jump="wish">목록 보기</button>
+                </article>
+            </section>
+
+            <!-- 탭 -->
+            <section class="panel">
+                <div class="tabs" role="tablist">
+                    <button class="tab is-active" role="tab" data-tab="orders">주문내역</button>
+                    <button class="tab" role="tab" data-tab="wish">찜한 상품</button>
+                    <button class="tab" role="tab" data-tab="profile">회원정보 수정</button>
+                    <button class="tab" role="tab" data-tab="settings">설정</button>
+                    
+                    <span class="tabs__ink" id="tabsInk"></span>
+                </div>
+
+                <!-- 주문내역 -->
+                <div class="tabpane is-active" id="pane-orders" role="tabpanel">
+                    <div class="pane__head">
+                        <h2>최근 주문 <span class="muted">최근 3개월</span></h2>
+                        
+                        <div class="seg" id="orderFilter">
+                            <button class="seg__btn is-active" data-filter="all">전체</button>
+                            <button class="seg__btn" data-filter="shipping">배송중</button>
+                            <button class="seg__btn" data-filter="done">구매확정</button>
+                        </div>
+                    </div>
+                    
+                    <div class="orders" id="orderList"><!-- JS 렌더 --></div>
+                    
+                    <p class="empty" id="orderEmpty" hidden>조건에 맞는 주문이 없습니다.</p>
+                </div>
+
+                <!-- 찜 -->
+                <div class="tabpane" id="pane-wish" role="tabpanel">
+                    <div class="pane__head"><h2>찜한 상품 <span class="muted">12개</span></h2>
+                        <button class="btn btn--ghost" id="wishClear">전체 삭제</button>
+                    </div>
+
+                    <div class="wish" id="wishList"><!-- JS 렌더 --></div>
+                </div>
+
+                <!-- 회원정보 수정 -->
+                <div class="tabpane" id="pane-profile" role="rabpanel">
+                    <div class="pane__head"><h2>회원정보 수정</h2></div>
+                    
+                    <form class="form" id="profileForm" novalidate>
+                        <div class="form__row">
+                            <label for="fName">이름 <em>*</em></label>
+                            <input id="fName" name="name" type="text" value="김지우" data-rule="required" />
+                            <p class="err" data-err-for="fName"></p>
+                        </div>
+                        
+                        <div class="form__row">
+                            <label for="fEmail">이메일 <em>*</em></label>
+                            <input id="fEmail" name="email" type="email" value="jiwoo.kim@example.com" data-rule="email" />
+                            <p class="err" data-err-for="fEmail"></p>
+                        </div>
+                        
+                        <div class="form__row">
+                            <label for="fPhone">휴대폰 번호 <em>*</em></label>
+                            <input id="fPhone" name="phone" type="tel" value="010-1234-5678" data-rule="phone" placeholder="010-0000-0000" />
+                            <p class="err" data-err-for="fPhone"></p>
+                        </div>
+                        
+                        <div class="form__row">
+                            <label for="fPw">비밀번호 변경</label>
+                            <input id="fPw" name="pw" type="password" data-rule="password" placeholder="영문 + 숫자 8자 이상" />
+                            <p class="err" data-err-for="fPw"></p>
+                            <div class="meter"><i id="pwMeter"></i></div>
+                            <small class="hint" id="pwHint">변경하지 않으려면 비워 두세요.</small>
+                        </div>
+                        
+                        <div class="form__row form__row--full">
+                            <label>수신 동의</label>
+                            <div class="checks">
+                                <label class="check"><input type="checkbox" checked /><span>이메일</span></label>
+                                <label class="check"><input type="checkbox" checked /><span>문자메시지</span></label>
+                                <label class="check"><input type="checkbox" /><span>앱 푸시</span></label>
+                            </div>
+                        </div>
+                        
+                        <div class="form__actions">
+                            <button type="button" class="btn btn--ghost" id="formReset">되돌리기</button>
+                            <button type="submit" class="btn btn--primary">변경사항 저장</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- 설정 -->
+                <div class="tabpane" id="pane-settings" role="tabpanel">
+                    <div class="pane__head"><h2>설정</h2></div>
+                    
+                    <ul class="setting-list">
+                        <li class="setting">
+                            <div><strong>주문 · 배송 알림</strong><p>배송 상태가 바뀌면 알려드려요.</p></div>
+                            <label class="switch"><input type="checkbox" checked /><span></span></label>
+                        </li>
+                        
+                        <li class="setting">
+                            <div><strong>혜택 · 이벤트 알림</strong><p>쿠폰과 기획전 소식을 받아요.</p></div>
+                            <label class="switch"><input type="checkbox" checked /><span></span></label>
+                        </li>
+                        
+                        <li class="setting">
+                            <div><strong>야간 알림 차단</strong><p>21:00 - 08:00에는 알림을 보내지 않아요.</p></div>
+                            <label class="switch"><input type="checkbox" /><span></span></label>
+                        </li>
+                        
+                        <li class="setting">
+                            <div><strong>맞춤 추천</strong><p>관심사 기반 상품을 추천해 드려요.</p></div>
+                            <label class="switch"><input type="checkbox" checked /><span></span></label>
+                        </li>
+                    </ul>
+                    
+                    <div class="danger">
+                        <div><strong>회원 탈퇴</strong><p>탈퇴 시 포인트와 쿠폰이 모두 소멸됩니다.</p></div>
+                        <button class="btn btn--danger" id="withdrawBtn">탈퇴하기</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- 모달 -->
+    <div class="modal" id="modal" hidden>
+        <div class="modal__box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <button class="modal__close" id="modalClose" aria-label="닫기">✕</button>
+            <h3 id="modalTitle">주문 상세</h3>
+            <div class="modal__body" id="modalBody"></div>
+            <div class="modal__foot">
+                <button class="btn btn--ghost" id="modalCancel">닫기</button>
+                <button class="btn btn--primary" id="modalOk">확인</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 토스트 -->
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
