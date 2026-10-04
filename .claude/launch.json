@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "project-01",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "5517", "--directory", "04-web-design/project-01"],
+      "port": 5517
+    },
+    {
+      "name": "project-01-alt",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "5518", "--directory", "04-web-design/project-01"],
+      "port": 5518
+    }
+  ]
+}
