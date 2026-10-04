@@ -32,7 +32,15 @@ const GOODS = {
     "goods-5": { brand: "HOMEFIT",   name: "텀블러 500ml 2개 세트",    price: 31500,  was: 42000,  emoji: "🥤" },
     "goods-6": { brand: "MODEWORK",  name: "울 혼방 오버핏 코트",      price: 190400, was: 238000, emoji: "🧥" },
     "goods-7": { brand: "SOUNDLAB",  name: "블루투스 스피커 미니",     price: 79200,  was: 99000,  emoji: "🔊" },
-    "goods-8": { brand: "DAILYSTEP", name: "경량 러닝화",              price: 118000, was: null,   emoji: "👟" }
+    "goods-8": { brand: "DAILYSTEP", name: "경량 러닝화",              price: 118000, was: null,   emoji: "👟" },
+
+    // 신상품 (new.html) — GOODS에 같이 두어야 장바구니·찜 페이지에서도 이름·가격을 찾을 수 있음
+    "goods-9":  { brand: "TECHFIT",   name: "무선 충전 거치대 3in1",    price: 47200,  was: 59000,  emoji: "🔋" },
+    "goods-10": { brand: "MODEWORK",  name: "캐시미어 블렌드 머플러",   price: 42000,  was: null,   emoji: "🧣" },
+    "goods-11": { brand: "HOMEFIT",   name: "핸드드립 커피 세트",       price: 38400,  was: 48000,  emoji: "☕" },
+    "goods-12": { brand: "DAILYSTEP", name: "방수 트레킹 부츠",         price: 129000, was: null,   emoji: "🥾" },
+    "goods-13": { brand: "GLOWLAB",   name: "수분 진정 크림 50ml",      price: 25500,  was: 34000,  emoji: "🧴" },
+    "goods-14": { brand: "SOUNDLAB",  name: "오픈형 무선 이어버드",     price: 89100,  was: 99000,  emoji: "🎵" }
 };
 
 // 장바구니 데이터

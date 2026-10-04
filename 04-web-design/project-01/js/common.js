@@ -92,6 +92,32 @@ function addToCart(id) {
 }
 
 
+/* -- 전체 카테고리 (home · best · new 공통) -- */
+const allBtn = $("#gnbAllBtn");                     // [연결①] HTML id="gnbAllBtn"
+const allMenu = $("#gnbAllMenu");                   // [연결②] HTML id="gnbAllMenu"
+
+function toggleAllMenu(open) {
+    allMenu.classList.toggle("is-open", open);      // [연결③] CSS .gnb__menu.is-open → 목록 보임
+    allBtn.setAttribute("aria-expanded", String(open));
+}
+
+if (allBtn && allMenu) {                            // 버튼이 없는 페이지(cart 등)에서 에러가 안 나도록
+    allBtn.addEventListener("click", () => {
+        toggleAllMenu(!allMenu.classList.contains("is-open"));  // 열려 있으면 닫고, 닫혀 있으면 열기
+    });
+
+    // 목록 바깥을 누르면 닫기 — 버튼·목록 안쪽 클릭은 제외
+    document.addEventListener("click", (e) => {
+        if (!e.target.closest("#gnbAllBtn, #gnbAllMenu")) toggleAllMenu(false);
+    });
+
+    // Esc 키로 닫기 (모달이 열려 있을 때와 같은 규칙)
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") toggleAllMenu(false);
+    });
+}
+
+
 /* -- 모바일 메뉴 -- */
 const sidebar = $("#sidebar"), scrim = $("#scrim"), menuBtn = $("#menuToggle");
 

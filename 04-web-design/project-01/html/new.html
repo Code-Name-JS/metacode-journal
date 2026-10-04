@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>베스트 | SHOPLY</title>
+    <title>신상품 | SHOPLY</title>
 
     <link rel="stylesheet" href="../css/base.css" />
     <link rel="stylesheet" href="../css/layout.css" />
     <link rel="stylesheet" href="../css/components.css" />
-    <link rel="stylesheet" href="../css/pages/home.css" />  <!-- 상품 카드(.goods-card) 스타일을 홈과 같이 씀 -->
-    <link rel="stylesheet" href="../css/pages/best.css" />
+    <link rel="stylesheet" href="../css/pages/home.css" />  <!-- 상품 카드(.goods-card, .g-like) 스타일을 홈과 같이 씀 -->
+    <link rel="stylesheet" href="../css/pages/new.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet" />
@@ -37,7 +37,7 @@
                 </a>
                 <a class="hact" href="./cart.html">
                     <span class="hact__ic">🛒</span>
-                    <span class="hact__tx">장바구니 <b id="cartCount"></b></span>  <!-- [연결⑦] JS가 CART.length를 넣음 -->
+                    <span class="hact__tx">장바구니 <b id="cartCount">0</b></span>  <!-- [연결⑭] common.js renderCartCount() -->
                 </a>
             </div>
 
@@ -49,8 +49,8 @@
                 <!-- [연결①] JS가 id="gnbAllBtn"으로 찾아 click 이벤트 연결 / [연결②] aria-controls가 아래 목록 id를 가리킴 -->
                 <button class="gnb__all" id="gnbAllBtn" type="button" aria-expanded="false" aria-controls="gnbAllMenu">☰ 전체 카테고리</button>
                 <a class="gnb__item" href="./home.html">홈</a>
-                <a class="gnb__item is-active" href="./best.html">베스트</a>  <!-- 현재 페이지 표시 -->
-                <a class="gnb__item" href="./new.html">신상품</a>
+                <a class="gnb__item" href="./best.html">베스트</a>
+                <a class="gnb__item is-active" href="./new.html">신상품</a>  <!-- 현재 페이지 표시 -->
                 <a class="gnb__item" href="#">기획전</a>
                 <a class="gnb__item" href="#">브랜드</a>
                 <a class="gnb__item" href="#">이벤트</a>
@@ -77,51 +77,80 @@
 
     <main class="wrap main">
 
-        <!-- 베스트 머리 배너 (홈 .hero를 작게 줄인 버전) -->
-        <section class="best-hero">
-            <div class="best-hero__copy">
-                <span class="best-hero__tag">🏆 SHOPLY BEST</span>
-                <h1>지금 가장 많이 팔린<br /><em>베스트 상품</em></h1>
-                <p><span id="bestTime">--</span> 기준 · 판매량 · 리뷰 · 할인율로 다시 정렬해 보세요</p>  <!-- [연결①] JS가 현재 시각을 넣음 -->
+        <!-- 머리 배너 (홈 .hero 디자인을 민트 톤으로) -->
+        <section class="new-hero">
+            <div class="new-hero__copy">
+                <span class="new-hero__tag">🆕 NEW ARRIVALS</span>
+                <h1>이번 주 새로 들어온<br /><em>신상품</em>을 가장 먼저</h1>
+                <p>매일 오전 10시 업데이트 · 지금 <b id="heroCount">0</b>개 상품이 새로 입고됐어요</p>  <!-- [연결①] -->
             </div>
-            <ol class="best-hero__podium" id="podium"></ol>  <!-- [연결②] JS가 TOP 3를 그림 -->
+            <div class="new-hero__art" aria-hidden="true">
+                <div class="art-card art-card--a"><span>🧣</span><b>캐시미어 머플러</b><small>42,000원</small></div>
+                <div class="art-card art-card--b"><span>☕</span><b>핸드드립 세트</b><small>38,400원</small></div>
+                <div class="new-hero__badge"><b>NEW</b><small>TODAY</small></div>
+            </div>
         </section>
 
-        <!-- 필터 + 정렬 -->
-        <section class="best-tools">
-            <!-- [연결③] data-cat 값 ↔ best.js BEST_META의 cat 값이 같아야 함 / .is-active ↔ CSS -->
-            <div class="chips" id="catChips" role="tablist" aria-label="카테고리">
-                <button class="chip is-active" type="button" data-cat="all">전체</button>
-                <button class="chip" type="button" data-cat="digital">📱 디지털</button>
-                <button class="chip" type="button" data-cat="fashion">👕 패션</button>
-                <button class="chip" type="button" data-cat="living">🏠 리빙</button>
-                <button class="chip" type="button" data-cat="sports">👟 스포츠</button>
-            </div>
-
-            <!-- [연결④] option value ↔ best.js SORTERS의 키 -->
-            <label class="sort">
-                <span class="sr-only">정렬</span>
-                <select id="sortSelect">
-                    <option value="sold">판매량 많은순</option>
-                    <option value="review">리뷰 많은순</option>
-                    <option value="rate">할인율 높은순</option>
-                    <option value="low">낮은 가격순</option>
-                </select>
-            </label>
-        </section>
-
-        <!-- 랭킹 목록 -->
-        <section class="section best-section">
+        <!-- 신규 혜택 — home.html 히어로의 "신규 혜택 보기"가 new.html#benefits로 바로 내려옴 -->
+        <!-- [연결②] id="benefits" ↔ href="#benefits" / CSS scroll-margin-top으로 고정 헤더 아래에 멈춤 -->
+        <section class="section benefits" id="benefits">
             <div class="section__head">
                 <div>
-                    <h2 id="listTitle">전체 베스트</h2>       <!-- [연결⑤] 필터에 따라 제목 변경 -->
-                    <p><b id="listCount">0</b>개 상품</p>
+                    <h2>신규 회원 혜택</h2>
+                    <p>처음 오셨다면 쿠폰부터 받고 쇼핑하세요</p>
                 </div>
-                <a class="more" href="./home.html">홈으로 →</a>
+                <button class="btn btn--primary benefits__all" type="button" id="couponAll">쿠폰 모두 받기</button>
             </div>
 
-            <div class="goods" id="bestList"></div>  <!-- [연결⑥] JS가 .goods-card를 만들어 넣음 -->
-            <p class="empty" id="bestEmpty" hidden>이 카테고리의 베스트 상품이 아직 없어요 🙈</p>
+            <!-- [연결③] data-coupon 값 → new.js가 받은 쿠폰 목록(localStorage)에 저장 / .is-got ↔ CSS -->
+            <div class="benefit-row" id="benefitRow">
+                <article class="benefit benefit--violet">
+                    <span class="benefit__ic">🎟️</span>
+                    <div class="benefit__body">
+                        <p class="benefit__tag">가입 즉시</p>
+                        <h3>신규 가입 <b>3,000원</b> 쿠폰</h3>
+                        <p>3만원 이상 구매 시 · 발급일로부터 30일</p>
+                    </div>
+                    <button class="benefit__btn" type="button" data-coupon="welcome">쿠폰 받기</button>
+                </article>
+                <article class="benefit benefit--mint">
+                    <span class="benefit__ic">🆕</span>
+                    <div class="benefit__body">
+                        <p class="benefit__tag">신상품 전용</p>
+                        <h3>신상품 <b>10%</b> 할인 쿠폰</h3>
+                        <p>최대 10,000원 할인 · 이번 주 입고 상품</p>
+                    </div>
+                    <button class="benefit__btn" type="button" data-coupon="new10">쿠폰 받기</button>
+                </article>
+                <article class="benefit benefit--amber">
+                    <span class="benefit__ic">🚚</span>
+                    <div class="benefit__body">
+                        <p class="benefit__tag">첫 구매</p>
+                        <h3>배송비 <b>0원</b></h3>
+                        <p>첫 주문은 금액과 상관없이 무료배송</p>
+                    </div>
+                    <span class="benefit__auto">자동 적용</span>
+                </article>
+            </div>
+        </section>
+
+        <!-- 신상품 목록 -->
+        <section class="section">
+            <div class="section__head">
+                <div>
+                    <h2>새로 들어온 상품 <span class="new-count" id="listCount">0</span></h2>  <!-- [연결①] -->
+                    <p>상품을 누르면 장바구니에 담을 수 있어요</p>
+                </div>
+                <!-- [연결④] data-period 값 ↔ new.js PERIODS의 키 / .is-active ↔ CSS (components.css .seg) -->
+                <div class="seg" id="periodSeg">
+                    <button class="seg__btn is-active" type="button" data-period="all">전체</button>
+                    <button class="seg__btn" type="button" data-period="today">오늘 입고</button>
+                    <button class="seg__btn" type="button" data-period="3days">3일 이내</button>
+                </div>
+            </div>
+
+            <div class="goods" id="newList"></div>  <!-- [연결⑤] new.js가 .goods-card를 만들어 넣음 -->
+            <p class="empty" id="newEmpty" hidden>이 기간에 입고된 상품이 없어요</p>
         </section>
 
         <!-- 혜택 (홈과 동일) -->
@@ -169,7 +198,7 @@
         </div>
     </footer>
 
-    <!-- 장바구니 담기 확인창 — common.js openConfirm()이 id로 찾아 씀 -->
+    <!-- 확인창 — common.js openConfirm()이 id로 찾아 씀 -->
     <div class="modal" id="modal" hidden>
         <div class="modal__box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
             <button class="modal__close" id="modalClose" aria-label="닫기">✕</button>
@@ -186,6 +215,6 @@
 
     <script src="../js/data.js"></script>
     <script src="../js/common.js"></script>
-    <script src="../js/pages/best.js"></script>
+    <script src="../js/pages/new.js"></script>
 </body>
 </html>
