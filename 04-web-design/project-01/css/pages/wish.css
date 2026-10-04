@@ -1,0 +1,44 @@
+/* ==========================================================================
+   pages/wish.css — 찜한 상품
+   ========================================================================== */
+
+/* =========================================================
+   찜한 상품
+   ========================================================= */
+.wish { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.wish-item {
+   border: 1px solid var(--line); border-radius: var(--r-md); overflow: hidden;
+   transition: transform .2s var(--ease), box-shadow .2s var(--ease);
+}
+.wish-item:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.wish-item__img {
+   position: relative; height: 108px; display: grid; place-content: center;
+   font-size: 38px; background: #f4f5fa;
+}
+.wish-item__like {
+   position: absolute; top: 8px; right: 8px;
+   width: 30px; height: 30px; border-radius: 50%;
+   background: rgba(255,255,255,.9); display: grid; place-content: center;
+   font-size: 14px; box-shadow: var(--shadow-sm);
+}
+.wish-item__body { padding: 12px 13px 14px; }
+.wish-item__brand { font-size: 11.5px; color: var(--text-3); font-weight: 600; }
+.wish-item__name { font-size: 13.5px; font-weight: 600; margin: 3px 0 8px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.wish-item__row { display: flex; align-items: center; justify-content: space-between; }
+.wish-item__price { font-size: 15px; font-weight: 800; letter-spacing: -.3px; }
+.wish-item__price del { font-size: 11.5px; color: var(--text-3); font-weight: 500; margin-left: 4px; }
+.wish-item__cart { font-size: 12px; font-weight: 700; padding: 6px 11px; border-radius: 8px; background: var(--brand-50); color: var(--brand); transition: .18s var(--ease); }
+.wish-item__cart:hover { background: var(--brand); color: #fff; }
+
+
+@media (max-width: 1080px) {
+   .wish { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 860px) {
+   .wish { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 560px) {
+   .wish { grid-template-columns: 1fr; }
+}

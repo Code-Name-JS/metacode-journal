@@ -1,0 +1,92 @@
+/* ==========================================================================
+   pages/mypage.css — 프로필 헤더 · 요약 카드
+   ========================================================================== */
+
+/* =========================================================
+   프로필 헤더
+   ========================================================= */
+.profile {
+   display: flex; gap: 28px; align-items: center; flex-wrap: wrap;
+   background: var(--surface); border: 1px solid var(--line);
+   border-radius: var(--r-lg); padding: 24px 26px;
+   box-shadow: var(--shadow-sm);
+}
+.profile__left { display: flex; align-items: center; gap: 18px; min-width: 0; }
+.avatar {
+   position: relative; width: 74px; height: 74px; border-radius: 50%;
+   background: linear-gradient(135deg, #6366f1, #a855f7);
+   display: grid; place-content: center; flex: 0 0 74px;
+   color: #fff; font-size: 28px; font-weight: 800;
+   box-shadow: 0 8px 22px rgba(99, 102, 241, .38);
+}
+.avatar__edit {
+   position: absolute; right: -2px; bottom: -2px;
+   width: 26px; height: 26px; border-radius: 50%;
+   background: #fff; color: var(--text-2); font-size: 12px;
+   border: 1px solid var(--line); display: grid; place-content: center;
+   box-shadow: var(--shadow-sm);
+}
+.profile__hello { font-size: 13px; color: var(--text-3); }
+.profile__name { font-size: 24px; font-weight: 800; letter-spacing: -.6px; display: flex; align-items: center; gap: 8px; }
+.chip {
+   font-size: 11.5px; font-weight: 800; padding: 3px 9px; border-radius: 999px;
+   letter-spacing: .02em;
+}
+.chip--vip { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #fff; box-shadow: 0 3px 10px rgba(245,158,11,.4); }
+.profile__sub { font-size: 13px; color: var(--text-3); margin-top: 4px; }
+
+.profile__right { margin-left: auto; min-width: 260px; flex: 1 1 260px; max-width: 380px; }
+.grade { background: #fafbfe; border: 1px solid var(--line); border-radius: var(--r-md); padding: 14px 16px; }
+.grade__head { display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; color: var(--text-2); }
+.grade__head b { font-size: 15px; color: var(--text); }
+.grade__bar { height: 8px; border-radius: 999px; background: #e9eaf2; margin: 10px 0 8px; overflow: hidden; }
+.grade__bar i { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, #6366f1, #a855f7); transition: width .8s var(--ease); }
+.grade small { font-size: 11.5px; color: var(--text-3); }
+
+
+
+/* =========================================================
+   요약 카드
+   ========================================================= */
+.cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 18px; }
+.card {
+   position: relative; overflow: hidden;
+   background: var(--surface); border: 1px solid var(--line);
+   border-radius: var(--r-lg); padding: 18px;
+   box-shadow: var(--shadow-sm);
+   transition: transform .2s var(--ease), box-shadow .2s var(--ease);
+}
+.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.card::after { content: ""; position: absolute; inset: -26px -26px auto auto; width: 78px; height: 78px; border-radius: 50%; opacity: .09; }
+.card--point::after { background: var(--mint); }
+.card--coupon::after { background: var(--vip); }
+.card--order::after { background: var(--sky); }
+.card--wish::after { background: var(--rose); }
+.card__top { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--text-2); font-weight: 500; }
+.card__ic { font-size: 17px; }
+.card__value { display: block; font-size: 27px; font-weight: 800; letter-spacing: -.8px; margin: 8px 0 4px; }
+.card__value small { font-size: 14px; font-weight: 700; color: var(--text-3); margin-left: 3px; }
+.card__sub { font-size: 12.5px; color: var(--text-3); }
+.card__sub b { color: var(--rose); font-weight: 700; }
+.card__btn {
+   margin-top: 14px; width: 100%; padding: 9px;
+   border-radius: 10px; background: #f6f7fb; color: var(--text-2);
+   font-size: 13px; font-weight: 600;
+   transition: background .18s var(--ease), color .18s var(--ease);
+}
+.card__btn:hover { background: var(--brand); color: #fff; }
+
+
+@media (max-width: 1080px) {
+   .cards { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 860px) {
+   .profile { padding: 20px; }
+   .profile__right { margin-left: 0; max-width: none; }
+}
+@media (max-width: 560px) {
+   .cards { grid-template-columns: 1fr 1fr; gap: 12px; }
+   .card { padding: 15px; }
+   .card__value { font-size: 23px; }
+   .profile__name { font-size: 21px; }
+}

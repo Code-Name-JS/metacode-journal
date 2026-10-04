@@ -1,0 +1,24 @@
+/* ==========================================================================
+   pages/settings.css — 설정 목록 · 회원 탈퇴 영역
+   ========================================================================== */
+
+/* =========================================================
+   설정
+   ========================================================= */
+.setting-list { display: flex; flex-direction: column; }
+.setting {
+   display: flex; align-items: center; justify-content: space-between; gap: 16px;
+   padding: 16px 2px; border-bottom: 1px solid var(--line);
+}
+.setting:last-child { border-bottom: 0; }
+.setting strong { font-size: 14.5px; font-weight: 700; }
+.setting p { font-size: 12.5px; color: var(--text-3); margin-top: 3px; }
+
+
+.danger {
+   display: flex; align-items: center; justify-content: space-between; gap: 16px;
+   margin-top: 22px; padding: 16px 18px;
+   border: 1px dashed #f3c2cb; border-radius: var(--r-md); background: #fffafb;
+}
+.danger strong { font-size: 14.5px; font-weight: 700; }
+.danger p { font-size: 12.5px; color: var(--text-3); margin-top: 3px; }

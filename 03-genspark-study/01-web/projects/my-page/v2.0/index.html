@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AURORA · 마이페이지</title>
+
+    <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+    <!-- 배경 오로라 블롭 -->
+    <div class="aurora-bg" aria-hidden="true">
+        <span class="blob b1"></span>
+        <span class="blob b2"></span>
+        <span class="blob b3"></span>
+        <span class="blob b4"></span>
+    </div>
+
+    <!-- 상단 바 -->
+    <header class="topbar">
+        <div class="topbar-inner">
+            <a class="logo" href="#">
+                <span class="logo-mark" aria-hidden="true"></span>
+                AURORA
+            </a>
+
+            <nav class="topnav" aria-label="주요 메뉴">
+                <a href="#" class="topnav-link">홈</a>
+                <a href="#" class="topnav-link">스토어</a>
+                <a href="#" class="topnav-link is-active">마이페이지</a>
+                <a href="#" class="topnav-link">고객센터</a>
+            </nav>
+
+            <div class="topbar-actions">
+                <button class="icon-btn" id="themeToggle" type="button" aria-label="다크 모드 전환">
+                    <svg class="ico ico-sun" viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="12" cy="12" r="4.2" />
+                        <path d="M12 2.6v2.6M12 18.8v2.6M2.6 12h2.6M18.8 12h2.6M5.3 5.3l1.9 1.9M16.8 16.8l1.9 1.9M18.7 5.3l-1.9 1.9M7.2 16.8l-1.9 1.9" />
+                    </svg>
+                    <svg class="ico ico-moon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M20.5 14.6A8.6 8.6 0 0 1 9.4 3.5a8.6 8.6 0 1 0 11.1 11.1Z" />
+                    </svg>
+                </button>
+                <button class="icon-btn" type="button" aria-label="알림">
+                    <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M18 15.6V10a6 6 0 1 0-12 0v5.6L4.5 18h15L18 15.6Z" />
+                        <path d="M10 21h4" />
+                    </svg>
+                    <span class="dot" aria-hidden="true"></span>
+                </button>
+                <button class="mini-avatar" id="topAvatar" type="button" aria-label="내 프로필">수</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="page">
+        <!-- 프로필 헤더 -->
+        <section class="profile-card" aria-labelledby="profileName">
+            <div class="profile-glow" aria-hidden="true"></div>
+            <div class="profile-main">
+                <div class="avatar-wrap">
+                    <div class="avatar" id="profileAvatar">수</div>
+                    <button class="avatar-edit" id="avatarEditBtn" type="button" aria-label="프로필 사진 변경">
+                        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M4 8.5h3l1.4-2.2h7.2L17 8.5h3v9.5H4V8.5Z" />
+                            <circle cx="12" cy="13" r="3.2" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="profile-text">
+                    <div class="profile-name-row">
+                        <h1 id="profileName">김수현</h1>
+                        <span class="badge badge-vip">VIP</span>
+                    </div>
+                    <p class="profile-sub" id="profileEmail">soohyun.kim@aurora.co.kr</p>
+                    <ul class="profile-meta">
+                        <li>
+                            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/>
+                                <circle cx="12" cy="10" r="2.6"/>
+                            </svg>
+                            서울 성동구
+                        </li>
+
+                        <li>
+                            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+                                <circle cx="12" cy="12" r="8.5"/>
+                                <path d="M12 7.5V12l3 2"/>
+                            </svg>
+                            가입 412일
+                        </li>
+
+                        <li>
+                            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.9l-5.2 2.8 1-5.9L3.5 9.7l5.9-.8L12 3.5Z"/>
+                            </svg>
+                            리뷰 27개
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="profile-cta">
+                    <button class="btn btn-primary" id="editProfileBtn" type="button">
+                        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M4 20h4l10-10-4-4L4 16v4Z"/>
+                            <path d="M13.5 6.5l4 4"/>
+                        </svg>
+                        프로필 수정
+                    </button>
+                    <button class="btn btn-ghost" type="button">주문 조회</button>
+                </div>
+            </div>
+
+            <!-- 멤버십 진행도 -->
+            <div class="membership">
+                <div class="membership-head">
+                    <span>다음 등급까지<strong>2,400P</strong></span>
+                    <span class="membership-grade">VIP<em>→</em>VVIP</span>
+                </div>
+                <div class="progress" role="progressbar" aria-valuenow="76" aria-valuemin="0" aria-valuemax="100" aria-label="등급 진행도">
+                    <div class="progress-fill" style= "width: 76%"></div>"
+                </div>
+            </div>
+        </section>
+
+        <!-- 통계 카드 -->
+        <section class="stats" aria-label="활동 요약">
+            <article class="stat-card">
+                <span class="stat-icon i-purple">
+                    <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M5 7.5h14l-1.2 11.2H6.2L5 7.5Z"/>
+                        <path d="M8.5 7.5a3.5 3.5 0 0 1 7 0"/>
+                    </svg>
+                </span>
+                <div class="stat-body">
+                    <p class="stat-label">누적 주문</p>
+                    <p class="stat-value" data-count="128">0</p>
+                </div>
+                <span class="stat-trend up">+12</span>
+            </article>
+
+            <article class="star-card">
+                <span class="stat-icon i-mint">
+                    <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M2.8 8.5h10.4v8H2.8v-8Z"/>
+                        <path d="M13.2 10.5h4l3 3v3h-7"/>
+                        <circle cx="6.5" cy="18" r="1.6"/>
+                        <circle cx="16.5" cy="18" r="1.6"/>
+                    </svg>
+                    <div class="stat-body">
+                        <p class="stat-label">배송 중</p>
+                        <p class="stat-value" data-count="3">0</p>
+                    </div>
+                    <span class="stat-trend">오늘 도착 1</span>
+                </span>
+            </article>
+
+            <article class="stat-card">
+                <span class="star-icon i-pink">
+                    <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="12" cy="12" r="8.5"/>
+                        <path d="M12 8.2v7.6M14.6 9.8c-.5-.9-1.5-1.3-2.6-1.3-1.3 0-2.3.7-2.3 1.8 0 2.6 5.2 1.2 5.2 3.7 0 1.1-1.1 1.8-2.5 1.8-1.2 0-2.2-.5-2.7-1.4"/>
+                    </svg>
+                </span>
+                <div class="stat-body">
+                    <p class="stat-label">보유 포인트</p>
+                    <p class="stat-value" data-count="12600">0</p>
+                </div>
+                <span class="stat-trend up">+800</span>
+            </article>
+
+            <article class="stat-card">
+                <span class="stat-icon i-amber">
+                    <svg class="ico" viewBox="0 0 24 24" aira-hidden="true">
+                        <path d="M4 7.5h16v10H4v-10Z"/>
+                        <path d="M4 11h16"/>
+                        <path d="M8.5 7.5v10"/>
+                    </svg>
+                </span>
+                <div class="stat-body">
+                    <p class="stat-label">사용 가능 쿠폰</p>
+                    <p class="stat-value" data-count="5">0</p>
+                </div>
+            </article>
+        </section>
+
+        <!-- 탭 -->
+        <section class="tabs-card">
+            <div class="tabs" role="tablist" aria-label="마이페이지 탭">
+                <button class="tab is-active" role="tab" id="tab-orders" aria-controls="panel-orders" aria-selected="false" tabindex="-1" data-tab="wish" type="button">찜 목록<span class="tab-count">8</span></button>
+                <button class="tab" role="tab" id="tab-reviews" aria-controls="panel-reviews" aria-selected="false" tabindex="-1" data-tab="reviews" type="button">내 리뷰<span class="tab-count">27</span></button>
+                <button class="tab" role="tab" id="tab-settings" aria-controls="panel-settings" aria-selected="false" tabindes="-1" data-tab="settings" type="button">계정 설정</button>
+            </div>
+
+            <div class="panels">
+
+                <!-- 주문 내역 -->
+                <div class="panel is-active" id="panel-orders" role="tabpanel" aria-labelledby="tab-orders">
+                    <div class="panel-head">
+                        <h2>최근 주문</h2>
+                        <div class="seg" id="orderFilter">
+                            <button class="seg-btn is-active" data-filter="all" type="button">전체</button>
+                            <button class="seg-btn" data-filter="shipping" type="button">배송 중</button>
+                            <button class="seg-btn" data-filter="done" type="button">구매 확정</button>
+                        </div>
+                    </div>
+
+                    <ul class="order-list" id="orderList">
+                        <li class="order-item" data-status="shipping">
+                            <span class="thumb t-1" aria-hidden="true"></span>
+                            <div class="order-info">
+                                <p class="order-name">오로라 무선 이어폰 Pro</p>
+                                <p class="order-meta">2026.09.28 주문 · 주문번호 A-20260928-0041</p>
+                                <p class="order-price">129,000원</p>
+                            </div>
+                            <span class="chip chip-shipping">배송 중</span>
+                            <button class="btn btn-sm btn-ghost" type="button">배송 조회</button>
+                        </li>
+
+                        <li class="order-item" data-status="done">
+                            <span class="thumb t-2" aria-hidden="true"></span>
+                            <div class="order-info">
+                                <p class="order-name">리넨 오버핏 셔츠(아이보리/M)</p>
+                                <p class="order-meta">2026.09.21 주문·주문번호 A-20260921-0088</p>
+                                <p class="order-price">48,000원</p>
+                            </div>
+                            <span class="chip chip-done">구매 확정</span>
+                            <button class="btn btn-sm btn-ghost" type="button">리뷰 쓰기</button>
+                        </li>
+
+                        <li class="order-item" data-status="done">
+                            <span class="thumb t-3" aria-hidden="true"></span>
+                            <div class="order-info">
+                                <p class="order-name">세라믹 머그 2P 세트</p>
+                                <p class="order-meta">2026.09.14 주문·주문번호 A-20260914-0012</p>
+                                <p class="order-price">22,000원</p>
+                            </div>
+                            <span class="chip chip-done">구매 확정</span>
+                            <button class="btn btn-sm btn-ghost" type="button">리뷰 쓰기</button>
+                        </li>
+
+                        <li class="order-item" data-status="shipping">
+                            <span class="thumb t-4" aria-hidden="true"></span>
+                            <div class="order-info">
+                                <p class="order-name">데일리 백팩 18L(차콜)</p>
+                                <p class="order-meta">2026.10.01 주문·주문번호 A-20251001-0007</p>
+                                <p class="order-price">89,000원</p>
+                            </div>
+                            <span class="chip chip-shipping">배송 중</span>
+                            <button class="btn btn-sm btn-ghost" type="button">배송 조회</button>
+                        </li>
+                    </ul>
+                    <p class="empty" id="orderEmpty" hidden>해당 조건의 주문이 없습니다.</p>
+                </div>
+
+                <!-- 찜 목록 -->
+                <div class="panel" id="panel-wish" role="tabpanel" aria-labelledby="tab-wish" hidden>
+                    <div class="panel-head">
+                        <h2>찜한 상품</h2>
+                        <button class="btn btn-sm btn-ghost" type="button">전체 삭제</button>
+                    </div>
+
+                    <div class="wish-grid">
+                        <article class="wish-card">
+                            <div class="wish-thumb w-1"></div>
+                            <button class="heart is-on" type="button" aria-label="찜 해제">
+                                <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M12 20s-7-4.4-7-9.2A3.9 3.9 0 0 1 12 8.4 3.9 3.9 0 0 1 19 10.8C19 15.6 12 20 12 20Z"/>
+                                </svg>
+                            </button>
+                            <h3>오로라 스마트 워치</h3>
+                            <p class="wish-price">249,000원</p>
+                            <span class="wish-stock">재고 있음</span>
+                        </article>
+
+                        <article class="wish-card">
+                            <div class="wish-thumb w-2"></div>
+                            <button class="heart is-on" type="button" aria-label="찜 해제">
+                                <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M12 20s-7-4.4-7-9.2A3.9 3.9 0 0 1 12 8.4 3.9 3.9 0 0 1 19 10.8C19 15.6 12 20 12 20Z"/>
+                                </svg>
+                            </button>
+                            <h3>코튼 후드 직업</h3>
+                            <p class="wish-price">68,000원</p>
+                            <span class="wish-stock">재고 있음</span>
+                        </article>
+
+                        <article class="wish-card">
+                            <div class="wish-thumb w-3"></div>
+                            <button class="heart is-on" type="button" aria-label="찜 해제">
+                                <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M12 20s-7-4.4-7-9.2A3.9 3.9 0 0 1 12 8.4 3.9 3.9 0 0 1 19 10.8C19 15.6 12 20 12 20Z"/>
+                                </svg>
+                            </button>
+                            <h3>우드 사이드 테이블</h3>
+                            <p class="wish-price">132,000원</p>
+                            <span class="wish-stock sold">품절 임박</span>
+                        </article>
+
+                        <article class="wish-card">
+                            <div class="wish-thumb w-4"></div>
+                            <button class="heart is-on" type="button" aria-label="찜 해제">
+                                <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M12 20s-7-4.4-7-9.2A3.9 3.9 0 0 1 12 8.4 3.9 3.9 0 0 1 19 10.8C19 15.6 12 20 12 20Z"/>
+                                </svg>
+                            </button>   
+                            <h3>미니멀 데스크 램프</h3>
+                            <p class="wish-price">54,000원</p>
+                            <span class="wish-stock">재고 있음</span> 
+                        </article>
+                    </div>
+                </div>
+
+                <!-- 내 리뷰 -->
+                <div class="panel" id="panel-reviews" role="tabpanel" aria-labelledby="tab-reviews" hidden>
+                    <div class="panel-head"><h2>작성한 리뷰</h2></div>
+                    <ul class="review-list">
+                        <li class="review-item">
+                            <div class="review-top">
+                                <span class="thumb thumb-sm t-2" aria-hidden="true"></span>
+                                <div>
+                                    <p class="order-name">리넨 오버핏 셔츠</p>
+                                    <div class="stars" aria-label="5점 만점에 5점">
+                                        <span class="star on"></span>
+                                        <span class="star on"></span>
+                                        <span class="star on"></span>
+                                        <span class="star on"></span>
+                                        <span class="star on"></span>
+                                    </div>
+                                </div>
+                                <time class="review-date">2026.09.30</time>
+                            </div>
+                            <p class="review-text">통풍이 잘 되고 핏이 자연스러워서 여름 내내 잘 입었습니다. 세탁 후에도 형태가 그대로예요.</p>
+                            <div class="review-foot">
+                                <span class="helpful">도움됨 12</span>
+                                <button class="btn btn-sm btn-ghost" type="button">수정</button>
+                            </div>
+                        </li>
+
+                        <li class="review-item">
+                            <div class="review-top">
+                                <span class="thumb thumb-sm t-3" aria-hidden="true"></span>
+                                <div>
+                                    <p class="order-name">세라믹 머그 2P 세트</p>
+                                    <div class="stars" aria-label="5점 만점에 4점">
+                                        <span class="star on"></span>
+                                        <span class="star on"></span>
+                                        <span class="star on"></span>
+                                        <span class="star on"></span>
+                                        <span class="star on"></span>
+                                    </div>
+                                </div>
+                                <time class="review-date">2026.09.18</time>
+                            </div>
+                            <p class="review-text">무게감이 좋고 색감이 사진과 거의 같습니다. 다만 손잡이가 조금 얇아서 별 하나는 뺐어요.</p>
+                            <div class="review-foot">
+                                <span class="helpful">도움됨 4</span>
+                                <button class="btn btn-sm btn-ghost" type="button">수정</button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 계정 설정 -->
+                <div class="panel" id="panel-settings" role="tabpanel" aria-labelledby="tab-settings" hidden>
+                    <div class="panel-head"><h2>계정 설정</h2></div>
+
+                    <form class="settings-form" id="settingsForm" novalidate>
+                        <div class="field">
+                            <label for="inpName">이름</label>
+                            <input id="inpName" name="name" type="text" value="김수현" autocomplete="name" />
+                            <p class="field-msg" data-for="inpName"></p>
+                        </div>
+
+                        <div class="field">
+                            <label for="inpEmail">이메일</label>
+                            <input id="inpEmail" name="email" type="email" value="soohyun.kim@aurora.co.kr" autocomplete="email" />
+                            <p class="field-msg" data-for="inpEmail"></p>
+                        </div>
+
+                        <div class="field">
+                            <label for="inpPhone">휴대폰 번호</label>
+                            <input id="inpPhone" name="phone" type="tel" value="010-2841-7730" placeholder="010-0000-0000" autocomplete="tel" />
+                            <p class="field-msg" data-for="inpPhone"></p>
+                        </div>
+
+                        <div class="field">
+                            <label for="inpPw">새 비밀번호</label>
+                            <input id="inpPw" name="password" type="password" placeholder="8자 이상, 영문 + 숫자 조합" autocomplete="new-password" />
+                            <p class="field-msg" data-for="inpPw"></p>
+                        </div>
+
+                        <div class="field field-full">
+                            <span class="label">알림 설정</span>
+                            <div class="switch-row">
+                                <label class="switch">
+                                    <input type="checkbox" checked />
+                                    <span class="slider" aria-hidden="true"></span>
+                                    <span class="switch-text">주문·배송 알림</span>
+                                </label>
+
+                                <label class="switch">
+                                    <input type="checkbox" checked />
+                                    <span class="slider" aria-hidden="true"></span>
+                                    <span class="switch-text">혜택·이벤트 알림</span>
+                                </label>
+
+                                <label class="switch">
+                                    <input type="checkbox" />
+                                    <span class="slider" aria-hidden="true"></span>
+                                    <span class="switch-text">야간 알림(21시 이후)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn btn-primary" type="submit">변경 사항 저장</button>
+                            <button class="btn btn-ghost" type="reset">되돌리기</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <footer class="foot">© 2026 AURORA Inc. · 마이페이지 시안 (데모 데이터)</footer>
+    </main>
+
+    <!-- 프로필 수정 모달 -->
+    <div class="modal-backdrop" id="modal" hidden>
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            
+            <div class="modal-head">
+                <h2 id="modalTitle">프로필 수정</h2>
+                
+                <button class="icon-btn" id="modalClose" type="button" aria-label="닫기">
+                    <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M6 6l12 12M18 6L6 18"/>
+                    </svg>
+                </button>
+            </div>
+
+            <form id="modalForm" novalidate>
+                <div class="field">
+                    <label for="mName">이름</label>
+                    <input id="mName" type="text" value="김수현" />
+                    <p class="field-msg" data-for="mName"></p>
+                </div>
+
+                <div class="field">
+                    <label for="mEmail">이메일</label>
+                    <input id="mEmail" type="email" value="soohyun.kim@aurora.co.kr" />
+                    <p class="field-msg" data-for="mEmail"></p>
+                </div>
+
+                <div class="field">
+                    <label for="mBio">한 줄 소개</label>
+                    <textarea id="mBio" rows="3">미니멀한 일상을 좋아합니다.</textarea>
+                </div>
+
+                <div class="modal-actions">
+                    <button class="btn btn-ghost" type="button" id="modalCancel">취소</button>
+                    <button class="btn btn-primary" type="submit">저장</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="./script.js" defer></script>
+</body>
+</html>

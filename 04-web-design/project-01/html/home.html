@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SHOPLY | 오늘의 발견 | Genspark</title>
+    
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/layout.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/pages/home.css" />
+    <link rel="stylesheet" href="../css/pages/mypage.css" />
+    <link rel="stylesheet" href="../css/pages/orders.css" />
+    <link rel="stylesheet" href="../css/pages/wish.css" />
+    <link rel="stylesheet" href="../css/pages/coupons.css" />
+    <link rel="stylesheet" href="../css/pages/points.css" />
+    <link rel="stylesheet" href="../css/pages/settings.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+    <!-- 상단 공지 -->
+    <div class="promo-bar">
+        <p>🎉 신규 가입 즉시 <b>3,000원 쿠폰</b> 지급 · 첫 구매 무료배송</p>
+        <button aria-label="공지 닫기">✕</button>
+    </div>
+
+    <!-- 헤더 -->
+    <header class="site-header">
+        <div class="wrap site-header__row">
+            <a class="logo" href="#">SHOPLY</a>
+
+            <form class="search" role="search" onsubmit="return false">
+                <span class="search__ic">🔍</span>
+                <input type="search" placeholder="찾고 있는 상품을 검색해 보세요" aria-label="상품 검색" />
+                <button class="search__btn" type="submit">검색</button>
+            </form>
+
+            <div class="header-acts">
+                <a class="hact" href="./mypage.html">
+                    <span class="hact__ic">👤</span>
+                    <span class="hact__tx">마이페이지</span>
+                </a>
+                <a class="hact" href="#">
+                    <span class="hact__ic">❤️<i class="hact__dot"></i></span>
+                    <span class="hact__tx">찜<b>12</b></span>
+                </a>
+                <a class="hact" href="#">
+                    <span class="hact__ic">🛒<i class="hact__dot"></i></span>
+                    <span class="hact__tx">장바구니 <b>3</b></span>
+                </a>
+            </div>
+
+            <button class="hamb" id="hamb" aria-label="메뉴"><span></span><span></span><span></span></button>
+        </div>
+
+        <!-- GNB -->
+        <nav class="gnb">
+            <div class="wrap gnb__row">
+                <!-- [연결①] JS가 id="gnbAllBtn"으로 찾아 click 이벤트 연결 / [연결②] aria-controls가 아래 목록 id를 가리킴 -->
+                <button class="gnb__all" id="gnbAllBtn" type="button" aria-expanded="false" aria-controls="gnbAllMenu">☰ 전체 카테고리</button>
+                <a class="gnb__item is-active" href="#">홈</a>
+                <a class="gnb__item" href="#">베스트</a>
+                <a class="gnb__item" href="#">신상품</a>
+                <a class="gnb__item" href="#">기획전</a>
+                <a class="gnb__item" href="#">브랜드</a>
+                <a class="gnb__item" href="#">이벤트</a>
+                <a class="gnb__item gnb__item--hot" href="#">오늘의 특가 🔥</a>
+                <a class="gnb__item gnb__item--end" href="./mypage.html">마이페이지</a>
+            </div>
+
+            <!-- 전체 카테고리 목록 -->
+            <!-- [연결②] JS가 id="gnbAllMenu"로 찾음 / [연결③] JS가 .is-open을 붙이면 CSS가 목록을 보여줌 -->
+            <div class="wrap gnb__menu" id="gnbAllMenu">
+                <ul class="gnb__menu-list">
+                    <li><a class="gnb__menu-link" href="#"><span>📱</span>디지털</a></li>
+                    <li><a class="gnb__menu-link" href="#"><span>👕</span>패션</a></li>
+                    <li><a class="gnb__menu-link" href="#"><span>💄</span>뷰티</a></li>
+                    <li><a class="gnb__menu-link" href="#"><span>🏠</span>리빙</a></li>
+                    <li><a class="gnb__menu-link" href="#"><span>🍳</span>주방</a></li>
+                    <li><a class="gnb__menu-link" href="#"><span>👟</span>스포츠</a></li>
+                    <li><a class="gnb__menu-link" href="#"><span>📚</span>도서</a></li>
+                    <li><a class="gnb__menu-link" href="#"><span>🎁</span>선물</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="wrap main">
+
+        <!-- 히어로 -->
+        <section class="hero">
+            <div class="hero__copy">
+                <span class="hero__tag">10월 한정 기획전</span>
+                <h1>가을을 담은<br /><em>새로운 쇼핑</em>의 시작</h1>
+                <p>프리미엄 브랜드 최대 <b>70% 할인</b> · 오늘 밤 12시까지</p>
+                <div class="hero__btns">
+                    <a class="home-btn home-btn--light" href="#">기획전 둘러보기</a>
+                    <a class="home-btn home-btn--line" href="#">신규 혜택 보기</a>
+                </div>
+                <ul class="hero__dots">
+                    <li class="is-on"></li><li></li><li></li>
+                </ul>
+            </div>
+            <div class="hero__art">
+                <div class="art-card art-card--a"><span>🎧</span><b>노이즈캔슬링</b><small>199,000원</small></div>
+                <div class="art-card art-card--b"><span>🧥</span><b>울 혼방 코트</b><small>190,400원</small></div>
+                <div class="art-badge"><b>70%</b><small>OFF</small></div>
+            </div>
+        </section>
+
+        <!-- 카테고리 -->
+        <section class="cats">
+            <a class="cat" href="#"><span class="cat__ic">📱</span><span>디지털</span></a>
+            <a class="cat" href="#"><span class="cat__ic">👕</span><span>패션</span></a>
+            <a class="cat" href="#"><span class="cat__ic">💄</span><span>뷰티</span></a>
+            <a class="cat" href="#"><span class="cat__ic">🏠</span><span>리빙</span></a>
+            <a class="cat" href="#"><span class="cat__ic">🍳</span><span>주방</span></a>
+            <a class="cat" href="#"><span class="cat__ic">👟</span><span>스포츠</span></a>
+            <a class="cat" href="#"><span class="cat__ic">📚</span><span>도서</span></a>
+            <a class="cat" href="#"><span class="cat__ic">🎁</span><span>선물</span></a>
+        </section>
+
+        <!-- 프로모 배너 -->
+        <section class="banner-row">
+            <a class="banner banner--mint" href="#">
+                <div>
+                    <span class="banner__tag">무료배송</span>
+                    <h3>첫 구매 고객<br />배송비 0원</h3>
+                    <p>3만원 이상 구매 시 자동 적용</p>
+                </div>
+                <span class="banner__ic">🚚</span>
+            </a>
+            <a class="banner banner--amber" href="#">
+                <div>
+                    <span class="banner__tag">멤버십</span>
+                    <h3>VIP 등급 달성 시<br />최대 5% 적립</h3>
+                    <p>이번 달 15,600원 적립 예정</p>
+                </div>
+                <span class="banner__ic">💎</span>
+            </a>
+            <a class="banner banner--violet" href="#">
+                <div>
+                    <span class="banner__tag">출석체크</span>
+                    <h3>매일 출석하고<br />포인트 받기</h3>
+                    <p>연속 7일 1,000P 지급</p>
+                </div>
+                <span class="banner__ic">📅</span>
+            </a>
+        </section>
+
+        <!-- 추천 상품 -->
+        <section class="section">
+            <div class="section__head">
+                <div>
+                    <h2>오늘의 추천 상품</h2>
+                    <p>고객님의 관심사에 맞춰 골라봤어요</p>
+                </div>
+                <a class="more" href="#">전체 보기 →</a>
+            </div>
+
+            <div class="goods">
+
+                <!-- 1 -->
+                <article class="goods-card">
+                    <a class="goods-card__img" href="#">
+                        <span class="g-emoji">🎧</span>
+                        <span class="g-badge g-badge--best">BEST</span>
+                        <button class="g-like" aria-label="찜하기">♡</button>
+                    </a>
+                    <div class="goods-card__body">
+                        <p class="g-brand">SOUNDLAB</p>
+                        <a class="g-name" href="#">무선 노이즈캔슬링 헤드폰</a>
+                        <p class="g-price"><span class="g-rate">38%</span><b>199,000원</b></p>
+                        <p class="g-meta">★ 4.8 (2,341) · 무료배송</p>
+                    </div>
+                </article>
+
+                <!-- 2 -->
+                <article class="goods-card">
+                    <a class="goods-card__img" href="#">
+                        <span class="g-emoji">👕</span>
+                        <span class="g-badge g-badge--new">NEW</span>
+                        <button class="g-like" aria-label="찜하기">♡</button>
+                    </a>
+                    <div class="goods-card__body">
+                        <p class="g-brand">MODEWORK</p>
+                        <a class="g-name" href="#">오버사이즈 코튼 셔츠</a>
+                        <p class="g-price"><span class="g-rate">20%</span><b>31,840원</b></p>
+                        <p class="g-meta">★ 4.6 (890) · 무료배송</p>
+                    </div>
+                </article>
+
+                <!-- 3 -->
+                <article class="goods-card">
+                    <a class="goods-card__img" href="#">
+                        <span class="g-emoji">⌚</span>
+                        <button class="g-like" aria-label="찜하기">♡</button>
+                    </a>
+                    <div class="goods-card__body">
+                        <p class="g-brand">TECHFIT</p>
+                        <a class="g-name" href="#">스마트 워치 밴드 세트</a>
+                        <p class="g-price"><span class="g-rate">15%</span><b>50,150원</b></p>
+                        <p class="g-meta">★ 4.7 (1,204) · 무료배송</p>
+                    </div>
+                </article>
+
+                <!-- 4 -->
+                <article class="goods-card">
+                    <a class="goods-card__img" href="#">
+                        <span class="g-emoji">🎒</span>
+                        <button class="g-like" aria-label="찜하기">♡</button>
+                    </a>
+                    <div class="goods-card__body">
+                        <p class="g-brand">DAILYSTEP</p>
+                        <a class="g-name" href="#">데일리 백팩 20L</a>
+                        <p class="g-price"><b>89,000원</b></p>
+                        <p class="g-meta">★ 4.9 (3,118) · 무료배송</p>
+                    </div>
+                </article>
+
+                <!-- 5 -->
+                <article class="goods-card">
+                    <a class="goods-card__img" href="#">
+                        <span class="g-emoji">🥤</span>
+                        <span class="g-badge g-badge--best">BEST</span>
+                        <button class="g-like" aria-label="찜하기">♡</button>
+                    </a>
+                    <div class="goods-card__body">
+                        <p class="g-brand">HOMEFIT</p>
+                        <a class="g-name" href="#">텀블러 500ml 2개 세트</a>
+                        <p class="g-price"><span class="g-rate">25%</span><b>31,500원</b></p>
+                        <p class="g-meta">★ 4.5 (642) · 무료배송</p>
+                    </div>
+                </article>
+
+                <!-- 6 -->
+                <article class="goods-card">
+                    <a class="goods-card__img" href="#">
+                        <span class="g-emoji">🧥</span>
+                        <span class="g-badge g-badge--new">NEW</span>
+                        <button class="g-like" aria-label="찜하기">♡</button>
+                    </a>
+                    <div class="goods-card__body">
+                        <p class="g-brand">MODEWORK</p>
+                        <a class="g-name" href="#">울 혼방 오버핏 코트</a>
+                        <p class="g-price"><span class="g-rate">20%</span><b>190,400원</b></p>
+                        <p class="g-meta">★ 4.8 (410) · 무료배송</p>
+                    </div>
+                </article>
+
+                <!-- 7 -->
+                <article class="goods-card">
+                    <a class="goods-card__img" href="#">
+                        <span class="g-emoji">🔊</span>
+                        <button class="g-like" aria-label="찜하기">♡</button>
+                    </a>
+                    <div class="goods-card__body">
+                        <p class="g-brand">SOUNDLAB</p>
+                        <a class="g-name" href="#">블루투스 스피커 미니</a>
+                        <p class="g-price"><span class="g-rate">20%</span><b>79,200원</b></p>
+                        <p class="g-meta">★ 4.4 (288) · 무료배송</p>
+                    </div>
+                </article>
+
+                <!-- 8 -->
+                <article class="goods-card">
+                    <a class="goods-card__img" href="#">
+                        <span class="g-emoji">👟</span>
+                        <button class="g-like" aria-label="찜하기">♡</button>
+                    </a>
+                    <div class="goods-card__body">
+                        <p class="g-brand">DAILTSTEP</p>
+                        <a class="g-name" href="#">경량 러닝화</a>
+                        <p class="g-price"><b>118,000원</b></p>
+                        <p class="g-meta">★ 4.7 (1,530) · 무료배송</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- 랭킹 + 기획전 -->
+        <section class="split">
+            <div class="rank">
+                <div class="section__head">
+                    <div><h2>실시간 랭킹</h2><p>지금 가장 많이 담긴 상품</p></div>
+                    <a class="more" href="#">더보기 →</a>
+                </div>
+                <ol class="rank__list">
+                    <li>
+                        <span class="rank__no">1</span><span class="rank__ic">🎧</span>
+                        <div><p>무선 노이즈캔슬링 헤드폰</p><small>199,000원</small></div><b class="rank__up">▲ 2</b>
+                    </li>
+                    <li>
+                        <span class="rank__no">2</span><span class="rank__ic">🎒</span>
+                        <div><p>데일리 백팩 20L</p><small>89,000원</small></div><b class="rank__up">▲ 1</b>
+                    </li>
+                    <li>
+                        <span class="rank__no">3</span><span class="rank__ic">🧥</span>
+                        <div><p>울 혼방 오버핏 코트</p><small>190,400원</small></div><b class="rank__down">▼ 1</b>
+                    </li>
+                    <li>
+                        <span class="rank__no">4</span><span class="rank__ic">👟</span>
+                        <div><p>경량 러닝화</p><small>118,000원</small></div><b class="rank__same">-</b>
+                    </li>
+                    <li>
+                        <span class="rank__no">5</span><span class="rank__ic">🥤</span>
+                        <div><p>텀블러 500ml 2개 세트</p><small>31,500원</small></div><b class="rank__up">▲ 4</b>
+                    </li>
+                </ol>
+            </div>
+
+            <a class="feature" href="#">
+                <span class="feature__tag">단독 기획</span>
+                <h3>SHOPLY × SOUNDLAB<br />사운드 페스티벌</h3>
+                <p>오디오 전 품목 최대 45% 할인<br />+ 12개월 무이자 할부</p>
+                <span class="feature__btn">지금 만나보기</span>
+                <span class="feature__art">🎧</span>
+            </a>
+        </section>
+
+        <!-- 혜택 -->
+        <section class="perks">
+            <div class="perk"><span>🚚</span><div><b>무료배송</b><p>3만원 이상 구매 시</p></div></div>
+            <div class="perk"><span>↩️</span><div><b>30일 반품</b><p>받은 날부터 30일</p></div></div>
+            <div class="perk"><span>💰</span><div><b>최대 5% 적립</b><p>등급별 포인트 적립</p></div></div>
+            <div class="perk"><span>🎁</span><div><b>매일 쿠폰</b><p>출석체크 &amp; 이벤트</p></div>
+        </section>
+
+        <!-- 뉴스레터 -->
+        <section class="news">
+            <div>
+                <h3>매주 목요일, 새로 나온 상품만 모아서</h3>
+                <p>이메일을 남겨주시면 기획전 소식을 가장 먼저 알려드려요.</p>
+            </div>
+            <form class="news__form" onsubmit="return false">
+                <input type="email" placeholder="이메일 주소를 입력하세요" aria-label="이메일 주소" />
+                <button class="home-btn home-bnt--primary" type="submit">구독하기</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- 푸터 -->
+    <footer class="site-footer">
+        <div class="wrap">
+            <div class="footer__top">
+                <div class="footer__brand">
+                    <p class="footer__logo">SHOPLY</p>
+                    <p class="footer__desc">취향에 맞는 상품을 가장 빠르게 발견하는 쇼핑 플랫폼.</p>
+                    <p class="footer__cs">고객센터<b>1588-0000</b><br /><small>평일 09:00 - 18:00 (주말·공휴일 휴무)</small></p>
+                </div>
+                <nav class="footer__cols">
+                <div>
+                    <p class="footer__h">쇼핑</p>
+                    <a href="#">베스트</a><a href="#">신상품</a><a href="#">기획전</a><a href="#">브랜드</a>
+                </div>
+                <div>
+                    <p class="footer__h">마이페이지</p>
+                    <a href="#">주문/배송 조회</a><a href="#">찜한 상품</a><a href="#">쿠폰함</a><a href="#">회원정보 수정</a>
+                </div>
+                <div>
+                    <p class="footer__h">고객지원</p>
+                    <a href="#">공지사항</a><a href="#">자주 묻는 질문</a><a href="#">1:1 문의</a><a href="#">반품/교환</a>
+                </div>
+                <div>
+                    <p class="footer__h">회사</p>
+                    <a href="#">회사 소개</a><a href="#">채용</a><a href="#">입점 문의</a><a href="#">이용약관</a>
+                </div>
+            </nav>
+        </div>
+            
+        <div class="footer__bottom">
+            <p>㈜쇼플리 · 서울특별시 강남구 테헤란로 000 · 사업자등록번호 000-00-00000 · 통신판매업 신고 2026-서울강남-0000</p>
+            <p class="copy">© 2026 SHOPLY. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/common.js"></script>
+    <script src="../js/pages/home.js"></script>
+</body>
+</html>
