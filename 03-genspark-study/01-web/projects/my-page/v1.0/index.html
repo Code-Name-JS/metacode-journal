@@ -94,13 +94,6 @@
 
             <!-- 요약 카드 -->
             <section class="cards">
-                <article class="card card--point">
-                    <div class="card__top"><span>보유 포인트</span><span class="card__ic">💰</span></div>
-                    <strong class="card__value">128,500<small>P</small></strong>
-                    <p class="card__sub">7일 내 소멸 예정<b>1,200P</b></p>
-                    <button class="card__btn" data-tab-jump="point">내역 보기</button>
-                </article>
-
                 <article class="card card--order">
                     <div class="card__top"><span>배송 중</span><span class="card__ic">🚚</span></div>
                     <strong class="card__value">2<small>건</small></strong>
@@ -114,6 +107,20 @@
                     <p class="card__sub">가격 하락 알림 <b>3개</b></p>
                     <button class="card__btn" data-tab-jump="wish">목록 보기</button>
                 </article>
+
+                <article class="card card--coupon">
+                    <div class="card__top"><span>사용 가능 쿠폰</span><span class="card__ic">🎁</span></div>
+                    <strong class="card__value">7<small>장</small></strong>
+                    <p class="card__sub">이번 주 만료 <b>2장</b></p>
+                    <button class="card__btn" data-tab-jump="coupon">쿠폰함 가기</button>
+                </article>
+
+                <article class="card card--point">
+                    <div class="card__top"><span>보유 포인트</span><span class="card__ic">💰</span></div>
+                    <strong class="card__value">128,500<small>P</small></strong>
+                    <p class="card__sub">7일 내 소멸 예정 <b>1,200P</b></p>
+                    <button class="card__btn" data-tab-jump="point">내역 보기</button>
+                </article>
             </section>
 
             <!-- 탭 -->
@@ -121,6 +128,8 @@
                 <div class="tabs" role="tablist">
                     <button class="tab is-active" role="tab" data-tab="orders">주문내역</button>
                     <button class="tab" role="tab" data-tab="wish">찜한 상품</button>
+                    <button class="tab" role="tab" data-tab="coupon">쿠폰</button>
+                    <button class="tab" role="tab" data-tab="point">포인트</button>
                     <button class="tab" role="tab" data-tab="profile">회원정보 수정</button>
                     <button class="tab" role="tab" data-tab="settings">설정</button>
                     
@@ -151,6 +160,81 @@
                     </div>
 
                     <div class="wish" id="wishList"><!-- JS 렌더 --></div>
+                </div>
+
+                <!-- 쿠폰 -->
+                <div class="tabpane" id="pane-coupon" role="tabpanel">
+                    <div class="pane__head"><h2>쿠폰함 <span class="muted">이번 주 만료 2장</span></h2></div>
+
+                    <ul class="coupon">
+                        <li class="coupon-item">
+                            <div class="coupon-item__value">3,000<small>원 할인</small></div>
+                            <div class="coupon-item__info">
+                                <p class="coupon-item__name">신규 회원 감사 쿠폰</p>
+                                <p class="coupon-item__cond">30,000원 이상 구매 시</p>
+                                <p class="coupon-item__date coupon-item__date--soon">2026.10.07 만료 · D-3</p>
+                            </div>
+                        </li>
+
+                        <li class="coupon-item">
+                            <div class="coupon-item__value">10<small>% 할인</small></div>
+                            <div class="coupon-item__info">
+                                <p class="coupon-item__name">VIP 전용 할인 쿠폰</p>
+                                <p class="coupon-item__cond">최대 20,000원 할인</p>
+                                <p class="coupon-item__date coupon-item__date--soon">2026.10.09 만료 · D-5</p>
+                            </div>
+                        </li>
+
+                        <li class="coupon-item">
+                            <div class="coupon-item__value">무료<small>배송</small></div>
+                            <div class="coupon-item__info">
+                                <p class="coupon-item__name">무료배송 쿠폰</p>
+                                <p class="coupon-item__cond">금액 제한 없음</p>
+                                <p class="coupon-item__date">2026.10.31 만료</p>
+                            </div>
+                        </li>
+
+                        <li class="coupon-item">
+                            <div class="coupon-item__value">5,000<small>원 할인</small></div>
+                            <div class="coupon-item__info">
+                                <p class="coupon-item__name">리뷰 작성 보상 쿠폰</p>
+                                <p class="coupon-item__cond">50,000원 이상 구매 시</p>
+                                <p class="coupon-item__date">2026.11.15 만료</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 포인트 -->
+                <div class="tabpane" id="pane-point" role="tabpanel">
+                    <div class="pane__head"><h2>포인트 내역 <span class="muted">7일 내 소멸 예정 1,200P</span></h2></div>
+
+                    <div class="point-summary">
+                        <span>보유 포인트</span>
+                        <strong>128,500<small>P</small></strong>
+                    </div>
+
+                    <ul class="point">
+                        <li class="point-item">
+                            <div><strong>구매 확정 적립</strong><p>2026.10.01 · 스마트 워치 밴드 세트</p></div>
+                            <span class="point-item__amount point-item__amount--plus">+590P</span>
+                        </li>
+
+                        <li class="point-item">
+                            <div><strong>포인트 사용</strong><p>2026.09.29 · 오버사이즈 코튼 셔츠</p></div>
+                            <span class="point-item__amount point-item__amount--minus">-3,000P</span>
+                        </li>
+
+                        <li class="point-item">
+                            <div><strong>리뷰 작성 적립</strong><p>2026.09.25 · 포토 리뷰</p></div>
+                            <span class="point-item__amount point-item__amount--plus">+500P</span>
+                        </li>
+
+                        <li class="point-item">
+                            <div><strong>소멸 예정</strong><p>2026.10.08 소멸</p></div>
+                            <span class="point-item__amount point-item__amount--minus">-1,200P</span>
+                        </li>
+                    </ul>
                 </div>
 
                 <!-- 회원정보 수정 -->
