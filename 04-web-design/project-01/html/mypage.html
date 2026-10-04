@@ -51,7 +51,7 @@
                 <a class="nav__item" href="reviews.html"><span class="ic">✍️</span>리뷰 관리 <b class="badge badge--warn">3</b></a>
 
                 <p class="nav__label">혜택</p>
-                <a class="nav__item" href="coupons.html"><span class="ic">🎁</span>쿠폰함</a>
+                <a class="nav__item" href="coupons.html"><span class="ic">🎁</span>쿠폰함 <b class="badge" data-coupon-count>0</b></a>  <!-- [연결⑱] -->
                 <a class="nav__item" href="points.html"><span class="ic">💰</span>포인트</a>
                 <a class="nav__item" href="membership.html"><span class="ic">💳</span>멤버십 등급</a>
 
@@ -120,8 +120,8 @@
 
                 <article class="card card--coupon">
                     <div class="card__top"><span>사용 가능 쿠폰</span><span class="card__ic">🎁</span></div>
-                    <strong class="card__value">7<small>장</small></strong>
-                    <p class="card__sub">이번 주 만료 <b>2장</b></p>
+                    <strong class="card__value"><span data-coupon-count>0</span><small>장</small></strong>  <!-- [연결⑱] -->
+                    <p class="card__sub">이번 주 만료 <b><span data-coupon-soon>0</span>장</b></p>          <!-- [연결⑲] -->
                     <button class="card__btn" data-tab-jump="coupon">쿠폰함 가기</button>
                 </article>
 
@@ -182,45 +182,14 @@
 
                 <!-- 쿠폰 -->
                 <div class="tabpane" id="pane-coupon" role="tabpanel">
-                    <div class="pane__head"><h2>쿠폰함 <span class="muted">이번 주 만료 2장</span></h2></div>
+                    <div class="pane__head">
+                        <!-- [연결⑱][연결⑲] common.js renderCouponCount()가 숫자를 넣음 -->
+                        <h2>쿠폰함 <span class="muted">보유 <span data-coupon-count>0</span>장 · 이번 주 만료 <span data-coupon-soon>0</span>장</span></h2>
+                        <a class="btn btn--ghost" href="./new.html#benefits" id="couponMore">신규 쿠폰 받으러 가기</a>  <!-- [연결⑳] 다 받으면 숨김 -->
+                    </div>
 
-                    <ul class="coupon">
-                        <li class="coupon-item">
-                            <div class="coupon-item__value">3,000<small>원 할인</small></div>
-                            <div class="coupon-item__info">
-                                <p class="coupon-item__name">신규 회원 감사 쿠폰</p>
-                                <p class="coupon-item__cond">30,000원 이상 구매 시</p>
-                                <p class="coupon-item__date coupon-item__date--soon">2026.10.07 만료 · D-3</p>
-                            </div>
-                        </li>
-
-                        <li class="coupon-item">
-                            <div class="coupon-item__value">10<small>% 할인</small></div>
-                            <div class="coupon-item__info">
-                                <p class="coupon-item__name">VIP 전용 할인 쿠폰</p>
-                                <p class="coupon-item__cond">최대 20,000원 할인</p>
-                                <p class="coupon-item__date coupon-item__date--soon">2026.10.09 만료 · D-5</p>
-                            </div>
-                        </li>
-
-                        <li class="coupon-item">
-                            <div class="coupon-item__value">무료<small>배송</small></div>
-                            <div class="coupon-item__info">
-                                <p class="coupon-item__name">무료배송 쿠폰</p>
-                                <p class="coupon-item__cond">금액 제한 없음</p>
-                                <p class="coupon-item__date">2026.10.31 만료</p>
-                            </div>
-                        </li>
-
-                        <li class="coupon-item">
-                            <div class="coupon-item__value">5,000<small>원 할인</small></div>
-                            <div class="coupon-item__info">
-                                <p class="coupon-item__name">리뷰 작성 보상 쿠폰</p>
-                                <p class="coupon-item__cond">50,000원 이상 구매 시</p>
-                                <p class="coupon-item__date">2026.11.15 만료</p>
-                            </div>
-                        </li>
-                    </ul>
+                    <ul class="coupon" id="couponList"><!-- JS 렌더 (common.js getMyCoupons) --></ul>  <!-- [연결㉑] coupons.js -->
+                    <p class="empty" id="couponEmpty" hidden>사용 가능한 쿠폰이 없어요 🎟️</p>
                 </div>
 
                 <!-- 포인트 -->
@@ -357,6 +326,7 @@
     <script src="../js/common.js"></script>
     <script src="../js/pages/orders.js"></script>
     <script src="../js/pages/wish.js"></script>
+    <script src="../js/pages/coupons.js"></script>
     <script src="../js/pages/account.js"></script>
     <script src="../js/pages/mypage.js"></script>
 </body>

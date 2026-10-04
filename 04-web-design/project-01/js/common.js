@@ -78,6 +78,35 @@ renderWishCount();
 renderCartCount();
 
 
+/* -- 쿠폰 (new · mypage 공통) -- */
+const DAY = 24 * 60 * 60 * 1000;
+const startOfDay = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate());
+
+// 지금 쓸 수 있는 내 쿠폰 = 기본 쿠폰 + 받은 쿠폰 (만료된 건 빼고, 만료 임박 순)
+// [{ key, name, value, unit, cond, end(만료일), dday(남은 날), isNew(new.html에서 받음) }]
+function getMyCoupons() {
+    const today = startOfDay(new Date());
+
+    // "2026-10-09"만 넣으면 UTC 기준으로 읽혀 하루가 밀릴 수 있음 → 시각을 붙여 내 컴퓨터 시간 기준으로
+    const base = BASE_COUPONS.map((key) => ({ key, end: new Date(COUPON_INFO[key].until + "T00:00:00"), isNew: false }));
+    const issued = ISSUED_COUPONS.map((c) => ({ key: c.key, end: startOfDay(new Date(c.at + COUPON_INFO[c.key].days * DAY)), isNew: true }));
+
+    return [...base, ...issued]
+        .map((c) => ({ ...COUPON_INFO[c.key], ...c, dday: Math.round((startOfDay(c.end) - today) / DAY) }))
+        .filter((c) => c.dday >= 0)
+        .sort((a, b) => a.end - b.end);
+}
+
+// 쿠폰 장수 — 마이페이지 요약 카드 · 쿠폰 탭 제목 · 사이드바가 같은 숫자를 보여줌
+function renderCouponCount() {
+    const mine = getMyCoupons();
+    $$("[data-coupon-count]").forEach((el) => (el.textContent = mine.length));                          // [연결⑱] 보유 장수
+    $$("[data-coupon-soon]").forEach((el) => (el.textContent = mine.filter((c) => c.dday <= 7).length)); // [연결⑲] 7일 안에 만료
+}
+
+renderCouponCount();
+
+
 /* -- 장바구니 담기 (home · best · wish · mypage 공통) -- */
 // 이미 담긴 상품이면 수량 +1, 없으면 새로 추가 → 저장 · 담기 횟수 +1 · 헤더 숫자
 // 담기 횟수(ADDS)는 장바구니와 따로 저장 → cart.html에서 지워도 랭킹 숫자는 그대로

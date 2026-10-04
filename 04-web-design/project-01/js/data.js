@@ -129,3 +129,38 @@ function saveWish() {
 }
 
 const WISH_IDS = loadWish();
+
+// 쿠폰 — "어떤 쿠폰인지(정보)"와 "내가 가진 쿠폰(보유)"을 나눠 둠
+// 키 ↔ new.html의 data-coupon 값 (welcome · new10) [연결③]
+// days: 받은 날부터 며칠 동안 쓸 수 있는지 / until: 정해진 만료일
+const COUPON_INFO = {
+    welcome:  { name: "신규 가입 감사 쿠폰",  value: "3,000", unit: "원 할인", cond: "30,000원 이상 구매 시",         days: 30 },
+    new10:    { name: "신상품 10% 할인 쿠폰", value: "10",    unit: "% 할인",  cond: "최대 10,000원 · 신상품 전용",   days: 7 },
+    vip10:    { name: "VIP 전용 할인 쿠폰",   value: "10",    unit: "% 할인",  cond: "최대 20,000원 할인",            until: "2026-10-09" },
+    freeship: { name: "무료배송 쿠폰",        value: "무료",  unit: "배송",    cond: "금액 제한 없음",                until: "2026-10-31" },
+    review:   { name: "리뷰 작성 보상 쿠폰",  value: "5,000", unit: "원 할인", cond: "50,000원 이상 구매 시",         until: "2026-11-15" }
+};
+
+// 처음부터 가지고 있던 쿠폰 (원래 마이페이지 쿠폰함에 있던 것)
+const BASE_COUPONS = ["vip10", "freeship", "review"];
+
+// new.html에서 받은 쿠폰 — [{ key: "welcome", at: 받은 시각(ms) }]
+const COUPON_KEY = "shoply-coupons";
+
+function loadCoupons() {
+    try {
+        const saved = JSON.parse(localStorage.getItem(COUPON_KEY));
+        if (Array.isArray(saved)) {
+            return saved
+                .map((c) => (typeof c === "string" ? { key: c, at: Date.now() } : c))  // 예전 형식("welcome")도 읽기
+                .filter((c) => COUPON_INFO[c.key]);
+        }
+    } catch (e) { }
+    return [];
+}
+
+function saveCoupons() {
+    try { localStorage.setItem(COUPON_KEY, JSON.stringify(ISSUED_COUPONS)); } catch (e) { }
+}
+
+const ISSUED_COUPONS = loadCoupons();

@@ -25,6 +25,13 @@
 .coupon-item__date { font-size: 12px; color: var(--text-2); margin-top: 8px; }
 .coupon-item__date--soon { color: var(--rose); font-weight: 700; }
 
+/* new.html에서 받은 쿠폰 — coupons.js가 li에 is-new를 붙임 */
+.coupon-item.is-new { border-color: #a7f3d0; }
+.coupon-item.is-new .coupon-item__value { background: #ecfdf5; color: var(--mint); border-right-color: #a7f3d0; }
+.coupon-item__new {
+   display: inline-block; margin-left: 4px; padding: 1px 7px; border-radius: 999px; vertical-align: 2px;
+   background: var(--mint); color: #fff; font-size: 10.5px; font-weight: 800; letter-spacing: .04em;
+}
 
 @media (max-width: 860px) {
    .coupon { grid-template-columns: 1fr; }

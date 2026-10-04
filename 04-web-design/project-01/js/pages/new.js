@@ -105,57 +105,46 @@
 
 
     /* -- 신규 쿠폰 받기 --
-       받은 쿠폰 이름을 localStorage에 저장 → 새로고침해도 "받기 완료" 유지 */
-    const COUPON_KEY = "shoply-coupons";
-    const COUPON_NAME = { welcome: "신규 가입 3,000원 쿠폰", new10: "신상품 10% 할인 쿠폰" };
+       받은 쿠폰은 data.js ISSUED_COUPONS(localStorage)에 저장 → 마이페이지 쿠폰함에 그대로 나타남 */
+    const has = (key) => ISSUED_COUPONS.some((c) => c.key === key);
 
-    function loadCoupons() {
-        try {
-            const saved = JSON.parse(localStorage.getItem(COUPON_KEY));
-            if (Array.isArray(saved)) return saved;
-        } catch (e) { }
-        return [];
-    }
-    const got = loadCoupons();
-
-    function saveCoupons() {
-        try { localStorage.setItem(COUPON_KEY, JSON.stringify(got)); } catch (e) { }
-    }
-
-    const couponBtns = $$("[data-coupon]");           // [연결③] HTML data-coupon="welcome" / "new10"
+    const couponBtns = $$("[data-coupon]");           // [연결③] HTML data-coupon="welcome" / "new10" ↔ data.js COUPON_INFO 키
 
     function paintCoupons() {
         couponBtns.forEach((btn) => {
-            const on = got.includes(btn.dataset.coupon);
+            const on = has(btn.dataset.coupon);
             btn.classList.toggle("is-got", on);       // [연결③] CSS .benefit__btn.is-got
             btn.disabled = on;
             btn.textContent = on ? "받기 완료 ✓" : "쿠폰 받기";
         });
-        const allGot = couponBtns.every((b) => got.includes(b.dataset.coupon));
+        const allGot = couponBtns.every((b) => has(b.dataset.coupon));
         $("#couponAll").disabled = allGot;
         $("#couponAll").textContent = allGot ? "모두 받았어요 ✓" : "쿠폰 모두 받기";
     }
 
     function takeCoupon(key) {
-        if (got.includes(key)) return false;          // 이미 받은 쿠폰은 건너뜀
-        got.push(key);
+        if (has(key)) return false;                   // 이미 받은 쿠폰은 건너뜀
+        ISSUED_COUPONS.push({ key, at: Date.now() }); // 받은 시각 → 만료일 계산에 씀 (COUPON_INFO.days)
         return true;
+    }
+
+    function afterTake(msg) {
+        saveCoupons();                                // localStorage에 저장 → mypage.html이 읽음
+        renderCouponCount();
+        paintCoupons();
+        toast(msg);
     }
 
     $("#benefitRow").addEventListener("click", (e) => {
         const btn = e.target.closest("[data-coupon]");
         if (!btn || !takeCoupon(btn.dataset.coupon)) return;
-        saveCoupons();
-        paintCoupons();
-        toast(`🎟️ ${COUPON_NAME[btn.dataset.coupon]}을 받았어요.`);
+        afterTake(`🎟️ ${COUPON_INFO[btn.dataset.coupon].name}을 받았어요. 마이페이지 쿠폰함에서 확인하세요.`);
     });
 
     $("#couponAll").addEventListener("click", () => {
         const count = couponBtns.filter((b) => takeCoupon(b.dataset.coupon)).length;
         if (!count) return;
-        saveCoupons();
-        paintCoupons();
-        toast(`🎟️ 쿠폰 ${count}장을 받았어요.`);
+        afterTake(`🎟️ 쿠폰 ${count}장을 받았어요. 마이페이지 쿠폰함에서 확인하세요.`);
     });
 
 
