@@ -1,0 +1,134 @@
+/* ==========================================================================
+   pages/cart.css — 장바구니
+   ========================================================================== */
+
+
+
+/* =========================================================
+   제목 + 주문 단계
+   ========================================================= */
+.cart-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-bottom: 20px; }
+.cart-head h1 { font-size: 26px; font-weight: 900; letter-spacing: -.8px; }
+.steps { display: flex; gap: 6px; font-size: 13px; font-weight: 700; color: var(--text-3); }
+.steps li + li::before { content: "›"; margin-right: 6px; color: var(--text-3); }
+.steps li.is-active { color: var(--brand); }
+
+
+
+/* =========================================================
+   2단 레이아웃 : 목록 | 요약
+   ========================================================= */
+.cart { display: grid; grid-template-columns: 1fr 340px; gap: 20px; align-items: start; }
+
+
+
+/* =========================================================
+   상품 목록
+   ========================================================= */
+.cart-box { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); box-shadow: var(--shadow-sm); }
+.cart-box__head { display: flex; align-items: center; justify-content: space-between; padding: 16px 22px; border-bottom: 1px solid var(--line); }
+.cart-box__del { padding: 7px 13px; font-size: 13px; }
+
+.cart-item {
+    display: grid;
+    grid-template-columns: auto 84px 1fr auto 110px auto;
+    align-items: center; gap: 16px;
+    padding: 18px 22px; border-bottom: 1px solid var(--line);
+    transition: opacity .2s var(--ease);
+}
+.cart-item:last-child { border-bottom: 0; }
+.cart-item.is-off { opacity: .5; }
+
+.cart-item__img {
+    width: 84px; height: 84px; border-radius: var(--r-md);
+    background: #f4f5fa; display: grid; place-content: center;
+    font-size: 36px;
+}
+.cart-item__brand { font-size: 11.5px; font-weight: 600; color: var(--text-3); }
+.cart-item__name { font-size: 14.5px; font-weight: 700; margin: 2px 0 4px; }
+.cart-item__opt { font-size: 12.5px; color: var(--text-2); }
+.cart-item__price { text-align: right; font-size: 15.5px; font-weight: 800; letter-spacing: -.3px; }
+.cart-item__price del { display: block; font-size: 12px; font-weight: 500; color: var(--text-3); }
+.cart-item__del {
+    justify-self: end; width: 30px; height: 30px; border-radius: 9px;
+    display: grid; place-content: center; color: var(--text-3); transition: .18s var(--ease);
+}
+.cart-item__del:hover { background: #fff1f3; color: var(--rose); }
+
+
+
+/* -- 수량 조절 -- */
+.qty { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.qty__btn { width: 32px; height: 32px; font-size: 16px; color: var(--text-2); transition: background .18s var(--ease); }
+.qty__btn:hover { background: var(--brand-50); color: var(--brand); }
+.qty__btn:disabled { opacity: .35; cursor: not-allowed; background: none; }
+.qty__num { min-width: 34px; text-align: center; font-size: 14px; font-weight: 700; }
+
+
+
+/* =========================================================
+   결제 요약
+   ========================================================= */
+.summary {
+   position: sticky; top: 140px; /* sticky 헤더 높이만큼 아래에 고정 */
+   padding: 22px; background: var(--surface);
+   border: 1px solid var(--line); border-radius: var(--r-lg); box-shadow: var(--shadow-md);
+}
+.summary h2 { font-size: 17px; font-weight: 800; letter-spacing: -.4px; margin-bottom: 14px; }
+.summary__list { display: grid; gap: 10px; margin: 0; }
+.summary__list div { display: flex; justify-content: space-between; font-size: 14px; }
+.summary__list dt { color: var(--text-2); }
+.summary__list dd { margin: 0; font-weight: 700; } /* dd는 기본 margin-left가 있어서 리셋 */
+.summary__list .is-sale { color: var(--rose); }
+
+.free-ship {
+   --progress: 0;
+   margin: 16px 0; padding: 12px 14px; border-radius: var(--r-md);
+   background: var(--brand-50); font-size: 12.5px; color: var(--text-2);
+}
+.free-ship b { color: var(--brand); }
+.free-ship__bar { height: 6px; margin-top: 8px; border-radius: 999px; background: #dfe3fb; overflow: hidden; }
+.free-ship__bar i {
+   display: block; height: 100%; border-radius: inherit; background: var(--brand);
+   width: calc(var(--progress) * 1%);
+   transition: width .4s var(--ease);
+}
+
+.free-ship.is-done { background: #ecfdf5; }
+.free-ship.is-done b { color: var(--mint); }
+.free-ship.is-done .free-ship__bar i { background: var(--mint); }
+
+.summary__total { display: flex; justify-content: space-between; align-items: baseline; padding-top: 16px; border-top: 1px dashed var(--line); }
+.summary__total span { font-size: 14px; font-weight: 700; }
+.summary__total b { font-size: 24px; font-weight: 900; letter-spacing: -.8px; color: var(--brand); }
+.summary__btn { width: 100%; margin: 16px 0 10px; padding: 15px; font-size: 15px; }
+
+.summary__btn:disabled { background: #c9cbd6; box-shadow: none; transform: none; cursor: not-allowed; }
+.summary .hint { text-align: center; }
+
+
+
+/* =========================================================
+   반응형
+   ========================================================= */
+@media (max-width: 900px) {
+   .cart { grid-template-columns: 1fr; }
+   .summary { position: static; }
+}
+
+@media (max-width: 560px) {
+   .cart-box__head, .cart-item { padding-left: 15px; padding-right: 15px; }
+   .cart-item {
+      grid-template-columns: auto 64px 1fr auto;
+      grid-template-areas:
+         "chk img info del"
+         "chk img qty  price";
+      gap: 8px 12px;
+   }
+   .cart-item__check { grid-area: chk; }
+   .cart-item__img   { grid-area: img; width: 64px; height: 64px; font-size: 28px; }
+   .cart-item__info  { grid-area: info; }
+   .cart-item__del   { grid-area: del; }
+   .qty              { grid-area: qty; justify-self: start; }
+   .cart-item__price { grid-area: price; }
+}

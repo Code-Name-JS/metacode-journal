@@ -44,7 +44,9 @@
                 <p class="nav__label">쇼핑</p>
                 <a class="nav__item" href="./home.html"><span class="ic">🛍️</span>홈</a>
                 <a class="nav__item is-active" href="./mypage.html"><span class="ic">👤</span>마이페이지</a>
-                <a class="nav__item" href="wish.html"><span class="ic">❤️</span>찜한 상품 <b class="badge">12</b></a>
+                <!-- [연결⑫][연결⑭] common.js가 data-*-count 요소에 개수를 넣음 -->
+                <a class="nav__item" href="./wish.html"><span class="ic">❤️</span>찜한 상품 <b class="badge" data-wish-count>0</b></a>
+                <a class="nav__item" href="./cart.html"><span class="ic">🛒</span>장바구니 <b class="badge" data-cart-count>0</b></a>
                 <a class="nav__item" href="orders.html"><span class="ic">🧾</span>주문/배송 조회</a>
                 <a class="nav__item" href="reviews.html"><span class="ic">✍️</span>리뷰 관리 <b class="badge badge--warn">3</b></a>
 
@@ -111,8 +113,8 @@
 
                 <article class="card card--wish">
                     <div class="card__top"><span>찜한 상품</span><span class="card__ic">❤️</span></div>
-                    <strong class="card__value">12<small>개</small></strong>
-                    <p class="card__sub">가격 하락 알림 <b>3개</b></p>
+                    <strong class="card__value"><span data-wish-count>0</span><small>개</small></strong>  <!-- [연결⑫] -->
+                    <p class="card__sub">할인 중인 상품 <b id="wishSaleCount">0개</b></p>                  <!-- [연결⑮] wish.js -->
                     <button class="card__btn" data-tab-jump="wish">목록 보기</button>
                 </article>
 
@@ -163,11 +165,19 @@
 
                 <!-- 찜 -->
                 <div class="tabpane" id="pane-wish" role="tabpanel">
-                    <div class="pane__head"><h2>찜한 상품 <span class="muted">12개</span></h2>
-                        <button class="btn btn--ghost" id="wishClear">전체 삭제</button>
+                    <div class="pane__head"><h2>찜한 상품 <span class="muted"><span data-wish-count>0</span>개</span></h2>  <!-- [연결⑫] -->
+                        <div class="pane__acts">
+                            <a class="btn btn--ghost" href="./wish.html">찜 페이지로</a>
+                            <button class="btn btn--ghost" id="wishClear">전체 삭제</button>
+                        </div>
                     </div>
 
-                    <div class="wish" id="wishList"><!-- JS 렌더 --></div>
+                    <div class="wish" id="wishList"><!-- JS 렌더 (data.js WISH_IDS) --></div>
+                    <!-- [연결⑰] 찜이 0개일 때만 보임 -->
+                    <p class="empty" id="wishEmpty" hidden>
+                        아직 찜한 상품이 없어요 🤍<br />
+                        <a class="more" href="./home.html">상품 둘러보기 →</a>
+                    </p>
                 </div>
 
                 <!-- 쿠폰 -->

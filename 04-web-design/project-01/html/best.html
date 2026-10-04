@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>찜한 상품 | SHOPLY</title>
+    <title>베스트 | SHOPLY</title>
 
     <link rel="stylesheet" href="../css/base.css" />
     <link rel="stylesheet" href="../css/layout.css" />
     <link rel="stylesheet" href="../css/components.css" />
-    <link rel="stylesheet" href="../css/pages/home.css" />      <!-- 상품 카드(.goods-card, .g-like) 스타일을 홈과 같이 씀 -->
-    <link rel="stylesheet" href="../css/pages/wishlist.css" />
+    <link rel="stylesheet" href="../css/pages/home.css" />  <!-- 상품 카드(.goods-card) 스타일을 홈과 같이 씀 -->
+    <link rel="stylesheet" href="../css/pages/best.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet" />
@@ -31,13 +31,13 @@
                     <span class="hact__ic">👤</span>
                     <span class="hact__tx">마이페이지</span>
                 </a>
-                <a class="hact is-current" href="./wish.html">
+                <a class="hact" href="./wish.html">
                     <span class="hact__ic">❤️</span>
                     <span class="hact__tx">찜 <b id="wishCount">0</b></span>  <!-- [연결⑫] common.js renderWishCount() -->
                 </a>
                 <a class="hact" href="./cart.html">
                     <span class="hact__ic">🛒</span>
-                    <span class="hact__tx">장바구니 <b id="cartCount"></b></span>  <!-- [연결⑦] -->
+                    <span class="hact__tx">장바구니 <b id="cartCount"></b></span>  <!-- [연결⑦] JS가 CART.length를 넣음 -->
                 </a>
             </div>
 
@@ -47,7 +47,7 @@
         <nav class="gnb">
             <div class="wrap gnb__row">
                 <a class="gnb__item" href="./home.html">홈</a>
-                <a class="gnb__item" href="./best.html">베스트</a>
+                <a class="gnb__item is-active" href="./best.html">베스트</a>  <!-- 현재 페이지 표시 -->
                 <a class="gnb__item" href="#">신상품</a>
                 <a class="gnb__item" href="#">기획전</a>
                 <a class="gnb__item" href="#">브랜드</a>
@@ -60,65 +60,51 @@
 
     <main class="wrap main">
 
-        <!-- 머리 배너 (홈 .hero 색감을 빌린 작은 버전) -->
-        <section class="wish-hero">
-            <div class="wish-hero__copy">
-                <span class="wish-hero__tag">❤️ MY WISHLIST</span>
-                <h1>마음에 담아둔<br /><em>찜한 상품</em></h1>
-                <p>하트를 누른 상품을 한곳에 모았어요. 가격이 내려가기 전에 장바구니에 담아보세요.</p>
+        <!-- 베스트 머리 배너 (홈 .hero를 작게 줄인 버전) -->
+        <section class="best-hero">
+            <div class="best-hero__copy">
+                <span class="best-hero__tag">🏆 SHOPLY BEST</span>
+                <h1>지금 가장 많이 팔린<br /><em>베스트 상품</em></h1>
+                <p><span id="bestTime">--</span> 기준 · 판매량 · 리뷰 · 할인율로 다시 정렬해 보세요</p>  <!-- [연결①] JS가 현재 시각을 넣음 -->
             </div>
-
-            <!-- [연결①] JS가 숫자를 채움 -->
-            <dl class="wish-stats">
-                <div><dt>찜한 상품</dt><dd><b id="statCount">0</b>개</dd></div>
-                <div><dt>합계 금액</dt><dd id="statPrice">0원</dd></div>
-                <div><dt>할인으로 아끼는 금액</dt><dd class="is-sale" id="statSave">0원</dd></div>
-            </dl>
+            <ol class="best-hero__podium" id="podium"></ol>  <!-- [연결②] JS가 TOP 3를 그림 -->
         </section>
 
-        <!-- 찜 목록 -->
-        <section class="section">
-            <div class="section__head">
-                <div>
-                    <h2>찜한 상품 <span class="wish-count" id="listCount">0</span></h2>  <!-- [연결①] -->
-                    <p>하트를 다시 누르면 찜이 해제돼요</p>
-                </div>
-                <div class="wish-tools" id="wishTools">
-                    <!-- [연결②] option value ↔ wishlist.js SORTERS의 키 -->
-                    <select id="sortSelect" aria-label="정렬">
-                        <option value="recent">최근 찜한순</option>
-                        <option value="low">낮은 가격순</option>
-                        <option value="rate">할인율 높은순</option>
-                    </select>
-                    <button class="btn btn--ghost wish-tools__btn" type="button" id="cartAll">전체 담기</button>
-                    <button class="btn btn--danger wish-tools__btn" type="button" id="wishClear">전체 삭제</button>
-                </div>
+        <!-- 필터 + 정렬 -->
+        <section class="best-tools">
+            <!-- [연결③] data-cat 값 ↔ best.js BEST_META의 cat 값이 같아야 함 / .is-active ↔ CSS -->
+            <div class="chips" id="catChips" role="tablist" aria-label="카테고리">
+                <button class="chip is-active" type="button" data-cat="all">전체</button>
+                <button class="chip" type="button" data-cat="digital">📱 디지털</button>
+                <button class="chip" type="button" data-cat="fashion">👕 패션</button>
+                <button class="chip" type="button" data-cat="living">🏠 리빙</button>
+                <button class="chip" type="button" data-cat="sports">👟 스포츠</button>
             </div>
 
-            <div class="goods" id="wishList"></div>  <!-- [연결③] JS가 .goods-card를 만들어 넣음 -->
-
-            <!-- [연결④] 찜이 0개일 때만 보임 (hidden 속성) -->
-            <div class="wish-empty" id="wishEmpty" hidden>
-                <span class="wish-empty__ic">🤍</span>
-                <h3>아직 찜한 상품이 없어요</h3>
-                <p>마음에 드는 상품의 하트를 눌러 찜 목록에 담아보세요.</p>
-                <div class="wish-empty__btns">
-                    <a class="btn btn--primary" href="./home.html">홈에서 둘러보기</a>
-                    <a class="btn btn--ghost" href="./best.html">베스트 보러가기</a>
-                </div>
-            </div>
+            <!-- [연결④] option value ↔ best.js SORTERS의 키 -->
+            <label class="sort">
+                <span class="sr-only">정렬</span>
+                <select id="sortSelect">
+                    <option value="sold">판매량 많은순</option>
+                    <option value="review">리뷰 많은순</option>
+                    <option value="rate">할인율 높은순</option>
+                    <option value="low">낮은 가격순</option>
+                </select>
+            </label>
         </section>
 
-        <!-- 추천: 아직 찜하지 않은 상품 -->
-        <section class="section" id="recoSection">
+        <!-- 랭킹 목록 -->
+        <section class="section best-section">
             <div class="section__head">
                 <div>
-                    <h2>이런 상품은 어때요?</h2>
-                    <p>아직 찜하지 않은 인기 상품이에요</p>
+                    <h2 id="listTitle">전체 베스트</h2>       <!-- [연결⑤] 필터에 따라 제목 변경 -->
+                    <p><b id="listCount">0</b>개 상품</p>
                 </div>
-                <a class="more" href="./best.html">베스트 전체 →</a>
+                <a class="more" href="./home.html">홈으로 →</a>
             </div>
-            <div class="goods" id="recoList"></div>  <!-- [연결⑤] -->
+
+            <div class="goods" id="bestList"></div>  <!-- [연결⑥] JS가 .goods-card를 만들어 넣음 -->
+            <p class="empty" id="bestEmpty" hidden>이 카테고리의 베스트 상품이 아직 없어요 🙈</p>
         </section>
 
         <!-- 혜택 (홈과 동일) -->
@@ -166,11 +152,11 @@
         </div>
     </footer>
 
-    <!-- 확인창 — common.js openConfirm()이 id로 찾아 씀 -->
+    <!-- 장바구니 담기 확인창 — common.js openConfirm()이 id로 찾아 씀 -->
     <div class="modal" id="modal" hidden>
         <div class="modal__box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
             <button class="modal__close" id="modalClose" aria-label="닫기">✕</button>
-            <h3 id="modalTitle">확인</h3>
+            <h3 id="modalTitle">장바구니 담기</h3>
             <div class="modal__body" id="modalBody"></div>
             <div class="modal__foot">
                 <button class="btn btn--ghost" id="modalCancel">No</button>
@@ -183,6 +169,6 @@
 
     <script src="../js/data.js"></script>
     <script src="../js/common.js"></script>
-    <script src="../js/pages/wishlist.js"></script>
+    <script src="../js/pages/best.js"></script>
 </body>
 </html>

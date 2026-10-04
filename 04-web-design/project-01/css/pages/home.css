@@ -135,6 +135,8 @@
   box-shadow: var(--shadow-sm); transition: .18s var(--ease);
 }
 .g-like:hover { color: var(--rose); background: #fff; transform: scale(1.1); }
+/* [연결③] 찜한 상태 — common.js setLikeBtn()이 붙였다 뗌 */
+.g-like.is-liked { color: var(--rose); background: #fff1f4; font-size: 18px; }
 .goods-card__body { padding: 14px 15px 16px; }
 .g-brand { font-size: 11.5px; font-weight: 700; color: var(--text-3); letter-spacing: .02em; }
 .g-name {
@@ -171,6 +173,13 @@
 .rank__up { font-size: 11.5px; font-weight: 800; color: var(--rose); }
 .rank__down { font-size: 11.5px; font-weight: 800; color: var(--sky); }
 .rank__same { font-size: 11.5px; font-weight: 800; color: var(--text-3); }
+/* [연결⑬] 내 장바구니에 담긴 상품 — home.js renderRank()가 li에 is-mine을 붙임 */
+.rank__list li.is-mine .rank__ic { background: var(--brand-50); box-shadow: inset 0 0 0 2px rgba(79,70,229,.25); }
+.rank__mine {
+  margin-left: 4px; padding: 1px 7px; border-radius: 999px;
+  background: var(--brand-50); color: var(--brand);
+  font-size: 11px; font-style: normal; font-weight: 800;
+}
 
 .feature {
   position: relative; overflow: hidden;

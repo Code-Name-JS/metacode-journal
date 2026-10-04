@@ -42,13 +42,13 @@
                     <span class="hact__ic">👤</span>
                     <span class="hact__tx">마이페이지</span>
                 </a>
-                <a class="hact" href="#">
+                <a class="hact" href="./wish.html">
                     <span class="hact__ic">❤️<i class="hact__dot"></i></span>
-                    <span class="hact__tx">찜<b>12</b></span>
+                    <span class="hact__tx">찜 <b id="wishCount">0</b></span>  <!-- [연결⑫] common.js renderWishCount() -->
                 </a>
-                <a class="hact" href="#">
+                <a class="hact" href="./cart.html">
                     <span class="hact__ic">🛒<i class="hact__dot"></i></span>
-                    <span class="hact__tx">장바구니 <b>3</b></span>
+                    <span class="hact__tx">장바구니 <b id="cartCount">3</b></span>
                 </a>
             </div>
 
@@ -61,7 +61,7 @@
                 <!-- [연결①] JS가 id="gnbAllBtn"으로 찾아 click 이벤트 연결 / [연결②] aria-controls가 아래 목록 id를 가리킴 -->
                 <button class="gnb__all" id="gnbAllBtn" type="button" aria-expanded="false" aria-controls="gnbAllMenu">☰ 전체 카테고리</button>
                 <a class="gnb__item is-active" href="#">홈</a>
-                <a class="gnb__item" href="#">베스트</a>
+                <a class="gnb__item" href="./best.html">베스트</a>
                 <a class="gnb__item" href="#">신상품</a>
                 <a class="gnb__item" href="#">기획전</a>
                 <a class="gnb__item" href="#">브랜드</a>
@@ -163,7 +163,7 @@
             <div class="goods">
 
                 <!-- 1 -->
-                <article class="goods-card">
+                <article class="goods-card" id="goods-1">
                     <a class="goods-card__img" href="#">
                         <span class="g-emoji">🎧</span>
                         <span class="g-badge g-badge--best">BEST</span>
@@ -178,7 +178,7 @@
                 </article>
 
                 <!-- 2 -->
-                <article class="goods-card">
+                <article class="goods-card" id="goods-2">
                     <a class="goods-card__img" href="#">
                         <span class="g-emoji">👕</span>
                         <span class="g-badge g-badge--new">NEW</span>
@@ -193,7 +193,7 @@
                 </article>
 
                 <!-- 3 -->
-                <article class="goods-card">
+                <article class="goods-card" id="goods-3">
                     <a class="goods-card__img" href="#">
                         <span class="g-emoji">⌚</span>
                         <button class="g-like" aria-label="찜하기">♡</button>
@@ -207,7 +207,7 @@
                 </article>
 
                 <!-- 4 -->
-                <article class="goods-card">
+                <article class="goods-card" id="goods-4">
                     <a class="goods-card__img" href="#">
                         <span class="g-emoji">🎒</span>
                         <button class="g-like" aria-label="찜하기">♡</button>
@@ -221,7 +221,7 @@
                 </article>
 
                 <!-- 5 -->
-                <article class="goods-card">
+                <article class="goods-card" id="goods-5">
                     <a class="goods-card__img" href="#">
                         <span class="g-emoji">🥤</span>
                         <span class="g-badge g-badge--best">BEST</span>
@@ -236,7 +236,7 @@
                 </article>
 
                 <!-- 6 -->
-                <article class="goods-card">
+                <article class="goods-card" id="goods-6">
                     <a class="goods-card__img" href="#">
                         <span class="g-emoji">🧥</span>
                         <span class="g-badge g-badge--new">NEW</span>
@@ -251,7 +251,7 @@
                 </article>
 
                 <!-- 7 -->
-                <article class="goods-card">
+                <article class="goods-card" id="goods-7">
                     <a class="goods-card__img" href="#">
                         <span class="g-emoji">🔊</span>
                         <button class="g-like" aria-label="찜하기">♡</button>
@@ -265,7 +265,7 @@
                 </article>
 
                 <!-- 8 -->
-                <article class="goods-card">
+                <article class="goods-card" id="goods-8">
                     <a class="goods-card__img" href="#">
                         <span class="g-emoji">👟</span>
                         <button class="g-like" aria-label="찜하기">♡</button>
@@ -284,31 +284,11 @@
         <section class="split">
             <div class="rank">
                 <div class="section__head">
-                    <div><h2>실시간 랭킹</h2><p>지금 가장 많이 담긴 상품</p></div>
-                    <a class="more" href="#">더보기 →</a>
+                    <div><h2>실시간 랭킹</h2><p>지금 가장 많이 담긴 상품 · 장바구니 반영</p></div>
+                    <a class="more" href="./best.html">더보기 →</a>
                 </div>
-                <ol class="rank__list">
-                    <li>
-                        <span class="rank__no">1</span><span class="rank__ic">🎧</span>
-                        <div><p>무선 노이즈캔슬링 헤드폰</p><small>199,000원</small></div><b class="rank__up">▲ 2</b>
-                    </li>
-                    <li>
-                        <span class="rank__no">2</span><span class="rank__ic">🎒</span>
-                        <div><p>데일리 백팩 20L</p><small>89,000원</small></div><b class="rank__up">▲ 1</b>
-                    </li>
-                    <li>
-                        <span class="rank__no">3</span><span class="rank__ic">🧥</span>
-                        <div><p>울 혼방 오버핏 코트</p><small>190,400원</small></div><b class="rank__down">▼ 1</b>
-                    </li>
-                    <li>
-                        <span class="rank__no">4</span><span class="rank__ic">👟</span>
-                        <div><p>경량 러닝화</p><small>118,000원</small></div><b class="rank__same">-</b>
-                    </li>
-                    <li>
-                        <span class="rank__no">5</span><span class="rank__ic">🥤</span>
-                        <div><p>텀블러 500ml 2개 세트</p><small>31,500원</small></div><b class="rank__up">▲ 4</b>
-                    </li>
-                </ol>
+                <!-- [연결⑪] home.js renderRank()가 data.js getRanking() 결과로 TOP 5를 그림 -->
+                <ol class="rank__list" id="rankList"></ol>
             </div>
 
             <a class="feature" href="#">
@@ -353,11 +333,11 @@
                 <nav class="footer__cols">
                 <div>
                     <p class="footer__h">쇼핑</p>
-                    <a href="#">베스트</a><a href="#">신상품</a><a href="#">기획전</a><a href="#">브랜드</a>
+                    <a href="./best.html">베스트</a><a href="#">신상품</a><a href="#">기획전</a><a href="#">브랜드</a>
                 </div>
                 <div>
                     <p class="footer__h">마이페이지</p>
-                    <a href="#">주문/배송 조회</a><a href="#">찜한 상품</a><a href="#">쿠폰함</a><a href="#">회원정보 수정</a>
+                    <a href="#">주문/배송 조회</a><a href="./wish.html">찜한 상품</a><a href="#">쿠폰함</a><a href="#">회원정보 수정</a>
                 </div>
                 <div>
                     <p class="footer__h">고객지원</p>
@@ -376,6 +356,22 @@
         </div>
     </footer>
 
+    <!-- 장바구니 담기 확인창 — common.js openConfirm()이 id로 찾아 씀 -->
+    <div class="modal" id="modal" hidden>  <!-- [연결⑩] JS가 hidden 속성을 켜고 끔 -->
+        <div class="modal__box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <button class="modal__close" id="modalClose" aria-label="닫기">✕</button>
+            <h3 id="modalTitle">장바구니 담기</h3>
+            <div class="modal__body" id="modalBody"></div>
+            <div class="modal__foot">
+                <button class="btn btn--ghost" id="modalCancel">No</button>   <!-- [연결⑪] 닫기만 -->
+                <button class="btn btn--primary" id="modalOk">Yes</button>    <!-- [연결⑪] onOk 실행 -->
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="../js/data.js"></script>
     <script src="../js/common.js"></script>
     <script src="../js/pages/home.js"></script>
 </body>

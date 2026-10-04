@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>장바구니 | SHOPLY</title>
+
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/layout.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/pages/cart.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+    <!-- 헤더 (home.html과 같은 구조) -->
+    <header class="site-header">
+        <div class="wrap site-header__row">
+            <a class="logo" href="./home.html">SHOPLY</a>
+            
+            <form class="search" role="search" onsubmit="return false">
+                <span class="search__ic">🔍</span>
+                <input type="search" placeholder="찾고 있는 상품을 검색해 보세요" aria-label="상품 검색" />
+                <button class="search__btn" type="submit">검색</button>
+            </form>
+
+            <div class="header-acts">
+                <a class="hact" href="./mypage.html">
+                    <span class="hact__ic">👤</span>
+                    <span class="hact__tx">마이페이지</span>
+                </a>
+                <a class="hact" href="./wish.html">
+                    <span class="hact__ic">❤️</span>
+                    <span class="hact__tx">찜 <b id="wishCount">0</b></span>  <!-- [연결⑫] common.js renderWishCount() -->
+                </a>
+                <a class="hact" href="./cart.html">
+                    <span class="hact__ic">🛒</span>
+                    <span class="hact__tx">장바구니 <b id="cartCount"></b></span>
+                </a>
+            </div>
+
+            <button class="hamb" aria-label="메뉴">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <nav class="gnb">
+            <div class="wrap gnb__row">
+                <a class="gnb__item" href="./home.html">홈</a>
+                <a class="gnb__item" href="#">베스트</a>
+                <a class="gnb__item" href="#">신상품</a>
+                <a class="gnb__item" href="#">기획전</a>
+                <a class="gnb__item gnb__item--hot" href="#">오늘의 특가 🔥</a>
+                <a class="gnb__item gnb__item--end" href="./mypage.html">마이페이지</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="wrap main">
+
+        <!-- 제목 + 주문 단계 -->
+        <section class="cart-head">
+            <h1>장바구니</h1>
+            <ol class="steps">
+                <li class="is-active">01 장바구니</li>
+                <li>02 주문/결제</li>
+                <li>03 주문완료</li>
+            </ol>
+        </section>
+
+        <div class="cart">
+
+            <!-- 왼쪽: 상품 목록 -->
+            <section class="cart-box">
+                <div class="cart-box__head">
+                    <label class="check">
+                        <input type="checkbox" id="checkAll" />
+                        전체 선택 <span class="muted" id="checkCount">0/0</span>
+                    </label>
+                    <button class="btn btn--ghost cart-box__del" id="delSelected">선택 삭제</button>
+                </div>
+                <ul class="cart-list" id="cartList"></ul>
+                <p class="empty" id="cartEmpty" hidden>
+                    장바구니가 비어 있어요 🛒<br />
+                    <a class="more" href="./home.html">쇼핑하러가기 →</a>
+                </p>
+            </section>
+
+            <!-- 오른쪽: 결제 요약 -->
+            <aside class="summary">
+                <h2>결제 예정 금액</h2>
+                <dl class="summary__list">
+                    <div><dt>상품 금액</dt><dd id="sumPrice">0원</dd></div>
+                    <div><dt>할인 금액</dt><dd class="is-sale" id="sumSale">0원</dd></div>
+                    <div><dt>배송비</dt><dd id="sumShip">0원</dd></div>
+                </dl>
+                <div class="free-ship" id="freeShip">
+                    <p id="freeShipText"></p>
+                    <div class="free-ship__bar"><i></i></div>
+                </div>
+
+                <div class="summary__total">
+                    <span>총 결제 금액</span>
+                    <b id="sumTotal">0원</b>
+                </div>
+
+                <button class="btn btn--primary summary__btn" id="orderBtn">주문하기</button>
+                <p class="hint">쿠폰·포인트는 주문서에서 적용할 수 있어요</p>
+            </aside>
+        </div>
+    </main>
+
+    <div class="modal" id="modal" hidden>
+        <div class="modal__box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <button class="modal__close" id="modalClose" aria-label="닫기">✕</button>
+            <h3 id="modalTitle">확인</h3>
+            <div class="modal__body" id="modalBody"></div>
+            <div class="modal__foot">
+                <button class="btn btn--ghost" id="modalCancel">취소</button>
+                <button class="btn btn--primary" id="modalOk">확인</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/pages/cart.js"></script>
+</body>
+</html>

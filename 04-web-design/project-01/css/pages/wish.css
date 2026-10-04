@@ -30,6 +30,12 @@
 .wish-item__cart { font-size: 12px; font-weight: 700; padding: 6px 11px; border-radius: 8px; background: var(--brand-50); color: var(--brand); transition: .18s var(--ease); }
 .wish-item__cart:hover { background: var(--brand); color: #fff; }
 
+/* 탭 머리 오른쪽 버튼 묶음 */
+.pane__acts { display: flex; gap: 8px; }
+
+/* 찜 해제 직후 잠깐 붙는 클래스 — wish.js classList.add("is-removing") */
+.wish-item.is-removing { opacity: 0; transform: scale(.94); pointer-events: none; transition: opacity .18s var(--ease), transform .18s var(--ease); }
+
 
 @media (max-width: 1080px) {
    .wish { grid-template-columns: repeat(2, 1fr); }
