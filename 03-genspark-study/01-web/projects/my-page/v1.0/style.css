@@ -70,7 +70,7 @@ input { font: inherit; color: inherit; }
    상단바 (모바일)
    ========================================================= */
 .topbar {
-    position: sticky; top: 0; z-index: 40px;
+    position: sticky; top: 0; z-index: 40;
     height: var(--topbar-h);
     display: none;
     align-items: center; gap: 12px;
@@ -83,9 +83,9 @@ input { font: inherit; color: inherit; }
 .topbar__actions { margin-left: auto; display: flex; gap: 6px; }
 .topbar__menu { width: 36px; height: 36px; display: grid; place-content: center; gap: 5px; border-radius: 10px; }
 .topbar__menu span { display: block; width: 18px; height: 2px; background: var(--text); border-radius: 2px; transition: .25s var(--ease); }
-.topbar__menu[aria-expanded="true"]span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.topbar__menu[aria-expanded="true"]span:nth-child(2) { opacity: 0; }
-.topbar__menu[aria-expanded="true"]span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.topbar__menu[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.topbar__menu[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.topbar__menu[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 .icon-btn {
    position: relative; width: 38px; height: 38px;
@@ -133,13 +133,13 @@ input { font: inherit; color: inherit; }
 }
 .nav__item:hover { background: #f6f7fb; color: var(--text); }
 .nav__item.is-active { background: var(--brand-50); color: var(--brand); font-weight: 700; }
-.nav__item.ic { font-size: 16px; width: 20px; text-align: center; }
+.nav__item .ic { font-size: 16px; width: 20px; text-align: center; }
 .badge {
    margin-left: auto; font-size: 11px; font-weight: 700;
    background: var(--brand); color: #fff;
    padding: 2px 7px; border-radius: 999px;
 }
-.badge-warn { background: var(--rose); }
+.badge--warn { background: var(--rose); }
 .sidebar__help {
    margin-top: auto; padding: 14px; border-radius: var(--r-md);
    background: linear-gradient(145deg, var(--brand), var(--brand-600));
@@ -147,7 +147,7 @@ input { font: inherit; color: inherit; }
 }
 .sidebar__help strong { font-size: 13.5px; }
 .sidebar__help p { font-size: 12px; opacity: .82; margin-top: 3px; }
-.sidebar__help.num { font-size: 16px; font-weight: 800; opacity: 1; margin-top: 6px; letter-spacing: .3px; }
+.sidebar__help .num { font-size: 16px; font-weight: 800; opacity: 1; margin-top: 6px; letter-spacing: .3px; }
 
 .scrim {
    position: fixed; inset: 0; z-index: 45;
@@ -207,7 +207,7 @@ input { font: inherit; color: inherit; }
 /* =========================================================
    요약 카드
    ========================================================= */
-.cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 18px; }
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 18px; }
 .card {
    position: relative; overflow: hidden;
    background: var(--surface); border: 1px solid var(--line);
@@ -216,7 +216,7 @@ input { font: inherit; color: inherit; }
    transition: transform .2s var(--ease), box-shadow .2s var(--ease);
 }
 .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
-.card::after { content: ""; position: absolute; inset: 0 0 auto; width: 78px; height: 78px; border-radius: 50%; opacity: .09; transform: translate(26px, -26px); }
+.card::after { content: ""; position: absolute; inset: -26px 0 auto 305px; width: 78px; height: 78px; border-radius: 50%; opacity: .09; }
 .card--point::after { background: var(--mint); }
 .card--coupon::after { background: var(--vip); }
 .card--order::after { background: var(--sky); }
@@ -301,7 +301,7 @@ input { font: inherit; color: inherit; }
 .order__actions { display: flex; gap: 6px; }
 .mini {
    font-size: 12px; font-weight: 600; padding: 6px 11px; border-radius: 8px;
-   background: #f2f3f8; color: var(--text-2); transition: .18s bar(--ease);
+   background: #f2f3f8; color: var(--text-2); transition: .18s var(--ease);
 }
 .mini:hover { background: var(--brand); color: #fff; }
 .mini--line { background: #fff; border: 1px solid var(--line); }
@@ -322,20 +322,20 @@ input { font: inherit; color: inherit; }
    position: relative; height: 108px; display: grid; place-content: center;
    font-size: 38px; background: #f4f5fa;
 }
-.whis-item__like {
+.wish-item__like {
    position: absolute; top: 8px; right: 8px;
    width: 30px; height: 30px; border-radius: 50%;
    background: rgba(255,255,255,.9); display: grid; place-content: center;
    font-size: 14px; box-shadow: var(--shadow-sm);
 }
-.whis-item__body { padding: 12px 13px 14px; }
-.whis-item__brand { font-size: 11.5px; color: var(--text-3); font-weight: 600; }
-.whis-item__name { font-size: 13.5px; font-weight: 600; margin: 3px 0 8px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.whis-item__row { display: flex; align-items: center; justify-content: space-between; }
-.whis-item__price { font-size: 15px; font-weight: 800; letter-spacing: -.3px; }
-.whis-item__price del { font-size: 11.5px; color: var(--text-3); font-weight: 500; margin-left: 4px; }
-.whis-item__cart { font-size: 12px; font-weight: 700; padding: 6px 11px; border-radius: 8px; background: var(--brand-50); color: var(--brand); transition: .18s var(--ease); }
-.whis-item__cart:hover { background: var(--brand); color: #fff; }
+.wish-item__body { padding: 12px 13px 14px; }
+.wish-item__brand { font-size: 11.5px; color: var(--text-3); font-weight: 600; }
+.wish-item__name { font-size: 13.5px; font-weight: 600; margin: 3px 0 8px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.wish-item__row { display: flex; align-items: center; justify-content: space-between; }
+.wish-item__price { font-size: 15px; font-weight: 800; letter-spacing: -.3px; }
+.wish-item__price del { font-size: 11.5px; color: var(--text-3); font-weight: 500; margin-left: 4px; }
+.wish-item__cart { font-size: 12px; font-weight: 700; padding: 6px 11px; border-radius: 8px; background: var(--brand-50); color: var(--brand); transition: .18s var(--ease); }
+.wish-item__cart:hover { background: var(--brand); color: #fff; }
 
 
 
@@ -374,7 +374,7 @@ input { font: inherit; color: inherit; }
 .btn--ghost { background: #f2f3f8; color: var(--text-2); }
 .btn--ghost:hover { background:  #e8eaf2; }
 .btn--danger { background: #fff1f3; color: var(--rose); }
-.btn--danget:hover { background: var(--rose); color: #fff; }
+.btn--danger:hover { background: var(--rose); color: #fff; }
 
 
 
@@ -479,5 +479,5 @@ body { font-size: 14.5px; }
 .tabpane { padding: 18px 15px; }
 .profile__name { font-size: 21px; }
 .form__actions { flex-direction: column-reverse; }
-.form__actions.btn { width: 100% }
+.form__actions .btn { width: 100% }
 }
