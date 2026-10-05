@@ -1,0 +1,196 @@
+/* ==========================================================================
+   pages/brand.css — 브랜드관
+   상품 카드(.goods-card, .g-*)와 혜택(.perks)은 home.css를 그대로 쓰고,
+   여기엔 브랜드 페이지에만 있는 것만 작성
+   브랜드 색은 JS가 넣는 CSS 변수 --tone 하나로 칠함 [연결③]
+   ========================================================================== */
+
+/* =========================================================
+   머리 배너
+   ========================================================= */
+.br-hero {
+  position: relative; overflow: hidden;
+  display: flex; align-items: center; gap: 30px;
+  padding: 44px 46px; border-radius: var(--r-lg); color: #fff;
+  background: linear-gradient(120deg, #0f172a 0%, #1e293b 55%, #334155 100%);
+  box-shadow: 0 20px 46px rgba(15,23,42,.3);
+}
+.br-hero::before {
+  content: ""; position: absolute; width: 420px; height: 420px; border-radius: 50%;
+  top: -200px; right: 40px; background: rgba(255,255,255,.06);
+}
+.br-hero__copy { position: relative; z-index: 1; flex: 1 1 480px; }
+.br-hero__tag {
+  display: inline-block; margin-bottom: 14px; padding: 6px 13px; border-radius: 999px;
+  background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.22);
+  font-size: 12px; font-weight: 800; letter-spacing: .14em;
+}
+.br-hero h1 { font-size: 38px; font-weight: 900; line-height: 1.24; letter-spacing: -1.5px; }
+.br-hero h1 em { font-style: normal; color: #fde68a; }
+.br-hero p { margin-top: 14px; font-size: 15px; opacity: .85; }
+.br-hero p b { color: #fde68a; font-weight: 900; }
+
+/* [연결⑦] 진행 중인 브랜드 위크 바로가기 */
+.br-hero__live { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+.br-hero__live-label { font-size: 12.5px; font-weight: 800; opacity: .85; margin-right: 2px; }
+.br-live {
+  padding: 7px 12px; border-radius: 999px;
+  background: var(--tone); color: #fff; font-size: 12.5px; font-weight: 800;
+  box-shadow: 0 6px 16px rgba(0,0,0,.25); transition: transform .18s var(--ease);
+}
+.br-live:hover { transform: translateY(-2px); }
+
+/* 브랜드 로고 6개 — style="--tone: ..."으로 원마다 색이 다름 */
+.br-hero__logos { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(3, 72px); gap: 14px; flex: 0 0 auto; }
+.br-hero__logos span {
+  width: 72px; height: 72px; border-radius: 50%;
+  display: grid; place-content: center; font-size: 32px;
+  background: var(--tone); border: 3px solid rgba(255,255,255,.25);
+  box-shadow: 0 12px 26px rgba(0,0,0,.3);
+  animation: br-bob 4s var(--ease) infinite;
+}
+.br-hero__logos span:nth-child(even) { animation-delay: -2s; translate: 0 18px; }
+@keyframes br-bob { 50% { transform: translateY(-8px); } }
+
+
+
+/* =========================================================
+   브랜드 목록 — [연결②] .br-card.is-active = 지금 보고 있는 브랜드
+   ========================================================= */
+.br-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.br-card {
+  position: relative; overflow: hidden;
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; column-gap: 14px;
+  padding: 18px 18px 18px 22px; border-radius: var(--r-md);
+  background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-sm);
+  transition: transform .2s var(--ease), box-shadow .2s var(--ease);
+}
+.br-card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: var(--tone); }
+.br-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.br-card.is-active { box-shadow: 0 0 0 2px var(--tone), var(--shadow-md); border-color: transparent; }
+
+/* color-mix: 브랜드 색을 흰색에 14%만 섞어 연한 바탕색을 만듦 */
+.br-card__logo {
+  width: 54px; height: 54px; border-radius: 50%;
+  display: grid; place-content: center; font-size: 26px;
+  background: color-mix(in srgb, var(--tone) 14%, #fff);
+}
+.br-card__body { min-width: 0; }
+.br-card__name { font-size: 15px; font-weight: 900; letter-spacing: .3px; }
+.br-card__name small { margin-left: 3px; font-size: 12px; font-weight: 500; color: var(--text-3); letter-spacing: 0; }
+.br-card__slogan { margin-top: 2px; font-size: 12.5px; color: var(--text-2); }
+.br-card__emojis { margin-top: 6px; font-size: 15px; letter-spacing: 2px; }
+.br-card__side { text-align: center; }
+.br-card__side b { display: block; font-size: 22px; font-weight: 900; color: var(--tone); line-height: 1.1; }
+.br-card__side small { font-size: 11px; color: var(--text-3); }
+.br-card__ev {
+  grid-column: 1 / -1; justify-self: start; margin-top: 12px;
+  padding: 3px 9px; border-radius: 999px;
+  background: #f2f3f8; color: var(--text-2); font-size: 11.5px; font-weight: 800;
+}
+.br-card__ev.is-live { background: #fff1f2; color: var(--rose); }
+
+
+
+/* =========================================================
+   선택한 브랜드
+   ========================================================= */
+/* 고정(sticky) 헤더 높이만큼 위를 비워 두고 멈춤 */
+.br-detail { scroll-margin-top: 150px; }
+
+.br-banner {
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 22px;
+  padding: 26px 28px; border-radius: var(--r-lg); color: #fff;
+  background: linear-gradient(135deg, var(--tone), color-mix(in srgb, var(--tone) 55%, #0f172a));
+  box-shadow: 0 16px 36px rgba(15,23,42,.18);
+  transition: background .3s var(--ease);
+}
+.br-banner__logo {
+  width: 84px; height: 84px; border-radius: 50%;
+  display: grid; place-content: center; font-size: 40px;
+  background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.3);
+}
+.br-banner__cat { font-size: 12px; font-weight: 800; letter-spacing: .06em; opacity: .8; }
+.br-banner h2 { font-size: 26px; font-weight: 900; letter-spacing: -.5px; }
+.br-banner h2 small { font-size: 14px; font-weight: 600; opacity: .8; letter-spacing: 0; }
+.br-banner__desc { margin-top: 6px; max-width: 520px; font-size: 13.5px; line-height: 1.6; opacity: .92; }
+.br-banner__where { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.br-banner__where a {
+  display: inline-block; padding: 4px 10px; border-radius: 999px;
+  background: rgba(255,255,255,.16); font-size: 12px; font-weight: 700;
+  transition: background .18s var(--ease);
+}
+.br-banner__where a:hover { background: rgba(255,255,255,.28); }
+.br-banner__where b { color: #fde68a; }
+.br-banner__stats { display: flex; gap: 10px; margin: 0; }
+.br-banner__stats div { min-width: 88px; padding: 10px 14px; border-radius: 12px; background: rgba(255,255,255,.12); text-align: center; }
+.br-banner__stats dt { font-size: 11.5px; opacity: .8; }
+.br-banner__stats dd { margin: 2px 0 0; font-size: 16px; font-weight: 900; font-variant-numeric: tabular-nums; }
+
+/* [연결④] 브랜드 위크 안내 */
+.br-event {
+  display: flex; align-items: center; gap: 12px; margin-top: 14px;
+  padding: 14px 18px; border-radius: var(--r-md);
+  background: var(--surface); border: 1px dashed color-mix(in srgb, var(--tone) 45%, #fff);
+  transition: transform .18s var(--ease), box-shadow .18s var(--ease);
+}
+.br-event[hidden] { display: none; }   /* display: flex가 hidden을 덮지 않도록 */
+.br-event:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.br-event__badge {
+  flex: 0 0 auto; padding: 4px 10px; border-radius: 999px;
+  background: #f2f3f8; color: var(--text-2); font-size: 12px; font-weight: 800; white-space: nowrap;
+}
+.br-event.is-live .br-event__badge { background: var(--tone); color: #fff; }
+.br-event__text { flex: 1; min-width: 0; font-size: 13.5px; color: var(--text-2); }
+.br-event__text b { color: var(--tone); font-weight: 800; }
+.br-event__go { flex: 0 0 auto; font-size: 13px; font-weight: 800; color: var(--tone); white-space: nowrap; }
+
+/* 상품 목록 (home.css .goods-card 위에 덧붙임) */
+.br-goods-head { margin-top: 26px; }
+.br-goods-head h3 { font-size: 19px; font-weight: 900; letter-spacing: -.5px; }
+.br-count {
+  display: inline-grid; place-content: center; min-width: 26px; height: 26px; padding: 0 8px;
+  margin-left: 4px; border-radius: 999px; vertical-align: 2px;
+  background: var(--tone); color: #fff; font-size: 13px; font-weight: 800; letter-spacing: 0;
+}
+.br-item { cursor: pointer; }
+.br-badge { background: var(--tone); letter-spacing: .02em; }   /* g-badge 위치 · 모양은 home.css */
+.g-was { margin: -4px 0 2px; font-size: 12px; color: var(--text-3); text-decoration: line-through; }
+.br-pages { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+.br-pages span { padding: 1px 7px; border-radius: 6px; background: #f4f5fa; font-size: 10.5px; font-weight: 700; color: var(--text-2); }
+
+
+
+/* =========================================================
+   반응형
+   ========================================================= */
+@media (max-width: 1080px) {
+  .br-list { grid-template-columns: repeat(2, 1fr); }
+  .br-banner { grid-template-columns: auto 1fr; }
+  .br-banner__stats { grid-column: 1 / -1; }
+  .br-banner__stats div { flex: 1; }
+}
+@media (max-width: 900px) {
+  .br-detail { scroll-margin-top: 200px; }   /* 검색창이 아래 줄로 내려가 헤더가 더 높아짐 */
+  .br-hero { flex-direction: column; align-items: flex-start; padding: 36px 28px; }
+  .br-hero__copy { flex: none; }   /* 세로 배치에선 flex-basis 480px이 "높이"가 되어 빈칸이 생김 → 끔 */
+  .br-hero__logos { grid-template-columns: repeat(6, 1fr); gap: 10px; width: 100%; }
+  .br-hero__logos span { width: 100%; height: auto; aspect-ratio: 1; max-width: 64px; font-size: 26px; translate: none; }
+  .br-hero__logos span:nth-child(even) { translate: none; }
+}
+@media (max-width: 720px) {
+  .br-hero h1 { font-size: 30px; }
+  .br-banner { grid-template-columns: 1fr; padding: 22px; }
+  .br-banner__logo { width: 64px; height: 64px; font-size: 30px; }
+  .br-event { flex-wrap: wrap; }
+  .section__head:has(.seg) { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 560px) {
+  .br-list { grid-template-columns: 1fr; }
+  .br-hero { padding: 28px 20px; }
+  .br-hero h1 { font-size: 25px; letter-spacing: -1px; }
+  .br-hero__logos span { font-size: 20px; border-width: 2px; }
+  .br-banner__stats { gap: 6px; }
+  .br-banner__stats div { min-width: 0; padding: 8px 6px; }
+  .br-banner__stats dd { font-size: 14px; }
+}

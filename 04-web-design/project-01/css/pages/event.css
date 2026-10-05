@@ -1,0 +1,294 @@
+/* ==========================================================================
+   pages/event.css — 이벤트 (브랜드 위크)
+   혜택(.perks)은 home.css를 그대로 쓰고, 여기엔 이벤트 페이지에만 있는 것만 작성
+   브랜드 색은 JS가 넣는 CSS 변수 --tone으로 칠함
+   ========================================================================== */
+
+/* =========================================================
+   머리 배너
+   ========================================================= */
+.ev-hero {
+  position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: space-between; gap: 30px; flex-wrap: wrap;
+  padding: 44px 46px; border-radius: var(--r-lg); color: #fff;
+  background:
+    radial-gradient(circle at 85% 20%, rgba(251,191,36,.35), transparent 40%),
+    linear-gradient(120deg, #be123c 0%, #e11d48 45%, #f97316 100%);
+  box-shadow: 0 20px 46px rgba(225,29,72,.28);
+}
+/* 뒤에 깔린 큰 글자 — 장식용 */
+.ev-hero::after {
+  content: "WEEK"; position: absolute; right: -10px; bottom: -40px;
+  font-size: 150px; font-weight: 900; letter-spacing: -6px; opacity: .1; pointer-events: none;
+}
+.ev-hero__copy { position: relative; z-index: 1; max-width: 520px; }
+.ev-hero__tag {
+  display: inline-block; margin-bottom: 14px; padding: 6px 13px; border-radius: 999px;
+  background: rgba(255,255,255,.2); border: 1px solid rgba(255,255,255,.35);
+  font-size: 12px; font-weight: 800; letter-spacing: .14em;
+}
+.ev-hero h1 { font-size: 38px; font-weight: 900; line-height: 1.24; letter-spacing: -1.5px; }
+.ev-hero h1 em { font-style: normal; color: #fde68a; }
+.ev-hero p { margin-top: 14px; font-size: 15px; opacity: .92; }
+.ev-hero p b { font-weight: 900; color: #fde68a; }
+
+.ev-hero__stats { position: relative; z-index: 1; display: flex; gap: 10px; margin: 0; }
+.ev-hero__stats div {
+  min-width: 96px; padding: 14px 16px; border-radius: 14px; text-align: center;
+  background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.25);
+}
+.ev-hero__stats dt { font-size: 12px; font-weight: 700; opacity: .85; }
+.ev-hero__stats dd { margin: 4px 0 0; font-size: 13px; font-weight: 700; }
+.ev-hero__stats b { font-size: 28px; font-weight: 900; font-variant-numeric: tabular-nums; }
+
+
+
+/* =========================================================
+   일정표 — [연결②] --days = 전체 날짜 수 (JS가 넣음)
+   ========================================================= */
+/* position: relative → JS의 offsetLeft가 이 상자 기준으로 계산됨 (오늘 줄로 스크롤할 때 씀) */
+.ev-timeline-wrap {
+  position: relative; overflow-x: auto; padding: 18px 0; border-radius: var(--r-lg);   /* 좌우 여백은 안쪽(.ev-timeline)에 → 고정 칸 왼쪽에 틈이 안 생김 */
+  background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-sm);
+}
+.ev-timeline {
+  display: grid; align-items: center; row-gap: 8px;
+  grid-template-columns: 120px repeat(var(--days, 14), minmax(30px, 1fr));
+  min-width: calc(120px + var(--days, 14) * 30px + 36px);
+  padding: 0 18px;
+}
+.ev-tl__corner { grid-row: 1; grid-column: 1; font-size: 12px; font-weight: 700; color: var(--text-3); }
+.ev-tl__day {
+  grid-row: 1; position: relative; z-index: 1;
+  display: flex; flex-direction: column; align-items: center;
+  font-size: 13px; font-weight: 800; color: var(--text-2); line-height: 1.2;
+}
+.ev-tl__day small { font-size: 10px; font-weight: 800; color: var(--brand); }
+.ev-tl__day em { font-style: normal; font-size: 10.5px; font-weight: 600; color: var(--text-3); }
+.ev-tl__day.is-sun em { color: var(--rose); }
+.ev-tl__day.is-today { color: var(--rose); }
+.ev-tl__day.is-today em { color: var(--rose); font-weight: 800; }
+
+/* 오늘 세로 줄 — 날짜 칸부터 마지막 줄까지 */
+.ev-tl__now {
+  z-index: 0; align-self: stretch; justify-self: center;
+  width: 100%; border-radius: 10px;
+  background: rgba(244,63,94,.08); border: 1px dashed rgba(244,63,94,.45);
+}
+
+.ev-tl__label { grid-column: 1; font-size: 12.5px; font-weight: 800; white-space: nowrap; }
+/* 일정표를 옆으로 넘겨도 브랜드 이름 칸은 왼쪽에 붙어 있게 */
+.ev-tl__label, .ev-tl__corner {
+  position: sticky; left: 0; z-index: 2; align-self: stretch;
+  display: flex; align-items: center; margin-left: -18px; padding-left: 18px;
+  background: var(--surface); box-shadow: 8px 0 8px -8px rgba(16,24,40,.12);
+}
+
+/* 막대 하나 = 7일. grid-column(시작 칸 / span 7)은 JS가 style로 넣음 */
+.ev-tl__bar {
+  position: relative; z-index: 1;
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  height: 36px; margin: 0 2px; padding: 0 12px; border-radius: 10px; overflow: hidden;
+  background: var(--tone); color: #fff; font-size: 12px; font-weight: 800; white-space: nowrap;
+  transition: transform .18s var(--ease), box-shadow .18s var(--ease);
+}
+.ev-tl__bar span { overflow: hidden; text-overflow: ellipsis; }
+.ev-tl__bar:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+/* 오픈 예정은 점선 테두리 + 연한 바탕, 종료는 흐리게 */
+.ev-tl__bar.is-soon { background: color-mix(in srgb, var(--tone) 14%, #fff); color: var(--tone); border: 1.5px dashed var(--tone); }
+.ev-tl__bar.is-ended { opacity: .4; }
+.ev-tl__bar.is-active { box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--tone); }
+
+
+
+/* =========================================================
+   이벤트 목록 — [연결④]
+   ========================================================= */
+.ev-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.ev-card {
+  position: relative; display: flex; flex-direction: column;
+  padding: 18px; border-radius: var(--r-md);
+  background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-sm);
+  transition: transform .2s var(--ease), box-shadow .2s var(--ease);
+}
+.ev-card::before {   /* 위쪽 브랜드 색 띠 */
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 5px;
+  border-radius: var(--r-md) var(--r-md) 0 0; background: var(--tone);
+}
+.ev-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.ev-card.is-active { box-shadow: 0 0 0 2px var(--tone), var(--shadow-md); border-color: transparent; }
+.ev-card.is-ended { background: #fafbfe; }
+.ev-card.is-ended .ev-card__logo, .ev-card.is-ended h3 { opacity: .55; }
+
+.ev-card__top { display: flex; justify-content: space-between; align-items: center; }
+.ev-card__logo {
+  width: 44px; height: 44px; border-radius: 50%;
+  display: grid; place-content: center; font-size: 21px;
+  background: color-mix(in srgb, var(--tone) 14%, #fff);
+}
+.ev-card__brand { margin-top: 12px; font-size: 11.5px; font-weight: 800; color: var(--tone); letter-spacing: .06em; }
+.ev-card h3 { margin-top: 2px; font-size: 17px; font-weight: 900; letter-spacing: -.5px; }
+.ev-card__rate { margin-top: 4px; font-size: 13px; color: var(--text-2); }
+.ev-card__rate b { font-size: 18px; font-weight: 900; color: var(--rose); }
+.ev-card__period { margin-top: 2px; font-size: 12.5px; color: var(--text-3); }
+/* 7일 중 지난 비율 — [연결④] style="--p: 71%" */
+.ev-card__bar { height: 6px; margin-top: 14px; border-radius: 999px; background: #eef0f5; overflow: hidden; }
+.ev-card__bar i { display: block; height: 100%; width: var(--p, 0%); border-radius: 999px; background: var(--tone); }
+.ev-card__foot { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; font-size: 12px; color: var(--text-2); font-weight: 600; }
+.ev-card__mine { color: var(--mint); font-weight: 800; }
+
+/* 상태 표 (카드 · 상세 공통) */
+.ev-chip { padding: 3px 9px; border-radius: 999px; font-size: 11.5px; font-weight: 800; white-space: nowrap; }
+.ev-chip--live  { background: #fff1f2; color: var(--rose); }
+.ev-chip--soon  { background: #eff6ff; color: #1d4ed8; }
+.ev-chip--ended { background: #f2f3f8; color: var(--text-3); }
+
+
+
+/* =========================================================
+   선택한 이벤트 — [연결⑤] --tone = 이 이벤트 브랜드 색
+   ========================================================= */
+.ev-detail { scroll-margin-top: 150px; }
+.ev-detail__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+
+/* -- 참여 내용 -- */
+.ev-info {
+  padding: 24px; border-radius: var(--r-lg);
+  background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-sm);
+  border-top: 5px solid var(--tone);
+}
+.ev-info__head { display: flex; align-items: center; gap: 12px; }
+.ev-info__head > div { flex: 1; min-width: 0; }
+.ev-info__logo {
+  width: 52px; height: 52px; flex: 0 0 52px; border-radius: 50%;
+  display: grid; place-content: center; font-size: 25px;
+  background: color-mix(in srgb, var(--tone) 14%, #fff);
+}
+.ev-info__brand { font-size: 12px; font-weight: 800; color: var(--tone); }
+.ev-info h3 { font-size: 21px; font-weight: 900; letter-spacing: -.6px; }
+.ev-info__period { margin-top: 14px; font-size: 13.5px; font-weight: 600; color: var(--text-2); }
+
+/* 7일 동그라미 */
+.ev-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-top: 12px; }
+.ev-days li {
+  display: flex; flex-direction: column; align-items: center; gap: 1px;
+  padding: 8px 2px; border-radius: 10px; background: #f4f5fa; color: var(--text-3);
+}
+.ev-days b { font-size: 12px; font-weight: 800; }
+.ev-days small { font-size: 10px; }
+.ev-days li.is-done { background: color-mix(in srgb, var(--tone) 16%, #fff); color: var(--tone); }
+.ev-days li.is-today { background: var(--tone); color: #fff; box-shadow: 0 6px 14px color-mix(in srgb, var(--tone) 40%, transparent); }
+
+.ev-info h4 { margin-top: 22px; margin-bottom: 8px; font-size: 14px; font-weight: 800; }
+.ev-steps { counter-reset: step; display: flex; flex-direction: column; gap: 8px; }
+.ev-steps li {
+  position: relative; padding-left: 32px; font-size: 13.5px; line-height: 1.55; color: var(--text-2);
+  counter-increment: step;
+}
+/* 번호 동그라미 — CSS counter로 1, 2, 3을 자동으로 붙임 */
+.ev-steps li::before {
+  content: counter(step); position: absolute; left: 0; top: 0;
+  width: 22px; height: 22px; border-radius: 50%;
+  display: grid; place-content: center;
+  background: var(--tone); color: #fff; font-size: 12px; font-weight: 800;
+}
+.ev-steps b, .ev-benefits b { color: var(--text); font-weight: 800; }
+.ev-benefits { display: flex; flex-direction: column; gap: 8px; }
+.ev-benefits li { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border-radius: 11px; background: #fafbfe; border: 1px solid var(--line); }
+.ev-benefits span { font-size: 17px; line-height: 1.3; }
+.ev-benefits p { font-size: 13px; line-height: 1.55; color: var(--text-2); }
+.ev-notes li { position: relative; padding-left: 12px; font-size: 12.5px; line-height: 1.7; color: var(--text-3); }
+.ev-notes li::before { content: "·"; position: absolute; left: 2px; font-weight: 900; }
+.ev-info__go {
+  display: block; margin-top: 20px; padding: 12px; border-radius: 12px; text-align: center;
+  background: color-mix(in srgb, var(--tone) 12%, #fff); color: var(--tone);
+  font-size: 14px; font-weight: 800; transition: .18s var(--ease);
+}
+.ev-info__go:hover { background: var(--tone); color: #fff; }
+
+/* -- 신청 댓글 -- */
+.ev-talk {
+  padding: 24px; border-radius: var(--r-lg);
+  background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-sm);
+}
+.ev-talk__head h3 { font-size: 17px; font-weight: 900; letter-spacing: -.4px; }
+.ev-talk__count {
+  display: inline-grid; place-content: center; min-width: 24px; height: 24px; padding: 0 7px;
+  margin-left: 2px; border-radius: 999px; vertical-align: 2px;
+  background: var(--tone); color: #fff; font-size: 12px; font-weight: 800;
+}
+.ev-talk__head p { margin-top: 3px; font-size: 12.5px; color: var(--text-3); }
+
+.ev-form { margin-top: 16px; padding: 14px; border-radius: 14px; background: #fafbfe; border: 1px solid var(--line); }
+.ev-form[hidden] { display: none; }
+.ev-form__who { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-2); }
+.ev-form__who b { color: var(--text); }
+.ev-form textarea {
+  display: block; width: 100%; margin-top: 10px; padding: 12px 14px; resize: vertical; min-height: 84px;
+  border: 1px solid #dfe3ee; border-radius: 12px; background: #fff; outline: none;
+  font: inherit; font-size: 14px; line-height: 1.55;
+  transition: border-color .18s var(--ease), box-shadow .18s var(--ease);
+}
+.ev-form textarea:focus { border-color: var(--tone); box-shadow: 0 0 0 4px color-mix(in srgb, var(--tone) 14%, transparent); }
+.ev-form textarea.is-error { border-color: var(--rose); background: #fff1f4; }
+.ev-form__foot { display: flex; align-items: center; gap: 12px; margin-top: 10px; flex-wrap: wrap; }
+.ev-form__foot .check { font-size: 13px; }
+.ev-form__len { margin-left: auto; font-size: 12px; color: var(--text-3); font-variant-numeric: tabular-nums; }
+.ev-form__len.is-short b { color: var(--rose); }   /* [연결⑦] 10자 미만 */
+.ev-form__btn { background: var(--tone); box-shadow: none; }
+.ev-form__btn:hover { background: var(--tone); filter: brightness(.92); }
+.ev-form .err { margin-top: 8px; }
+
+.ev-notice { margin-top: 16px; padding: 14px 16px; border-radius: 14px; background: #f4f5fa; font-size: 13.5px; color: var(--text-2); line-height: 1.55; }
+.ev-notice b { color: var(--text); }
+.ev-notice.is-done { background: #ecfdf5; color: #047857; }
+.ev-notice.is-done b { color: #065f46; }
+
+.ev-avatar {
+  width: 32px; height: 32px; flex: 0 0 32px; border-radius: 50%;
+  display: grid; place-content: center;
+  background: color-mix(in srgb, var(--tone, var(--brand)) 16%, #fff); color: var(--tone, var(--brand));
+  font-size: 13px; font-weight: 900;
+}
+.ev-comments { margin-top: 14px; }
+.ev-comment { display: flex; gap: 10px; padding: 14px 0; border-top: 1px solid var(--line); }
+.ev-comment:first-child { border-top: 0; }
+.ev-comment__body { flex: 1; min-width: 0; }
+.ev-comment__meta { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--text-3); }
+.ev-comment__meta b { color: var(--text); font-weight: 800; }
+.ev-comment__me { padding: 1px 7px; border-radius: 999px; background: var(--tone); color: #fff; font-size: 10.5px; font-weight: 800; }
+.ev-comment__text { margin-top: 4px; font-size: 13.5px; line-height: 1.6; color: var(--text-2); word-break: break-all; white-space: pre-line; }
+.ev-comment.is-mine { margin: 0 -12px; padding: 14px 12px; border-radius: 12px; background: color-mix(in srgb, var(--tone) 6%, #fff); }
+.ev-comment__del { align-self: flex-start; padding: 4px 9px; border-radius: 8px; font-size: 12px; font-weight: 700; color: var(--text-3); }
+.ev-comment__del:hover { background: #fff1f3; color: var(--rose); }
+.ev-comments__empty { padding: 26px 0; text-align: center; font-size: 13.5px; color: var(--text-3); }
+
+
+
+/* =========================================================
+   반응형
+   ========================================================= */
+@media (max-width: 1080px) {
+  .ev-list { grid-template-columns: repeat(2, 1fr); }
+  .ev-hero h1 { font-size: 33px; }
+}
+@media (max-width: 900px) {
+  .ev-detail { scroll-margin-top: 200px; }   /* 검색창이 아래 줄로 내려가 헤더가 더 높아짐 */
+  .ev-detail__grid { grid-template-columns: 1fr; }
+  .ev-hero { padding: 36px 28px; }
+}
+@media (max-width: 720px) {
+  .ev-hero h1 { font-size: 28px; }
+  .ev-hero__stats { width: 100%; }
+  .ev-hero__stats div { flex: 1; min-width: 0; }
+  .section__head:has(.seg) { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 560px) {
+  .ev-list { grid-template-columns: 1fr; }
+  .ev-hero { padding: 28px 20px; }
+  .ev-hero h1 { font-size: 24px; letter-spacing: -1px; }
+  .ev-hero::after { font-size: 100px; }
+  .ev-hero__stats b { font-size: 22px; }
+  .ev-info, .ev-talk { padding: 18px; }
+  .seg__btn { padding: 7px 11px; }
+}

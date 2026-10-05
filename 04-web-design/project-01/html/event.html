@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>신상품 | SHOPLY</title>
+    <title>이벤트 | SHOPLY</title>
 
     <link rel="stylesheet" href="../css/base.css" />
     <link rel="stylesheet" href="../css/layout.css" />
     <link rel="stylesheet" href="../css/components.css" />
-    <link rel="stylesheet" href="../css/pages/home.css" />  <!-- 상품 카드(.goods-card, .g-like) 스타일을 홈과 같이 씀 -->
-    <link rel="stylesheet" href="../css/pages/new.css" />
+    <link rel="stylesheet" href="../css/pages/home.css" />  <!-- 혜택(.perks) 스타일을 홈과 같이 씀 -->
+    <link rel="stylesheet" href="../css/pages/event.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet" />
@@ -50,10 +50,10 @@
                 <button class="gnb__all" id="gnbAllBtn" type="button" aria-expanded="false" aria-controls="gnbAllMenu">☰ 전체 카테고리</button>
                 <a class="gnb__item" href="./home.html">홈</a>
                 <a class="gnb__item" href="./best.html">베스트</a>
-                <a class="gnb__item is-active" href="./new.html">신상품</a>  <!-- 현재 페이지 표시 -->
+                <a class="gnb__item" href="./new.html">신상품</a>
                 <a class="gnb__item" href="./exhibition.html">기획전</a>
                 <a class="gnb__item" href="./brand.html">브랜드</a>
-                <a class="gnb__item" href="./event.html">이벤트</a>
+                <a class="gnb__item is-active" href="./event.html">이벤트</a>  <!-- 현재 페이지 표시 -->
                 <a class="gnb__item gnb__item--hot" href="#">오늘의 특가 🔥</a>
                 <a class="gnb__item gnb__item--end" href="./mypage.html">마이페이지</a>
             </div>
@@ -77,80 +77,85 @@
 
     <main class="wrap main">
 
-        <!-- 머리 배너 (홈 .hero 디자인을 민트 톤으로) -->
-        <section class="new-hero">
-            <div class="new-hero__copy">
-                <span class="new-hero__tag">🆕 NEW ARRIVALS</span>
-                <h1>이번 주 새로 들어온<br /><em>신상품</em>을 가장 먼저</h1>
-                <p>매일 오전 10시 업데이트 · 지금 <b id="heroCount">0</b>개 상품이 새로 입고됐어요</p>  <!-- [연결①] -->
+        <!-- 머리 배너 -->
+        <section class="ev-hero">
+            <div class="ev-hero__copy">
+                <span class="ev-hero__tag">BRAND WEEK</span>
+                <h1>7일마다 바뀌는<br /><em>브랜드 할인 이벤트</em></h1>
+                <p>브랜드마다 7일 동안 <b>전 상품 추가 할인</b> · 댓글로 신청하면 브랜드 쿠폰을 바로 드려요</p>
             </div>
-            <div class="new-hero__art" aria-hidden="true">
-                <div class="art-card art-card--a"><span>🧣</span><b>캐시미어 머플러</b><small>42,000원</small></div>
-                <div class="art-card art-card--b"><span>☕</span><b>핸드드립 세트</b><small>38,400원</small></div>
-                <div class="new-hero__badge"><b>NEW</b><small>TODAY</small></div>
-            </div>
+            <!-- [연결①] event.js가 이벤트 상태를 세어 숫자를 넣음 -->
+            <dl class="ev-hero__stats">
+                <div><dt>진행 중</dt><dd><b id="evLiveCount">0</b>개</dd></div>
+                <div><dt>오픈 예정</dt><dd><b id="evSoonCount">0</b>개</dd></div>
+                <div><dt>내 신청</dt><dd><b id="evMineCount">0</b>건</dd></div>
+            </dl>
         </section>
 
-        <!-- 신규 혜택 — home.html 히어로의 "신규 혜택 보기"가 new.html#benefits로 바로 내려옴 -->
-        <!-- [연결②] id="benefits" ↔ href="#benefits" / CSS scroll-margin-top으로 고정 헤더 아래에 멈춤 -->
-        <section class="section benefits" id="benefits">
-            <div class="section__head">
-                <div>
-                    <h2>신규 회원 혜택</h2>
-                    <p>처음 오셨다면 쿠폰부터 받고 쇼핑하세요</p>
-                </div>
-                <button class="btn btn--primary benefits__all" type="button" id="couponAll">쿠폰 모두 받기</button>
-            </div>
-
-            <!-- [연결③] data-coupon 값 → new.js가 받은 쿠폰 목록(localStorage)에 저장 / .is-got ↔ CSS -->
-            <div class="benefit-row" id="benefitRow">
-                <article class="benefit benefit--violet">
-                    <span class="benefit__ic">🎟️</span>
-                    <div class="benefit__body">
-                        <p class="benefit__tag">가입 즉시</p>
-                        <h3>신규 가입 <b>3,000원</b> 쿠폰</h3>
-                        <p>3만원 이상 구매 시 · 발급일로부터 30일</p>
-                    </div>
-                    <button class="benefit__btn" type="button" data-coupon="welcome">쿠폰 받기</button>
-                </article>
-                <article class="benefit benefit--mint">
-                    <span class="benefit__ic">🆕</span>
-                    <div class="benefit__body">
-                        <p class="benefit__tag">신상품 전용</p>
-                        <h3>신상품 <b>10%</b> 할인 쿠폰</h3>
-                        <p>최대 10,000원 할인 · 이번 주 입고 상품</p>
-                    </div>
-                    <button class="benefit__btn" type="button" data-coupon="new10">쿠폰 받기</button>
-                </article>
-                <article class="benefit benefit--amber">
-                    <span class="benefit__ic">🚚</span>
-                    <div class="benefit__body">
-                        <p class="benefit__tag">첫 구매</p>
-                        <h3>배송비 <b>0원</b></h3>
-                        <p>첫 주문은 금액과 상관없이 무료배송</p>
-                    </div>
-                    <span class="benefit__auto">자동 적용</span>
-                </article>
-            </div>
-        </section>
-
-        <!-- 신상품 목록 -->
+        <!-- 일정표 -->
         <section class="section">
             <div class="section__head">
                 <div>
-                    <h2>새로 들어온 상품 <span class="new-count" id="listCount">0</span></h2>  <!-- [연결①] -->
-                    <p>상품을 누르면 장바구니에 담을 수 있어요</p>
-                </div>
-                <!-- [연결④] data-period 값 ↔ new.js PERIODS의 키 / .is-active ↔ CSS (components.css .seg) -->
-                <div class="seg" id="periodSeg">
-                    <button class="seg__btn is-active" type="button" data-period="all">전체</button>
-                    <button class="seg__btn" type="button" data-period="today">오늘 입고</button>
-                    <button class="seg__btn" type="button" data-period="3days">3일 이내</button>
+                    <h2>브랜드 위크 일정</h2>
+                    <p>막대 하나가 7일짜리 이벤트예요 · 세로 줄이 오늘</p>
                 </div>
             </div>
+            <!-- [연결②] event.js가 --days(전체 날짜 수)를 정하고, 막대마다 grid-column으로 시작 위치를 정함 -->
+            <div class="ev-timeline-wrap">
+                <div class="ev-timeline" id="evTimeline"></div>
+            </div>
+        </section>
 
-            <div class="goods" id="newList"></div>  <!-- [연결⑤] new.js가 .goods-card를 만들어 넣음 -->
-            <p class="empty" id="newEmpty" hidden>이 기간에 입고된 상품이 없어요</p>
+        <!-- 이벤트 목록 -->
+        <section class="section">
+            <div class="section__head">
+                <div>
+                    <h2>브랜드별 할인 이벤트</h2>
+                    <p>이벤트를 누르면 참여 방법과 신청 댓글을 볼 수 있어요</p>
+                </div>
+                <!-- [연결③] data-filter 값 ↔ data.js eventInfo()의 status (live · soon · ended) -->
+                <div class="seg" id="evFilter">
+                    <button class="seg__btn is-active" type="button" data-filter="all">전체</button>
+                    <button class="seg__btn" type="button" data-filter="live">진행 중</button>
+                    <button class="seg__btn" type="button" data-filter="soon">오픈 예정</button>
+                    <button class="seg__btn" type="button" data-filter="ended">종료</button>
+                </div>
+            </div>
+            <!-- [연결④] event.js가 카드를 만듦 / data-ev 값 ↔ data.js BRAND_EVENTS의 key -->
+            <div class="ev-list" id="evList"></div>
+            <p class="empty" id="evEmpty" hidden>해당하는 이벤트가 없어요</p>
+        </section>
+
+        <!-- 선택한 이벤트: 참여 내용 + 신청 댓글 -->
+        <!-- [연결⑤] id="evDetail" ↔ 카드 href="#evDetail" / --tone ↔ JS style.setProperty -->
+        <section class="section ev-detail" id="evDetail">
+            <div class="ev-detail__grid">
+                <article class="ev-info" id="evInfo"><!-- event.js가 참여 내용을 그림 --></article>
+
+                <section class="ev-talk" aria-labelledby="evTalkTitle">
+                    <div class="ev-talk__head">
+                        <h3 id="evTalkTitle">신청 댓글 <span class="ev-talk__count" id="evTalkCount">0</span></h3>
+                        <p id="evTalkSub">-</p>
+                    </div>
+
+                    <!-- [연결⑥] submit 이벤트 → event.js가 확인 후 localStorage에 저장 -->
+                    <form class="ev-form" id="evForm" novalidate>
+                        <p class="ev-form__who"><span class="ev-avatar" id="evAvatar">김</span><b id="evWho">-</b> 님으로 신청해요</p>
+                        <textarea id="evText" maxlength="200" rows="3" placeholder="이벤트 미션에 맞게 댓글을 남겨 주세요 (10자 이상)"></textarea>
+                        <div class="ev-form__foot">
+                            <label class="check"><input type="checkbox" id="evAgree" /><span>유의사항을 확인했어요</span></label>
+                            <!-- [연결⑦] input 이벤트 → 글자 수 / 10자 미만이면 .is-short -->
+                            <span class="ev-form__len" id="evLenBox"><b id="evLen">0</b> / 200</span>
+                            <button class="btn btn--primary ev-form__btn" type="submit">신청하기</button>
+                        </div>
+                        <p class="err" id="evErr" role="alert"></p>
+                    </form>
+                    <!-- 신청 완료 · 오픈 전 · 종료일 때 폼 대신 보이는 안내 -->
+                    <p class="ev-notice" id="evNotice" hidden></p>
+
+                    <ul class="ev-comments" id="evComments"></ul>
+                </section>
+            </div>
         </section>
 
         <!-- 혜택 (홈과 동일) -->
@@ -198,15 +203,15 @@
         </div>
     </footer>
 
-    <!-- 확인창 — common.js openConfirm()이 id로 찾아 씀 -->
+    <!-- 확인창 — common.js openConfirm()이 id로 찾아 씀 (댓글 삭제 확인) -->
     <div class="modal" id="modal" hidden>
         <div class="modal__box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
             <button class="modal__close" id="modalClose" aria-label="닫기">✕</button>
-            <h3 id="modalTitle">장바구니 담기</h3>
+            <h3 id="modalTitle">확인</h3>
             <div class="modal__body" id="modalBody"></div>
             <div class="modal__foot">
-                <button class="btn btn--ghost" id="modalCancel">No</button>
-                <button class="btn btn--primary" id="modalOk">Yes</button>
+                <button class="btn btn--ghost" id="modalCancel">아니요</button>
+                <button class="btn btn--primary" id="modalOk">네</button>
             </div>
         </div>
     </div>
@@ -215,6 +220,6 @@
 
     <script src="../js/data.js"></script>
     <script src="../js/common.js"></script>
-    <script src="../js/pages/new.js"></script>
+    <script src="../js/pages/event.js"></script>
 </body>
 </html>

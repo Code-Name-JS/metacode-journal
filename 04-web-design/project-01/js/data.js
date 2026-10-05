@@ -193,7 +193,15 @@ const COUPON_INFO = {
     // 생일 쿠폰 (등급마다 할인율이 다름 — 1년에 한 장만)
     bday10:     { name: "생일 축하 쿠폰",          value: "10",     unit: "% 할인",  cond: "최대 10,000원 할인",          days: 30 },
     bday15:     { name: "생일 축하 쿠폰",          value: "15",     unit: "% 할인",  cond: "최대 30,000원 할인",          days: 30 },
-    bday20:     { name: "생일 축하 쿠폰",          value: "20",     unit: "% 할인",  cond: "최대 50,000원 할인",          days: 30 }
+    bday20:     { name: "생일 축하 쿠폰",          value: "20",     unit: "% 할인",  cond: "최대 50,000원 할인",          days: 30 },
+
+    // event.html 브랜드 위크 참여 쿠폰 — 키 ↔ BRAND_EVENTS의 coupon 값
+    evGlowlab:   { name: "GLOWLAB 브랜드 위크 쿠폰",   value: "15", unit: "% 할인", cond: "GLOWLAB 상품 · 최대 10,000원",   days: 7 },
+    evSoundlab:  { name: "SOUNDLAB 브랜드 위크 쿠폰",  value: "10", unit: "% 할인", cond: "SOUNDLAB 상품 · 최대 30,000원",  days: 7 },
+    evModework:  { name: "MODEWORK 브랜드 위크 쿠폰",  value: "15", unit: "% 할인", cond: "MODEWORK 상품 · 최대 30,000원",  days: 7 },
+    evHomefit:   { name: "HOMEFIT 브랜드 위크 쿠폰",   value: "12", unit: "% 할인", cond: "HOMEFIT 상품 · 최대 15,000원",   days: 7 },
+    evTechfit:   { name: "TECHFIT 브랜드 위크 쿠폰",   value: "10", unit: "% 할인", cond: "TECHFIT 상품 · 최대 10,000원",   days: 7 },
+    evDailystep: { name: "DAILYSTEP 브랜드 위크 쿠폰", value: "20", unit: "% 할인", cond: "DAILYSTEP 상품 · 최대 30,000원", days: 7 }
 };
 
 // 처음부터 가지고 있던 쿠폰 (원래 마이페이지 쿠폰함에 있던 것)
@@ -289,3 +297,62 @@ function getGradeStatus(base = getGradeBase()) {
         orderPct: next ? Math.min(100, Math.round((orders / next.orders) * 100)) : 100
     };
 }
+
+
+// 브랜드 — 키 ↔ GOODS의 brand 값 (대문자 그대로) [연결㉕]
+// tone: 브랜드 색 (brand · event 페이지가 style.setProperty("--tone")으로 씀)
+const BRANDS = {
+    SOUNDLAB:  { ko: "사운드랩",   logo: "🎧", tone: "#7c3aed", cat: "오디오",          slogan: "귀로 느끼는 프리미엄",   desc: "노이즈캔슬링 헤드폰부터 홈시어터까지, 소리 하나에 진심인 오디오 브랜드예요." },
+    MODEWORK:  { ko: "모드워크",   logo: "🧥", tone: "#ea580c", cat: "패션",            slogan: "매일 입고 싶은 기본",    desc: "좋은 소재와 편한 핏으로 오래 입는 기본 옷을 만드는 패션 브랜드예요." },
+    HOMEFIT:   { ko: "홈핏",       logo: "🏠", tone: "#d97706", cat: "리빙 · 주방",     slogan: "집이 편해지는 물건",     desc: "텀블러, 커피 도구, 조명까지 집에서의 시간을 채워 주는 리빙 브랜드예요." },
+    TECHFIT:   { ko: "테크핏",     logo: "⌚", tone: "#0284c7", cat: "디지털 액세서리", slogan: "기기에 꼭 맞는 한 조각", desc: "워치 밴드와 충전 거치대처럼 매일 쓰는 기기를 더 편하게 만드는 브랜드예요." },
+    DAILYSTEP: { ko: "데일리스텝", logo: "👟", tone: "#16a34a", cat: "스포츠 · 아웃도어", slogan: "오늘도 한 걸음 더",     desc: "출퇴근 백팩부터 러닝화, 트레킹 부츠까지 걷는 날을 위한 브랜드예요." },
+    GLOWLAB:   { ko: "글로우랩",   logo: "🧴", tone: "#db2777", cat: "뷰티",            slogan: "피부가 쉬는 시간",       desc: "자극 없이 순한 성분으로 피부 장벽을 지키는 스킨케어 브랜드예요." }
+};
+
+// 브랜드 위크 — 브랜드마다 7일(EVENT_DAYS)씩 이어지는 추가 할인 이벤트 (event · brand 페이지가 같이 씀)
+// key ↔ event.html의 #soundlab 같은 주소 · data-ev 값 / rate: 추가 할인율(%) / base: 이미 신청한 다른 회원 수
+const EVENT_DAYS = 7;
+const BRAND_EVENTS = [
+    { key: "glowlab",   brand: "GLOWLAB",   start: "2026-09-26", rate: 15, title: "글로우 스킨 위크",  base: 312, coupon: "evGlowlab",
+      mission: "요즘 내 피부 고민을 댓글로 남겨 주세요.", prize: "추첨 10명 · 수분 진정 크림 정품" },
+    { key: "soundlab",  brand: "SOUNDLAB",  start: "2026-10-01", rate: 10, title: "사운드 위크",       base: 248, coupon: "evSoundlab",
+      mission: "갖고 싶은 SOUNDLAB 제품과 이유를 댓글로 남겨 주세요.", prize: "추첨 5명 · 10,000P / 1명 · 노이즈캔슬링 헤드폰" },
+    { key: "modework",  brand: "MODEWORK",  start: "2026-10-03", rate: 15, title: "가을 아우터 위크",  base: 187, coupon: "evModework",
+      mission: "올가을 입고 싶은 코디를 댓글로 소개해 주세요.", prize: "추첨 3명 · 울 혼방 오버핏 코트" },
+    { key: "homefit",   brand: "HOMEFIT",   start: "2026-10-05", rate: 12, title: "홈카페 위크",       base: 41,  coupon: "evHomefit",
+      mission: "나만의 홈카페 레시피나 집에서 쉬는 방법을 댓글로 알려 주세요.", prize: "추첨 7명 · 핸드드립 커피 세트" },
+    { key: "techfit",   brand: "TECHFIT",   start: "2026-10-08", rate: 10, title: "스마트 기어 위크",  base: 0,   coupon: "evTechfit",
+      mission: "책상 위 가장 아끼는 기기를 댓글로 자랑해 주세요.", prize: "추첨 5명 · 무선 충전 거치대 3in1" },
+    { key: "dailystep", brand: "DAILYSTEP", start: "2026-10-12", rate: 20, title: "러닝 시즌 위크",    base: 0,   coupon: "evDailystep",
+      mission: "이번 가을 걷고 싶은 길이나 러닝 코스를 댓글로 남겨 주세요.", prize: "추첨 3명 · 경량 러닝화" }
+];
+
+// 이벤트 하나의 기간 · 상태 계산
+// status: "live"(진행 중) · "soon"(오픈 예정) · "ended"(종료) / day: 오늘이 며칠째인지(1~7)
+function eventInfo(ev) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const start = new Date(ev.start + "T00:00:00");
+    const end = new Date(start);
+    end.setDate(end.getDate() + EVENT_DAYS - 1);              // 시작일 포함 7일 → 끝나는 날은 +6
+    const dayMs = 24 * 60 * 60 * 1000;
+    return {
+        ...ev,
+        start,
+        end,
+        status: today < start ? "soon" : today > end ? "ended" : "live",
+        toStart: Math.round((start - today) / dayMs),          // 오픈까지 남은 날
+        toEnd: Math.round((end - today) / dayMs),              // 마감까지 남은 날 (0 = 오늘 마감)
+        day: Math.round((today - start) / dayMs) + 1
+    };
+}
+
+// 브랜드의 이벤트 — 진행 중인 것이 있으면 그것, 없으면 가장 가까운 오픈 예정, 그것도 없으면 null
+function brandEventOf(brand) {
+    const list = BRAND_EVENTS.filter((ev) => ev.brand === brand).map(eventInfo);
+    return list.find((e) => e.status === "live") || list.find((e) => e.status === "soon") || null;
+}
+
+// 이벤트가 — 100원 단위로 반올림
+const eventPrice = (price, rate) => Math.round((price * (1 - rate / 100)) / 100) * 100;
