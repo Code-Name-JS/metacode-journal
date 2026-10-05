@@ -231,7 +231,7 @@
    ========================================================= */
 .site-footer { margin-top: 50px; background: #14161d; color: #a8adbd; }
 
-/* -- 푸터 상단 : 왼쪽 브랜드 영역 + 오른쪽 링크 4열을 가로로 배치 -- */
+/* -- 푸터 상단 : 왼쪽 브랜드 영역 + 오른쪽 링크 2열을 가로로 배치 -- */
 .footer__top { display: flex; gap: 46px; padding: 46px 20px 34px; flex-wrap: wrap; }
 
 /* -- 브랜드 영역 : 로고 · 소개 문구 · 고객센터 -- */
@@ -242,8 +242,8 @@
 .footer__cs b { display: block; margin-top: 3px; font-size: 20px; font-weight: 900; color: #fff; letter-spacing: .3px; }
 .footer__cs small { font-size: 12px; color: #7d8395; }
 
-/* -- 링크 4열 : 쇼핑 · 마이페이지 · 고객지원 · 회사 -- */
-.footer__cols { display: grid; grid-template-columns: repeat(4, minmax(120px, 1fr)); gap: 30px; flex: 1 1 520px; }
+/* -- 링크 2열 : 쇼핑 · 마이페이지 — margin-left: auto로 오른쪽 끝에 붙임 (가운데가 비지 않게) -- */
+.footer__cols { display: grid; grid-template-columns: repeat(2, minmax(140px, auto)); gap: 30px 64px; margin-left: auto; }
 .footer__h { margin-bottom: 14px; font-size: 13.5px; font-weight: 800; color: #fff; }
 .footer__cols a { display: block; margin-bottom: 10px; font-size: 13px; transition: color .18s var(--ease); }
 .footer__cols a:hover { color: #fff; }
@@ -284,7 +284,7 @@
   .gnb__all { display: none; }
   .gnb__row { padding-left: 0; }
   .hero h1 { font-size: 29px; }
-  .footer__cols { grid-template-columns: repeat(2, 1fr); }
+  .footer__cols { grid-template-columns: repeat(2, 1fr); margin-left: 0; flex-basis: 100%; }   /* 좁은 화면: 브랜드 아래로 내려와 왼쪽부터 꽉 채움 */
   .news { padding: 24px 20px; }
   .news__form { flex-direction: column; }
   .news__form .btn { width: 100%; }
