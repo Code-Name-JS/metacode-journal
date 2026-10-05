@@ -127,6 +127,10 @@
     });
 
 
-    /* -- 시작 -- */
-    render();
+    /* -- 시작 --
+       주소에 ?ex=sound가 있으면 그 기획전 버튼을 누른 것처럼 시작 (home.html 사운드 페스티벌 카드에서 넘어올 때)
+       없거나 모르는 값이면 전체 */
+    const fromURL = new URLSearchParams(location.search).get("ex");   // [연결⑤] ?ex= 값 ↔ EXHIBITS 키 · 버튼 data-ex
+    if (EXHIBITS[fromURL]) setFilter(fromURL);                          // setFilter 안에서 render()까지 함
+    else render();
 })();

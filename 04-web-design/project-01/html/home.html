@@ -292,8 +292,10 @@
                 <ol class="rank__list" id="rankList"></ol>
             </div>
 
-            <!-- 카드 전체가 링크 — 안쪽 "지금 만나보기"(span)를 눌러도 이 href로 이동 / #exGoods ↔ exhibition.html id="exGoods" -->
-            <a class="feature" href="./exhibition.html#exGoods">
+            <!-- 카드 전체가 링크 — 안쪽 "지금 만나보기"(span)를 눌러도 이 href로 이동
+                 ?ex=sound ↔ exhibition.html 버튼 data-ex="sound" (exhibition.js가 읽어 "사운드" 필터로 시작)
+                 #exGoods ↔ exhibition.html id="exGoods" (상품 목록 위치로 스크롤) -->
+            <a class="feature" href="./exhibition.html?ex=sound#exGoods">
                 <span class="feature__tag">단독 기획</span>
                 <h3>SHOPLY × SOUNDLAB<br />사운드 페스티벌</h3>
                 <p>오디오 전 품목 최대 45% 할인<br />+ 12개월 무이자 할부</p>
