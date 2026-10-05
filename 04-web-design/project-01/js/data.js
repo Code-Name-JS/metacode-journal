@@ -40,7 +40,13 @@ const GOODS = {
     "goods-11": { brand: "HOMEFIT",   name: "핸드드립 커피 세트",       price: 38400,  was: 48000,  emoji: "☕" },
     "goods-12": { brand: "DAILYSTEP", name: "방수 트레킹 부츠",         price: 129000, was: null,   emoji: "🥾" },
     "goods-13": { brand: "GLOWLAB",   name: "수분 진정 크림 50ml",      price: 25500,  was: 34000,  emoji: "🧴" },
-    "goods-14": { brand: "SOUNDLAB",  name: "오픈형 무선 이어버드",     price: 89100,  was: 99000,  emoji: "🎵" }
+    "goods-14": { brand: "SOUNDLAB",  name: "오픈형 무선 이어버드",     price: 89100,  was: 99000,  emoji: "🎵" },
+
+    // 기획전 (exhibition.html) 전용 상품
+    "goods-15": { brand: "MODEWORK",  name: "울 블렌드 니트 가디건",    price: 29700,  was: 99000,  emoji: "🧶" },
+    "goods-16": { brand: "SOUNDLAB",  name: "홈시어터 사운드바",        price: 192500, was: 350000, emoji: "📻" },
+    "goods-17": { brand: "HOMEFIT",   name: "무드 스탠드 조명",         price: 57400,  was: 82000,  emoji: "💡" },
+    "goods-18": { brand: "HOMEFIT",   name: "세라믹 머그 2P 세트",      price: 22400,  was: 32000,  emoji: "🍵" }
 };
 
 // 장바구니 데이터

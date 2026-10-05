@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>베스트 | SHOPLY</title>
+    <title>기획전 | SHOPLY</title>
 
     <link rel="stylesheet" href="../css/base.css" />
     <link rel="stylesheet" href="../css/layout.css" />
     <link rel="stylesheet" href="../css/components.css" />
-    <link rel="stylesheet" href="../css/pages/home.css" />  <!-- 상품 카드(.goods-card) 스타일을 홈과 같이 씀 -->
-    <link rel="stylesheet" href="../css/pages/best.css" />
+    <link rel="stylesheet" href="../css/pages/home.css" />  <!-- 히어로(.hero) · 상품 카드(.goods-card) 스타일을 홈과 같이 씀 -->
+    <link rel="stylesheet" href="../css/pages/exhibition.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet" />
@@ -37,7 +37,7 @@
                 </a>
                 <a class="hact" href="./cart.html">
                     <span class="hact__ic">🛒</span>
-                    <span class="hact__tx">장바구니 <b id="cartCount"></b></span>  <!-- [연결⑦] JS가 CART.length를 넣음 -->
+                    <span class="hact__tx">장바구니 <b id="cartCount">0</b></span>  <!-- [연결⑭] common.js renderCartCount() -->
                 </a>
             </div>
 
@@ -49,9 +49,9 @@
                 <!-- [연결①] JS가 id="gnbAllBtn"으로 찾아 click 이벤트 연결 / [연결②] aria-controls가 아래 목록 id를 가리킴 -->
                 <button class="gnb__all" id="gnbAllBtn" type="button" aria-expanded="false" aria-controls="gnbAllMenu">☰ 전체 카테고리</button>
                 <a class="gnb__item" href="./home.html">홈</a>
-                <a class="gnb__item is-active" href="./best.html">베스트</a>  <!-- 현재 페이지 표시 -->
+                <a class="gnb__item" href="./best.html">베스트</a>
                 <a class="gnb__item" href="./new.html">신상품</a>
-                <a class="gnb__item" href="./exhibition.html">기획전</a>
+                <a class="gnb__item is-active" href="./exhibition.html">기획전</a>  <!-- 현재 페이지 표시 -->
                 <a class="gnb__item" href="#">브랜드</a>
                 <a class="gnb__item" href="#">이벤트</a>
                 <a class="gnb__item gnb__item--hot" href="#">오늘의 특가 🔥</a>
@@ -77,51 +77,88 @@
 
     <main class="wrap main">
 
-        <!-- 베스트 머리 배너 (홈 .hero를 작게 줄인 버전) -->
-        <section class="best-hero">
-            <div class="best-hero__copy">
-                <span class="best-hero__tag">🏆 SHOPLY BEST</span>
-                <h1>지금 가장 많이 팔린<br /><em>베스트 상품</em></h1>
-                <p><span id="bestTime">--</span> 기준 · 판매량 · 리뷰 · 할인율로 다시 정렬해 보세요</p>  <!-- [연결①] JS가 현재 시각을 넣음 -->
+        <!-- 머리 배너 — 홈 히어로(.hero)를 그대로 쓰고, 마감 타이머만 덧붙임 -->
+        <section class="hero">
+            <div class="hero__copy">
+                <span class="hero__tag">10월 한정 기획전</span>
+                <h1>이번 달 꼭 챙길<br /><em>3가지 기획전</em></h1>
+                <p>프리미엄 브랜드 최대 <b>70% 할인</b> · 기획전 상품 전부 무료배송</p>
+                <!-- [연결①] exhibition.js가 1초마다 id="exTimer"의 글자를 바꿈 -->
+                <p class="ex-timer">⏰ 오늘의 특가 마감까지 <b id="exTimer">00:00:00</b></p>
+                <div class="hero__btns">
+                    <a class="home-btn home-btn--light" href="#exGoods">기획전 상품 보기</a>  <!-- [연결⑤] 아래 id="exGoods"로 이동 -->
+                    <a class="home-btn home-btn--line" href="./new.html#benefits">신규 혜택 받기</a>
+                </div>
             </div>
-            <ol class="best-hero__podium" id="podium"></ol>  <!-- [연결②] JS가 TOP 3를 그림 -->
+            <div class="hero__art" aria-hidden="true">
+                <div class="art-card art-card--a"><span>🧶</span><b>니트 가디건</b><small>29,700원</small></div>
+                <div class="art-card art-card--b"><span>📻</span><b>홈시어터 사운드바</b><small>192,500원</small></div>
+                <div class="art-badge"><b>70%</b><small>OFF</small></div>
+            </div>
         </section>
 
-        <!-- 필터 + 정렬 -->
-        <section class="best-tools">
-            <!-- [연결③] data-cat 값 ↔ best.js BEST_META의 cat 값이 같아야 함 / .is-active ↔ CSS -->
-            <div class="chips" id="catChips" role="tablist" aria-label="카테고리">
-                <button class="chip is-active" type="button" data-cat="all">전체</button>
-                <button class="chip" type="button" data-cat="digital">📱 디지털</button>
-                <button class="chip" type="button" data-cat="fashion">👕 패션</button>
-                <button class="chip" type="button" data-cat="living">🏠 리빙</button>
-                <button class="chip" type="button" data-cat="sports">👟 스포츠</button>
-            </div>
-
-            <!-- [연결④] option value ↔ best.js SORTERS의 키 -->
-            <label class="sort">
-                <span class="sr-only">정렬</span>
-                <select id="sortSelect">
-                    <option value="sold">판매량 많은순</option>
-                    <option value="review">리뷰 많은순</option>
-                    <option value="rate">할인율 높은순</option>
-                    <option value="low">낮은 가격순</option>
-                </select>
-            </label>
-        </section>
-
-        <!-- 랭킹 목록 -->
-        <section class="section best-section">
+        <!-- 진행 중인 기획전 -->
+        <section class="section">
             <div class="section__head">
                 <div>
-                    <h2 id="listTitle">전체 베스트</h2>       <!-- [연결⑤] 필터에 따라 제목 변경 -->
-                    <p><b id="listCount">0</b>개 상품</p>
+                    <h2>진행 중인 기획전</h2>
+                    <p>카드를 누르면 그 기획전 상품만 모아서 보여드려요</p>
                 </div>
-                <a class="more" href="./home.html">홈으로 →</a>
             </div>
 
-            <div class="goods" id="bestList"></div>  <!-- [연결⑥] JS가 .goods-card를 만들어 넣음 -->
-            <p class="empty" id="bestEmpty" hidden>이 카테고리의 베스트 상품이 아직 없어요 🙈</p>
+            <!-- [연결④] data-ex 값 ↔ exhibition.js EXHIBITS의 키 / .is-active ↔ CSS .ex-card.is-active -->
+            <div class="ex-row" id="exRow">
+                <a class="ex-card ex-card--fall" href="#exGoods" data-ex="fall">
+                    <div class="ex-card__top">
+                        <span class="ex-card__tag">FASHION</span>
+                        <span class="ex-card__dday">D-0</span>  <!-- [연결③] JS가 마감일까지 남은 날로 바꿈 -->
+                    </div>
+                    <h3>가을 패션 위크</h3>
+                    <p>니트 · 코트 · 셔츠<br />최대 <b>70%</b> 할인</p>
+                    <span class="ex-card__foot">10.05 – 10.18 · 상품 <b class="ex-card__count">0</b>개 →</span>
+                    <span class="ex-card__art">🧥</span>
+                </a>
+                <a class="ex-card ex-card--sound" href="#exGoods" data-ex="sound">
+                    <div class="ex-card__top">
+                        <span class="ex-card__tag">단독 기획</span>
+                        <span class="ex-card__dday">D-0</span>
+                    </div>
+                    <h3>SHOPLY × SOUNDLAB<br />사운드 페스티벌</h3>
+                    <p>오디오 전 품목 최대 <b>45%</b> 할인<br />+ 12개월 무이자 할부</p>
+                    <span class="ex-card__foot">10.01 – 10.11 · 상품 <b class="ex-card__count">0</b>개 →</span>
+                    <span class="ex-card__art">🎧</span>
+                </a>
+                <a class="ex-card ex-card--living" href="#exGoods" data-ex="living">
+                    <div class="ex-card__top">
+                        <span class="ex-card__tag">LIVING</span>
+                        <span class="ex-card__dday">D-0</span>
+                    </div>
+                    <h3>홈카페 &amp; 리빙</h3>
+                    <p>집에서 즐기는 가을 커피 한 잔<br />최대 <b>30%</b> 할인</p>
+                    <span class="ex-card__foot">10.05 – 10.25 · 상품 <b class="ex-card__count">0</b>개 →</span>
+                    <span class="ex-card__art">☕</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- 기획전 상품 목록 -->
+        <!-- [연결⑤] id="exGoods" ↔ href="#exGoods" / CSS scroll-margin-top으로 고정 헤더 아래에 멈춤 -->
+        <section class="section ex-goods" id="exGoods">
+            <div class="section__head">
+                <div>
+                    <h2><span id="exTitle">전체 기획전 상품</span> <span class="ex-count" id="exCount">0</span></h2>  <!-- [연결①] -->
+                    <p>상품을 누르면 장바구니에 담을 수 있어요</p>
+                </div>
+                <!-- [연결④] data-ex 값 ↔ exhibition.js EXHIBITS의 키 / .is-active ↔ CSS (components.css .seg) -->
+                <div class="seg" id="exSeg">
+                    <button class="seg__btn is-active" type="button" data-ex="all">전체</button>
+                    <button class="seg__btn" type="button" data-ex="fall">가을 패션</button>
+                    <button class="seg__btn" type="button" data-ex="sound">사운드</button>
+                    <button class="seg__btn" type="button" data-ex="living">홈카페</button>
+                </div>
+            </div>
+
+            <div class="goods" id="exList"></div>  <!-- [연결⑥] exhibition.js가 .goods-card를 만들어 넣음 -->
         </section>
 
         <!-- 혜택 (홈과 동일) -->
@@ -169,7 +206,7 @@
         </div>
     </footer>
 
-    <!-- 장바구니 담기 확인창 — common.js openConfirm()이 id로 찾아 씀 -->
+    <!-- 확인창 — common.js openConfirm()이 id로 찾아 씀 -->
     <div class="modal" id="modal" hidden>
         <div class="modal__box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
             <button class="modal__close" id="modalClose" aria-label="닫기">✕</button>
@@ -186,6 +223,6 @@
 
     <script src="../js/data.js"></script>
     <script src="../js/common.js"></script>
-    <script src="../js/pages/best.js"></script>
+    <script src="../js/pages/exhibition.js"></script>
 </body>
 </html>

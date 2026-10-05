@@ -1,0 +1,110 @@
+/* ==========================================================================
+   pages/exhibition.css — 기획전
+   히어로(.hero, .art-card)와 상품 카드(.goods-card, .g-*)는 home.css를 그대로 쓰고,
+   여기엔 기획전 페이지에만 있는 것만 작성
+   ========================================================================== */
+
+/* =========================================================
+   기획전 색 — 카드 · 상품 뱃지가 같은 변수를 씀 [연결④]
+   ========================================================= */
+.ex-card--fall,   .ex-badge--fall   { --ex-color: #ea580c; }
+.ex-card--sound,  .ex-badge--sound  { --ex-color: #7c3aed; }
+.ex-card--living, .ex-badge--living { --ex-color: #059669; }
+
+
+
+/* =========================================================
+   히어로 마감 타이머 — [연결①] exhibition.js가 #exTimer 글자를 1초마다 바꿈
+   ========================================================= */
+/* .hero p(home.css)보다 우선하도록 .hero를 붙임 */
+.hero .ex-timer {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-top: 16px; padding: 8px 14px; border-radius: 999px;
+  background: rgba(15,10,50,.28); border: 1px solid rgba(255,255,255,.22);
+  font-size: 13.5px; font-weight: 700; opacity: 1;
+}
+/* 숫자 폭을 고정 → 초가 바뀌어도 글자가 좌우로 흔들리지 않음 */
+.hero .ex-timer b { font-size: 16px; font-variant-numeric: tabular-nums; letter-spacing: .02em; }
+
+
+
+/* =========================================================
+   진행 중인 기획전 카드 (홈 .feature 디자인을 3장으로)
+   ========================================================= */
+.ex-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.ex-card {
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column;
+  min-height: 236px; padding: 26px; border-radius: var(--r-lg);
+  color: #fff; box-shadow: var(--shadow-sm);
+  transition: transform .2s var(--ease), box-shadow .2s var(--ease);
+}
+.ex-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.ex-card--fall   { background: linear-gradient(140deg, #7c2d12 0%, #c2410c 55%, #f59e0b 100%); }
+.ex-card--sound  { background: linear-gradient(140deg, #1e1b4b 0%, #4c1d95 55%, #7c3aed 100%); }
+.ex-card--living { background: linear-gradient(140deg, #064e3b 0%, #047857 55%, #10b981 100%); }
+
+/* [연결④] 지금 보고 있는 기획전 — exhibition.js가 .is-active를 붙임 (흰 테두리 + 색 테두리 두 겹) */
+.ex-card.is-active { box-shadow: 0 0 0 3px var(--bg), 0 0 0 6px var(--ex-color), var(--shadow-md); }
+
+.ex-card__top { position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+.ex-card__tag {
+  padding: 5px 12px; border-radius: 999px;
+  background: rgba(255,255,255,.2); border: 1px solid rgba(255,255,255,.3);
+  font-size: 11.5px; font-weight: 800;
+}
+.ex-card__dday {
+  padding: 4px 10px; border-radius: 8px;
+  background: #fff; color: var(--ex-color);
+  font-size: 12px; font-weight: 900;
+}
+.ex-card__dday.is-end { background: rgba(255,255,255,.3); color: #fff; }   /* [연결③] 마감된 기획전 */
+.ex-card h3 { position: relative; z-index: 1; font-size: 21px; font-weight: 900; line-height: 1.3; letter-spacing: -.7px; }
+.ex-card p { position: relative; z-index: 1; margin-top: 10px; font-size: 13.5px; line-height: 1.6; opacity: .9; }
+.ex-card p b { color: #fde68a; font-weight: 900; }
+.ex-card__foot {
+  position: relative; z-index: 1;
+  margin-top: auto; padding-top: 18px;
+  font-size: 12.5px; font-weight: 700; opacity: .92;
+}
+.ex-card__art {
+  position: absolute; right: -10px; bottom: -16px;
+  font-size: 112px; opacity: .2; transform: rotate(-14deg);
+  transition: transform .3s var(--ease);
+}
+.ex-card:hover .ex-card__art { transform: rotate(-6deg) scale(1.06); }
+
+
+
+/* =========================================================
+   기획전 상품 목록 (home.css .goods-card 위에 덧붙임)
+   ========================================================= */
+/* 고정(sticky) 헤더 높이만큼 위를 비워 두고 멈춤 — 없으면 제목이 헤더 밑에 가려짐 */
+.ex-goods { scroll-margin-top: 150px; }
+.ex-count {
+  display: inline-grid; place-content: center; min-width: 26px; height: 26px; padding: 0 8px;
+  margin-left: 4px; border-radius: 999px; vertical-align: 3px;
+  background: var(--brand); color: #fff; font-size: 13px; font-weight: 800; letter-spacing: 0;
+}
+.ex-item { cursor: pointer; }
+.ex-badge { background: var(--ex-color); letter-spacing: 0; }   /* g-badge 위치·모양은 home.css, 색만 기획전별로 */
+.g-was { margin: -4px 0 2px; font-size: 12px; color: var(--text-3); text-decoration: line-through; }
+
+
+
+/* =========================================================
+   반응형
+   ========================================================= */
+@media (max-width: 900px) {
+  .ex-goods { scroll-margin-top: 200px; }   /* 검색창이 아래 줄로 내려가 헤더가 더 높아짐 */
+  .ex-row { grid-template-columns: 1fr; }
+  .ex-card { min-height: 0; }
+}
+@media (max-width: 720px) {
+  .section__head:has(.seg) { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 480px) {
+  .ex-card { padding: 22px 20px; }
+  .ex-card h3 { font-size: 19px; }
+  .seg__btn { padding: 7px 11px; }
+}
