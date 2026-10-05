@@ -60,30 +60,238 @@ const WISH = [
 const won = (n) => n.toLocaleString("ko-KR") + "원";
 
 // 홈 상품 데이터 — 키가 home.html <article id="..."> 값과 같아야 함 [연결⑨]
+// cats: 상품이 들어가는 카테고리 (CATEGORIES 키) — 한 상품이 여러 카테고리에 들어갈 수 있음 [연결㉖]
 const GOODS = {
-    "goods-1": { brand: "SOUNDLAB",  name: "무선 노이즈캔슬링 헤드폰", price: 199000, was: 320000, emoji: "🎧" },
-    "goods-2": { brand: "MODEWORK",  name: "오버사이즈 코튼 셔츠",     price: 31840,  was: 39800,  emoji: "👕" },
-    "goods-3": { brand: "TECHFIT",   name: "스마트 워치 밴드 세트",    price: 50150,  was: 59000,  emoji: "⌚" },
-    "goods-4": { brand: "DAILYSTEP", name: "데일리 백팩 20L",          price: 89000,  was: null,   emoji: "🎒" },
-    "goods-5": { brand: "HOMEFIT",   name: "텀블러 500ml 2개 세트",    price: 31500,  was: 42000,  emoji: "🥤" },
-    "goods-6": { brand: "MODEWORK",  name: "울 혼방 오버핏 코트",      price: 190400, was: 238000, emoji: "🧥" },
-    "goods-7": { brand: "SOUNDLAB",  name: "블루투스 스피커 미니",     price: 79200,  was: 99000,  emoji: "🔊" },
-    "goods-8": { brand: "DAILYSTEP", name: "경량 러닝화",              price: 118000, was: null,   emoji: "👟" },
+    "goods-1": { brand: "SOUNDLAB",  name: "무선 노이즈캔슬링 헤드폰", price: 199000, was: 320000, emoji: "🎧", cats: ["digital", "gift"] },
+    "goods-2": { brand: "MODEWORK",  name: "오버사이즈 코튼 셔츠",     price: 31840,  was: 39800,  emoji: "👕", cats: ["fashion"] },
+    "goods-3": { brand: "TECHFIT",   name: "스마트 워치 밴드 세트",    price: 50150,  was: 59000,  emoji: "⌚", cats: ["digital"] },
+    "goods-4": { brand: "DAILYSTEP", name: "데일리 백팩 20L",          price: 89000,  was: null,   emoji: "🎒", cats: ["sports", "fashion"] },
+    "goods-5": { brand: "HOMEFIT",   name: "텀블러 500ml 2개 세트",    price: 31500,  was: 42000,  emoji: "🥤", cats: ["kitchen", "living"] },
+    "goods-6": { brand: "MODEWORK",  name: "울 혼방 오버핏 코트",      price: 190400, was: 238000, emoji: "🧥", cats: ["fashion"] },
+    "goods-7": { brand: "SOUNDLAB",  name: "블루투스 스피커 미니",     price: 79200,  was: 99000,  emoji: "🔊", cats: ["digital", "gift"] },
+    "goods-8": { brand: "DAILYSTEP", name: "경량 러닝화",              price: 118000, was: null,   emoji: "👟", cats: ["sports"] },
 
     // 신상품 (new.html) — GOODS에 같이 두어야 장바구니·찜 페이지에서도 이름·가격을 찾을 수 있음
-    "goods-9":  { brand: "TECHFIT",   name: "무선 충전 거치대 3in1",    price: 47200,  was: 59000,  emoji: "🔋" },
-    "goods-10": { brand: "MODEWORK",  name: "캐시미어 블렌드 머플러",   price: 42000,  was: null,   emoji: "🧣" },
-    "goods-11": { brand: "HOMEFIT",   name: "핸드드립 커피 세트",       price: 38400,  was: 48000,  emoji: "☕" },
-    "goods-12": { brand: "DAILYSTEP", name: "방수 트레킹 부츠",         price: 129000, was: null,   emoji: "🥾" },
-    "goods-13": { brand: "GLOWLAB",   name: "수분 진정 크림 50ml",      price: 25500,  was: 34000,  emoji: "🧴" },
-    "goods-14": { brand: "SOUNDLAB",  name: "오픈형 무선 이어버드",     price: 89100,  was: 99000,  emoji: "🎵" },
+    "goods-9":  { brand: "TECHFIT",   name: "무선 충전 거치대 3in1",    price: 47200,  was: 59000,  emoji: "🔋", cats: ["digital"] },
+    "goods-10": { brand: "MODEWORK",  name: "캐시미어 블렌드 머플러",   price: 42000,  was: null,   emoji: "🧣", cats: ["fashion", "gift"] },
+    "goods-11": { brand: "HOMEFIT",   name: "핸드드립 커피 세트",       price: 38400,  was: 48000,  emoji: "☕", cats: ["kitchen", "gift"] },
+    "goods-12": { brand: "DAILYSTEP", name: "방수 트레킹 부츠",         price: 129000, was: null,   emoji: "🥾", cats: ["sports"] },
+    "goods-13": { brand: "GLOWLAB",   name: "수분 진정 크림 50ml",      price: 25500,  was: 34000,  emoji: "🧴", cats: ["beauty"] },
+    "goods-14": { brand: "SOUNDLAB",  name: "오픈형 무선 이어버드",     price: 89100,  was: 99000,  emoji: "🎵", cats: ["digital", "sports"] },
 
     // 기획전 (exhibition.html) 전용 상품
-    "goods-15": { brand: "MODEWORK",  name: "울 블렌드 니트 가디건",    price: 29700,  was: 99000,  emoji: "🧶" },
-    "goods-16": { brand: "SOUNDLAB",  name: "홈시어터 사운드바",        price: 192500, was: 350000, emoji: "📻" },
-    "goods-17": { brand: "HOMEFIT",   name: "무드 스탠드 조명",         price: 57400,  was: 82000,  emoji: "💡" },
-    "goods-18": { brand: "HOMEFIT",   name: "세라믹 머그 2P 세트",      price: 22400,  was: 32000,  emoji: "🍵" }
+    "goods-15": { brand: "MODEWORK",  name: "울 블렌드 니트 가디건",    price: 29700,  was: 99000,  emoji: "🧶", cats: ["fashion"] },
+    "goods-16": { brand: "SOUNDLAB",  name: "홈시어터 사운드바",        price: 192500, was: 350000, emoji: "📻", cats: ["digital", "living"] },
+    "goods-17": { brand: "HOMEFIT",   name: "무드 스탠드 조명",         price: 57400,  was: 82000,  emoji: "💡", cats: ["living"] },
+    "goods-18": { brand: "HOMEFIT",   name: "세라믹 머그 2P 세트",      price: 22400,  was: 32000,  emoji: "🍵", cats: ["kitchen", "gift"] },
+
+    // 카테고리 페이지(category.html)용으로 더한 상품 — 도서 · 뷰티 · 리빙이 비거나 적어서
+    "goods-19": { brand: "PAPERCO",   name: "2027 다이어리 위클리",     price: 21000,  was: null,   emoji: "📒", cats: ["book", "gift"] },
+    "goods-20": { brand: "PAPERCO",   name: "에세이 『오늘의 쉼표』",     price: 15120,  was: 16800,  emoji: "📖", cats: ["book"] },
+    "goods-21": { brand: "PAPERCO",   name: "집에서 즐기는 홈카페 레시피북", price: 19800, was: 22000, emoji: "📚", cats: ["book", "kitchen"] },
+    "goods-22": { brand: "GLOWLAB",   name: "마일드 선크림 SPF50+",     price: 18900,  was: 27000,  emoji: "🌞", cats: ["beauty"] },
+    "goods-23": { brand: "GLOWLAB",   name: "립 & 핸드 기프트 세트",    price: 29900,  was: 35000,  emoji: "💝", cats: ["beauty", "gift"] },
+    "goods-24": { brand: "HOMEFIT",   name: "극세사 소파 블랭킷",       price: 34200,  was: 38000,  emoji: "🛋️", cats: ["living", "gift"] }
 };
+
+// 카테고리별로 더한 상품 — 카테고리마다 21개씩
+// [이름, 브랜드, 판매가, 정가(할인 없으면 null), 이모지, 함께 들어갈 카테고리]
+// 아래 반복문이 GOODS에 "goods-25"부터 이어서 넣음 → 찜 · 장바구니 · 브랜드 · 카테고리 페이지가 모두 같은 상품을 씀 [연결㉖]
+const MORE_GOODS = {
+    digital: [
+        ["무선 저소음 마우스",          "TECHFIT",  24900,  32000,  "🖱️"],
+        ["기계식 키보드 텐키리스",      "TECHFIT",  89000,  119000, "⌨️"],
+        ["USB-C 멀티 허브 7in1",        "TECHFIT",  39800,  49000,  "🔌"],
+        ["고속 충전기 65W",             "TECHFIT",  35900,  45000,  "⚡"],
+        ["보조배터리 10000mAh",         "TECHFIT",  29900,  null,   "🔋"],
+        ["노트북 거치대 알루미늄",      "TECHFIT",  32000,  42000,  "💻"],
+        ["태블릿 펜슬 2세대",           "TECHFIT",  45000,  59000,  "✏️"],
+        ["웹캠 FHD 오토포커스",         "TECHFIT",  54000,  69000,  "📷"],
+        ["스마트 체중계",               "TECHFIT",  39000,  49000,  "⚖️", ["living"]],
+        ["블루투스 분실방지 트래커 2개", "TECHFIT", 33000,  null,   "📍", ["gift"]],
+        ["무선 게이밍 헤드셋",          "SOUNDLAB", 129000, 159000, "🎮"],
+        ["넥밴드 블루투스 이어폰",      "SOUNDLAB", 49000,  65000,  "🎶"],
+        ["방수 휴대용 스피커",          "SOUNDLAB", 69000,  89000,  "🔉", ["sports"]],
+        ["블루투스 턴테이블",           "SOUNDLAB", 189000, 239000, "💿", ["gift"]],
+        ["USB 콘덴서 마이크",           "SOUNDLAB", 79000,  99000,  "🎙️"],
+        ["4K 액션캠",                   "TECHFIT",  219000, 279000, "📹", ["sports"]],
+        ["전자책 리더기 6인치",         "TECHFIT",  139000, 159000, "📱", ["book"]],
+        ["스마트 전구 2개입",           "TECHFIT",  25900,  32000,  "💡", ["living"]],
+        ["무선 충전 패드 15W",          "TECHFIT",  19900,  25000,  "🪫"],
+        ["미니 빔프로젝터",             "TECHFIT",  249000, 329000, "📽️", ["living"]],
+        ["디지털 액자 10인치",          "TECHFIT",  99000,  129000, "🖼️", ["gift"]]
+    ],
+    fashion: [
+        ["스트라이프 긴팔 티셔츠",      "MODEWORK", 25900,  32000,  "👕"],
+        ["와이드 데님 팬츠",            "MODEWORK", 49000,  65000,  "👖"],
+        ["플리츠 미디 스커트",          "MODEWORK", 45000,  59000,  "👗"],
+        ["경량 패딩 조끼",              "MODEWORK", 59000,  79000,  "🦺"],
+        ["코듀로이 셔츠 재킷",          "MODEWORK", 69000,  89000,  "🧥"],
+        ["울 볼캡",                     "MODEWORK", 29000,  null,   "🧢"],
+        ["레더 미니 크로스백",          "MODEWORK", 79000,  99000,  "👜", ["gift"]],
+        ["캔버스 토트백",               "MODEWORK", 32000,  null,   "🛍️"],
+        ["실크 스카프",                 "MODEWORK", 39000,  49000,  "🧣", ["gift"]],
+        ["옥스퍼드 셔츠 블루",          "MODEWORK", 42000,  52000,  "👔"],
+        ["클래식 로퍼",                 "MODEWORK", 89000,  119000, "👞"],
+        ["스웨이드 첼시 부츠",          "MODEWORK", 129000, 159000, "🥾"],
+        ["하이웨이스트 슬랙스",         "MODEWORK", 49000,  59000,  "👖"],
+        ["니트 원피스",                 "MODEWORK", 69000,  89000,  "👗"],
+        ["후드 스웨트셔츠",             "MODEWORK", 45000,  null,   "👕"],
+        ["컬러 양말 5족 세트",          "MODEWORK", 15900,  19900,  "🧦", ["gift"]],
+        ["라운드 선글라스",             "MODEWORK", 59000,  79000,  "🕶️"],
+        ["양가죽 장갑",                 "MODEWORK", 39000,  49000,  "🧤", ["gift"]],
+        ["코튼 파자마 세트",            "MODEWORK", 49000,  65000,  "👘", ["gift"]],
+        ["더블 트렌치코트",             "MODEWORK", 159000, 199000, "🧥"],
+        ["캔버스 스니커즈",             "DAILYSTEP", 59000, 69000,  "👟", ["sports"]]
+    ],
+    beauty: [
+        ["저자극 클렌징 폼",            "GLOWLAB",  12900,  16000,  "🧼"],
+        ["비타민C 세럼 30ml",           "GLOWLAB",  29000,  39000,  "💧"],
+        ["히알루론 수분 토너",          "GLOWLAB",  18000,  24000,  "🧴"],
+        ["시카 진정 패드 60매",         "GLOWLAB",  21000,  28000,  "🌿"],
+        ["수분 시트 마스크 10매",       "GLOWLAB",  15000,  20000,  "🎭"],
+        ["레티놀 나이트 크림",          "GLOWLAB",  39000,  52000,  "🌙"],
+        ["탄력 아이 크림",              "GLOWLAB",  32000,  42000,  "👁️"],
+        ["톤업 선 쿠션",                "GLOWLAB",  26000,  34000,  "☀️"],
+        ["물광 립 틴트 4색",            "GLOWLAB",  14900,  19000,  "💋"],
+        ["보습 립밤 3개 세트",          "GLOWLAB",  11900,  15000,  "💄", ["gift"]],
+        ["아이섀도 팔레트 9색",         "GLOWLAB",  29000,  38000,  "🎨"],
+        ["롱래쉬 볼륨 마스카라",        "GLOWLAB",  16000,  21000,  "🖌️"],
+        ["커버 쿠션 파운데이션",        "GLOWLAB",  32000,  42000,  "🪞"],
+        ["핸드크림 3종 세트",           "GLOWLAB",  19000,  25000,  "🤲", ["gift"]],
+        ["퍼퓸 바디 미스트",            "GLOWLAB",  22000,  29000,  "🌸", ["gift"]],
+        ["오드퍼퓸 50ml",               "GLOWLAB",  79000,  99000,  "🌷", ["gift"]],
+        ["실크 헤어 에센스",            "GLOWLAB",  15000,  19000,  "💆"],
+        ["두피 스케일링 샴푸",          "GLOWLAB",  18000,  24000,  "🫧"],
+        ["대용량 바디 로션 500ml",      "GLOWLAB",  16900,  22000,  "🧴"],
+        ["네일 컬러 5종 세트",          "GLOWLAB",  19900,  26000,  "💅", ["gift"]],
+        ["남성 올인원 로션",            "GLOWLAB",  23000,  30000,  "🧔"]
+    ],
+    living: [
+        ["메모리폼 경추 베개",          "HOMEFIT",  39000,  52000,  "🛏️"],
+        ["60수 차렵이불 퀸",            "HOMEFIT",  89000,  119000, "🛌"],
+        ["호텔 수건 5장 세트",          "HOMEFIT",  29000,  39000,  "🧺", ["gift"]],
+        ["실내 디퓨저 200ml",           "HOMEFIT",  25000,  32000,  "🌼", ["gift"]],
+        ["소이 캔들 2개 세트",          "HOMEFIT",  22000,  28000,  "🕯️", ["gift"]],
+        ["원목 수납 선반 3단",          "HOMEFIT",  69000,  89000,  "🗄️"],
+        ["접이식 빨래 건조대",          "HOMEFIT",  35000,  45000,  "🌬️"],
+        ["북유럽 패턴 러그",            "HOMEFIT",  79000,  99000,  "🧶"],
+        ["암막 커튼 2장",               "HOMEFIT",  49000,  65000,  "🪟"],
+        ["초음파 가습기 3L",            "HOMEFIT",  45000,  59000,  "💨", ["digital"]],
+        ["소형 공기청정기",             "HOMEFIT",  129000, 159000, "🌀", ["digital"]],
+        ["몬스테라 화분",               "HOMEFIT",  32000,  null,   "🪴", ["gift"]],
+        ["무소음 벽시계",               "HOMEFIT",  25000,  32000,  "🕰️"],
+        ["탁상 미니 선풍기",            "HOMEFIT",  19900,  25000,  "🎐", ["digital"]],
+        ["수납 바구니 3개 세트",        "HOMEFIT",  27000,  35000,  "🧺"],
+        ["규조토 욕실 매트",            "HOMEFIT",  18000,  24000,  "🛁"],
+        ["전신 거울 스탠드",            "HOMEFIT",  59000,  79000,  "🪞"],
+        ["버섯 무드등",                 "HOMEFIT",  29000,  38000,  "🍄", ["gift"]],
+        ["패브릭 쿠션 커버 2개",        "HOMEFIT",  19900,  26000,  "🛋️"],
+        ["원목 사이드 테이블",          "HOMEFIT",  59000,  79000,  "🪵"],
+        ["아로마 오일 3종 세트",        "HOMEFIT",  24000,  31000,  "🌿", ["gift"]]
+    ],
+    kitchen: [
+        ["스테인리스 프라이팬 28cm",    "HOMEFIT",  39000,  52000,  "🍳"],
+        ["무쇠 냄비 22cm",              "HOMEFIT",  89000,  119000, "🍲"],
+        ["주방 칼 5종 세트",            "HOMEFIT",  69000,  89000,  "🔪"],
+        ["원목 도마 대형",              "HOMEFIT",  29000,  38000,  "🪵"],
+        ["전기 포트 1.7L",              "HOMEFIT",  35000,  45000,  "🫖", ["digital"]],
+        ["전동 커피 그라인더",          "HOMEFIT",  49000,  65000,  "⚙️"],
+        ["모카포트 3인용",              "HOMEFIT",  32000,  42000,  "☕"],
+        ["유리 밀폐 용기 10종",         "HOMEFIT",  29900,  39000,  "🥡"],
+        ["실리콘 조리도구 6종",         "HOMEFIT",  24000,  32000,  "🥄"],
+        ["와인잔 2P 세트",              "HOMEFIT",  29000,  38000,  "🍷", ["gift"]],
+        ["유리 티팟 & 컵 세트",         "HOMEFIT",  35000,  45000,  "🍵", ["gift"]],
+        ["핸드 블렌더",                 "HOMEFIT",  59000,  79000,  "🥤", ["digital"]],
+        ["2구 토스터",                  "HOMEFIT",  45000,  59000,  "🍞", ["digital"]],
+        ["에어프라이어 종이호일 100매", "HOMEFIT",  9900,   null,   "🧻"],
+        ["유기 수저 4인 세트",          "HOMEFIT",  32000,  42000,  "🥢", ["gift"]],
+        ["도자기 접시 6P 세트",         "HOMEFIT",  49000,  65000,  "🍽️", ["gift"]],
+        ["냉장고 정리 트레이 4개",      "HOMEFIT",  19900,  25000,  "🧊"],
+        ["와플 메이커",                 "HOMEFIT",  39000,  49000,  "🧇", ["digital"]],
+        ["원목 식빵 보관함",            "HOMEFIT",  22000,  28000,  "🥖"],
+        ["콜드브루 보틀 1L",            "HOMEFIT",  19900,  26000,  "🧋"],
+        ["린넨 앞치마",                 "HOMEFIT",  25000,  32000,  "🧑‍🍳"]
+    ],
+    sports: [
+        ["요가 매트 8mm",               "DAILYSTEP", 29000, 39000,  "🧘"],
+        ["폼롤러 45cm",                 "DAILYSTEP", 19900, 25000,  "🌀"],
+        ["덤벨 2kg 2개 세트",           "DAILYSTEP", 25000, 32000,  "🏋️"],
+        ["러닝 암밴드",                 "DAILYSTEP", 15000, 19000,  "💪"],
+        ["트레일 러닝 베스트",          "DAILYSTEP", 69000, 89000,  "🎽"],
+        ["기능성 반팔 티셔츠",          "DAILYSTEP", 25000, 32000,  "🎽", ["fashion"]],
+        ["러닝 쇼츠",                   "DAILYSTEP", 29000, 38000,  "🩳", ["fashion"]],
+        ["하이웨이스트 레깅스",         "DAILYSTEP", 39000, 52000,  "🩱", ["fashion"]],
+        ["접이식 등산 스틱 2개",        "DAILYSTEP", 49000, 65000,  "🏔️"],
+        ["경량 캠핑 의자",              "DAILYSTEP", 59000, 79000,  "🪑"],
+        ["원터치 텐트 2인용",           "DAILYSTEP", 129000, 169000, "⛺"],
+        ["보온 보냉 물병 750ml",        "DAILYSTEP", 25000, 32000,  "🍶", ["kitchen"]],
+        ["자전거 헬멧",                 "DAILYSTEP", 59000, 79000,  "🚴"],
+        ["김서림 방지 수영 고글",       "DAILYSTEP", 19900, 26000,  "🥽"],
+        ["배드민턴 라켓 2개 세트",      "DAILYSTEP", 39000, 52000,  "🏸"],
+        ["테니스공 4개",                "DAILYSTEP", 12000, null,   "🎾"],
+        ["축구공 5호",                  "DAILYSTEP", 29000, null,   "⚽"],
+        ["스포츠 무릎 보호대",          "DAILYSTEP", 19000, 25000,  "🦵"],
+        ["카운터 줄넘기",               "DAILYSTEP", 15000, 19000,  "🪢"],
+        ["피트니스 스마트 밴드",        "DAILYSTEP", 59000, 79000,  "⌚", ["digital"]],
+        ["등산 배낭 30L",               "DAILYSTEP", 89000, 119000, "🎒"]
+    ],
+    book: [
+        ["장편소설 『여름의 끝에서』",           "PAPERCO", 14400, 16000, "📕"],
+        ["에세이 『천천히 걷는 법』",            "PAPERCO", 13500, 15000, "📗"],
+        ["시집 『바람이 머문 자리』",            "PAPERCO", 9000,  10000, "📘"],
+        ["자기계발 『작은 습관의 힘』",          "PAPERCO", 16200, 18000, "📙"],
+        ["경제 『돈의 흐름 읽기』",              "PAPERCO", 17100, 19000, "📈"],
+        ["과학 『우주는 어떻게 시작됐을까』",    "PAPERCO", 18000, 20000, "🔭"],
+        ["역사 『한 권으로 읽는 세계사』",       "PAPERCO", 19800, 22000, "🏛️"],
+        ["그림책 『달님 안녕』",                 "PAPERCO", 11700, 13000, "🌙"],
+        ["창작 동화 5권 세트",                   "PAPERCO", 45000, 50000, "🧸", ["gift"]],
+        ["요리책 『한 그릇 집밥』",              "PAPERCO", 16200, 18000, "🍚", ["kitchen"]],
+        ["여행 에세이 『제주 한 달 살기』",      "PAPERCO", 15300, 17000, "🏝️"],
+        ["『처음 배우는 HTML · CSS · JS』",      "PAPERCO", 25200, 28000, "💻"],
+        ["『30일 영어 회화』",                   "PAPERCO", 16200, 18000, "🗣️"],
+        ["가죽 만년 다이어리",                   "PAPERCO", 32000, null,  "📔", ["gift"]],
+        ["무지 노트 3권 세트",                   "PAPERCO", 9900,  12000, "📓"],
+        ["만년필 입문 세트",                     "PAPERCO", 39000, 49000, "🖋️", ["gift"]],
+        ["원목 독서대",                          "PAPERCO", 29000, 38000, "📖"],
+        ["클립형 북 라이트",                     "PAPERCO", 15900, 19900, "🔦", ["digital"]],
+        ["컬러링북 『숲의 시간』",               "PAPERCO", 12600, 14000, "🖍️"],
+        ["웹툰 단행본 1~3권 세트",               "PAPERCO", 32400, 36000, "💬"],
+        ["북커버 & 북마크 세트",                 "PAPERCO", 14000, 18000, "🔖", ["gift"]]
+    ],
+    gift: [
+        ["수제 쿠키 선물 상자",         "HOMEFIT",  25000,  32000,  "🍪", ["kitchen"]],
+        ["스페셜티 원두 선물 세트",     "HOMEFIT",  35000,  45000,  "☕", ["kitchen"]],
+        ["프리저브드 꽃다발",           "HOMEFIT",  49000,  65000,  "💐", ["living"]],
+        ["포근한 곰인형 50cm",          "HOMEFIT",  39000,  49000,  "🧸"],
+        ["미니어처 향수 5종 세트",      "GLOWLAB",  45000,  59000,  "🌺", ["beauty"]],
+        ["스킨케어 3종 기프트",         "GLOWLAB",  59000,  79000,  "🎁", ["beauty"]],
+        ["커플 머그 세트",              "HOMEFIT",  29000,  38000,  "💑", ["kitchen"]],
+        ["디저트 와인 & 잔 세트",       "HOMEFIT",  69000,  89000,  "🥂", ["kitchen"]],
+        ["축하 풍선 & 가랜드 세트",     "PAPERCO",  19900,  25000,  "🎈"],
+        ["손편지 카드 10장 세트",       "PAPERCO",  9900,   12000,  "✉️", ["book"]],
+        ["가죽 포토 앨범",              "PAPERCO",  35000,  45000,  "📸"],
+        ["이름 각인 볼펜 세트",         "PAPERCO",  29000,  38000,  "🖊️", ["book"]],
+        ["무선 이어폰 기프트 에디션",   "SOUNDLAB", 99000,  129000, "🎀", ["digital"]],
+        ["스마트워치 선물 세트",        "TECHFIT",  199000, 249000, "⌚", ["digital"]],
+        ["캐시미어 머플러 & 장갑 세트", "MODEWORK", 89000,  119000, "🧣", ["fashion"]],
+        ["커플 잠옷 세트",              "MODEWORK", 79000,  99000,  "👫", ["fashion"]],
+        ["러너 기프트 박스",            "DAILYSTEP", 49000, 65000,  "🏃", ["sports"]],
+        ["홈카페 기프트 박스",          "HOMEFIT",  59000,  79000,  "🧁", ["kitchen"]],
+        ["아기 첫 선물 세트",           "MODEWORK", 69000,  89000,  "🍼", ["fashion"]],
+        ["반려동물 간식 & 장난감 세트", "HOMEFIT",  29000,  38000,  "🐶", ["living"]],
+        ["감사 인사 떡 선물 세트",      "HOMEFIT",  39000,  48000,  "🍡", ["kitchen"]]
+    ]
+};
+
+// MORE_GOODS → GOODS에 넣기 (goods-25, goods-26, ...)
+// [이름, 브랜드, ...]처럼 순서대로 적은 배열을 "구조 분해"로 이름 붙여 꺼냄
+let nextNo = Object.keys(GOODS).length + 1;
+Object.entries(MORE_GOODS).forEach(([cat, list]) => {
+    list.forEach(([name, brand, price, was, emoji, extra = []]) => {
+        GOODS["goods-" + nextNo++] = { brand, name, price, was, emoji, cats: [cat, ...extra] };
+    });
+});
 
 // 장바구니 데이터
 // 페이지를 옮기면 변수는 초기화되므로 localStorage에 저장해 home ↔ cart가 같은 목록을 씀
@@ -307,7 +515,8 @@ const BRANDS = {
     HOMEFIT:   { ko: "홈핏",       logo: "🏠", tone: "#d97706", cat: "리빙 · 주방",     slogan: "집이 편해지는 물건",     desc: "텀블러, 커피 도구, 조명까지 집에서의 시간을 채워 주는 리빙 브랜드예요." },
     TECHFIT:   { ko: "테크핏",     logo: "⌚", tone: "#0284c7", cat: "디지털 액세서리", slogan: "기기에 꼭 맞는 한 조각", desc: "워치 밴드와 충전 거치대처럼 매일 쓰는 기기를 더 편하게 만드는 브랜드예요." },
     DAILYSTEP: { ko: "데일리스텝", logo: "👟", tone: "#16a34a", cat: "스포츠 · 아웃도어", slogan: "오늘도 한 걸음 더",     desc: "출퇴근 백팩부터 러닝화, 트레킹 부츠까지 걷는 날을 위한 브랜드예요." },
-    GLOWLAB:   { ko: "글로우랩",   logo: "🧴", tone: "#db2777", cat: "뷰티",            slogan: "피부가 쉬는 시간",       desc: "자극 없이 순한 성분으로 피부 장벽을 지키는 스킨케어 브랜드예요." }
+    GLOWLAB:   { ko: "글로우랩",   logo: "🧴", tone: "#db2777", cat: "뷰티",            slogan: "피부가 쉬는 시간",       desc: "자극 없이 순한 성분으로 피부 장벽을 지키는 스킨케어 브랜드예요." },
+    PAPERCO:   { ko: "페이퍼코",   logo: "📚", tone: "#0f766e", cat: "도서 · 문구",     slogan: "기록하고 읽는 즐거움",   desc: "다이어리와 책으로 하루를 정리하고 쉬어 가는 시간을 만드는 브랜드예요." }
 };
 
 // 브랜드 위크 — 브랜드마다 7일(EVENT_DAYS)씩 이어지는 추가 할인 이벤트 (event · brand 페이지가 같이 씀)
@@ -356,3 +565,20 @@ function brandEventOf(brand) {
 
 // 이벤트가 — 100원 단위로 반올림
 const eventPrice = (price, rate) => Math.round((price * (1 - rate / 100)) / 100) * 100;
+
+
+// 카테고리 — 키 ↔ GOODS의 cats 값 · category.html?cat=digital 주소 [연결㉖]
+// 순서 = 전체 카테고리 메뉴 · 홈 카테고리 아이콘 순서
+const CATEGORIES = {
+    digital: { name: "디지털", icon: "📱", tone: "#4f46e5", desc: "헤드폰 · 스피커부터 충전 · 워치 액세서리까지" },
+    fashion: { name: "패션",   icon: "👕", tone: "#ea580c", desc: "매일 입는 셔츠 · 니트부터 가을 아우터까지" },
+    beauty:  { name: "뷰티",   icon: "💄", tone: "#db2777", desc: "순한 스킨케어와 선물하기 좋은 뷰티 세트" },
+    living:  { name: "리빙",   icon: "🏠", tone: "#d97706", desc: "조명 · 블랭킷처럼 집을 편하게 만드는 물건" },
+    kitchen: { name: "주방",   icon: "🍳", tone: "#0d9488", desc: "텀블러 · 머그 · 핸드드립, 홈카페를 위한 도구" },
+    sports:  { name: "스포츠", icon: "👟", tone: "#16a34a", desc: "러닝화 · 트레킹 부츠 · 데일리 백팩" },
+    book:    { name: "도서",   icon: "📚", tone: "#0284c7", desc: "다이어리 · 에세이 · 레시피북" },
+    gift:    { name: "선물",   icon: "🎁", tone: "#e11d48", desc: "받는 사람이 좋아할 만한 선물 모음" }
+};
+
+// 카테고리의 상품 id 목록 — "all"이면 전체
+const goodsIn = (cat) => Object.keys(GOODS).filter((id) => cat === "all" || GOODS[id].cats.includes(cat));

@@ -79,7 +79,8 @@
 .br-card__name { font-size: 15px; font-weight: 900; letter-spacing: .3px; }
 .br-card__name small { margin-left: 3px; font-size: 12px; font-weight: 500; color: var(--text-3); letter-spacing: 0; }
 .br-card__slogan { margin-top: 2px; font-size: 12.5px; color: var(--text-2); }
-.br-card__emojis { margin-top: 6px; font-size: 15px; letter-spacing: 2px; }
+.br-card__emojis { margin-top: 6px; font-size: 15px; letter-spacing: 2px; white-space: nowrap; overflow: hidden; }
+.br-card__emojis small { font-size: 11.5px; font-weight: 800; color: var(--text-3); letter-spacing: 0; }
 .br-card__side { text-align: center; }
 .br-card__side b { display: block; font-size: 22px; font-weight: 900; color: var(--tone); line-height: 1.1; }
 .br-card__side small { font-size: 11px; color: var(--text-3); }
@@ -174,7 +175,7 @@
   .br-detail { scroll-margin-top: 200px; }   /* 검색창이 아래 줄로 내려가 헤더가 더 높아짐 */
   .br-hero { flex-direction: column; align-items: flex-start; padding: 36px 28px; }
   .br-hero__copy { flex: none; }   /* 세로 배치에선 flex-basis 480px이 "높이"가 되어 빈칸이 생김 → 끔 */
-  .br-hero__logos { grid-template-columns: repeat(6, 1fr); gap: 10px; width: 100%; }
+  .br-hero__logos { grid-template-columns: repeat(7, 1fr); gap: 10px; width: 100%; }
   .br-hero__logos span { width: 100%; height: auto; aspect-ratio: 1; max-width: 64px; font-size: 26px; translate: none; }
   .br-hero__logos span:nth-child(even) { translate: none; }
 }

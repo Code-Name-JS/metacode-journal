@@ -46,6 +46,8 @@
 
     let current = BRAND_KEYS[0];
     let sortKey = "pick";
+    const PAGE = 20;             // 한 번에 보여줄 상품 수
+    let shown = PAGE;            // 지금 보여주는 수 — 브랜드 · 정렬이 바뀌면 다시 20개부터
 
 
     /* -- 머리 배너 -- */
@@ -80,7 +82,7 @@
                 <div class="br-card__body">
                     <p class="br-card__name">${b} <small>${info.ko}</small></p>
                     <p class="br-card__slogan">${info.slogan}</p>
-                    <p class="br-card__emojis">${goods.map((g) => g.emoji).join(" ")}</p>
+                    <p class="br-card__emojis">${goods.slice(0, 6).map((g) => g.emoji).join(" ")}${goods.length > 6 ? ` <small>+${goods.length - 6}</small>` : ""}</p>
                 </div>
                 <div class="br-card__side"><b>${goods.length}</b><small>상품</small></div>
                 ${evTag}
@@ -135,7 +137,13 @@
         // 상품
         $("#brGoodsTitle").textContent = current;
         $("#brGoodsCount").textContent = goods.length;
-        $("#brGoods").innerHTML = goods.sort(SORTERS[sortKey]).map((g) => {
+        // 더 보기 — 정렬한 뒤 앞에서부터 shown개만 그림 [연결⑧]
+        goods.sort(SORTERS[sortKey]);
+        const more = $("#brMore");
+        more.hidden = goods.length <= shown;
+        more.innerHTML = `더 보기 <b>${Math.min(shown, goods.length)}</b> / ${goods.length}`;
+
+        $("#brGoods").innerHTML = goods.slice(0, shown).map((g) => {
             const liked = WISH_IDS.includes(g.id);
             const { price, base, rate, live } = g.p;
             return `
@@ -151,16 +159,17 @@
                     <a class="g-name" href="#">${g.name}</a>
                     ${rate ? `<p class="g-was">${won(base)}</p>` : ""}
                     <p class="g-price">${rate ? `<span class="g-rate">${rate}%</span>` : ""}<b>${won(price)}</b></p>
-                    <p class="br-pages">${g.pages.map((p) => `<span>${p.label}</span>`).join("")}</p>
+                    <p class="br-pages">${g.pages.length ? g.pages.map((p) => `<span>${p.label}</span>`).join("") : "<span>카테고리</span>"}</p>
                 </div>
             </article>`;
         }).join("");
         // ↑ id="goods-N" → 담기 · 찜에서 GOODS[card.id]로 찾음 [연결⑨]
-        // ↑ br-pages: 이 상품이 올라간 페이지 (홈 · 베스트 · 신상품 · 기획전)
+        // ↑ br-pages: 이 상품이 올라간 페이지 (홈 · 베스트 · 신상품 · 기획전) — 어디에도 없으면 카테고리 페이지에만 있는 상품
     }
 
     function setBrand(b) {
         current = b;
+        shown = PAGE;
         $$("#brList .br-card").forEach((c) => c.classList.toggle("is-active", c.dataset.brand === b));   // [연결②]
         renderDetail();
         history.replaceState(null, "", "#" + b.toLowerCase());   // 주소에 #soundlab → 새로고침해도 같은 브랜드
@@ -181,6 +190,13 @@
         if (!btn) return;
         $$("#brSort .seg__btn").forEach((b) => b.classList.toggle("is-active", b === btn));   // [연결⑤]
         sortKey = btn.dataset.sort;
+        shown = PAGE;
+        renderDetail();
+    });
+
+    // 더 보기 — 20개 더 [연결⑧]
+    $("#brMore").addEventListener("click", () => {
+        shown += PAGE;
         renderDetail();
     });
 

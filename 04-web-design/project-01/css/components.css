@@ -50,6 +50,18 @@
 .seg__btn.is-active { background: #fff; color: var(--brand); box-shadow: var(--shadow-sm); }
 
 
+/* -- 더 보기 버튼 (category · brand 공통) — 상품이 많을 때 20개씩 나눠 보여줌 -- */
+.load-more {
+   display: block; margin: 22px auto 0; padding: 12px 26px; border-radius: 999px;
+   background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-sm);
+   font-size: 14px; font-weight: 700; color: var(--text-2);
+   transition: .18s var(--ease);
+}
+.load-more:hover { border-color: var(--brand); color: var(--brand); transform: translateY(-1px); }
+.load-more b { color: var(--brand); font-variant-numeric: tabular-nums; }
+.load-more[hidden] { display: none; }
+
+
 /* -- 빈 목록 안내 -- */
 .empty { text-align: center; color: var(--text-3); padding: 34px 0; font-size: 14px; }
 

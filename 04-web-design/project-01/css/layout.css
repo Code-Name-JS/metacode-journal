@@ -122,6 +122,9 @@
   transition: background .18s var(--ease), color .18s var(--ease);
 }
 .gnb__menu-link:hover { background: var(--brand-50); color: var(--brand); }
+/* "전체"는 맨 위에 두고 아래 카테고리들과 줄로 나눔 */
+.gnb__menu-all { margin-bottom: 4px; padding-bottom: 4px; border-bottom: 1px solid var(--line); }
+.gnb__menu-all .gnb__menu-link { font-weight: 800; }
 
 
 

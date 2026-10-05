@@ -1,0 +1,124 @@
+/* ==========================================================================
+   pages/category.css — 카테고리
+   상품 카드(.goods-card, .g-*)와 혜택(.perks)은 home.css를 그대로 쓰고,
+   여기엔 카테고리 페이지에만 있는 것만 작성
+   카테고리 색은 JS가 넣는 CSS 변수 --tone으로 칠함 [연결②]
+   ========================================================================== */
+
+/* =========================================================
+   전체 카테고리 메뉴 — [연결③] 지금 보는 카테고리
+   ========================================================= */
+.gnb__menu-link.is-active { background: var(--brand-50); color: var(--brand); font-weight: 800; }
+
+
+
+/* =========================================================
+   머리 배너
+   ========================================================= */
+.ct-hero {
+  position: relative; overflow: hidden;
+  display: flex; align-items: center; gap: 24px;
+  padding: 32px 36px; border-radius: var(--r-lg); color: #fff;
+  background: linear-gradient(130deg, var(--tone), color-mix(in srgb, var(--tone) 55%, #0f172a));
+  box-shadow: 0 18px 40px rgba(15,23,42,.18);
+}
+.ct-hero::after {   /* 오른쪽 위 큰 원 — 장식용 */
+  content: ""; position: absolute; width: 300px; height: 300px; border-radius: 50%;
+  top: -150px; right: -60px; background: rgba(255,255,255,.1);
+}
+.ct-hero > * { position: relative; z-index: 1; }
+.ct-hero__ic {
+  width: 88px; height: 88px; flex: 0 0 88px; border-radius: 24px;
+  display: grid; place-content: center; font-size: 44px;
+  background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.3);
+}
+.ct-hero__copy { flex: 1; min-width: 0; }
+.ct-hero__path { font-size: 12.5px; opacity: .8; }
+.ct-hero__path a:hover { text-decoration: underline; }
+.ct-hero h1 { margin-top: 2px; font-size: 32px; font-weight: 900; letter-spacing: -1px; }
+.ct-hero__copy p:last-child { margin-top: 4px; font-size: 14px; opacity: .9; }
+.ct-hero__stats { display: flex; gap: 10px; margin: 0; }
+.ct-hero__stats div { min-width: 86px; padding: 10px 14px; border-radius: 12px; background: rgba(255,255,255,.14); text-align: center; }
+.ct-hero__stats dt { font-size: 11.5px; opacity: .8; }
+.ct-hero__stats dd { margin: 2px 0 0; font-size: 17px; font-weight: 900; font-variant-numeric: tabular-nums; }
+
+
+
+/* =========================================================
+   카테고리 탭 — [연결①] .ct-tab.is-active = 지금 카테고리
+   ========================================================= */
+/* position: relative → JS의 offsetLeft가 이 줄 기준으로 계산됨 (고른 탭으로 스크롤할 때 씀) */
+.ct-tabs {
+  position: relative; display: flex; gap: 8px; margin-top: 18px; padding: 10px;
+  overflow-x: auto; scrollbar-width: none;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); box-shadow: var(--shadow-sm);
+}
+.ct-tabs::-webkit-scrollbar { display: none; }
+.ct-tab {
+  flex: 0 0 auto; display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 14px; border-radius: 12px;
+  font-size: 14px; font-weight: 700; color: var(--text-2); white-space: nowrap;
+  transition: background .18s var(--ease), color .18s var(--ease);
+}
+.ct-tab:hover { background: #f4f5fa; color: var(--text); }
+.ct-tab__ic { font-size: 17px; }
+.ct-tab b {
+  min-width: 22px; padding: 1px 6px; border-radius: 999px;
+  background: #eef0f5; color: var(--text-3); font-size: 11.5px; font-weight: 800; text-align: center;
+}
+.ct-tab.is-active { background: var(--tone); color: #fff; }
+.ct-tab.is-active b { background: rgba(255,255,255,.25); color: #fff; }
+
+
+
+/* =========================================================
+   브랜드 칩 · 상품 (home.css .goods-card 위에 덧붙임)
+   ========================================================= */
+.ct-count {
+  display: inline-grid; place-content: center; min-width: 26px; height: 26px; padding: 0 8px;
+  margin-left: 4px; border-radius: 999px; vertical-align: 3px;
+  background: var(--brand); color: #fff; font-size: 13px; font-weight: 800; letter-spacing: 0;
+}
+
+.ct-brands { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.ct-brands:empty { display: none; }
+/* [연결⑤] style="--tone: ..." → 브랜드마다 색이 다름 */
+.ct-brand {
+  padding: 6px 12px; border-radius: 999px;
+  background: var(--surface); border: 1px solid var(--line);
+  font-size: 12.5px; font-weight: 800; color: var(--text-2);
+  transition: .18s var(--ease);
+}
+.ct-brand b { margin-left: 2px; color: var(--tone); }
+.ct-brand:hover { border-color: var(--tone); color: var(--tone); }
+.ct-brand.is-active { background: var(--tone); border-color: var(--tone); color: #fff; }
+.ct-brand.is-active b { color: #fff; }
+
+.ct-item { cursor: pointer; }
+.ct-badge { background: var(--tone); letter-spacing: .02em; }   /* g-badge 위치 · 모양은 home.css */
+.g-was { margin: -4px 0 2px; font-size: 12px; color: var(--text-3); text-decoration: line-through; }
+.ct-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+.ct-tags span { padding: 1px 7px; border-radius: 6px; background: #f4f5fa; font-size: 10.5px; font-weight: 700; color: var(--text-3); }
+.ct-tags span.is-now { background: var(--brand-50); color: var(--brand); }
+
+
+
+/* =========================================================
+   반응형
+   ========================================================= */
+@media (max-width: 900px) {
+  .ct-hero { flex-wrap: wrap; padding: 28px; }
+  .ct-hero__stats { width: 100%; }
+  .ct-hero__stats div { flex: 1; min-width: 0; }
+}
+@media (max-width: 720px) {
+  .section__head:has(.seg) { flex-direction: column; align-items: flex-start; }
+  .seg { max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+}
+@media (max-width: 560px) {
+  .ct-hero { padding: 22px 20px; gap: 16px; }
+  .ct-hero__ic { width: 64px; height: 64px; flex-basis: 64px; font-size: 32px; border-radius: 18px; }
+  .ct-hero h1 { font-size: 25px; }
+  .ct-hero__stats dd { font-size: 15px; }
+  .seg__btn { padding: 7px 10px; white-space: nowrap; }
+}

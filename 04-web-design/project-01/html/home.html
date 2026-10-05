@@ -60,28 +60,29 @@
             <div class="wrap gnb__row">
                 <!-- [연결①] JS가 id="gnbAllBtn"으로 찾아 click 이벤트 연결 / [연결②] aria-controls가 아래 목록 id를 가리킴 -->
                 <button class="gnb__all" id="gnbAllBtn" type="button" aria-expanded="false" aria-controls="gnbAllMenu">☰ 전체 카테고리</button>
-                <a class="gnb__item is-active" href="#">홈</a>
+                <a class="gnb__item is-active" href="./home.html">홈</a>
                 <a class="gnb__item" href="./best.html">베스트</a>
                 <a class="gnb__item" href="./new.html">신상품</a>
                 <a class="gnb__item" href="./exhibition.html">기획전</a>
                 <a class="gnb__item" href="./brand.html">브랜드</a>
-                <a class="gnb__item" href="./event.html">이벤트</a>
-                <a class="gnb__item gnb__item--hot" href="#">오늘의 특가 🔥</a>
+                <a class="gnb__item gnb__item--hot" href="./event.html">오늘의 이벤트🔥</a>
                 <a class="gnb__item gnb__item--end" href="./mypage.html">마이페이지</a>
             </div>
 
             <!-- 전체 카테고리 목록 -->
             <!-- [연결②] JS가 id="gnbAllMenu"로 찾음 / [연결③] JS가 .is-open을 붙이면 CSS가 목록을 보여줌 -->
             <div class="wrap gnb__menu" id="gnbAllMenu">
-                <ul class="gnb__menu-list">
-                    <li><a class="gnb__menu-link" href="#"><span>📱</span>디지털</a></li>
-                    <li><a class="gnb__menu-link" href="#"><span>👕</span>패션</a></li>
-                    <li><a class="gnb__menu-link" href="#"><span>💄</span>뷰티</a></li>
-                    <li><a class="gnb__menu-link" href="#"><span>🏠</span>리빙</a></li>
-                    <li><a class="gnb__menu-link" href="#"><span>🍳</span>주방</a></li>
-                    <li><a class="gnb__menu-link" href="#"><span>👟</span>스포츠</a></li>
-                    <li><a class="gnb__menu-link" href="#"><span>📚</span>도서</a></li>
-                    <li><a class="gnb__menu-link" href="#"><span>🎁</span>선물</a></li>
+                <ul class="gnb__menu-list">  <!-- [연결㉖] ?cat= 값 ↔ data.js CATEGORIES 키 → category.html이 그 카테고리 상품만 보여줌 -->
+                    <!-- [연결㉖] 주소에 ?cat= 없이 → category.html이 "전체"(모든 상품)를 보여줌 -->
+                    <li class="gnb__menu-all"><a class="gnb__menu-link" href="./category.html" data-cat="all"><span>🛍️</span>전체</a></li>
+                    <li><a class="gnb__menu-link" href="./category.html?cat=digital" data-cat="digital"><span>📱</span>디지털</a></li>
+                    <li><a class="gnb__menu-link" href="./category.html?cat=fashion" data-cat="fashion"><span>👕</span>패션</a></li>
+                    <li><a class="gnb__menu-link" href="./category.html?cat=beauty" data-cat="beauty"><span>💄</span>뷰티</a></li>
+                    <li><a class="gnb__menu-link" href="./category.html?cat=living" data-cat="living"><span>🏠</span>리빙</a></li>
+                    <li><a class="gnb__menu-link" href="./category.html?cat=kitchen" data-cat="kitchen"><span>🍳</span>주방</a></li>
+                    <li><a class="gnb__menu-link" href="./category.html?cat=sports" data-cat="sports"><span>👟</span>스포츠</a></li>
+                    <li><a class="gnb__menu-link" href="./category.html?cat=book" data-cat="book"><span>📚</span>도서</a></li>
+                    <li><a class="gnb__menu-link" href="./category.html?cat=gift" data-cat="gift"><span>🎁</span>선물</a></li>
                 </ul>
             </div>
         </nav>
@@ -112,14 +113,14 @@
 
         <!-- 카테고리 -->
         <section class="cats">
-            <a class="cat" href="#"><span class="cat__ic">📱</span><span>디지털</span></a>
-            <a class="cat" href="#"><span class="cat__ic">👕</span><span>패션</span></a>
-            <a class="cat" href="#"><span class="cat__ic">💄</span><span>뷰티</span></a>
-            <a class="cat" href="#"><span class="cat__ic">🏠</span><span>리빙</span></a>
-            <a class="cat" href="#"><span class="cat__ic">🍳</span><span>주방</span></a>
-            <a class="cat" href="#"><span class="cat__ic">👟</span><span>스포츠</span></a>
-            <a class="cat" href="#"><span class="cat__ic">📚</span><span>도서</span></a>
-            <a class="cat" href="#"><span class="cat__ic">🎁</span><span>선물</span></a>
+            <a class="cat" href="./category.html?cat=digital"><span class="cat__ic">📱</span><span>디지털</span></a>
+            <a class="cat" href="./category.html?cat=fashion"><span class="cat__ic">👕</span><span>패션</span></a>
+            <a class="cat" href="./category.html?cat=beauty"><span class="cat__ic">💄</span><span>뷰티</span></a>
+            <a class="cat" href="./category.html?cat=living"><span class="cat__ic">🏠</span><span>리빙</span></a>
+            <a class="cat" href="./category.html?cat=kitchen"><span class="cat__ic">🍳</span><span>주방</span></a>
+            <a class="cat" href="./category.html?cat=sports"><span class="cat__ic">👟</span><span>스포츠</span></a>
+            <a class="cat" href="./category.html?cat=book"><span class="cat__ic">📚</span><span>도서</span></a>
+            <a class="cat" href="./category.html?cat=gift"><span class="cat__ic">🎁</span><span>선물</span></a>
         </section>
 
         <!-- 프로모 배너 -->
@@ -157,7 +158,7 @@
                     <h2>오늘의 추천 상품</h2>
                     <p>고객님의 관심사에 맞춰 골라봤어요</p>
                 </div>
-                <a class="more" href="#">전체 보기 →</a>
+                <a class="more" href="./category.html">전체 보기 →</a>
             </div>
 
             <div class="goods">

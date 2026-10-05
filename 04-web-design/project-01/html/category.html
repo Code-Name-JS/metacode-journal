@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>기획전 | SHOPLY</title>
+    <title>카테고리 | SHOPLY</title>
 
     <link rel="stylesheet" href="../css/base.css" />
     <link rel="stylesheet" href="../css/layout.css" />
     <link rel="stylesheet" href="../css/components.css" />
-    <link rel="stylesheet" href="../css/pages/home.css" />  <!-- 히어로(.hero) · 상품 카드(.goods-card) 스타일을 홈과 같이 씀 -->
-    <link rel="stylesheet" href="../css/pages/exhibition.css" />
+    <link rel="stylesheet" href="../css/pages/home.css" />  <!-- 상품 카드(.goods-card) · 혜택(.perks) 스타일을 홈과 같이 씀 -->
+    <link rel="stylesheet" href="../css/pages/category.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet" />
@@ -51,7 +51,7 @@
                 <a class="gnb__item" href="./home.html">홈</a>
                 <a class="gnb__item" href="./best.html">베스트</a>
                 <a class="gnb__item" href="./new.html">신상품</a>
-                <a class="gnb__item is-active" href="./exhibition.html">기획전</a>  <!-- 현재 페이지 표시 -->
+                <a class="gnb__item" href="./exhibition.html">기획전</a>
                 <a class="gnb__item" href="./brand.html">브랜드</a>
                 <a class="gnb__item gnb__item--hot" href="./event.html">오늘의 이벤트🔥</a>
                 <a class="gnb__item gnb__item--end" href="./mypage.html">마이페이지</a>
@@ -78,120 +78,48 @@
 
     <main class="wrap main">
 
-        <!-- 머리 배너 — 어두운 바탕 + 기획전 3색 빛 번짐 / 포스터 3장 / 흐르는 띠 -->
-        <section class="ex-hero">
-            <div class="ex-hero__main">
-                <div class="ex-hero__copy">
-                    <span class="ex-hero__tag"><i></i>10월 한정 기획전 · 진행 중</span>
-                    <h1>이번 달 꼭 챙길<br /><em>3가지 기획전</em></h1>
-                    <p>프리미엄 브랜드 최대 <b>70% 할인</b> · 기획전 상품 전부 무료배송</p>
-
-                    <!-- [연결①] exhibition.js가 1초마다 id="exHour" · "exMin" · "exSec"의 숫자를 바꿈 -->
-                    <div class="ex-cd">
-                        <span class="ex-cd__label">⏰ 오늘의 특가 마감까지</span>
-                        <div class="ex-cd__nums">
-                            <span class="ex-cd__box"><b id="exHour">00</b><small>시간</small></span><i>:</i>
-                            <span class="ex-cd__box"><b id="exMin">00</b><small>분</small></span><i>:</i>
-                            <span class="ex-cd__box"><b id="exSec">00</b><small>초</small></span>
-                        </div>
-                    </div>
-
-                    <div class="hero__btns">
-                        <a class="home-btn home-btn--light" href="#exGoods">기획전 상품 보기</a>  <!-- [연결⑤] 아래 id="exGoods"로 이동 -->
-                        <a class="home-btn home-btn--line" href="./new.html#benefits">신규 혜택 받기</a>
-                    </div>
-                </div>
-
-                <!-- 기획전 포스터 — 누르면 아래 카드와 똑같이 그 기획전 상품만 보여줌 -->
-                <!-- [연결④] data-ex 값 ↔ exhibition.js EXHIBITS의 키 / [연결⑤] href ↔ id="exGoods" -->
-                <div class="ex-hero__posters" id="exPosters">
-                    <a class="ex-poster ex-poster--fall" href="#exGoods" data-ex="fall">
-                        <span class="ex-poster__ic">🧶</span>
-                        <small>FASHION</small><b>가을 패션 위크</b><em>~70%</em>
-                    </a>
-                    <a class="ex-poster ex-poster--sound" href="#exGoods" data-ex="sound">
-                        <span class="ex-poster__ic">🎧</span>
-                        <small>단독 기획</small><b>사운드 페스티벌</b><em>~45%</em>
-                    </a>
-                    <a class="ex-poster ex-poster--living" href="#exGoods" data-ex="living">
-                        <span class="ex-poster__ic">☕</span>
-                        <small>LIVING</small><b>홈카페 &amp; 리빙</b><em>~30%</em>
-                    </a>
-                    <span class="ex-hero__sticker" aria-hidden="true"><b>70%</b><small>MAX OFF</small></span>
-                </div>
+        <!-- 카테고리 머리 배너 — [연결②] --tone ↔ JS style.setProperty (카테고리마다 색이 바뀜) -->
+        <section class="ct-hero" id="ctHero">
+            <span class="ct-hero__ic" id="ctIcon" aria-hidden="true">🛍️</span>
+            <div class="ct-hero__copy">
+                <p class="ct-hero__path"><a href="./home.html">홈</a> › 전체 카테고리</p>
+                <h1 id="ctName">전체</h1>
+                <p id="ctDesc">-</p>
             </div>
-
-            <!-- 흐르는 띠 — 같은 글을 두 번 넣고 절반(-50%)만큼 움직여 끊김 없이 반복 -->
-            <div class="ex-hero__ticker" aria-hidden="true">
-                <div class="ex-hero__track">
-                    <span>✦ 가을 패션 위크 최대 70%</span><span>✦ SHOPLY × SOUNDLAB 사운드 페스티벌 최대 45%</span><span>✦ 홈카페 &amp; 리빙 최대 30%</span><span>✦ 기획전 전 상품 무료배송</span>
-                    <span>✦ 가을 패션 위크 최대 70%</span><span>✦ SHOPLY × SOUNDLAB 사운드 페스티벌 최대 45%</span><span>✦ 홈카페 &amp; 리빙 최대 30%</span><span>✦ 기획전 전 상품 무료배송</span>
-                </div>
-            </div>
+            <dl class="ct-hero__stats">
+                <div><dt>상품</dt><dd id="ctCount">0개</dd></div>
+                <div><dt>최대 할인</dt><dd id="ctMaxRate">0%</dd></div>
+                <div><dt>브랜드</dt><dd id="ctBrands">0개</dd></div>
+            </dl>
         </section>
 
-        <!-- 진행 중인 기획전 -->
+        <!-- 카테고리 고르기 -->
+        <!-- [연결①] data-cat 값 ↔ data.js CATEGORIES 키 · 주소 ?cat=... / category.js가 버튼을 만듦 -->
+        <nav class="ct-tabs" id="ctTabs" aria-label="카테고리"></nav>
+
+        <!-- 상품 목록 -->
         <section class="section">
             <div class="section__head">
                 <div>
-                    <h2>진행 중인 기획전</h2>
-                    <p>카드를 누르면 그 기획전 상품만 모아서 보여드려요</p>
-                </div>
-            </div>
-
-            <!-- [연결④] data-ex 값 ↔ exhibition.js EXHIBITS의 키 / .is-active ↔ CSS .ex-card.is-active -->
-            <div class="ex-row" id="exRow">
-                <a class="ex-card ex-card--fall" href="#exGoods" data-ex="fall">
-                    <div class="ex-card__top">
-                        <span class="ex-card__tag">FASHION</span>
-                        <span class="ex-card__dday">D-0</span>  <!-- [연결③] JS가 마감일까지 남은 날로 바꿈 -->
-                    </div>
-                    <h3>가을 패션 위크</h3>
-                    <p>니트 · 코트 · 셔츠<br />최대 <b>70%</b> 할인</p>
-                    <span class="ex-card__foot">10.05 – 10.18 · 상품 <b class="ex-card__count">0</b>개 →</span>
-                    <span class="ex-card__art">🧥</span>
-                </a>
-                <a class="ex-card ex-card--sound" href="#exGoods" data-ex="sound">
-                    <div class="ex-card__top">
-                        <span class="ex-card__tag">단독 기획</span>
-                        <span class="ex-card__dday">D-0</span>
-                    </div>
-                    <h3>SHOPLY × SOUNDLAB<br />사운드 페스티벌</h3>
-                    <p>오디오 전 품목 최대 <b>45%</b> 할인<br />+ 12개월 무이자 할부</p>
-                    <span class="ex-card__foot">10.01 – 10.11 · 상품 <b class="ex-card__count">0</b>개 →</span>
-                    <span class="ex-card__art">🎧</span>
-                </a>
-                <a class="ex-card ex-card--living" href="#exGoods" data-ex="living">
-                    <div class="ex-card__top">
-                        <span class="ex-card__tag">LIVING</span>
-                        <span class="ex-card__dday">D-0</span>
-                    </div>
-                    <h3>홈카페 &amp; 리빙</h3>
-                    <p>집에서 즐기는 가을 커피 한 잔<br />최대 <b>30%</b> 할인</p>
-                    <span class="ex-card__foot">10.05 – 10.25 · 상품 <b class="ex-card__count">0</b>개 →</span>
-                    <span class="ex-card__art">☕</span>
-                </a>
-            </div>
-        </section>
-
-        <!-- 기획전 상품 목록 -->
-        <!-- [연결⑤] id="exGoods" ↔ href="#exGoods" / CSS scroll-margin-top으로 고정 헤더 아래에 멈춤 -->
-        <section class="section ex-goods" id="exGoods">
-            <div class="section__head">
-                <div>
-                    <h2><span id="exTitle">전체 기획전 상품</span> <span class="ex-count" id="exCount">0</span></h2>  <!-- [연결①] -->
+                    <h2><span id="ctListTitle">전체</span> 상품 <span class="ct-count" id="ctListCount">0</span></h2>
                     <p>상품을 누르면 장바구니에 담을 수 있어요</p>
                 </div>
-                <!-- [연결④] data-ex 값 ↔ exhibition.js EXHIBITS의 키 / .is-active ↔ CSS (components.css .seg) -->
-                <div class="seg" id="exSeg">
-                    <button class="seg__btn is-active" type="button" data-ex="all">전체</button>
-                    <button class="seg__btn" type="button" data-ex="fall">가을 패션</button>
-                    <button class="seg__btn" type="button" data-ex="sound">사운드</button>
-                    <button class="seg__btn" type="button" data-ex="living">홈카페</button>
+                <!-- [연결④] data-sort 값 ↔ category.js SORTERS의 키 / .is-active ↔ components.css .seg -->
+                <div class="seg" id="ctSort">
+                    <button class="seg__btn is-active" type="button" data-sort="pick">추천순</button>
+                    <button class="seg__btn" type="button" data-sort="rate">할인율순</button>
+                    <button class="seg__btn" type="button" data-sort="low">낮은 가격순</button>
+                    <button class="seg__btn" type="button" data-sort="high">높은 가격순</button>
                 </div>
             </div>
 
-            <div class="goods" id="exList"></div>  <!-- [연결⑥] exhibition.js가 .goods-card를 만들어 넣음 -->
+            <!-- [연결⑤] 이 카테고리에 있는 브랜드 — 누르면 그 브랜드 상품만 (한 번 더 누르면 해제) -->
+            <div class="ct-brands" id="ctBrandChips"></div>
+
+            <div class="goods" id="ctGoods"></div>  <!-- [연결⑥] category.js가 .goods-card를 만들어 넣음 -->
+            <p class="empty" id="ctEmpty" hidden>이 조건에 맞는 상품이 없어요</p>
+            <!-- [연결⑦] 상품이 20개보다 많으면 보이는 버튼 — 누를 때마다 20개씩 더 그림 -->
+            <button class="load-more" id="ctMore" type="button" hidden>더 보기</button>
         </section>
 
         <!-- 혜택 (홈과 동일) -->
@@ -256,6 +184,6 @@
 
     <script src="../js/data.js"></script>
     <script src="../js/common.js"></script>
-    <script src="../js/pages/exhibition.js"></script>
+    <script src="../js/pages/category.js"></script>
 </body>
 </html>

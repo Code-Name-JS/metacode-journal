@@ -53,23 +53,24 @@
                 <a class="gnb__item" href="./new.html">신상품</a>
                 <a class="gnb__item" href="./exhibition.html">기획전</a>
                 <a class="gnb__item" href="./brand.html">브랜드</a>
-                <a class="gnb__item" href="./event.html">이벤트</a>
-                <a class="gnb__item gnb__item--hot" href="#">오늘의 특가 🔥</a>
+                <a class="gnb__item gnb__item--hot" href="./event.html">오늘의 이벤트🔥</a>
                 <a class="gnb__item gnb__item--end" href="./mypage.html">마이페이지</a>
             </div>
 
             <!-- 전체 카테고리 목록 (home.html과 동일) -->
             <!-- [연결②] JS가 id="gnbAllMenu"로 찾음 / [연결③] JS가 .is-open을 붙이면 CSS가 목록을 보여줌 -->
             <div class="wrap gnb__menu" id="gnbAllMenu">
-                <ul class="gnb__menu-list">
-                    <li><a class="gnb__menu-link" href="#"><span>📱</span>디지털</a></li>
-                    <li><a class="gnb__menu-link" href="#"><span>👕</span>패션</a></li>
-                    <li><a class="gnb__menu-link" href="#"><span>💄</span>뷰티</a></li>
-                    <li><a class="gnb__menu-link" href="#"><span>🏠</span>리빙</a></li>
-                    <li><a class="gnb__menu-link" href="#"><span>🍳</span>주방</a></li>
-                    <li><a class="gnb__menu-link" href="#"><span>👟</span>스포츠</a></li>
-                    <li><a class="gnb__menu-link" href="#"><span>📚</span>도서</a></li>
-                    <li><a class="gnb__menu-link" href="#"><span>🎁</span>선물</a></li>
+                <ul class="gnb__menu-list">  <!-- [연결㉖] ?cat= 값 ↔ data.js CATEGORIES 키 → category.html이 그 카테고리 상품만 보여줌 -->
+                    <!-- [연결㉖] 주소에 ?cat= 없이 → category.html이 "전체"(모든 상품)를 보여줌 -->
+                    <li class="gnb__menu-all"><a class="gnb__menu-link" href="./category.html" data-cat="all"><span>🛍️</span>전체</a></li>
+                    <li><a class="gnb__menu-link" href="./category.html?cat=digital" data-cat="digital"><span>📱</span>디지털</a></li>
+                    <li><a class="gnb__menu-link" href="./category.html?cat=fashion" data-cat="fashion"><span>👕</span>패션</a></li>
+                    <li><a class="gnb__menu-link" href="./category.html?cat=beauty" data-cat="beauty"><span>💄</span>뷰티</a></li>
+                    <li><a class="gnb__menu-link" href="./category.html?cat=living" data-cat="living"><span>🏠</span>리빙</a></li>
+                    <li><a class="gnb__menu-link" href="./category.html?cat=kitchen" data-cat="kitchen"><span>🍳</span>주방</a></li>
+                    <li><a class="gnb__menu-link" href="./category.html?cat=sports" data-cat="sports"><span>👟</span>스포츠</a></li>
+                    <li><a class="gnb__menu-link" href="./category.html?cat=book" data-cat="book"><span>📚</span>도서</a></li>
+                    <li><a class="gnb__menu-link" href="./category.html?cat=gift" data-cat="gift"><span>🎁</span>선물</a></li>
                 </ul>
             </div>
         </nav>
