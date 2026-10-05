@@ -241,6 +241,8 @@
   font-size: 14px; transition: .18s var(--ease);
 }
 .news__form input:focus { border-color: var(--brand); box-shadow: 0 0 0 4px rgba(79,70,229,.12); }
+/* [연결⑭] 이메일이 비었거나 형식이 틀렸을 때 — home.js가 붙였다 뗌 */
+.news__form input.is-error { border-color: var(--rose); background: #fff1f4; box-shadow: 0 0 0 4px rgba(244,63,94,.12); }
 
 
 

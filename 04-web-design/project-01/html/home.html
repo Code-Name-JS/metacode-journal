@@ -318,7 +318,9 @@
                 <h3>매주 목요일, 새로 나온 상품만 모아서</h3>
                 <p>이메일을 남겨주시면 기획전 소식을 가장 먼저 알려드려요.</p>
             </div>
-            <form class="news__form" onsubmit="return false">
+            <!-- [연결④] home.js가 class="news__form"으로 찾아 submit 이벤트 연결
+                 novalidate: 브라우저 기본 말풍선 대신 home.js가 직접 확인하고 안내 메시지(토스트)를 띄움 -->
+            <form class="news__form" novalidate>
                 <input type="email" placeholder="이메일 주소를 입력하세요" aria-label="이메일 주소" />
                 <button class="home-btn home-bnt--primary" type="submit">구독하기</button>
             </form>

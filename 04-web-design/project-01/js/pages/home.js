@@ -81,5 +81,29 @@
 
     /* -- 뉴스레터 -- */
     const newsForm = $(".news__form");                // [연결④] HTML form class
-    newsForm.addEventListener("______", (e) => { /* account.js의 email 정규식을 참고 */ });
+    const newsInput = $(".news__form input");
+    const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;    // account.js rules.email과 같은 정규식 (공백 없이 ○@○.○)
+
+    // 잘못 입력했을 때 — 빨간 테두리 + 입력칸으로 커서 + 안내 메시지
+    function newsError(msg) {
+        newsInput.classList.add("is-error");          // [연결⑭] CSS .news__form input.is-error
+        newsInput.focus();
+        toast(msg);
+    }
+
+    // 구독하기 버튼(type="submit")을 누르거나, 입력칸에서 Enter → form의 submit 이벤트
+    newsForm.addEventListener("submit", (e) => {
+        e.preventDefault();                           // 폼 전송(페이지 새로고침) 막기
+        const email = newsInput.value.trim();         // 앞뒤 공백 제거
+
+        if (!email) return newsError("📧 이메일 주소를 입력해 주세요.");
+        if (!EMAIL_RE.test(email)) return newsError("이메일 형식을 확인해 주세요. (예: name@example.com)");
+
+        newsInput.classList.remove("is-error");
+        toast(`📮 구독 완료! 매주 목요일 ${email} 주소로 새 상품 소식을 보내드릴게요.`);   // common.js toast → #toast ("주소로" — 이메일 끝 글자와 상관없이 자연스러운 조사)
+        newsForm.reset();                             // 입력칸 비우기
+    });
+
+    // 다시 입력하기 시작하면 빨간 테두리 지우기
+    newsInput.addEventListener("input", () => newsInput.classList.remove("is-error"));
 })();
