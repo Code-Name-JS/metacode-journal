@@ -24,13 +24,15 @@
 
 
     /* -- 오늘의 특가 마감 타이머 (오늘 밤 12시까지) -- */
-    const timer = $("#exTimer");        // [연결①]
+    const hour = $("#exHour"), min = $("#exMin"), sec = $("#exSec");   // [연결①]
     const pad = (n) => String(n).padStart(2, "0");
 
     function tick() {
         const now = new Date();
         const left = Math.floor((startOfDay(now).getTime() + DAY - now.getTime()) / 1000);  // 다음 자정까지 남은 초 (common.js startOfDay · DAY)
-        timer.textContent = `${pad(Math.floor(left / 3600))}:${pad(Math.floor(left / 60) % 60)}:${pad(left % 60)}`;
+        hour.textContent = pad(Math.floor(left / 3600));
+        min.textContent = pad(Math.floor(left / 60) % 60);
+        sec.textContent = pad(left % 60);
     }
     tick();
     setInterval(tick, 1000);
@@ -96,11 +98,13 @@
         if (btn) setFilter(btn.dataset.ex);
     });
 
-    // 카드는 <a href="#exGoods"> → 기본 동작(목록으로 스크롤)은 그대로 두고 필터만 바꿈
-    $("#exRow").addEventListener("click", (e) => {
-        const card = e.target.closest(".ex-card");
-        if (card) setFilter(card.dataset.ex);
-    });
+    // 기획전 카드 · 배너 포스터는 <a href="#exGoods"> → 기본 동작(목록으로 스크롤)은 그대로 두고 필터만 바꿈
+    ["#exRow", "#exPosters"].forEach((sel) =>
+        $(sel).addEventListener("click", (e) => {
+            const link = e.target.closest("[data-ex]");   // [연결④] .ex-card · .ex-poster 둘 다 data-ex를 가짐
+            if (link) setFilter(link.dataset.ex);
+        })
+    );
 
 
     /* -- 카드 클릭: 찜 / 장바구니 담기 (이벤트 위임 — 필터 때마다 카드를 새로 만들기 때문) -- */

@@ -77,23 +77,55 @@
 
     <main class="wrap main">
 
-        <!-- 머리 배너 — 홈 히어로(.hero)를 그대로 쓰고, 마감 타이머만 덧붙임 -->
-        <section class="hero">
-            <div class="hero__copy">
-                <span class="hero__tag">10월 한정 기획전</span>
-                <h1>이번 달 꼭 챙길<br /><em>3가지 기획전</em></h1>
-                <p>프리미엄 브랜드 최대 <b>70% 할인</b> · 기획전 상품 전부 무료배송</p>
-                <!-- [연결①] exhibition.js가 1초마다 id="exTimer"의 글자를 바꿈 -->
-                <p class="ex-timer">⏰ 오늘의 특가 마감까지 <b id="exTimer">00:00:00</b></p>
-                <div class="hero__btns">
-                    <a class="home-btn home-btn--light" href="#exGoods">기획전 상품 보기</a>  <!-- [연결⑤] 아래 id="exGoods"로 이동 -->
-                    <a class="home-btn home-btn--line" href="./new.html#benefits">신규 혜택 받기</a>
+        <!-- 머리 배너 — 어두운 바탕 + 기획전 3색 빛 번짐 / 포스터 3장 / 흐르는 띠 -->
+        <section class="ex-hero">
+            <div class="ex-hero__main">
+                <div class="ex-hero__copy">
+                    <span class="ex-hero__tag"><i></i>10월 한정 기획전 · 진행 중</span>
+                    <h1>이번 달 꼭 챙길<br /><em>3가지 기획전</em></h1>
+                    <p>프리미엄 브랜드 최대 <b>70% 할인</b> · 기획전 상품 전부 무료배송</p>
+
+                    <!-- [연결①] exhibition.js가 1초마다 id="exHour" · "exMin" · "exSec"의 숫자를 바꿈 -->
+                    <div class="ex-cd">
+                        <span class="ex-cd__label">⏰ 오늘의 특가 마감까지</span>
+                        <div class="ex-cd__nums">
+                            <span class="ex-cd__box"><b id="exHour">00</b><small>시간</small></span><i>:</i>
+                            <span class="ex-cd__box"><b id="exMin">00</b><small>분</small></span><i>:</i>
+                            <span class="ex-cd__box"><b id="exSec">00</b><small>초</small></span>
+                        </div>
+                    </div>
+
+                    <div class="hero__btns">
+                        <a class="home-btn home-btn--light" href="#exGoods">기획전 상품 보기</a>  <!-- [연결⑤] 아래 id="exGoods"로 이동 -->
+                        <a class="home-btn home-btn--line" href="./new.html#benefits">신규 혜택 받기</a>
+                    </div>
+                </div>
+
+                <!-- 기획전 포스터 — 누르면 아래 카드와 똑같이 그 기획전 상품만 보여줌 -->
+                <!-- [연결④] data-ex 값 ↔ exhibition.js EXHIBITS의 키 / [연결⑤] href ↔ id="exGoods" -->
+                <div class="ex-hero__posters" id="exPosters">
+                    <a class="ex-poster ex-poster--fall" href="#exGoods" data-ex="fall">
+                        <span class="ex-poster__ic">🧶</span>
+                        <small>FASHION</small><b>가을 패션 위크</b><em>~70%</em>
+                    </a>
+                    <a class="ex-poster ex-poster--sound" href="#exGoods" data-ex="sound">
+                        <span class="ex-poster__ic">🎧</span>
+                        <small>단독 기획</small><b>사운드 페스티벌</b><em>~45%</em>
+                    </a>
+                    <a class="ex-poster ex-poster--living" href="#exGoods" data-ex="living">
+                        <span class="ex-poster__ic">☕</span>
+                        <small>LIVING</small><b>홈카페 &amp; 리빙</b><em>~30%</em>
+                    </a>
+                    <span class="ex-hero__sticker" aria-hidden="true"><b>70%</b><small>MAX OFF</small></span>
                 </div>
             </div>
-            <div class="hero__art" aria-hidden="true">
-                <div class="art-card art-card--a"><span>🧶</span><b>니트 가디건</b><small>29,700원</small></div>
-                <div class="art-card art-card--b"><span>📻</span><b>홈시어터 사운드바</b><small>192,500원</small></div>
-                <div class="art-badge"><b>70%</b><small>OFF</small></div>
+
+            <!-- 흐르는 띠 — 같은 글을 두 번 넣고 절반(-50%)만큼 움직여 끊김 없이 반복 -->
+            <div class="ex-hero__ticker" aria-hidden="true">
+                <div class="ex-hero__track">
+                    <span>✦ 가을 패션 위크 최대 70%</span><span>✦ SHOPLY × SOUNDLAB 사운드 페스티벌 최대 45%</span><span>✦ 홈카페 &amp; 리빙 최대 30%</span><span>✦ 기획전 전 상품 무료배송</span>
+                    <span>✦ 가을 패션 위크 최대 70%</span><span>✦ SHOPLY × SOUNDLAB 사운드 페스티벌 최대 45%</span><span>✦ 홈카페 &amp; 리빙 최대 30%</span><span>✦ 기획전 전 상품 무료배송</span>
+                </div>
             </div>
         </section>
 

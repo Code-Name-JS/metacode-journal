@@ -14,17 +14,102 @@
 
 
 /* =========================================================
-   히어로 마감 타이머 — [연결①] exhibition.js가 #exTimer 글자를 1초마다 바꿈
+   머리 배너 — 어두운 바탕에 기획전 3색(주황 · 보라 · 초록) 빛 번짐
    ========================================================= */
-/* .hero p(home.css)보다 우선하도록 .hero를 붙임 */
-.hero .ex-timer {
+.ex-hero {
+  position: relative; overflow: hidden;
+  border-radius: var(--r-lg); color: #fff;
+  background:
+    radial-gradient(circle at 10% 15%, rgba(234,88,12,.5), transparent 40%),
+    radial-gradient(circle at 92% 8%, rgba(124,58,237,.6), transparent 45%),
+    radial-gradient(circle at 65% 105%, rgba(5,150,105,.5), transparent 42%),
+    #15122e;
+  box-shadow: 0 20px 46px rgba(21,18,46,.35);
+}
+.ex-hero__main { display: flex; align-items: center; gap: 24px; padding: 46px 46px 40px; }
+.ex-hero__copy { position: relative; z-index: 2; flex: 0 1 460px; }
+
+.ex-hero__tag {
   display: inline-flex; align-items: center; gap: 8px;
-  margin-top: 16px; padding: 8px 14px; border-radius: 999px;
-  background: rgba(15,10,50,.28); border: 1px solid rgba(255,255,255,.22);
-  font-size: 13.5px; font-weight: 700; opacity: 1;
+  margin-bottom: 16px; padding: 6px 14px 6px 12px; border-radius: 999px;
+  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+  font-size: 12.5px; font-weight: 800; letter-spacing: .02em;
+}
+/* 빨간 점이 깜빡임 → "지금 진행 중" 느낌 */
+.ex-hero__tag i { width: 8px; height: 8px; border-radius: 50%; background: var(--rose); animation: ex-blink 1.4s var(--ease) infinite; }
+@keyframes ex-blink { 50% { opacity: .25; } }
+
+.ex-hero h1 { font-size: 40px; font-weight: 900; line-height: 1.22; letter-spacing: -1.6px; }
+/* 글자에 기획전 3색 그라데이션 — 배경을 글자 모양으로 잘라냄 */
+.ex-hero h1 em {
+  font-style: normal;
+  background: linear-gradient(90deg, #fdba74, #f0abfc 50%, #6ee7b7);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.ex-hero p { margin-top: 14px; font-size: 15px; opacity: .85; }
+.ex-hero p b { font-weight: 900; color: #fde68a; }
+
+
+/* -- 마감 타이머 — [연결①] exhibition.js가 #exHour · #exMin · #exSec 숫자를 1초마다 바꿈 -- */
+.ex-cd { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 14px; margin-top: 22px; }
+.ex-cd__label { font-size: 13px; font-weight: 700; opacity: .85; }
+.ex-cd__nums { display: flex; align-items: center; gap: 6px; }
+.ex-cd__nums i { font-style: normal; font-size: 20px; font-weight: 900; opacity: .5; }
+.ex-cd__box {
+  display: flex; flex-direction: column; align-items: center;
+  min-width: 56px; padding: 8px 6px 6px; border-radius: 12px;
+  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18);
 }
 /* 숫자 폭을 고정 → 초가 바뀌어도 글자가 좌우로 흔들리지 않음 */
-.hero .ex-timer b { font-size: 16px; font-variant-numeric: tabular-nums; letter-spacing: .02em; }
+.ex-cd__box b { font-size: 24px; font-weight: 900; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.ex-cd__box small { font-size: 10.5px; font-weight: 700; opacity: .65; }
+
+
+/* -- 기획전 포스터 3장 (겹쳐 놓은 콜라주) -- */
+.ex-hero__posters { position: relative; flex: 1 1 auto; min-width: 0; height: 270px; }
+.ex-poster {
+  position: absolute; width: 150px; height: 192px; padding: 16px;
+  display: flex; flex-direction: column;
+  border-radius: 18px; border: 1px solid rgba(255,255,255,.2);
+  box-shadow: 0 18px 36px rgba(0,0,0,.35);
+  /* rotate · translate를 따로 써서 hover 때 기울기는 그대로 두고 위로만 올림 */
+  transition: translate .25s var(--ease), box-shadow .25s var(--ease);
+}
+.ex-poster:hover { translate: 0 -10px; z-index: 3; box-shadow: 0 26px 44px rgba(0,0,0,.45); }
+.ex-poster--fall   { left: 2%;  top: 58px; rotate: -9deg; background: linear-gradient(160deg, #c2410c, #f59e0b); }
+.ex-poster--sound  { left: calc(50% - 75px); top: 4px; rotate: 2deg; z-index: 2; background: linear-gradient(160deg, #4c1d95, #7c3aed); }
+.ex-poster--living { right: 2%; top: 66px; rotate: 9deg; background: linear-gradient(160deg, #047857, #10b981); }
+/* 오른쪽 포스터는 글자를 오른쪽 정렬 → 가운데 포스터와 겹치는 왼쪽 가장자리를 비워 둠 */
+.ex-poster--living { align-items: flex-end; text-align: right; }
+.ex-poster__ic { margin-bottom: auto; font-size: 44px; }
+.ex-poster small { font-size: 11px; font-weight: 800; letter-spacing: .08em; opacity: .85; }
+.ex-poster b { margin-top: 2px; font-size: 16px; font-weight: 900; letter-spacing: -.5px; }
+.ex-poster em { margin-top: 2px; font-style: normal; font-size: 22px; font-weight: 900; color: #fde68a; letter-spacing: -.5px; }
+
+.ex-hero__sticker {
+  position: absolute; z-index: 4; right: 0; top: -4px;   /* 초록 포스터의 빈 오른쪽 위 모서리 — 글자를 가리지 않게 */
+  width: 86px; height: 86px; border-radius: 50%;
+  display: grid; place-content: center; text-align: center;
+  background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #fff;
+  border: 3px dashed rgba(255,255,255,.85);
+  box-shadow: 0 14px 30px rgba(245,158,11,.45);
+  rotate: -12deg; animation: float2 5s var(--ease) infinite;   /* float2: home.css */
+}
+.ex-hero__sticker b { font-size: 24px; font-weight: 900; line-height: 1; letter-spacing: -1px; }
+.ex-hero__sticker small { margin-top: 2px; font-size: 9.5px; font-weight: 800; letter-spacing: .06em; }
+
+
+/* -- 아래쪽 흐르는 띠 -- */
+.ex-hero__ticker { overflow: hidden; padding: 11px 0; background: rgba(0,0,0,.22); border-top: 1px solid rgba(255,255,255,.1); }
+.ex-hero__track { display: flex; width: max-content; animation: ex-ticker 28s linear infinite; }
+.ex-hero__track span { padding: 0 22px; font-size: 13px; font-weight: 800; white-space: nowrap; opacity: .9; }
+/* 같은 글이 두 번 들어 있으므로 절반만큼 가면 처음과 똑같은 모습 → 끊김 없이 반복 */
+@keyframes ex-ticker { to { transform: translateX(-50%); } }
+
+/* 움직임 줄이기를 켠 사용자에게는 애니메이션을 멈춤 */
+@media (prefers-reduced-motion: reduce) {
+  .ex-hero__track, .ex-hero__sticker, .ex-hero__tag i { animation: none; }
+}
 
 
 
@@ -95,15 +180,45 @@
 /* =========================================================
    반응형
    ========================================================= */
+@media (max-width: 1080px) {
+  .ex-hero h1 { font-size: 34px; }
+  /* 포스터 자리가 좁아지기 전에 글 → 포스터 세로 배치로 바꿈 */
+  .ex-hero__main { flex-direction: column; align-items: stretch; padding: 36px 28px 30px; }
+  .ex-hero__copy { flex: none; }
+  .ex-hero__posters { flex: none; width: 100%; max-width: 440px; height: 240px; margin: 4px auto 0; }   /* 너무 넓게 퍼지지 않게 가운데 모음 */
+  /* 포스터 3장이 서로 글자를 가리지 않도록 크기를 줄임 */
+  .ex-poster { width: 128px; height: 166px; padding: 14px; border-radius: 15px; }
+  .ex-poster--sound { left: calc(50% - 64px); }
+  .ex-poster__ic { font-size: 34px; }
+  .ex-poster b { font-size: 13.5px; }
+  .ex-poster em { font-size: 18px; }
+  .ex-hero__sticker { width: 70px; height: 70px; }
+  .ex-hero__sticker b { font-size: 19px; }
+}
 @media (max-width: 900px) {
   .ex-goods { scroll-margin-top: 200px; }   /* 검색창이 아래 줄로 내려가 헤더가 더 높아짐 */
   .ex-row { grid-template-columns: 1fr; }
   .ex-card { min-height: 0; }
 }
 @media (max-width: 720px) {
+  .ex-hero h1 { font-size: 29px; }
   .section__head:has(.seg) { flex-direction: column; align-items: flex-start; }
 }
 @media (max-width: 480px) {
+  .ex-hero__main { padding: 28px 20px 24px; }
+  .ex-hero h1 { font-size: 25px; letter-spacing: -1px; }
+  .ex-cd__box { min-width: 50px; }
+  .ex-cd__box b { font-size: 20px; }
+  .ex-hero__posters { height: 212px; }
+  .ex-poster { width: 102px; height: 142px; padding: 12px; }
+  .ex-poster--sound { left: calc(50% - 51px); }
+  .ex-poster__ic { font-size: 28px; }
+  .ex-poster small { font-size: 9.5px; }
+  .ex-poster b { font-size: 12.5px; }
+  .ex-poster em { font-size: 16px; }
+  .ex-hero__sticker { width: 60px; height: 60px; border-width: 2px; }
+  .ex-hero__sticker b { font-size: 16px; }
+  .ex-hero__sticker small { font-size: 8px; }
   .ex-card { padding: 22px 20px; }
   .ex-card h3 { font-size: 19px; }
   .seg__btn { padding: 7px 11px; }
