@@ -22,22 +22,54 @@ function toast(msg) {
 // 이 페이지에 #modal 이 없으면 null → 아래 코드가 에러 나지 않도록 가드
 const modal = $("#modal");
 
-function openConfirm(title, text, onOk) {
+// 버튼 글자 — HTML에 처음 적힌 글자(Yes/No, 확인/닫기 등)를 기본값으로 기억해 둠
+const modalOkBtn = $("#modalOk"), modalCancelBtn = $("#modalCancel");
+const MODAL_LABELS = modal ? { ok: modalOkBtn.textContent, cancel: modalCancelBtn.textContent } : null;
+
+function setModalLabels(labels = MODAL_LABELS) {
+    modalOkBtn.textContent = labels.ok;
+    modalCancelBtn.textContent = labels.cancel;
+}
+
+// labels를 넘기면 그때만 버튼 글자를 바꿈 — 예: { ok: "Yes", cancel: "No" }
+function openConfirm(title, text, onOk, labels) {
     $("#modalTitle").textContent = title;
     $("#modalBody").innerHTML = `<p>${text}</p>`;
+    setModalLabels(labels || MODAL_LABELS);
     modal.hidden = false;
     $("#modalOk").onclick = () => {
-        modal.hidden = true;
+        closeModal();
         onOk && onOk();
     };
 }
-function closeModal() { modal.hidden = true; }
+// 닫을 때마다 버튼 글자를 처음 것으로 되돌림 → 다음에 여는 창(주문 상세 등)이 영향을 안 받음
+function closeModal() {
+    modal.hidden = true;
+    setModalLabels();
+}
 
 if (modal) {
     $("#modalClose").addEventListener("click", closeModal);
     $("#modalCancel").addEventListener("click", closeModal);
     modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
     document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !modal.hidden) closeModal(); });
+}
+
+
+/* -- 로그아웃 확인 (mypage · membership 사이드바) -- */
+// [연결㉗] HTML <a data-logout> → 확인창에서 Yes를 눌렀을 때만 로그아웃
+const logoutLink = $("[data-logout]");
+if (logoutLink && modal) {
+    logoutLink.addEventListener("click", (e) => {
+        e.preventDefault();                         // href="#" → 맨 위로 튀지 않게
+        openConfirm("로그아웃",
+            `로그아웃 하시겠습니까?<small class="modal__warn">⚠️ 주의: 한 번 로그아웃하면 로그인할 수 없습니다.</small>`,   // [연결㉘] CSS .modal__warn
+            () => {
+            toast("👋 로그아웃되었습니다. 홈으로 이동할게요.");
+            setTimeout(() => (location.href = "./home.html"), 1200);   // 안내 문구를 읽을 시간을 준 뒤 이동
+        }, { ok: "Yes", cancel: "No" });
+        // No · ✕ · 바깥 클릭 · Esc → closeModal()이 창만 닫음 (페이지 그대로)
+    });
 }
 
 

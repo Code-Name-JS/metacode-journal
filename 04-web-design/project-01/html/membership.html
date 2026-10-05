@@ -46,7 +46,7 @@
 
                 <p class="nav__label">설정</p>
                 <a class="nav__item is-active" href="membership.html"><span class="ic">💳</span>멤버십 등급</a>  <!-- 현재 페이지 표시 -->
-                <a class="nav__item" href="#"><span class="ic">🚪</span>로그아웃</a>
+                <a class="nav__item" href="#" data-logout><span class="ic">🚪</span>로그아웃</a>  <!-- [연결㉗] common.js가 data-logout으로 찾아 확인창(Yes/No)을 띄움 -->
             </nav>
 
             <div class="sidebar__help">
@@ -310,6 +310,19 @@
                 </div>
             </section>
         </main>
+    </div>
+
+    <!-- 확인창 — common.js openConfirm()이 id로 찾아 씀 (로그아웃 확인) -->
+    <div class="modal" id="modal" hidden>
+        <div class="modal__box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <button class="modal__close" id="modalClose" aria-label="닫기">✕</button>
+            <h3 id="modalTitle">확인</h3>
+            <div class="modal__body" id="modalBody"></div>
+            <div class="modal__foot">
+                <button class="btn btn--ghost" id="modalCancel">No</button>
+                <button class="btn btn--primary" id="modalOk">Yes</button>
+            </div>
+        </div>
     </div>
 
     <!-- 토스트 -->
