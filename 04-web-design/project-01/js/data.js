@@ -3,13 +3,50 @@
    ===================================================== */
 "use strict";
 
+// 주문 내역 (최신순) — 멤버십 등급은 이 목록에서 "최근 6개월 + 구매확정(done)" 주문만 모아 계산함 [연결㉒]
 const ORDERS = [
     { id: "20261001-001", date: "2026.10.01", name: "무선 노이즈캔슬링 헤드폰", opt: "미드나이트 블랙/단품", price: 249000, status: "shipping", emoji: "🎧" },
     { id: "20260929-014", date: "2026.09.29", name: "오버사이즈 코튼 셔츠", opt: "화이트 / M", price: 39800, status: "shipping", emoji: "👕" },
     { id: "20260922-008", date: "2026.09.22", name: "스마트 워치 밴드 세트", opt: "실리콘 + 메탈 / 42mm", price: 59000, status: "done", emoji: "⌚" },
     { id: "20260915-031", date: "2026.09.15", name: "데일리 백팩 20L", opt: "차콜 그레이", price: 89000, status: "done", emoji: "🎒" },
-    { id: "20260908-002", date: "2026.09.08", name: "텀블러 500ml 2개 세트", opt: "크림 + 세이지", price: 42000, status: "done", emoji: "🥤" }
+    { id: "20260908-002", date: "2026.09.08", name: "텀블러 500ml 2개 세트", opt: "크림 + 세이지", price: 42000, status: "done", emoji: "🥤" },
+    { id: "20260826-019", date: "2026.08.26", name: "울 혼방 오버핏 코트", opt: "카멜 / L", price: 190400, status: "done", emoji: "🧥" },
+    { id: "20260802-007", date: "2026.08.02", name: "경량 러닝화", opt: "화이트 / 260", price: 118000, status: "done", emoji: "👟" },
+    { id: "20260714-022", date: "2026.07.14", name: "블루투스 스피커 미니", opt: "샌드 베이지", price: 79200, status: "done", emoji: "🔊" },
+    { id: "20260621-003", date: "2026.06.21", name: "무드 스탠드 조명", opt: "웜 화이트", price: 64000, status: "done", emoji: "💡" },
+    { id: "20260528-011", date: "2026.05.28", name: "무선 충전 거치대 3in1", opt: "블랙", price: 47200, status: "done", emoji: "🔋" },
+    { id: "20260430-016", date: "2026.04.30", name: "프리미엄 에어프라이어 5.5L", opt: "매트 블랙", price: 278800, status: "done", emoji: "🍳" },
+    { id: "20260318-005", date: "2026.03.18", name: "캐시미어 라운드 니트", opt: "오트밀 / M", price: 159000, status: "done", emoji: "🧶" }   // 6개월 지남 → 등급에서 빠짐
 ];
+
+const STATUS_TEXT = { shipping: "배송중", done: "구매확정", ready: "결제대기" };
+
+// 주문 상태 저장 — 구매확정 버튼으로 바뀐 상태를 { "주문번호": "done" } 형태로 저장
+// 페이지를 옮기거나 새로고침해도 ORDERS에 다시 덮어써서 mypage ↔ membership이 같은 상태를 봄
+const ORDER_STATUS_KEY = "shoply-order-status";
+
+function loadOrderStatus() {
+    try {
+        const saved = JSON.parse(localStorage.getItem(ORDER_STATUS_KEY));
+        if (saved && typeof saved === "object") return saved;
+    } catch (e) { }
+    return {};
+}
+
+function saveOrderStatus() {
+    const map = {};
+    ORDERS.forEach((o) => (map[o.id] = o.status));
+    try { localStorage.setItem(ORDER_STATUS_KEY, JSON.stringify(map)); } catch (e) { }
+}
+
+// 저장된 상태를 ORDERS에 덮어쓰기 — 다른 탭에서 바뀌었을 때도 이 함수를 다시 부름
+function applyOrderStatus() {
+    const saved = loadOrderStatus();
+    ORDERS.forEach((o) => {
+        if (STATUS_TEXT[saved[o.id]]) o.status = saved[o.id];   // 모르는 상태값은 무시
+    });
+}
+applyOrderStatus();
 
 const WISH = [
     { brand: "SOUNDLAB", name: "블루투스 스피커 미니", price: 79000, was: 99000, emoji: "🔊" },
@@ -20,7 +57,6 @@ const WISH = [
     { brand: "GREENLAB", name: "공기정화 식물 3종", price: 33000, was: 39000, emoji: "🪴" }
 ];
 
-const STATUS_TEXT = { shipping: "배송중", done: "구매확정", ready: "결제대기" };
 const won = (n) => n.toLocaleString("ko-KR") + "원";
 
 // 홈 상품 데이터 — 키가 home.html <article id="..."> 값과 같아야 함 [연결⑨]
@@ -146,10 +182,18 @@ const COUPON_INFO = {
     freeship: { name: "무료배송 쿠폰",        value: "무료",  unit: "배송",    cond: "금액 제한 없음",                until: "2026-10-31" },
     review:   { name: "리뷰 작성 보상 쿠폰",  value: "5,000", unit: "원 할인", cond: "50,000원 이상 구매 시",         until: "2026-11-15" },
 
-    // membership.html에서 받는 쿠폰 — 키 ↔ data-coupon="vip5000" · "vipShip" · "birthday"
-    vip5000:  { name: "VIP 이달의 등급 쿠폰", value: "5,000", unit: "원 할인", cond: "50,000원 이상 구매 시",         days: 30 },
-    vipShip:  { name: "VIP 무료배송 쿠폰",    value: "무료",  unit: "배송",    cond: "금액 제한 없음 · 등급 혜택",    days: 30 },
-    birthday: { name: "생일 축하 쿠폰",       value: "15",    unit: "% 할인",  cond: "최대 30,000원 할인 · VIP 생일", days: 30 }
+    // membership.html에서 받는 쿠폰 — 키 ↔ GRADES의 coupons · birthday 값
+    // 이달의 등급 쿠폰 (등급마다 다름)
+    silver2000: { name: "SILVER 이달의 등급 쿠폰", value: "2,000",  unit: "원 할인", cond: "30,000원 이상 구매 시",       days: 30 },
+    gold3000:   { name: "GOLD 이달의 등급 쿠폰",   value: "3,000",  unit: "원 할인", cond: "30,000원 이상 구매 시",       days: 30 },
+    vip5000:    { name: "VIP 이달의 등급 쿠폰",    value: "5,000",  unit: "원 할인", cond: "50,000원 이상 구매 시",       days: 30 },
+    vipShip:    { name: "VIP 무료배송 쿠폰",       value: "무료",   unit: "배송",    cond: "금액 제한 없음 · 등급 혜택",  days: 30 },
+    vvip10000:  { name: "VVIP 이달의 등급 쿠폰",   value: "10,000", unit: "원 할인", cond: "70,000원 이상 구매 시",       days: 30 },
+    vvipShip:   { name: "VVIP 무료배송 쿠폰",      value: "무료",   unit: "배송",    cond: "금액 제한 없음 · 등급 혜택",  days: 30 },
+    // 생일 쿠폰 (등급마다 할인율이 다름 — 1년에 한 장만)
+    bday10:     { name: "생일 축하 쿠폰",          value: "10",     unit: "% 할인",  cond: "최대 10,000원 할인",          days: 30 },
+    bday15:     { name: "생일 축하 쿠폰",          value: "15",     unit: "% 할인",  cond: "최대 30,000원 할인",          days: 30 },
+    bday20:     { name: "생일 축하 쿠폰",          value: "20",     unit: "% 할인",  cond: "최대 50,000원 할인",          days: 30 }
 };
 
 // 처음부터 가지고 있던 쿠폰 (원래 마이페이지 쿠폰함에 있던 것)
@@ -179,16 +223,43 @@ const ISSUED_COUPONS = loadCoupons();
 
 // 멤버십 등급 — 최근 6개월 구매 금액(min) · 구매 건수(orders)를 "둘 다" 채워야 그 등급 [연결㉒]
 // 키 ↔ membership.html의 data-grade · data-min 값 / rate: 구매 적립률(%)
+// coupons: 이달의 등급 쿠폰 / birthday: 생일 쿠폰 (모두 COUPON_INFO 키)
 const GRADES = [
-    { key: "family", name: "FAMILY", emoji: "🌱", min: 0,       orders: 0,  rate: 1 },
-    { key: "silver", name: "SILVER", emoji: "🥈", min: 150000,  orders: 3,  rate: 2 },
-    { key: "gold",   name: "GOLD",   emoji: "🥇", min: 300000,  orders: 5,  rate: 3 },
-    { key: "vip",    name: "VIP",    emoji: "💎", min: 600000,  orders: 7,  rate: 4 },
-    { key: "vvip",   name: "VVIP",   emoji: "👑", min: 1000000, orders: 10, rate: 5 }
+    { key: "family", name: "FAMILY", emoji: "🌱", min: 0,       orders: 0,  rate: 1, coupons: [],                        birthday: "bday10" },
+    { key: "silver", name: "SILVER", emoji: "🥈", min: 150000,  orders: 3,  rate: 2, coupons: ["silver2000"],            birthday: "bday10" },
+    { key: "gold",   name: "GOLD",   emoji: "🥇", min: 300000,  orders: 5,  rate: 3, coupons: ["gold3000"],              birthday: "bday15" },
+    { key: "vip",    name: "VIP",    emoji: "💎", min: 600000,  orders: 7,  rate: 4, coupons: ["vip5000", "vipShip"],    birthday: "bday15" },
+    { key: "vvip",   name: "VVIP",   emoji: "👑", min: 1000000, orders: 10, rate: 5, coupons: ["vvip10000", "vvipShip"], birthday: "bday20" }
 ];
 
-// 회원 정보 — spent · orders: 최근 6개월 구매 금액 · 건수 (구매 확정 기준)
-const MEMBER = { name: "김지우", spent: 967600, orders: 9, birthMonth: 10, birthDay: 21, joined: "2024-09-12" };
+// 회원 정보 — 구매 금액 · 건수는 여기 적지 않고 ORDERS에서 계산함
+const MEMBER = { name: "김지우", birthMonth: 10, birthDay: 21, joined: "2024-09-12" };
+
+// "2026.09.22" → Date (내 컴퓨터 시간 0시 기준)
+const orderDate = (o) => new Date(o.date.replace(/\./g, "-") + "T00:00:00");
+
+// 등급 산정 시작일 = 오늘에서 6개월 전 (0시)
+function gradeFrom() {
+    const d = new Date();
+    d.setHours(0, 0, 0, 0);
+    d.setMonth(d.getMonth() - 6);
+    return d;
+}
+
+// 주문 하나가 등급에 들어가는지 — "counted"(반영) · "pending"(구매확정 전) · "expired"(6개월 지남)
+function gradeState(o) {
+    if (orderDate(o) < gradeFrom()) return "expired";
+    return o.status === "done" ? "counted" : "pending";
+}
+
+// 등급에 반영되는 금액 · 건수 = 최근 6개월 + 구매확정 주문만
+function getGradeBase() {
+    const counted = ORDERS.filter((o) => gradeState(o) === "counted");
+    return {
+        spent: counted.reduce((sum, o) => sum + o.price, 0),
+        orders: counted.length
+    };
+}
 
 // 금액 · 건수 → 조건을 모두 채운 가장 높은 등급의 번호(0~4)
 function gradeIndexOf(spent, orders) {
@@ -199,12 +270,16 @@ function gradeIndexOf(spent, orders) {
     return idx;
 }
 
-// 내 등급 현황 — mypage(다음 등급까지) · membership이 같은 값을 씀
-// { idx, grade, next, needAmount, needOrders, amountPct, orderPct } / 최고 등급이면 next = null
-function getGradeStatus(spent = MEMBER.spent, orders = MEMBER.orders) {
+// 등급 현황 — mypage(다음 등급까지) · membership이 같은 값을 씀
+// 값을 안 넘기면 ORDERS로 계산 / 시뮬레이터는 { spent, orders }를 직접 넘김
+// { spent, orders, idx, grade, next, needAmount, needOrders, amountPct, orderPct } / 최고 등급이면 next = null
+function getGradeStatus(base = getGradeBase()) {
+    const { spent, orders } = base;
     const idx = gradeIndexOf(spent, orders);
     const next = GRADES[idx + 1] || null;
     return {
+        spent,
+        orders,
         idx,
         grade: GRADES[idx],
         next,

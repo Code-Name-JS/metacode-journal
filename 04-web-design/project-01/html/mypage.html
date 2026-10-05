@@ -104,8 +104,8 @@
             <section class="cards">
                 <article class="card card--order">
                     <div class="card__top"><span>배송 중</span><span class="card__ic">🚚</span></div>
-                    <strong class="card__value">2<small>건</small></strong>
-                    <p class="card__sub">오늘 도착 예정 <b>1건</b></p>
+                    <strong class="card__value"><span data-ship-count>0</span><small>건</small></strong>  <!-- [연결㉔] orders.js가 배송중 주문 수를 넣음 -->
+                    <p class="card__sub">구매확정하면 <b>등급에 반영</b>돼요</p>
                     <button class="card__btn" data-tab-jump="orders">배송 조회</button>
                 </article>
 
@@ -147,7 +147,7 @@
                 <!-- 주문내역 -->
                 <div class="tabpane is-active" id="pane-orders" role="tabpanel">
                     <div class="pane__head">
-                        <h2>최근 주문 <span class="muted">최근 3개월</span></h2>
+                        <h2>주문내역 <span class="muted">최근 6개월 구매확정 주문이 멤버십 등급에 반영돼요</span></h2>
                         
                         <div class="seg" id="orderFilter">
                             <button class="seg__btn is-active" data-filter="all">전체</button>

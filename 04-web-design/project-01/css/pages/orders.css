@@ -35,6 +35,16 @@
 }
 .mini:hover { background: var(--brand); color: #fff; }
 .mini--line { background: #fff; border: 1px solid var(--line); }
+.mini--confirm { background: var(--brand-50); color: var(--brand); font-weight: 700; }
+
+/* [연결㉓] 멤버십 등급 반영 여부 — orders.js가 order__grade--counted / pending / expired를 붙임 */
+.order__grade {
+   display: inline-block; margin-left: 4px; padding: 1px 7px; border-radius: 999px; vertical-align: 1px;
+   font-size: 10.5px; font-weight: 800; white-space: nowrap;
+}
+.order__grade--counted { background: #eef2ff; color: var(--brand); }
+.order__grade--pending { background: #fff7ed; color: #c2410c; }
+.order__grade--expired { background: #f2f3f8; color: var(--text-3); }
 
 
 @media (max-width: 560px) {

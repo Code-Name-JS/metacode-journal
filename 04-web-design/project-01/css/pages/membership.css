@@ -92,6 +92,48 @@
   transition: width .9s var(--ease);
 }
 .ms-progress__note { margin-top: 16px; font-size: 12px; color: var(--text-3); }
+/* [연결⑨] 배송중 주문을 구매확정하면 어떻게 되는지 */
+.ms-progress__tip {
+  margin-top: 16px; padding: 10px 13px; border-radius: 11px;
+  background: #fff7ed; color: #9a3412; font-size: 12.5px; font-weight: 600; line-height: 1.5;
+}
+.ms-progress__tip b { color: #c2410c; font-weight: 900; }
+
+
+
+/* =========================================================
+   등급 산정 내역 — [연결⑩] 마이페이지 주문내역(ORDERS)과 같은 데이터
+   ========================================================= */
+.ms-sum {
+  display: inline-block; margin-left: 6px; padding: 3px 10px; border-radius: 999px; vertical-align: 3px;
+  background: var(--brand); color: #fff; font-size: 12.5px; font-weight: 800; letter-spacing: 0;
+}
+.ms-orders {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  padding: 6px 18px; border-radius: var(--r-lg); column-gap: 28px;
+  background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-sm);
+}
+.ms-order {
+  display: grid; grid-template-columns: auto 1fr auto; column-gap: 12px; align-items: center;
+  padding: 12px 0; border-bottom: 1px solid var(--line);
+}
+/* 2열이므로 마지막 줄 두 칸은 밑줄 없음 (홀수 개면 마지막 한 칸) */
+.ms-order:nth-last-child(-n + 2):nth-child(odd),
+.ms-order:last-child { border-bottom: 0; }
+.ms-order__ic {
+  grid-row: span 2; width: 40px; height: 40px; border-radius: 11px;
+  display: grid; place-content: center; font-size: 19px; background: #f4f5fa;
+}
+.ms-order__info { min-width: 0; }
+.ms-order__name { font-size: 13.5px; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ms-order__date { font-size: 11.5px; color: var(--text-3); }
+.ms-order__price { grid-column: 3; grid-row: 1; text-align: right; font-size: 13.5px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.ms-order__tag { grid-column: 3; grid-row: 2; justify-self: end; font-size: 11px; font-weight: 800; }
+.ms-order.is-counted .ms-order__tag { color: var(--brand); }
+.ms-order.is-pending .ms-order__tag { color: #c2410c; }
+.ms-order.is-expired { opacity: .5; }
+.ms-order.is-expired .ms-order__price { text-decoration: line-through; }
+.ms-order.is-expired .ms-order__tag { color: var(--text-3); }
 
 
 
@@ -308,6 +350,9 @@
 @media (max-width: 760px) {
   .ms-top { grid-template-columns: 1fr; }
   .ms-sim { grid-template-columns: 1fr; }
+  .ms-orders { grid-template-columns: 1fr; }
+  .ms-order:nth-last-child(-n + 2):nth-child(odd) { border-bottom: 1px solid var(--line); }
+  .ms-order:last-child { border-bottom: 0; }
 }
 @media (max-width: 560px) {
   .ms-head h1 { font-size: 22px; }
@@ -329,5 +374,6 @@
   .ms-tier.is-current::before, .ms-tier.is-next::before { left: auto; right: 14px; translate: none; }
   .ms-tier.is-done::after { top: 8px; right: auto; left: 48px; }
   .ms-perks { grid-template-columns: 1fr; }
-  .section__head:has(.ms-coupon-all) { flex-direction: column; align-items: flex-start; }
+  .section__head:has(.ms-coupon-all),
+  .section__head:has(.ms-sum) { flex-direction: column; align-items: flex-start; }
 }

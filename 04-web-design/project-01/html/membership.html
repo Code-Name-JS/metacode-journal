@@ -108,8 +108,24 @@
                         <div class="ms-bar__track"><i id="msOrderBar"></i></div>
                     </div>
 
-                    <p class="ms-progress__note">산정 기간 <span id="msPeriod">-</span> · 구매 확정된 주문만 포함 · 매월 1일 등급 변경</p>
+                    <!-- [연결⑨] 배송중 주문을 구매확정하면 어떻게 되는지 — JS가 계산해서 보여줌 (없으면 숨김) -->
+                    <p class="ms-progress__tip" id="msTip" hidden></p>
+                    <p class="ms-progress__note">산정 기간 <span id="msPeriod">-</span> · 구매확정된 주문만 포함 · 매월 1일 등급 변경</p>
                 </div>
+            </section>
+
+
+            <!-- 등급 산정 내역 — 마이페이지 주문내역(data.js ORDERS)과 같은 데이터 -->
+            <section class="section">
+                <div class="section__head">
+                    <div>
+                        <h2>등급 산정 내역 <span class="ms-sum" id="msOrderSum">0건 · 0원</span></h2>
+                        <p>최근 6개월 동안 구매확정된 주문만 등급에 들어가요</p>
+                    </div>
+                    <a class="more" href="./mypage.html">주문내역에서 구매확정하기 →</a>
+                </div>
+                <!-- [연결⑩] membership.js가 ORDERS로 목록을 만듦 / is-counted · is-pending · is-expired ↔ CSS -->
+                <ul class="ms-orders" id="msOrders"></ul>
             </section>
 
 
@@ -136,34 +152,9 @@
                     <button class="btn btn--primary ms-coupon-all" type="button" id="msCouponAll">쿠폰 모두 받기</button>
                 </div>
 
-                <!-- [연결④] data-coupon 값 ↔ data.js COUPON_INFO 키 / 받은 쿠폰은 ISSUED_COUPONS(localStorage)에 저장 -->
-                <ul class="ms-coupons" id="msCoupons">
-                    <li class="coupon-item ms-coupon">
-                        <div class="coupon-item__value">5,000<small>원 할인</small></div>
-                        <div class="coupon-item__info">
-                            <p class="coupon-item__name">이달의 등급 쿠폰</p>
-                            <p class="coupon-item__cond">50,000원 이상 구매 시 · 받은 날부터 30일</p>
-                        </div>
-                        <button class="ms-coupon__btn" type="button" data-coupon="vip5000">받기</button>
-                    </li>
-                    <li class="coupon-item ms-coupon">
-                        <div class="coupon-item__value">무료<small>배송</small></div>
-                        <div class="coupon-item__info">
-                            <p class="coupon-item__name">등급 무료배송 쿠폰</p>
-                            <p class="coupon-item__cond">금액 제한 없음 · 받은 날부터 30일</p>
-                        </div>
-                        <button class="ms-coupon__btn" type="button" data-coupon="vipShip">받기</button>
-                    </li>
-                    <!-- [연결⑤] 생일 달이 아니면 JS가 버튼을 막고 .is-locked를 붙임 -->
-                    <li class="coupon-item ms-coupon ms-coupon--birthday" id="msBirthday">
-                        <div class="coupon-item__value">15%<small>생일 할인</small></div>
-                        <div class="coupon-item__info">
-                            <p class="coupon-item__name">🎂 생일 축하 쿠폰</p>
-                            <p class="coupon-item__cond" id="msBirthdayText">생일 달에 받을 수 있어요</p>
-                        </div>
-                        <button class="ms-coupon__btn" type="button" data-coupon="birthday">받기</button>
-                    </li>
-                </ul>
+                <!-- [연결④] membership.js가 내 등급의 쿠폰(GRADES의 coupons · birthday)으로 목록을 만듦
+                     data-coupon 값 ↔ data.js COUPON_INFO 키 / 받은 쿠폰은 ISSUED_COUPONS(localStorage)에 저장 -->
+                <ul class="ms-coupons" id="msCoupons"></ul>
             </section>
 
 

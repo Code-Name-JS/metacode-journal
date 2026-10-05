@@ -107,6 +107,32 @@ function renderCouponCount() {
 renderCouponCount();
 
 
+/* -- 멤버십 등급 박스 (mypage 프로필 오른쪽) --
+   주문내역에서 구매확정하면 orders.js가 다시 불러 바로 반영 / 박스가 없는 페이지에서는 아무것도 안 함 */
+function renderGradeBox() {
+    const need = $("#gradeNeed");                   // [연결㉒] mypage.html id="gradeNeed"
+    if (!need) return;
+
+    const me = getGradeStatus();                    // data.js — ORDERS(최근 6개월 · 구매확정)로 계산
+    $("#gradeChip").textContent = me.grade.name;
+
+    if (me.next) {
+        const left = [];
+        if (me.needAmount) left.push(won(me.needAmount));
+        if (me.needOrders) left.push(me.needOrders + "건");
+        need.textContent = left.join(" · ");
+        $("#gradeBar").style.width = me.amountPct + "%";
+        $("#gradeNote").textContent = `${me.next.name}까지 금액 ${me.amountPct}% · ${me.orders}/${me.next.orders}건`;
+    } else {
+        need.textContent = "최고 등급";
+        $("#gradeBar").style.width = "100%";
+        $("#gradeNote").textContent = `${me.grade.name} 유지 중 · 6개월 ${won(me.spent)}`;
+    }
+}
+
+renderGradeBox();
+
+
 /* -- 장바구니 담기 (home · best · wish · mypage 공통) -- */
 // 이미 담긴 상품이면 수량 +1, 없으면 새로 추가 → 저장 · 담기 횟수 +1 · 헤더 숫자
 // 담기 횟수(ADDS)는 장바구니와 따로 저장 → cart.html에서 지워도 랭킹 숫자는 그대로
