@@ -36,7 +36,9 @@
 .profile__sub { font-size: 13px; color: var(--text-3); margin-top: 4px; }
 
 .profile__right { margin-left: auto; min-width: 260px; flex: 1 1 260px; max-width: 380px; }
-.grade { background: #fafbfe; border: 1px solid var(--line); border-radius: var(--r-md); padding: 14px 16px; }
+/* <a>로 바꿈(membership.html 링크) → a는 기본이 inline이라 block으로 */
+.grade { display: block; background: #fafbfe; border: 1px solid var(--line); border-radius: var(--r-md); padding: 14px 16px; transition: border-color .18s var(--ease), box-shadow .18s var(--ease); }
+.grade:hover { border-color: #c7cdf5; box-shadow: var(--shadow-sm); }
 .grade__head { display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; color: var(--text-2); }
 .grade__head b { font-size: 15px; color: var(--text); }
 .grade__bar { height: 8px; border-radius: 999px; background: #e9eaf2; margin: 10px 0 8px; overflow: hidden; }

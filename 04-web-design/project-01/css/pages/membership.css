@@ -1,0 +1,333 @@
+/* ==========================================================================
+   pages/membership.css — 멤버십 등급
+   사이드바 · 상단바는 layout.css, 쿠폰 모양(.coupon-item)은 coupons.css를 그대로 쓰고,
+   여기엔 멤버십 페이지에만 있는 것만 작성
+   ========================================================================== */
+
+/* =========================================================
+   등급 색 — [연결①] HTML data-grade="vip" ↔ data.js GRADES 키
+   카드 · 등급 안내 · 시뮬레이터 결과가 같은 변수(--g1 · --g2)를 씀
+   ========================================================= */
+[data-grade="family"] { --g1: #047857; --g2: #34d399; }
+[data-grade="silver"] { --g1: #475569; --g2: #94a3b8; }
+[data-grade="gold"]   { --g1: #b45309; --g2: #fbbf24; }
+[data-grade="vip"]    { --g1: #4338ca; --g2: #a855f7; }
+[data-grade="vvip"]   { --g1: #0f172a; --g2: #57534e; }
+
+
+
+/* =========================================================
+   페이지 제목
+   ========================================================= */
+.ms-head { margin-bottom: 18px; }
+.ms-head__path { font-size: 12.5px; color: var(--text-3); }
+.ms-head__path a:hover { color: var(--brand); }
+.ms-head h1 { margin-top: 4px; font-size: 26px; font-weight: 900; letter-spacing: -.8px; }
+.ms-head p:last-child { margin-top: 6px; font-size: 13.5px; color: var(--text-2); }
+.ms-head b { color: var(--text); font-weight: 800; }
+
+
+
+/* =========================================================
+   내 등급 — 멤버십 카드 + 다음 등급까지
+   ========================================================= */
+.ms-top { display: grid; grid-template-columns: minmax(280px, 360px) 1fr; gap: 16px; }
+
+/* -- 멤버십 카드 (신용카드 모양) -- */
+.ms-card {
+  position: relative; overflow: hidden; min-height: 214px;
+  padding: 22px 24px; border-radius: var(--r-lg); color: #fff;
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+  box-shadow: 0 18px 40px rgba(16,24,40,.22);
+}
+/* 오른쪽 위 큰 원 · 지나가는 빛 — 장식용 */
+.ms-card::before {
+  content: ""; position: absolute; width: 260px; height: 260px; border-radius: 50%;
+  top: -120px; right: -90px; background: rgba(255,255,255,.14);
+}
+.ms-card::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(115deg, transparent 35%, rgba(255,255,255,.28) 50%, transparent 65%);
+  translate: -100% 0; transition: translate .9s var(--ease);
+}
+.ms-card:hover::after { translate: 100% 0; }
+.ms-card > * { position: relative; z-index: 1; }
+
+.ms-card__top { display: flex; justify-content: space-between; align-items: center; }
+.ms-card__brand { font-size: 11px; font-weight: 800; letter-spacing: .16em; opacity: .85; }
+.ms-card__chip {   /* IC칩 모양 */
+  width: 40px; height: 30px; border-radius: 7px;
+  background: linear-gradient(135deg, #fde68a, #f59e0b);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.12);
+}
+.ms-card__grade { margin-top: 24px; font-size: 32px; font-weight: 900; letter-spacing: 1px; }
+.ms-card__rate { margin-top: 2px; font-size: 13.5px; opacity: .92; }
+.ms-card__rate b { font-weight: 900; color: #fde68a; }
+.ms-card__foot {
+  position: absolute; left: 24px; right: 24px; bottom: 20px;
+  display: flex; justify-content: space-between;
+  font-size: 12.5px; font-weight: 700; letter-spacing: .04em; opacity: .88;
+}
+
+/* -- 다음 등급까지 -- */
+.ms-progress {
+  padding: 22px; border-radius: var(--r-lg);
+  background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-sm);
+}
+.ms-progress__head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; }
+.ms-progress__label { font-size: 13px; color: var(--text-2); }
+.ms-progress__label b { color: var(--text); font-weight: 800; }
+.ms-progress__need { margin-top: 2px; font-size: 24px; font-weight: 900; letter-spacing: -.6px; color: var(--brand); }
+.ms-progress__eval { padding: 6px 11px; border-radius: 999px; background: #f4f5fa; font-size: 12px; color: var(--text-2); }
+.ms-progress__eval b { color: var(--text); font-weight: 800; }
+
+.ms-bar { margin-top: 16px; }
+.ms-bar__text { display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; color: var(--text-2); }
+.ms-bar__text span:last-child { color: var(--text); font-weight: 800; font-variant-numeric: tabular-nums; }
+.ms-bar__track { height: 10px; margin-top: 7px; border-radius: 999px; background: #eceef5; overflow: hidden; }
+/* [연결②] 길이는 JS가 넣는 --p 값 — 처음엔 0%였다가 늘어나는 애니메이션 */
+.ms-bar__track i {
+  display: block; height: 100%; width: var(--p, 0%); border-radius: 999px;
+  background: linear-gradient(90deg, #6366f1, #a855f7);
+  transition: width .9s var(--ease);
+}
+.ms-progress__note { margin-top: 16px; font-size: 12px; color: var(--text-3); }
+
+
+
+/* =========================================================
+   등급 안내 — [연결③] membership.js가 .ms-tier를 만들고 상태 클래스를 붙임
+   ========================================================= */
+.ms-ladder { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; padding-top: 10px; }
+.ms-tier {
+  position: relative; padding: 20px 12px 18px; text-align: center;
+  border-radius: var(--r-md); background: var(--surface);
+  border: 1px solid var(--line); box-shadow: var(--shadow-sm);
+  transition: transform .2s var(--ease), box-shadow .2s var(--ease);
+}
+.ms-tier__ic {
+  width: 48px; height: 48px; margin: 0 auto; border-radius: 50%;
+  display: grid; place-content: center; font-size: 22px;
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+  box-shadow: 0 6px 14px rgba(16,24,40,.16);
+}
+.ms-tier__name { margin-top: 10px; font-size: 15px; font-weight: 900; letter-spacing: .5px; }
+.ms-tier__cond { margin-top: 3px; font-size: 12px; color: var(--text-3); }
+.ms-tier__rate {
+  display: inline-block; margin-top: 10px; padding: 3px 10px; border-radius: 999px;
+  background: #f4f5fa; font-size: 12.5px; font-weight: 800; color: var(--text-2);
+}
+
+/* 상태 표시 — 위쪽에 붙는 작은 이름표 */
+.ms-tier.is-current,
+.ms-tier.is-next { transform: translateY(-4px); }
+.ms-tier.is-current { box-shadow: 0 0 0 2px var(--brand), var(--shadow-md); border-color: transparent; }
+.ms-tier.is-current .ms-tier__rate { background: var(--brand); color: #fff; }
+.ms-tier.is-next { border: 2px dashed #c7cdf5; }
+.ms-tier.is-current::before,
+.ms-tier.is-next::before {
+  position: absolute; top: -11px; left: 50%; translate: -50% 0;
+  padding: 3px 10px; border-radius: 999px; white-space: nowrap;
+  font-size: 11px; font-weight: 800;
+}
+.ms-tier.is-current::before { content: "현재 등급"; background: var(--brand); color: #fff; }
+.ms-tier.is-next::before { content: "다음 목표"; background: #fff; color: var(--brand); border: 1px solid #c7cdf5; }
+.ms-tier.is-done::after {
+  content: "✓"; position: absolute; top: 10px; right: 12px;
+  font-size: 13px; font-weight: 900; color: var(--mint);
+}
+
+
+
+/* =========================================================
+   이번 달 쿠폰 (coupons.css .coupon-item 위에 덧붙임)
+   ========================================================= */
+.ms-coupon-all { padding: 9px 16px; font-size: 13px; }
+.ms-coupon-all:disabled { background: var(--mint); box-shadow: none; cursor: default; transform: none; }
+
+.ms-coupons { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); gap: 14px; }
+.ms-coupon { background: var(--surface); }
+.ms-coupon .coupon-item__value { flex-basis: 92px; font-size: 20px; }
+.ms-coupon .coupon-item__info { padding: 14px 12px; }
+.ms-coupon__btn {
+  flex: 0 0 auto; align-self: center; margin-right: 14px;
+  padding: 9px 14px; border-radius: 10px;
+  background: var(--brand-50); color: var(--brand);
+  font-size: 13px; font-weight: 800; white-space: nowrap;
+  transition: .18s var(--ease);
+}
+.ms-coupon__btn:hover { background: var(--brand); color: #fff; }
+/* [연결④] 받은 쿠폰 — membership.js가 .is-got을 붙이고 버튼을 막음 */
+.ms-coupon__btn.is-got,
+.ms-coupon__btn.is-got:hover { background: #ecfdf5; color: var(--mint); cursor: default; }
+
+/* 생일 쿠폰은 분홍 톤 */
+.ms-coupon--birthday { border-color: #fecdd3; }
+.ms-coupon--birthday .coupon-item__value { background: #fff1f4; color: var(--rose); border-right-color: #fecdd3; }
+/* [연결⑤] 생일 달이 아닐 때 */
+.ms-coupon.is-locked { opacity: .6; }
+.ms-coupon.is-locked .ms-coupon__btn { background: #f2f3f8; color: var(--text-3); cursor: not-allowed; }
+
+
+
+/* =========================================================
+   등급 시뮬레이터
+   ========================================================= */
+.ms-sim { display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; }
+.ms-sim__inputs {
+  display: flex; flex-direction: column; justify-content: center; gap: 24px;
+  padding: 24px; border-radius: var(--r-lg);
+  background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-sm);
+}
+.ms-range label { display: flex; justify-content: space-between; align-items: baseline; font-size: 13.5px; font-weight: 600; color: var(--text-2); }
+.ms-range label b { font-size: 16px; font-weight: 900; color: var(--brand); font-variant-numeric: tabular-nums; }
+
+/* [연결⑥] 막대에서 채워진 부분 = JS가 넣는 --fill 값 */
+.ms-range input {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 8px; margin: 14px 0 6px; border-radius: 999px; outline: none;
+  background: linear-gradient(to right, var(--brand) var(--fill, 0%), #e5e7f0 var(--fill, 0%));
+}
+.ms-range input::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 22px; height: 22px; border-radius: 50%; cursor: pointer;
+  background: #fff; border: 3px solid var(--brand); box-shadow: 0 2px 8px rgba(79,70,229,.35);
+}
+.ms-range input::-moz-range-thumb {
+  width: 16px; height: 16px; border-radius: 50%; cursor: pointer;
+  background: #fff; border: 3px solid var(--brand); box-shadow: 0 2px 8px rgba(79,70,229,.35);
+}
+.ms-range input:focus-visible { outline: 2px solid var(--brand); outline-offset: 6px; }
+.ms-range__scale { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--text-3); }
+
+.ms-sim__result {
+  display: flex; flex-direction: column;
+  padding: 24px; border-radius: var(--r-lg); color: #fff;
+  background: linear-gradient(140deg, var(--g1), var(--g2));
+  box-shadow: 0 14px 34px rgba(16,24,40,.2);
+}
+.ms-sim__label { font-size: 12.5px; font-weight: 700; opacity: .8; }
+.ms-sim__grade { margin: 4px 0 6px; font-size: 34px; font-weight: 900; letter-spacing: 1px; }
+/* [연결①] 예상 등급이 바뀌면 JS가 .is-pop을 다시 붙여 한 번 튀어 오름 */
+.ms-sim__grade.is-pop { animation: ms-pop .4s var(--ease); }
+@keyframes ms-pop { 50% { transform: scale(1.12); } }
+.ms-sim__msg { margin-bottom: 18px; font-size: 13.5px; line-height: 1.55; opacity: .95; }
+.ms-sim__msg b { color: #fde68a; font-weight: 900; }
+.ms-sim__dl {
+  display: grid; grid-template-columns: 1fr auto; gap: 8px 12px;
+  margin-top: auto; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.22);
+  font-size: 13px;
+}
+.ms-sim__dl dt { opacity: .8; }
+.ms-sim__dl dd { margin: 0; font-weight: 800; text-align: right; font-variant-numeric: tabular-nums; }
+
+
+
+/* =========================================================
+   등급별 혜택 표 — [연결⑦] 내 등급 열에 .is-current
+   ========================================================= */
+.ms-table-wrap {
+  overflow-x: auto; border-radius: var(--r-lg);
+  background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-sm);
+}
+.ms-table { width: 100%; min-width: 720px; border-collapse: collapse; font-size: 13px; }
+.ms-table th, .ms-table td { padding: 13px 12px; text-align: center; border-bottom: 1px solid var(--line); }
+.ms-table tr:last-child > * { border-bottom: 0; }
+.ms-table thead th { background: #fafbfe; font-size: 12.5px; font-weight: 800; color: var(--text-2); white-space: nowrap; }
+.ms-table tbody th { text-align: left; font-weight: 600; color: var(--text-2); white-space: nowrap; }
+/* 표를 옆으로 넘겨도 "혜택" 칸은 왼쪽에 붙어 있게 */
+.ms-table tr > :first-child { position: sticky; left: 0; z-index: 1; background: var(--surface); box-shadow: inset -1px 0 0 var(--line); }
+.ms-table thead tr > :first-child { background: #fafbfe; }
+.ms-table tbody th small { display: block; font-size: 11px; font-weight: 400; color: var(--text-3); }
+.ms-table td { color: var(--text-2); }
+.ms-table td b { color: var(--text); font-weight: 900; }
+.ms-table .is-current { background: var(--brand-50); color: var(--brand); font-weight: 800; }
+.ms-table thead .is-current { background: var(--brand); color: #fff; }
+
+
+
+/* =========================================================
+   특별 혜택 — [연결⑧] 내 등급에서 쓸 수 있으면 .is-on
+   ========================================================= */
+.ms-perks { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.ms-perk {
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 18px; border-radius: var(--r-md);
+  background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-sm);
+  transition: transform .2s var(--ease), box-shadow .2s var(--ease);
+}
+.ms-perk:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.ms-perk__ic {
+  width: 42px; height: 42px; border-radius: 12px;
+  display: grid; place-content: center; font-size: 21px; background: var(--brand-50);
+}
+.ms-perk h3 { margin-top: 6px; font-size: 15px; font-weight: 800; letter-spacing: -.3px; }
+.ms-perk p { flex: 1; font-size: 12.5px; line-height: 1.55; color: var(--text-2); }
+.ms-perk p b { color: var(--brand); font-weight: 800; }
+.ms-perk__state {
+  align-self: flex-start; margin-top: 6px; padding: 3px 9px; border-radius: 999px;
+  background: #f2f3f8; color: var(--text-3); font-size: 11.5px; font-weight: 800;
+}
+.ms-perk.is-on .ms-perk__state { background: #ecfdf5; color: var(--mint); }
+/* 아직 못 쓰는 혜택은 흐리게 */
+.ms-perk:not(.is-on) { background: #fafbfe; }
+.ms-perk:not(.is-on) .ms-perk__ic { background: #eef0f5; filter: grayscale(1); opacity: .6; }
+
+
+
+/* =========================================================
+   자주 묻는 질문 (<details>)
+   ========================================================= */
+.ms-faq {
+  overflow: hidden; border-radius: var(--r-lg);
+  background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-sm);
+}
+.ms-faq__item + .ms-faq__item { border-top: 1px solid var(--line); }
+.ms-faq__item summary {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  padding: 16px 20px; cursor: pointer; list-style: none;
+  font-size: 14.5px; font-weight: 700;
+}
+.ms-faq__item summary::-webkit-details-marker { display: none; }
+.ms-faq__item summary::after { content: "+"; font-size: 20px; font-weight: 500; color: var(--text-3); transition: rotate .2s var(--ease); }
+/* [open] — 열려 있으면 브라우저가 붙여 주는 속성 */
+.ms-faq__item[open] summary::after { rotate: 45deg; color: var(--brand); }
+.ms-faq__item summary:hover { color: var(--brand); }
+.ms-faq__item p { padding: 0 20px 18px; font-size: 13.5px; line-height: 1.7; color: var(--text-2); }
+.ms-faq__item p b { color: var(--text); font-weight: 700; }
+
+
+
+/* =========================================================
+   반응형
+   ========================================================= */
+@media (max-width: 1080px) {
+  .ms-ladder { grid-template-columns: repeat(3, 1fr); row-gap: 20px; }
+  .ms-perks { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 760px) {
+  .ms-top { grid-template-columns: 1fr; }
+  .ms-sim { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .ms-head h1 { font-size: 22px; }
+  .ms-card { min-height: 196px; }
+  .ms-card__grade { font-size: 28px; }
+  .ms-progress, .ms-sim__inputs, .ms-sim__result { padding: 18px; }
+  .ms-progress__need { font-size: 21px; }
+  /* 등급 안내: 좁은 화면에선 한 줄짜리 가로 목록 (아이콘 | 이름·조건 | 적립률) */
+  .ms-ladder { grid-template-columns: 1fr; gap: 10px; }
+  .ms-tier {
+    display: grid; grid-template-columns: auto 1fr auto; column-gap: 14px; align-items: center;
+    padding: 14px 16px; text-align: left;
+  }
+  .ms-tier__ic { grid-row: span 2; width: 42px; height: 42px; font-size: 19px; }
+  .ms-tier__name { margin-top: 0; }
+  .ms-tier__cond { margin-top: 0; }
+  .ms-tier__rate { grid-column: 3; grid-row: 1 / span 2; margin-top: 0; }
+  .ms-tier.is-current, .ms-tier.is-next { transform: none; }
+  .ms-tier.is-current::before, .ms-tier.is-next::before { left: auto; right: 14px; translate: none; }
+  .ms-tier.is-done::after { top: 8px; right: auto; left: 48px; }
+  .ms-perks { grid-template-columns: 1fr; }
+  .section__head:has(.ms-coupon-all) { flex-direction: column; align-items: flex-start; }
+}

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>멤버십 등급 | SHOPLY</title>
+
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/layout.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/pages/coupons.css" />  <!-- 쿠폰 모양(.coupon-item)을 마이페이지 쿠폰함과 같이 씀 -->
+    <link rel="stylesheet" href="../css/pages/membership.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+    <!-- 모바일 상단 바 (mypage.html과 같은 구조) -->
+    <header class="topbar">
+        <button class="topbar__menu" id="menuToggle" aria-label="메뉴 열기" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+
+        <a class="topbar__logo" href="./home.html">SHOPLY</a>
+
+        <div class="topbar__actions">
+            <button class="icon-btn" aria-label="알림">
+                <svg viewBox="0 0 24 24"><path d="M12 22a2.5 2.5 0 0 0 2.45-2h-4.9A2.5 2.5 0 0 0 12 22Zm7-6v-5a7 7 0 0 0-5.5-6.83V3a1.5 1.5 0 0 0-3 0v1.17A7 7 0 0 0 5 11v5l-1.6 1.6A1 1 0 0 0 4.1 19.3h15.8a1 1 0 0 0 .7-1.7Z"/></svg>
+                <i class="dot"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="layout">
+
+        <!-- 사이드 바 (mypage.html과 같음 · 멤버십 등급이 현재 페이지) -->
+        <aside class="sidebar" id="sidebar">
+            <a href="./home.html" class="sidebar__brand">SHOPLY</a>
+            <nav class="nav">
+                <p class="nav__label">쇼핑</p>
+                <a class="nav__item" href="./home.html"><span class="ic">🛍️</span>홈</a>
+                <a class="nav__item" href="./mypage.html"><span class="ic">👤</span>마이페이지</a>
+                <!-- [연결⑫][연결⑭] common.js가 data-*-count 요소에 개수를 넣음 -->
+                <a class="nav__item" href="./wish.html"><span class="ic">❤️</span>찜한 상품 <b class="badge" data-wish-count>0</b></a>
+                <a class="nav__item" href="./cart.html"><span class="ic">🛒</span>장바구니 <b class="badge" data-cart-count>0</b></a>
+                <a class="nav__item" href="reviews.html"><span class="ic">✍️</span>리뷰 관리 <b class="badge badge--warn">3</b></a>
+
+                <p class="nav__label">혜택</p>
+                <a class="nav__item is-active" href="membership.html"><span class="ic">💳</span>멤버십 등급</a>  <!-- 현재 페이지 표시 -->
+
+                <p class="nav__label">설정</p>
+                <a class="nav__item" href="account.html"><span class="ic">⚙️</span>계정 설정</a>
+                <a class="nav__item" href="notifications.html"><span class="ic">🔔</span>알림 설정</a>
+                <a class="nav__item" href="#"><span class="ic">🚪</span>로그아웃</a>
+            </nav>
+
+            <div class="sidebar__help">
+                <strong>고객센터</strong>
+                <p>평일 09:00 - 18:00</p>
+                <p class="num">1588-0000</p>
+            </div>
+        </aside>
+
+        <div class="scrim" id="scrim"></div>
+
+        <!-- 본문 -->
+        <main class="main">
+
+            <div class="ms-head">
+                <p class="ms-head__path"><a href="./mypage.html">마이페이지</a> › 혜택</p>
+                <h1>멤버십 등급</h1>
+                <p>최근 6개월 동안의 <b>구매 금액</b>과 <b>구매 건수</b>를 모두 채우면 등급이 올라가요.</p>
+            </div>
+
+
+            <!-- 내 등급 -->
+            <section class="ms-top">
+                <!-- [연결①] data-grade 값을 JS가 바꾸면 CSS가 등급 색(--g1 · --g2)을 고름 -->
+                <article class="ms-card" id="msCard" data-grade="family">
+                    <div class="ms-card__top">
+                        <span class="ms-card__brand">SHOPLY MEMBERSHIP</span>
+                        <span class="ms-card__chip" aria-hidden="true"></span>
+                    </div>
+                    <p class="ms-card__grade"><span id="msEmoji">🌱</span> <b id="msGrade">FAMILY</b></p>
+                    <p class="ms-card__rate">구매 금액의 <b id="msRate">1%</b> 적립</p>
+                    <div class="ms-card__foot">
+                        <span id="msName">회원</span>
+                        <span id="msSince">가입</span>
+                    </div>
+                </article>
+
+                <div class="ms-progress">
+                    <div class="ms-progress__head">
+                        <div>
+                            <p class="ms-progress__label"><b id="msNextName">VVIP</b>까지 남은 조건</p>
+                            <p class="ms-progress__need" id="msNeed">0원 · 0건</p>
+                        </div>
+                        <span class="ms-progress__eval">다음 등급 산정 <b id="msEval">11.01</b></span>
+                    </div>
+
+                    <!-- [연결②] JS가 style.setProperty('--p', '97%')로 막대 길이를 정함 -->
+                    <div class="ms-bar">
+                        <div class="ms-bar__text"><span>💰 구매 금액</span><span id="msAmountText">0 / 0원</span></div>
+                        <div class="ms-bar__track"><i id="msAmountBar"></i></div>
+                    </div>
+                    <div class="ms-bar">
+                        <div class="ms-bar__text"><span>📦 구매 건수</span><span id="msOrderText">0 / 0건</span></div>
+                        <div class="ms-bar__track"><i id="msOrderBar"></i></div>
+                    </div>
+
+                    <p class="ms-progress__note">산정 기간 <span id="msPeriod">-</span> · 구매 확정된 주문만 포함 · 매월 1일 등급 변경</p>
+                </div>
+            </section>
+
+
+            <!-- 등급 안내 -->
+            <section class="section">
+                <div class="section__head">
+                    <div>
+                        <h2>등급 안내</h2>
+                        <p>6개월 구매 금액과 건수를 둘 다 채우면 그 등급이 돼요</p>
+                    </div>
+                </div>
+                <!-- [연결③] membership.js가 data.js GRADES로 등급 5개를 만들어 넣음 -->
+                <ol class="ms-ladder" id="msLadder"></ol>
+            </section>
+
+
+            <!-- 이번 달 내 쿠폰 -->
+            <section class="section">
+                <div class="section__head">
+                    <div>
+                        <h2>이번 달 <span id="msCouponGrade">VIP</span> 혜택 쿠폰</h2>
+                        <p>받은 쿠폰은 마이페이지 쿠폰함에 바로 들어가요</p>
+                    </div>
+                    <button class="btn btn--primary ms-coupon-all" type="button" id="msCouponAll">쿠폰 모두 받기</button>
+                </div>
+
+                <!-- [연결④] data-coupon 값 ↔ data.js COUPON_INFO 키 / 받은 쿠폰은 ISSUED_COUPONS(localStorage)에 저장 -->
+                <ul class="ms-coupons" id="msCoupons">
+                    <li class="coupon-item ms-coupon">
+                        <div class="coupon-item__value">5,000<small>원 할인</small></div>
+                        <div class="coupon-item__info">
+                            <p class="coupon-item__name">이달의 등급 쿠폰</p>
+                            <p class="coupon-item__cond">50,000원 이상 구매 시 · 받은 날부터 30일</p>
+                        </div>
+                        <button class="ms-coupon__btn" type="button" data-coupon="vip5000">받기</button>
+                    </li>
+                    <li class="coupon-item ms-coupon">
+                        <div class="coupon-item__value">무료<small>배송</small></div>
+                        <div class="coupon-item__info">
+                            <p class="coupon-item__name">등급 무료배송 쿠폰</p>
+                            <p class="coupon-item__cond">금액 제한 없음 · 받은 날부터 30일</p>
+                        </div>
+                        <button class="ms-coupon__btn" type="button" data-coupon="vipShip">받기</button>
+                    </li>
+                    <!-- [연결⑤] 생일 달이 아니면 JS가 버튼을 막고 .is-locked를 붙임 -->
+                    <li class="coupon-item ms-coupon ms-coupon--birthday" id="msBirthday">
+                        <div class="coupon-item__value">15%<small>생일 할인</small></div>
+                        <div class="coupon-item__info">
+                            <p class="coupon-item__name">🎂 생일 축하 쿠폰</p>
+                            <p class="coupon-item__cond" id="msBirthdayText">생일 달에 받을 수 있어요</p>
+                        </div>
+                        <button class="ms-coupon__btn" type="button" data-coupon="birthday">받기</button>
+                    </li>
+                </ul>
+            </section>
+
+
+            <!-- 등급 시뮬레이터 -->
+            <section class="section">
+                <div class="section__head">
+                    <div>
+                        <h2>등급 미리 계산해 보기</h2>
+                        <p>앞으로 얼마나 더 사면 등급이 바뀌는지 움직여 보세요</p>
+                    </div>
+                </div>
+
+                <div class="ms-sim">
+                    <div class="ms-sim__inputs">
+                        <!-- [연결⑥] input 이벤트 → JS가 결과를 다시 계산 / --fill로 막대 색 채움 -->
+                        <div class="ms-range">
+                            <label for="simAmount">추가 구매 금액 <b id="simAmountText">0원</b></label>
+                            <input type="range" id="simAmount" min="0" max="500000" step="10000" value="0" />
+                            <div class="ms-range__scale"><span>0원</span><span>50만원</span></div>
+                        </div>
+                        <div class="ms-range">
+                            <label for="simOrders">추가 구매 건수 <b id="simOrdersText">0건</b></label>
+                            <input type="range" id="simOrders" min="0" max="5" step="1" value="0" />
+                            <div class="ms-range__scale"><span>0건</span><span>5건</span></div>
+                        </div>
+                    </div>
+
+                    <!-- [연결①] 예상 등급에 따라 data-grade가 바뀌고, CSS가 색을 고름 -->
+                    <div class="ms-sim__result" id="simResult" data-grade="family">
+                        <p class="ms-sim__label">다음 달 예상 등급</p>
+                        <strong class="ms-sim__grade" id="simGrade">FAMILY</strong>
+                        <p class="ms-sim__msg" id="simMsg">-</p>
+                        <dl class="ms-sim__dl">
+                            <dt>6개월 구매 금액</dt><dd id="simSpent">0원</dd>
+                            <dt>6개월 구매 건수</dt><dd id="simCount">0건</dd>
+                            <dt>이번 구매 적립 예정</dt><dd id="simPoint">0P</dd>
+                        </dl>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- 등급별 혜택 비교 -->
+            <section class="section">
+                <div class="section__head">
+                    <div>
+                        <h2>등급별 혜택 한눈에 보기</h2>
+                        <p>색이 칠해진 줄이 지금 내 등급이에요</p>
+                    </div>
+                </div>
+
+                <!-- [연결⑦] JS가 내 등급 칸(열)에 .is-current를 붙임 — 열 순서는 GRADES 순서와 같아야 함 -->
+                <div class="ms-table-wrap">
+                    <table class="ms-table" id="msTable">
+                        <thead>
+                            <tr><th scope="col">혜택</th><th scope="col">🌱 FAMILY</th><th scope="col">🥈 SILVER</th><th scope="col">🥇 GOLD</th><th scope="col">💎 VIP</th><th scope="col">👑 VVIP</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><th scope="row">등급 조건<small>6개월 기준</small></th><td>가입 즉시</td><td>15만원 · 3건</td><td>30만원 · 5건</td><td>60만원 · 7건</td><td>100만원 · 10건</td></tr>
+                            <tr><th scope="row">구매 적립</th><td>1%</td><td>2%</td><td>3%</td><td>4%</td><td><b>5%</b></td></tr>
+                            <tr><th scope="row">이달의 등급 쿠폰</th><td>-</td><td>2,000원</td><td>3,000원</td><td>5,000원 + 무료배송</td><td>10,000원 + 무료배송 2장</td></tr>
+                            <tr><th scope="row">생일 쿠폰</th><td>10%</td><td>10%</td><td>15%</td><td>15%</td><td>20%</td></tr>
+                            <tr><th scope="row">무료배송 기준</th><td>3만원 이상</td><td>3만원 이상</td><td>2만원 이상</td><td>항상 무료</td><td>항상 무료</td></tr>
+                            <tr><th scope="row">무료 반품</th><td>-</td><td>-</td><td>월 1회</td><td>월 2회</td><td>제한 없음</td></tr>
+                            <tr><th scope="row">신상품 선공개</th><td>-</td><td>-</td><td>-</td><td>12시간 먼저</td><td>24시간 먼저</td></tr>
+                            <tr><th scope="row">전담 상담</th><td>-</td><td>-</td><td>-</td><td>✓</td><td>✓</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+
+            <!-- 특별 혜택 -->
+            <section class="section">
+                <div class="section__head">
+                    <div>
+                        <h2>SHOPLY 멤버만의 특별 혜택</h2>
+                        <p>등급이 오를수록 쓸 수 있는 혜택이 늘어나요</p>
+                    </div>
+                </div>
+
+                <!-- [연결⑧] data-min = 이 혜택을 받을 수 있는 가장 낮은 등급 (GRADES 키) → JS가 .is-on과 안내 문구를 정함 -->
+                <div class="ms-perks" id="msPerks">
+                    <article class="ms-perk" data-min="family">
+                        <span class="ms-perk__ic">🎂</span>
+                        <h3>생일 달 쿠폰</h3>
+                        <p>생일이 있는 달 1일에 등급별 10~20% 쿠폰이 열려요.</p>
+                        <span class="ms-perk__state"></span>
+                    </article>
+                    <article class="ms-perk" data-min="family">
+                        <span class="ms-perk__ic">🎊</span>
+                        <h3>가입 기념일 포인트</h3>
+                        <p>매년 가입한 날, <b>1,000P × 함께한 햇수</b>를 드려요.</p>
+                        <span class="ms-perk__state"></span>
+                    </article>
+                    <article class="ms-perk" data-min="family">
+                        <span class="ms-perk__ic">🤝</span>
+                        <h3>친구 초대 실적 인정</h3>
+                        <p>초대한 친구가 첫 구매를 하면 내 구매 건수 <b>+1건</b>으로 쳐 드려요.</p>
+                        <span class="ms-perk__state"></span>
+                    </article>
+                    <article class="ms-perk" data-min="silver">
+                        <span class="ms-perk__ic">🚀</span>
+                        <h3>승급 축하 포인트</h3>
+                        <p>등급이 오른 달, 새 등급에 맞춰 최대 <b>5,000P</b>를 한 번 더 드려요.</p>
+                        <span class="ms-perk__state"></span>
+                    </article>
+                    <article class="ms-perk" data-min="gold">
+                        <span class="ms-perk__ic">⚡</span>
+                        <h3>더블 포인트 데이</h3>
+                        <p>매월 첫째 주 금요일엔 구매 적립이 <b>2배</b>예요.</p>
+                        <span class="ms-perk__state"></span>
+                    </article>
+                    <article class="ms-perk" data-min="gold">
+                        <span class="ms-perk__ic">🛡️</span>
+                        <h3>등급 지킴이</h3>
+                        <p>조건을 아깝게 못 채워도 1년에 한 번은 등급을 지켜 드려요.</p>
+                        <span class="ms-perk__state"></span>
+                    </article>
+                    <article class="ms-perk" data-min="vip">
+                        <span class="ms-perk__ic">👀</span>
+                        <h3>신상품 · 기획전 선공개</h3>
+                        <p>새 상품과 기획전을 다른 회원보다 먼저 만나요.</p>
+                        <span class="ms-perk__state"></span>
+                    </article>
+                    <article class="ms-perk" data-min="vvip">
+                        <span class="ms-perk__ic">🎁</span>
+                        <h3>VVIP 웰컴 박스</h3>
+                        <p>VVIP가 되면 시즌마다 큐레이션 선물 상자를 보내 드려요.</p>
+                        <span class="ms-perk__state"></span>
+                    </article>
+                </div>
+            </section>
+
+
+            <!-- 자주 묻는 질문 — <details>는 JS 없이도 열고 닫힘 -->
+            <section class="section">
+                <div class="section__head">
+                    <div><h2>자주 묻는 질문</h2></div>
+                </div>
+                <div class="ms-faq">
+                    <details class="ms-faq__item" open>
+                        <summary>등급은 언제 바뀌나요?</summary>
+                        <p>매월 1일, 그날을 기준으로 최근 6개월 동안 <b>구매 확정</b>된 주문으로 다시 계산해요. 바뀐 등급의 쿠폰은 그날 바로 받을 수 있어요.</p>
+                    </details>
+                    <details class="ms-faq__item">
+                        <summary>주문을 취소하거나 반품하면 어떻게 되나요?</summary>
+                        <p>취소 · 반품된 주문은 금액과 건수에서 모두 빠져요. 이미 받은 등급은 다음 산정일까지 그대로 유지돼요.</p>
+                    </details>
+                    <details class="ms-faq__item">
+                        <summary>금액은 채웠는데 건수가 모자라요.</summary>
+                        <p>두 조건을 모두 채워야 등급이 올라가요. 친구 초대로 건수를 채우거나, 등급 지킴이(GOLD 이상)로 한 번은 등급을 지킬 수 있어요.</p>
+                    </details>
+                    <details class="ms-faq__item">
+                        <summary>등급 쿠폰은 매달 받을 수 있나요?</summary>
+                        <p>네, 매월 1일에 새 쿠폰이 열려요. 받은 날부터 30일 동안 쓸 수 있고, 받지 않은 쿠폰은 다음 달로 넘어가지 않아요.</p>
+                    </details>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- 토스트 -->
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/pages/membership.js"></script>
+</body>
+</html>

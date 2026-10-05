@@ -30,6 +30,22 @@ $$("[data-tab-jump]").forEach((b) =>
     })
 );
 
+/* -- 프로필: 다음 등급까지 (membership.html과 같은 계산) -- */
+const me = getGradeStatus();                        // [연결㉒] data.js
+$("#gradeChip").textContent = me.grade.name;
+if (me.next) {
+    const need = [];
+    if (me.needAmount) need.push(won(me.needAmount));
+    if (me.needOrders) need.push(me.needOrders + "건");
+    $("#gradeNeed").textContent = need.join(" · ");
+    $("#gradeBar").style.width = me.amountPct + "%";
+    $("#gradeNote").textContent = `${me.next.name}까지 금액 ${me.amountPct}% 달성`;
+} else {
+    $("#gradeNeed").textContent = "최고 등급";
+    $("#gradeBar").style.width = "100%";
+    $("#gradeNote").textContent = "VVIP 유지 중";
+}
+
 /* -- 탭 잉크 위치 -- */
 window.addEventListener("load", () => {
     const active = $(".tab.is-active");

@@ -80,22 +80,23 @@
                     
                     <div class="profile__meta">
                         <p class="profile__hello">안녕하세요,</p>
-                        <h1 class="profile__name">김지우 <span class="chip chip--vip">VIP</span></h1>
+                        <h1 class="profile__name">김지우 <span class="chip chip--vip" id="gradeChip">VIP</span></h1>  <!-- [연결㉒] mypage.js가 등급 이름을 넣음 -->
                         <p class="profile__sub">jiwoo.kim@example.com · 가입 2년차</p>
                     </div>
                 </div>
 
                 <div class="profile__right">
-                    <div class="grade">
+                    <!-- [연결㉒] mypage.js가 data.js getGradeStatus()로 숫자를 채움 (membership.html과 같은 값) -->
+                    <a class="grade" href="./membership.html">
                         <div class="grade__head">
                             <span>다음 등급까지</span>
-                            <b>32,400원</b>
+                            <b id="gradeNeed">-</b>
                         </div>
 
-                        <div class="grade__bar"><i style="width: 68%"></i></div>
-                        
-                        <small>VVIP까지 68% 달성 · 이번 달 15,600원 적립</small>
-                    </div>
+                        <div class="grade__bar"><i id="gradeBar"></i></div>
+
+                        <small><span id="gradeNote">-</span> · 등급 혜택 보기 →</small>
+                    </a>
                 </div>
             </section>
 

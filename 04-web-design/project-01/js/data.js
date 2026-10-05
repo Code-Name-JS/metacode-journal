@@ -144,7 +144,12 @@ const COUPON_INFO = {
     new10:    { name: "신상품 10% 할인 쿠폰", value: "10",    unit: "% 할인",  cond: "최대 10,000원 · 신상품 전용",   days: 7 },
     vip10:    { name: "VIP 전용 할인 쿠폰",   value: "10",    unit: "% 할인",  cond: "최대 20,000원 할인",            until: "2026-10-09" },
     freeship: { name: "무료배송 쿠폰",        value: "무료",  unit: "배송",    cond: "금액 제한 없음",                until: "2026-10-31" },
-    review:   { name: "리뷰 작성 보상 쿠폰",  value: "5,000", unit: "원 할인", cond: "50,000원 이상 구매 시",         until: "2026-11-15" }
+    review:   { name: "리뷰 작성 보상 쿠폰",  value: "5,000", unit: "원 할인", cond: "50,000원 이상 구매 시",         until: "2026-11-15" },
+
+    // membership.html에서 받는 쿠폰 — 키 ↔ data-coupon="vip5000" · "vipShip" · "birthday"
+    vip5000:  { name: "VIP 이달의 등급 쿠폰", value: "5,000", unit: "원 할인", cond: "50,000원 이상 구매 시",         days: 30 },
+    vipShip:  { name: "VIP 무료배송 쿠폰",    value: "무료",  unit: "배송",    cond: "금액 제한 없음 · 등급 혜택",    days: 30 },
+    birthday: { name: "생일 축하 쿠폰",       value: "15",    unit: "% 할인",  cond: "최대 30,000원 할인 · VIP 생일", days: 30 }
 };
 
 // 처음부터 가지고 있던 쿠폰 (원래 마이페이지 쿠폰함에 있던 것)
@@ -170,3 +175,42 @@ function saveCoupons() {
 }
 
 const ISSUED_COUPONS = loadCoupons();
+
+
+// 멤버십 등급 — 최근 6개월 구매 금액(min) · 구매 건수(orders)를 "둘 다" 채워야 그 등급 [연결㉒]
+// 키 ↔ membership.html의 data-grade · data-min 값 / rate: 구매 적립률(%)
+const GRADES = [
+    { key: "family", name: "FAMILY", emoji: "🌱", min: 0,       orders: 0,  rate: 1 },
+    { key: "silver", name: "SILVER", emoji: "🥈", min: 150000,  orders: 3,  rate: 2 },
+    { key: "gold",   name: "GOLD",   emoji: "🥇", min: 300000,  orders: 5,  rate: 3 },
+    { key: "vip",    name: "VIP",    emoji: "💎", min: 600000,  orders: 7,  rate: 4 },
+    { key: "vvip",   name: "VVIP",   emoji: "👑", min: 1000000, orders: 10, rate: 5 }
+];
+
+// 회원 정보 — spent · orders: 최근 6개월 구매 금액 · 건수 (구매 확정 기준)
+const MEMBER = { name: "김지우", spent: 967600, orders: 9, birthMonth: 10, birthDay: 21, joined: "2024-09-12" };
+
+// 금액 · 건수 → 조건을 모두 채운 가장 높은 등급의 번호(0~4)
+function gradeIndexOf(spent, orders) {
+    let idx = 0;
+    GRADES.forEach((g, i) => {
+        if (spent >= g.min && orders >= g.orders) idx = i;
+    });
+    return idx;
+}
+
+// 내 등급 현황 — mypage(다음 등급까지) · membership이 같은 값을 씀
+// { idx, grade, next, needAmount, needOrders, amountPct, orderPct } / 최고 등급이면 next = null
+function getGradeStatus(spent = MEMBER.spent, orders = MEMBER.orders) {
+    const idx = gradeIndexOf(spent, orders);
+    const next = GRADES[idx + 1] || null;
+    return {
+        idx,
+        grade: GRADES[idx],
+        next,
+        needAmount: next ? Math.max(0, next.min - spent) : 0,
+        needOrders: next ? Math.max(0, next.orders - orders) : 0,
+        amountPct: next ? Math.min(100, Math.round((spent / next.min) * 100)) : 100,
+        orderPct: next ? Math.min(100, Math.round((orders / next.orders) * 100)) : 100
+    };
+}
