@@ -11,7 +11,7 @@ const $$ = function (sel, root) { return Array.prototype.slice.call((root || doc
 
 /* -- 토스트 -- */
 const toastEl = $("#toast");
-const toastTimer = null;
+let toastTimer = null;
 function toast(msg) {
     if (!toastEl) return;
     toastEl.textContent = msg;
@@ -28,7 +28,7 @@ function toast(msg) {
 const themeToggle = $("#themeToggle");
 const root = document.documentElement;
 try {
-   const saved = localStorage.getltem("aurora-theme");
+   const saved = localStorage.getItem("aurora-theme");
    if (saved) root.setAttribute("data-theme", saved);
 } catch (e) { /* localStorage 미지원 환경 무시 */ }
 
@@ -36,7 +36,7 @@ if (themeToggle) {
     themeToggle.addEventListener("click", function () {
         const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
         root.setAttribute("data-theme", next);
-        try { localStorage.setltem("aurora-theme", next);} catch (e) {}
+        try { localStorage.setItem("aurora-theme", next);} catch (e) {}
         toast(next === "dark" ? "다크 모드로 전환했습니다" : "라이트 모드로 전환했습니다");
     });
 }
@@ -44,12 +44,12 @@ if (themeToggle) {
 
 
 /* -- 숫자 카운트업 -- */
-const counted = false;
+let counted = false;
 function countUp() {
     if (counted) return;
     counted = true;
     $$(".stat-value").forEach(function (el) {
-        const target = parselnt(el.getAttribute("data-count"), 10) || 0;
+        const target = parseInt(el.getAttribute("data-count"), 10) || 0;
         const start = performance.now();
         const dur = 1100;
         function step(now) {
@@ -101,7 +101,7 @@ function activateTab(name) {
         });
         t.addEventListener("keydown", function (e) {
             const i = tabs.indexOf(t);
-            const next = null;
+            let next = null;
             if (e.key === "ArrowRight") next = tabs[(i + 1) % tabs.length];
             if (e.key === "ArrowLeft") next = tabs[(i - 1 + tabs.length) % tabs.length];
             if (next) {e.preventDefault(); next.focus(); activateTab(next.getAttribute("data-tab")); }
@@ -112,17 +112,17 @@ function activateTab(name) {
 
     /* -- 주문 필터 -- */
     const segBtns = $$("#orderFilter .seg-btn");
-    const orderItems = $$("#orderList.order-item");
+    const orderItems = $$("#orderList .order-item");
     const orderEmpty = $("#orderEmpty");
     segBtns.forEach(function (btn) {
         btn.addEventListener("click", function() {
             segBtns.forEach(function (b) { b.classList.remove("is-active"); });
             btn.classList.add("is-active");
             const f = btn.getAttribute("data-filter");
-            const shown = 0;
+            let shown = 0;
             orderItems.forEach(function (it) {
                 const match = f === "all" || it.getAttribute("data-status") === f;
-                it.style.display === match ? "" : "none";
+                it.style.display = (match ? "" : "none");
                 if (match) shown++;
             });
             if (orderEmpty) orderEmpty.hidden = shown !== 0;
@@ -149,7 +149,7 @@ function activateTab(name) {
     const topAvatar = $("#topAvatar");
     const modalClose = $("#modalClose");
     const modalCancel = $("#modalCancel");
-    const lastFocus = null;
+    let lastFocus = null;
 
     function openModal() {
         if (!modal) return;
@@ -201,7 +201,7 @@ function activateTab(name) {
                 setMsg(input, "사용 가능한 이름입니다.", true); return true;
             case "inpEmail":
             case "mEmail":
-                if (!EMAIL_RE.text(v)) { setMsg(input, "올바른 이메일 형식이 아닙니다."); return false; }
+                if (!EMAIL_RE.test(v)) { setMsg(input, "올바른 이메일 형식이 아닙니다."); return false; }
                 setMsg(input, "사용 가능한 이메일입니다.", true); return true;
             case "inpPhone":
                 if (!PHONE_RE.test(v.replace(/\s/g, ""))) { setMsg(input, "휴대폰 번호 형식을 확인해 주세요. (예: 010-1234-5678)"); return false; }
@@ -234,7 +234,7 @@ function activateTab(name) {
     if (settingsForm) {
         settingsForm.addEventListener("submit", function (e) {
             e.preventDefault();
-            const ok = true;
+            let ok = true;
             ["inpName", "inpEmail", "inpPhone", "inpPw"].forEach (function (id) {
                 const el = document.getElementById(id);
                 if (el && !validateField(el)) ok = false;
@@ -259,7 +259,7 @@ function activateTab(name) {
     if (modalForm) {
         modalForm.addEventListener("submit", function (e) {
             e.preventDefault();
-            const ok = true;
+            let ok = true;
             ["mName", "mEmail"].forEach(function (id) {
                 const el = document.getElementById(id);
                 if (el && !validateField(el)) ok = false;
@@ -288,10 +288,11 @@ function activateTab(name) {
             const av = $("#profileAvatar");
             if (!av) return;
             const hues = [265, 320, 168, 38];
-            const i = (parselnt(av.getAttribute("data-v"), 10) || 0) + 1;
+            const i = (parseInt(av.getAttribute("data-v"), 10) || 0) + 1;
             av.setAttribute("data-v", String(i));
             av.style.background = 
-                "linear-gradient(140deg, hsl(" + hues[i % hues.length] + " 78% 68%), hsl(" + hues[(i + 1) % hues.length] + "82% 62%))";
+                "linear-gradient(140deg, hsl(" + hues[i % hues.length] + " 78% 68%), hsl(" +
+                hues[(i + 1) % hues.length] + " 82% 62%))";
         });
     }
 })();

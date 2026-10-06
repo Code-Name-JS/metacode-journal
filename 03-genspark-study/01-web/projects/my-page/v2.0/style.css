@@ -86,7 +86,7 @@ body {
    transition: opacity 0.4s ease;
    animation: float 18s ease-in-out infinite;
 }
-.bl { width: 420px; height: 420px; background: #a29bfe; top: -120px; left: -80px; }
+.b1 { width: 420px; height: 420px; background: #a29bfe; top: -120px; left: -80px; }
 .b2 { width: 380px; height: 380px; background: #81ecec; top: 120px; right: -100px; animation-delay: -4s; }
 .b3 { width: 340px; height: 340px; background: #fd79a8; bottom: -120px; left: 30%; animation-delay: -8s; }
 .b4 { width: 300px; height: 300px; background: #ffeaa7; bottom: 80px; right: 12%; animation-delay: -12s; }
@@ -186,8 +186,8 @@ body {
    border: 2px solid var(--card-solid);
 }
 .ico-moon { display: none; }
-html[data-theme="dark"].ico-sum { display: none; }
-html[data-theme="dark"].ico-moon { display: block; }
+html[data-theme="dark"] .ico-sun { display: none; }
+html[data-theme="dark"] .ico-moon { display: block; }
 
 .mini-avatar {
    width: 40px;
@@ -236,7 +236,7 @@ html[data-theme="dark"].ico-moon { display: block; }
    opacity: 0.7;
    pointer-events: none;
 }
-.progile-main {
+.profile-main {
    position: relative;
    display: flex;
    align-items: center;
@@ -475,12 +475,12 @@ html[data-theme="dark"].ico-moon { display: block; }
 }
 
 .panels { padding: 22px; }
-.paner { animation: fadeUp 0.35s ease; }
-.paner[hidden] { display: none; }
+.panel { animation: fadeUp 0.35s ease; }
+.panel[hidden] { display: none; }
 
 @keyframes fadeUp {
    from { opacity: 0; transform: translateY(8px); }
-   to { opactity: 1; transform: none; }
+   to { opacity: 1; transform: none; }
 }
 
 .panel-head {
@@ -611,9 +611,9 @@ html[data-theme="dark"].ico-moon { display: block; }
    color: var(--ink-3);
    transition: 0.2s;
 }
-.heart.ico { width: 16px; height: 16px; }
+.heart .ico { width: 16px; height: 16px; }
 .heart.is-on { color: var(--pink); }
-.heart.is-on.ico { fill: var(--pink); }
+.heart.is-on .ico { fill: var(--pink); }
 .heart:hover { transform: scale(1.12); }
 
 
@@ -715,7 +715,7 @@ html[data-theme="dark"].ico-moon { display: block; }
    -webkit-backdrop-filter: blur(6px);
    animation: fade 0.25s ease;
 }
-.modal-backedrop[hidden] { display: none; }
+.modal-backdrop[hidden] { display: none; }
 @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
 .modal {
    width: min(460px, 100%);
