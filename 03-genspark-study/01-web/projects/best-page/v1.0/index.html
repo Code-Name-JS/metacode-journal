@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta chasrset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>베스트 상품 | MOMENT 모먼트</title>
+
+    <meta name="description" content="모먼트 베스트 상품 - 실시간·일간·주간 인기 랭킹">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 상단 유틸 바 -->
+    <div class="topbar">
+        <div class="inner">
+            <p class="topbar-msg">신규 회원 5,000원 쿠폰·3만원 이상 무료배송</p>
+            <ul class="topbar-links">
+                <li><a href="#">로그인</a></li>
+                <li><a href="#">회원가입</a></li>
+                <li><a href="#">고객센터</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="site-head">
+        
+        <!-- 헤더 -->
+        <header class="header">
+            <div class="inner">
+                <button class="menu-btn" type="button" aria-label="전체 메뉴">
+                    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+                        <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                    </svg>
+                </button>
+
+                <a href="#" class="logo">MOMENT<span>.</span></a>
+
+                <form class="search" role="search" onsubmit="return false;">
+                    <svg class="ic" viewBox="0 0 24 24" width="19" height="19" aria-hidden="true">
+                        <circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.8" fill="none"/>
+                        <path d="M16 16l4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    </svg>
+                    <input type="search" placeholder="찾으시는 상품을 검색해 보세요" aria-label="상품 검색">
+                </form>
+
+                <div class="utils">
+                    <button class="util" type="button" aria-label="마이페이지">
+                        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+                            <circle cx="12" cy="8" r="3.6" stroke="currentColor" stroke-width="1.7" fill="none"/>
+                            <path d="M4.8 19.5c1.2-3.4 4-5.2 7.2-5.2s6 1.8 7.2 5.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" fill="none"/>
+                        </svg>
+                    </button>
+
+                    <button class="util" type="button" aria-label="찜한 상품">
+                        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+                            <path d="M12 20s-7.5-4.6-7.5-9.4A4.1 4.1 0 0 1 12 8.2a4.1 4.1 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20Z" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+
+                    <button class="util" type="button" aria-label="장바구니">
+                        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+                            <path d="M4 5h2l2 10h9l2-7H7" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="9.5" cy="19" r="1.3" fill="currentColor"/>
+                            <circle cx="16.5" cy="19" r="1.3" fill="currentColor"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- GNB -->
+        <nav class="gnb" aria-label="주요 카테고리">
+            <ul class="inner">
+                <li><a href="#" class="on">베스트</a></li>
+                <li><a href="#">신상품</a></li>
+                <li><a href="#">의류</a></li>
+                <li><a href="#">슈즈</a></li>
+                <li><a href="#">뷰티</a></li>
+                <li><a href="#">액세서리</a></li>
+                <li><a href="#">라이프</a></li>
+                <li><a href="#">기획전</a></li>
+                <li><a href="#">브랜드</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <maim>
+        <!-- 페이지 타이틀 -->
+        <div class="page-head inner">
+            <nav class="crumb" aria-label="현재 위치">
+                <a href="#">홈</a><span aria-hidden="true"></span><a href="#">베스트</a><span aria-hidden="true">/</span><strong>베스트 상품</strong>
+            </nav>
+            <h1>베스트 상품</h1>
+            <p class="sub">가장 많이 사랑받은 상품을 랭킹으로 만나보세요. <em id="updatedAt">오늘 오전 09:00 기준</em></p>
+        </div>
+
+        <!-- 필터 툴바 -->
+        <section class="toolbar-wrap inner" aria-label="상품 필터">
+            <div class="toolbar">
+                <div class="period" role="tablist" aria-label="집계 기간">
+                    <button type="button" role="tab" class="period-btn on" data-period="realtime" aria-selected="true">실시간</button>
+                    <button type="button" role="tab" class="period-btn" data-period="daily" aria-selected="false">일간</button>
+                    <button type="button" role="tab" class="period-btn" data-period="weekly" aria-selected="false">주간</button>
+                    <button type="button" role="tab" class="period-btn" data-period="monthly" aria-selected="false">월간</button>
+                </div>
+
+                <div class="chips" role="tablist" aria-label="카테고리">
+                    <button type="button" role="tab" class="chip on" data-cat="전체" aria-selected="true">전체</button>
+                    <button type="btuton" role="tab" class="chip" data-cat="의류" aria-selected="false">의류</button>
+                    <button type="button" role="tab" class="chip" data-cat="슈즈" aira-selected="false">슈즈</button>
+                    <button type="button" role="tab" class="chip" data-cat="뷰티" aria-selected="false">뷰티</button>
+                    <button type="button" role="tab" class="chip" data-cat="액세서리" aria-selected="false">액세서리</button>
+                    <button type="button" role="tab" class="chip" data-cat="라이프" aria-selected="false">라이프</button>
+                </div>
+
+                <div class="sort-row">
+                    <p class="count">총 <strong id="countNum">20</strong>개</p>
+                    <label class="select-wrap">
+                        <span class="sr-only">정렬 기준</span>
+                        <select id="sortSelect">
+                            <option value="popular">인기순</option>
+                            <option value="reviews">리뷰 많은순</option>
+                            <option value="discount">할인율순</option>
+                            <option value="priceAsc">낮은 가격순</option>
+                            <option value="priceDesc">높은 가격순</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <!-- 상품 그리드 -->
+        <section class="result inner">
+            <ol class="grid" id="productGrid"></ol>
+            <p class="empty" id="emptyState" hidden>조건에 맞는 상품이 없습니다.</p>
+
+            <div class="more-wrap">
+                <button class="more-btn" id="loadMore" type="button">베스트 상품 더보기 <span id="moreCount">(8/20)</span></button>
+            </div>
+        </section>
+
+        <!-- 상품 그리드 -->
+        <section class="result inner">
+            <ol class="grid" id="productGrid"></ol>
+            <p class="empty" id="emptyState" hidden>조건에 맞는 상품이 없습니다.</p>
+
+            <div class="more-wrap">
+                <button class="more-btn" id="loadMore" type="button">베스트 상품 더보기 <span id="moreCount">(8/20)</span></button>
+            </div>
+        </section>
+
+        <!-- 안내 배너 -->
+        <section class="inner">
+            <div class="notice">
+                <strong>베스트 랭킹 산정 기준</strong>
+                <p>최근 30일간의 판매량·조회수·찜하기·리뷰를 종합한 지표로 산축되면, 매일 오전 09시에 갱신됩니다.</p>
+            </div>
+        </section>
+    </maim>
+
+    <!-- 푸터 -->
+    <footer class="footer">
+        <div class="inner">
+            <div clas="f-top"></div>
+            <div>
+                <p class="f-logo">MOMENT<span>.</span></p>
+                <p class="f-desc">오늘의 취향을 담는 셀렉트숍</p>
+            </div>
+            <ul class="f-links">
+                <li><a href="#">이용약관</a></li>
+                <li><a href="#"><strong>개인정보처리방침</strong></a></li>
+                <li><a href="#">입점문의</a></li>
+                <li><a href="#">고객센터</a></li>
+            </ul>
+        </div>
+        <div class="f-bottom">
+            <p>(주)모먼트컴퍼니 · 서울특별시 성동구 아차산로 00 · 대표 김모먼트 · 사업자등록번호 000-00-00000 · 통신판매업신고 2026-서울성동-0000</p>
+            <p class="f-copy">© 2026 MOMENT. This page is a UI mockup for design purposes.</p>
+        </div>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="./script.js" defer></script>
+</body>
+</html>
