@@ -657,12 +657,13 @@ html[data-theme="dark"] .ico-moon { display: block; }
    color: var(--ink);
    background: var(--card-solid);
    border: 1.5px solid var(--line);
+   border-radius: 999px;
    padding: 12px 14px;
    outline: none;
    transition: 0.2s;
    width: 100%;
 }
-.field textarea { resize: vertical; }
+.field textarea { resize: vertical; border-radius: 14px; }
 .field input:focus, .field textarea:focus {
    border-color: var(--purple);
    box-shadow: 0 0 0 4px color-mix(in srgb, var(--purple) 16%, transparent);

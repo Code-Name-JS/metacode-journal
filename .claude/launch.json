@@ -12,6 +12,12 @@
       "runtimeExecutable": "python",
       "runtimeArgs": ["-m", "http.server", "5518", "--directory", "04-web-design/project-01"],
       "port": 5518
+    },
+    {
+      "name": "my-page-v2",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "5519", "--directory", "03-genspark-study/01-web/projects/my-page/v2.0"],
+      "port": 5519
     }
   ]
 }

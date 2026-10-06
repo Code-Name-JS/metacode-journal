@@ -27,15 +27,25 @@ function toast(msg) {
 /* -- 테마 토글 -- */
 const themeToggle = $("#themeToggle");
 const root = document.documentElement;
+
+function syncThemeLabel() {
+    if (!themeToggle) return;
+    const isDark = root.getAttribute("data-theme") === "dark";
+    themeToggle.setAttribute("aria-label", isDark ? "라이트 모드 전환" : "다크 모드 전환");
+}
+
 try {
    const saved = localStorage.getItem("aurora-theme");
    if (saved) root.setAttribute("data-theme", saved);
 } catch (e) { /* localStorage 미지원 환경 무시 */ }
+syncThemeLabel();
 
 if (themeToggle) {
     themeToggle.addEventListener("click", function () {
         const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
         root.setAttribute("data-theme", next);
+        syncThemeLabel();
+        
         try { localStorage.setItem("aurora-theme", next);} catch (e) {}
         toast(next === "dark" ? "다크 모드로 전환했습니다" : "라이트 모드로 전환했습니다");
     });
@@ -134,8 +144,9 @@ function activateTab(name) {
     /* -- 찜 하트 토글 -- */
     $$(".heart").forEach(function (h) {
         h.addEventListener("click", function () {
-            h.classList.toggle("is-on");
-            toast(h.classList.contains("is-on") ? "찜 목록에 추가했습니다" : "찜 목록에서 제거했습니다");
+            const on = h.classList.toggle("is-on");
+            h.setAttribute("aria-label", on ? "찜 해제" : "찜하기");
+            toast(on ? "찜 목록에 추가했습니다" : "찜 목록에서 제거했습니다");
         });
     });
 
@@ -165,7 +176,7 @@ function activateTab(name) {
         document.body.style.overflow = "";
         if (lastFocus && lastFocus.focus) lastFocus.focus();
     }
-    [editBtn, avatarEditBtn, topAvatar].forEach(function (b) {
+    [editBtn, topAvatar].forEach(function (b) {
         if (b) b.addEventListener("click", openModal);
     });
     [modalClose, modalCancel].forEach(function (b) {
@@ -231,11 +242,12 @@ function activateTab(name) {
 
     /* -- 설정 폼 제출 -- */
     const settingsForm = $("#settingsForm");
+    const settingsTargets = ["inpName", "inpEmail", "inpPhone", "inpPw"];
     if (settingsForm) {
         settingsForm.addEventListener("submit", function (e) {
             e.preventDefault();
             let ok = true;
-            ["inpName", "inpEmail", "inpPhone", "inpPw"].forEach (function (id) {
+            settingsTargets.forEach (function (id) {
                 const el = document.getElementById(id);
                 if (el && !validateField(el)) ok = false;
             });
@@ -244,7 +256,7 @@ function activateTab(name) {
         });
         settingsForm.addEventListener("reset", function () {
             setTimeout(function () {
-                validateTargets.forEach(function (id) {
+                settingsTargets.forEach(function (id) {
                     const el = document.getElementById(id);
                     if (el) setMsg(el, "");
                 });
@@ -271,8 +283,12 @@ function activateTab(name) {
             const pName = $("#profileName");
             const pEmail = $("#profileEmail");
             const avatar = $("#profileAvatar");
+            const inpName = $("#inpName");
+            const inpEmail = $("#inpEmail");
             if (pName) pName.textContent = name;
             if (pEmail) pEmail.textContent = email;
+            if (inpName) { inpName.value = name; inpName.defaultValue = name;}
+            if (inpEmail) { inpEmail.value = email; inpEmail.defaultValue = email;}
             if (avatar) avatar.textContent = name.charAt(0) || "수";
             if (topAvatar) topAvatar.textContent = name.charAt(0) || "수";
             closeModal();
