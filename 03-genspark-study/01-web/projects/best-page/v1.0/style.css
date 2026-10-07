@@ -148,7 +148,7 @@ input,select{font:inherit;color:inherit}
 .trend.down{background:#eef2ff;color:#4a5cd6}
 .trend.new{background:#eefaf3;color:#12885a}
 
-.cart{margin-top:12px;height:40px;border:1px solid var(--line);border-radius:10px;background:#fff;font-size:13.5px;font-weight:700;color:var(--ink-2);transition:.18s}
+.cart{display:block;width:100%;margin-top:12px;height:40px;border:1px solid var(--line);border-radius:10px;background:#fff;font-size:13.5px;font-weight:700;color:var(--ink-2);transition:.18s}
 .cart:hover{background:var(--ink);border-color:var(--ink);color:#fff}
 .cart:active{transform:scale(.985)}
 
@@ -188,6 +188,7 @@ input,select{font:inherit;color:inherit}
 }
 @media (max-width:860px){
   :root{--headh:108px} /* 헤더 60 + GNB 46 + 테두리 2 */
+  .inner{padding:0 20px} /* 공통 규칙은 먼저 — 뒤에 오는 .page-head / .result 패딩이 덮어쓸 수 있게 */
   .menu-btn{display:flex}
   .header .inner{gap:12px;height:60px}
   .search{height:40px}
@@ -199,7 +200,6 @@ input,select{font:inherit;color:inherit}
   .toolbar-wrap{padding:0 20px}
   .result{padding:24px 20px 10px}
   .period-btn{padding:7px 15px;font-size:13px}
-  .inner{padding:0 20px}
 }
 @media (max-width:680px){
   .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 13px}
