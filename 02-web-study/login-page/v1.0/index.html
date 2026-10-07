@@ -22,7 +22,7 @@
                 <!-- 이메일 -->
                 <div class="field" id="emailField">
                     <div class="input-wrap">
-                        <input type="email" id="email" name="email" placeholder="아이디를 입력해 주세요." autocomplete="email" aria-describedby="emailError"> 
+                        <input type="email" id="email" name="email" placeholder="이메일을 입력해 주세요." autocomplete="email" aria-describedby="emailError"> 
                     </div>
                     <p class="error-msg" id="emailError" role="alert"></p>
                 </div>
@@ -30,13 +30,12 @@
                 <!-- 비밀번호 -->
                 <div class="field" id="passwordField">
                     <div class="input-wrap">
-                        <input type="password" id="password" name="password" placeholder="비밀번호를 입력해 주세요." autocomplete="current-password" aria-describedby="passwordError">
+                        <input type="password" id="password" name="password" placeholder="비밀번호를 입력해 주세요." autocomplete="current-password" aria-describedby="passwordError" required />
                     </div>
                     <p class="error-msg" id="passwordError" role="alert"></p>
                 </div>
 
                 <div class="socials">                
-                    
                     <!-- 로그인 하기 버튼 -->
                     <button type="submit" class="btn-social" id="logInBtn">
                         <span class="btn-text">로그인 하기</span>
@@ -44,11 +43,15 @@
                 </div>
 
                 <div class="socials">
-                    <!-- 회원가입 하기 버튼 -->    
+                    <!-- 회원가입 하기 버튼 -->
                     <button type="button" class="btn-social" id="signUpBtn">
                         <span class="btn-text">회원가입</span>
                     </button>
                 </div>
+
+                <!-- 알림 배너 (JS showBanner가 채움) -->
+                <div class="alert-banner" id="signUpBanner" role="status" aria-live="polite"></div>
+
             </form>
         </main>
 

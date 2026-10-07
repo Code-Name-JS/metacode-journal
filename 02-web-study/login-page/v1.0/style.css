@@ -15,7 +15,11 @@
 --border-focus: #626262;
 --border-focus-line: #000000;
 --error-msg: #dc2626;
+--muted: #868686;
+--focus: #000000;
 --radius: 20px;
+--r-sm: 10px;
+--ease: ease;
 --shadow: 0 20px 45px -20px rgba(0, 0, 0, 0.6);
 --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
@@ -78,6 +82,9 @@ input[type="password"] {
 }
 input:focus { border-color: var(--border-focus-line); }
 
+/* -- 유효성 상태: JS가 .field에 .invalid를 붙이면 적용 -- */
+.field.invalid input { border-color: var(--error-msg); }
+
 
 
 /* -- 로그인 하기 / 회원가입 버튼 -- */
@@ -100,16 +107,6 @@ input:focus { border-color: var(--border-focus-line); }
     transition: background 0.2s ease, border-color 0.2s ease;
 }
 .btn-social:hover { background: var(--border-focus); border: 1px solid var(--border-focus-line); color: #fff; }
-
-
-
-/* ==================================================
-   유효성 상태(입력 필드와 입력창)
-   ================================================== */
-.field.invalid input {
-    border-color: var(--error);
-    background: var(--error-soft);
-}
 
 
 
@@ -139,9 +136,56 @@ input:focus { border-color: var(--border-focus-line); }
 /* -- 오류 메시지 -- */
 .error-msg {
     display: none;
-    color: var(--error);
+    width: 100%;
+    text-align: left;
+    padding-left: 65px; 
+    color: var(--error-msg);
     font-size: 13px;
     margin-top: 6px;
 }
 
 .error-msg.show { display: block; }
+
+
+
+/* ==================================================
+   알림 배너
+   ================================================== */
+.alert-banner{
+    width: 300px;
+    margin: 0 auto;
+    border: 0 solid transparent;
+    border-radius: var(--r-sm);
+    font-size: .85rem;
+    font-weight: 500;
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .3s var(--ease), padding .3s var(--ease), margin .3s var(--ease);
+    text-align: center;
+}
+.alert-banner.show{padding: .65rem 1rem; max-height: 80px; margin-top: 10px; border-width: 1px;}
+.alert-banner.success{background: #dcfce7; color: #166534; border-color: #bbf7d0;}
+.alert-banner.error{background: #fee2e2; color: #991b1b; border-color: #fecaca;}
+.alert-banner.info{background: #eff6ff; color: #1d4ed9; border-color: #bfdbfe;}
+
+
+
+/* ==================================================
+   토스트
+   ================================================== */
+.toast {
+    position: fixed;
+    left: 50%;
+    bottom: 40px;
+    transform: translate(-50%, 20px);
+    padding: 10px 20px;
+    font-size: 14px;
+    color: #fff;
+    background: var(--border-focus);
+    border-radius: 999px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s var(--ease), transform .3s var(--ease);
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
