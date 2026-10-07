@@ -9,6 +9,8 @@ coverage/
 # production
 build/
 dist/
+# best-page는 TS 빌드 결과물(dist/script.js)을 배포해야 하므로 예외
+!03-genspark-study/01-web/projects/best-page/v1.0/dist/
 
 # misc
 .DS_Store
