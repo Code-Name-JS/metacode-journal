@@ -19,6 +19,7 @@
     const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 
+
     const bannerTimers = {};
     let toastTimer = null;
 
@@ -41,6 +42,8 @@
         }, 3000);
     }
 
+
+
     /* -- 토스트 -- */
     function showToast(msg) {
         toast.textContent = msg;
@@ -58,6 +61,8 @@
         });
     }
 
+
+    
     /*  ── 비밀번호 토글 ── */
     // index.html에 눈 아이콘 버튼(id="eye-btn", id="eye-ic")을 추가하면 동작함
     setupEyeToggle('password', 'eye-btn', 'eye-ic');
