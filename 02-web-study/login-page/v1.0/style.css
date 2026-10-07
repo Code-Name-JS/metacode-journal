@@ -13,7 +13,7 @@
 --text-logo: #000000;
 --border: #868686;
 --border-focus: #626262;
---border-focus-line: #686868;
+--border-focus-line: #000000;
 --error-msg: #dc2626;
 --radius: 20px;
 --shadow: 0 20px 45px -20px rgba(0, 0, 0, 0.6);
@@ -59,14 +59,15 @@ body {
 
 
 /* -- 이메일 / 비밀번호 -- */
-.field { margin-bottom: 35px; }
+.field { margin-bottom: 30px; }
+.field, .socials { display: grid; place-items: center; }
 input[type="email"],
 input[type="password"] {
-    width: 100%;
-    max-width: 300px;
-    min-height: 40px;
+    display: block;
+    width: 300px;
+    margin: 0 auto;
+    height: 40px;
     padding: 12px 14px;
-    margin-left: 45px;
     font-size: 15px;
     color: var(--text-logo);
     background: #fff;
@@ -80,17 +81,15 @@ input:focus { border-color: var(--border-focus-line); }
 
 
 /* -- 로그인 하기 / 회원가입 버튼 -- */
-.socials { display: flex; padding: 5px 0px; }
+.socials { padding: 5px 0px; }
 .btn-social {
-    flex: 1;
-    display: flex;
+    display: grid;
     align-items: center;
     justify-content: center;
     width: 100%;
     max-width: 300px;
-    min-height: 45px;
+    height: 40px;
     padding: 5px;
-    margin-left: 45px;
     font-size: 15px;
     font-weight: 700;
     color: #fff;
