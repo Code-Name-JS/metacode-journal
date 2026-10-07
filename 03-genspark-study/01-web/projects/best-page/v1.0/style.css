@@ -207,6 +207,7 @@ input,select{font:inherit;color:inherit}
   .topbar .inner{justify-content:flex-end}
   .search{display:none}
   .utils .util:nth-child(1){display:none}
+  .toolbar-wrap{position:static} /* 모바일은 화면이 좁아 헤더만 고정, 툴바는 함께 스크롤 */
   .sort-row{flex-wrap:wrap;gap:10px}
   .more-btn{min-width:0;width:100%}
   .page-head h1{font-size:24px}
