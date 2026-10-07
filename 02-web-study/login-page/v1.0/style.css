@@ -100,3 +100,48 @@ input:focus { border-color: var(--border-focus-line); }
     transition: background 0.2s ease, border-color 0.2s ease;
 }
 .btn-social:hover { background: var(--border-focus); border: 1px solid var(--border-focus-line); color: #fff; }
+
+
+
+/* ==================================================
+   유효성 상태(입력 필드와 입력창)
+   ================================================== */
+.field.invalid input {
+    border-color: var(--error);
+    background: var(--error-soft);
+}
+
+
+
+/* ==================================================
+   비밀번호 표시 영역
+   ================================================== */
+.toggle {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: var(--muted);
+    padding: 6px;
+    border-radius: 8px;
+    line-height: 1;
+}
+
+.toggle:hover { color: var(--text); }
+.toggle:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+
+
+/* -- 오류 메시지 -- */
+.error-msg {
+    display: none;
+    color: var(--error);
+    font-size: 13px;
+    margin-top: 6px;
+}
+
+.error-msg.show { display: block; }
