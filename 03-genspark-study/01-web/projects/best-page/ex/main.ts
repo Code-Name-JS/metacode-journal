@@ -183,7 +183,7 @@ function visibleProducts(): Product[] {
 /* ----------------------------- 렌더링 ----------------------------- */
 function trendMarkup(trend: number): string {
   if (trend > 0) return `<span class="trend up">▲ ${trend}</span>`;
-  if (trend < 0) return `<span class="trend down">▼ ${Math.abs(trend)}</span>`;
+  if (trend < 0) return `<span class="trend down"> ${Math.abs(trend)}</span>`;
   return '<span class="trend same">― 0</span>';
 }
 

@@ -270,7 +270,7 @@ function renderSortOptions(): void {
     select.value = state.sort;
 }
 
-function renderProdusts(): void {
+function renderProducts(): void {
     const list = visibleProducts();
     const grid = el('product-grid');
     const empty = el('empty-state');
@@ -335,3 +335,202 @@ function renderCart(): void {
       .join(''),
   );
 }
+
+let toastTimer: number | undefined;
+function toast(message: string): void {
+    let stack = document.querySelector<HTMLDivElement>('.toast-stack');
+    if (!stack) {
+        stack = document.createElement('div');
+        stack.className = 'toast-stack';
+        document.body.appendChild(stack);
+    }
+    stack.innerHTML = '';
+    const bubble = document.createElement('div');
+    bubble.className = 'toast';
+    bubble.textContent = message;
+    stack.appendChild(bubble);
+
+    window.clearTimeout(toastTimer);
+    toastTimer = window.setTimeout(() => {
+        bubble.classList.add('out');
+        window.setTimeout(() => bubble.remove(), 260);
+    }, 2100);
+}
+
+
+
+/* -- 드로어 -- */
+function openDrawer(): void {
+    el('drawer-overlay').hidden = false;
+    el('cart-drawer').classList.add('is-open');
+    el('cart-drawer').setAttribute('aria-hidden', 'false');
+}
+
+function closeDrawer(): void {
+    el('drawer-overlay').hidden = true;
+    el('cart-drawer').classList.remove('is-open');
+    el('cart-drawer').setAttribute('aria-hidden', 'true');
+}
+
+
+
+/* -- 액션 -- */
+function toggleWish(id: string): void {
+    const product = state.products.find((p) => p.id === id);
+    if (!product) return;
+
+    if (state.wishlist.has(id)) {
+        state.wishlist.delete(id);
+        toast('찜 목록에서 제거했습니다.');
+    } else {
+        state.wishlist.add(id);
+        toast('찜 목록에 추가했습니다. ♥');
+    }
+    persist();
+    renderProducts();
+}
+
+function addToCart(id: string): void {
+    const product = state.products.find((p) => p.id === id);
+    if (!product) return;
+    state.cart.set(id, (state.cart.get(id) ?? 0) + 1);
+    persist();
+    renderCart();
+    toast(`「${product.name}」을(를) 담았습니다.`);
+}
+
+function changeQty(id: string, delta: number): void {
+    const next = (state.cart.get(id) ?? 0) + delta;
+    if (next <= 0) state.cart.delete(id);
+    else state.cart.set(id, next);
+    persist();
+    renderCart();
+}
+
+function removeLine(id: string): void {
+    state.cart.delete(id);
+    persist();
+    renderCart();
+    toast('장바구니에서 삭제했습니다.');
+}
+
+
+
+/* -- 이벤트 연결 -- */
+function bindEvents(): void {
+    el('category-tabs').addEventListener('click', (event) => {
+        const target = (event.target as HTMLElement).closest<HTMLButtonElement>('[data-category]');
+        if (!target) return;
+        state.category = target.dataset.category as CategoryKey;
+        renderTabs();
+        renderProducts();
+    });
+
+    el('sort-select').addEventListener('change', (event) => {
+        state.sort = (event.target as HTMLSelectElement).value as SortKey;
+        renderProducts();
+    });
+
+    let searchTimer: number | undefined;
+    el<HTMLInputElement>('search-input').addEventListener('input', (event) => {
+        const value = (event.target as HTMLInputElement).value;
+        window.clearTimeout(searchTimer);
+        searchTimer = window.setTimeout(() => {
+            state.query = value.trim();
+            renderProducts();
+        }, 160);
+    });
+
+    const wishBtn = el<HTMLButtonElement>('wish-only-btn');
+    wishBtn.addEventListener('click', () => {
+        state.wishOnly = !state.wishOnly;
+        wishBtn.setAttribute('aria-pressed', String(state.wishOnly));
+        renderProducts();
+        toast(state.wishOnly ? '찜한 상품만 표시합니다.' : '전체 상품을 표시합니다.');
+    });
+
+    el('reset-btn').addEventListener('click', () => {
+        state.category = 'all';
+        state.sort = 'rank';
+        state.query = '';
+        state.wishOnly = false;
+        el<HTMLInputElement>('search-input').value = '';
+        el<HTMLSelectElement>('sort-select').value = 'rank';
+        el('wish-only-btn').setAttribute('aria-pressed', 'false');
+        renderTabs();
+        renderProducts();
+    });
+
+    el('cart-btn').addEventListener('click', openDrawer);
+    el('drawer-close').addEventListener('click', closeDrawer);
+    el('drawer-overlay').addEventListener('click', closeDrawer);
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closeDrawer();
+    });
+
+    el('cart-clear').addEventListener('click', () => {
+        state.cart.clear();
+        persist();
+        renderCart();
+        toast('장바구니를 비웠습니다.');
+    });
+
+    el('checkout-btn').addEventListener('click', () => {
+        const totalQty = [...state.cart.values()].reduce((sum, qty) => sum + qty, 0);
+        if (totalQty === 0) return;
+        toast(`총 ${totalQty}개 상품을 주문했습니다. (데모)`);
+        state.cart.clear();
+        persist();
+        renderCart();
+        closeDrawer();
+    });
+
+    el('cart-lines').addEventListener('click', (event) => {
+        const target = (event.target as HTMLElement).closest<HTMLButtonElement>('[data-action]');
+        if (!target) return;
+        const id = target.dataset.id ?? '';
+        const action = target.dataset.action;
+        if (action === 'inc') changeQty(id, 1);
+        if (action === 'dec') changeQty(id, -1);
+        if (action === 'remove') removeLine(id);
+    });
+
+    el('product-grid').addEventListener('click', (event) => {
+        const target = (event.target as HTMLElement).closest<HTMLButtonElement>('[data-action]');
+        if (!target) return;
+        const id = target.dataset.id ?? '';
+        const action = target.dataset.action;
+        if (action === 'wish') toggleWish(id);
+        if (action === 'add') addToCart(id);
+        if (action === 'detail') {
+            const product = state.products.find((p) => p.id === id);
+            if (product) toast(`${product.brand} ${product.name} · 평점 ${product.rating.toFixed(1)}`);
+        }
+    });
+}
+
+
+
+/* -- 부트스트랩 -- */
+async function init(): Promise<void> {
+    loadStore();
+    renderSortOptions();
+    renderSkeleton(8);
+
+    state.products = await loadProducts();
+
+    if (state.products.length === 0) {
+        el('result-count').textContent = '전체 0개';
+        el('empty-state').hidden = false;
+        el('product-grid').innerHTML = '';
+        return;
+    }
+
+    renderHeroStats();
+    renderTabs();
+    renderProducts();
+    renderCart();
+    bindEvents();
+}
+
+void init();
