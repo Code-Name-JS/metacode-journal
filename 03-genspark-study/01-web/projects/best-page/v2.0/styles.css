@@ -81,7 +81,7 @@ input, select { font: inherit; }
 }
 .search-box svg {
     position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
-    width: 18x; height: 18px; fill: none; stroke: var(--ink-3);
+    width: 18px; height: 18px; fill: none; stroke: var(--ink-3);
     stroke-width: 2; stroke-linecap: round;
 }
 .search-box input {
@@ -99,7 +99,7 @@ input, select { font: inherit; }
     font-size: 14px; font-weight: 600; color: var(--ink-2); transition: .18s;
 }
 .icon-btn:hover { border-color: #cfd3e2; color: var(--ink); }
-.icon-btn[aria-pressed="true"] { background: #fff0f2; border-color: #ffc9d0; color: var(--acceent); }
+.icon-btn[aria-pressed="true"] { background: #fff0f2; border-color: #ffc9d0; color: var(--accent); }
 .icon-btn .icon { font-size: 15px; }
 .count-badge {
     min-width: 20px; height: 20px; padding: 0 6px; border-radius: 999px;
@@ -290,7 +290,7 @@ input, select { font: inherit; }
     background: rgba(20, 22, 28, .42); backdrop-filter: blur(2px);
     animation: fade .2s ease;
 }
-@keyframes fade { form { opacity: 0; } to { opacity: 1; } }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
 .drawer {
     position: fixed; top: 0; right: 0; z-index: 100;
     width: min(400px, 92vw); height: 100%;

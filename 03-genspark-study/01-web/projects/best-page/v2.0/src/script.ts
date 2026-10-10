@@ -55,7 +55,7 @@ const CATEGORIES: CategoryMeta[] = [
     { key: 'all', label: '전체' },
     { key: 'digital', label: '디지털' },
     { key: 'fashion', label: '패션' },
-    { key: 'beauty', label: '뷰터' },
+    { key: 'beauty', label: '뷰티' },
     { key: 'living', label: '리빙' },
     { key: 'food', label: '푸드' },
 ];
@@ -185,7 +185,7 @@ function visibleProducts(): Product[] {
         priceAsc: (a, b) => a.price - b.price,
         priceDesc: (a, b) => b.price - a.price,
         rating: (a, b) => b.rating - a.rating || b.reviews - a.reviews,
-        reviews: (a, b) => b.reviews = a.reviews,
+        reviews: (a, b) => b.reviews - a.reviews,
         discount: (a, b) => discountRate(b) - discountRate(a),
     };
 
@@ -235,7 +235,7 @@ function cardMarkup(p: Product): string {
                     <span class="price">${won(p.price)}</span>
                     ${rate > 0 ? `<span class="origin">${won(p.originalPrice)}</span>` : ''}
                 </div>
-                <div calss="card-actions">
+                <div class="card-actions">
                     <button class="primary-btn" type="button" data-action="add" data-id="${p.id}">장바구니 담기</button>
                     <button class="ghost-btn" type="button" data-action="detail" data-id="${p.id}">상세</button>
                 </div>
@@ -291,8 +291,9 @@ function renderHeroStats(): void {
     const categories = new Set(state.products.map((p) => p.category));
     el('stat-count').textContent = String(state.products.length);
     el('stat-category').textContent = String(categories.size);
+    
     const now = new Date();
-    el('stat-updated').textContent = `${String(now.getHours()).padStart(2, '0')}"${String(now.getMinutes()).padStart(2, '0')}`;
+    el('stat-updated').textContent = `${now.getMonth() + 1}월 ${now.getDate()}일`;
 }
 
 function renderCart(): void {
