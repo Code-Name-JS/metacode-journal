@@ -2,17 +2,17 @@
 
 ## v1.0 - 시안 이미지
 
-![프로젝트 대표 이미지](./img/preview-1.0.png)
+![프로젝트 대표 이미지](./images/preview-1.0.png)
 
 ---
 
 ## v2.0 - 시안 이미지
 
-![프로젝트 대표 이미지](./img/preview-2.0.png)
+![프로젝트 대표 이미지](./images/preview-2.0.png)
 
-![프로젝트 대표 이미지](./img/preview-2.1.png)
+![프로젝트 대표 이미지](./images/preview-2.1.png)
 
-![프로젝트 대표 이미지](./img/preview-2.2.png)
+![프로젝트 대표 이미지](./images/preview-2.2.png)
 
 ---
 
