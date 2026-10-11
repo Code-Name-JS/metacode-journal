@@ -4,8 +4,6 @@
 
 ## 화면 설계도 (login-page v1.2)
 
-![로그인 모달 v1.2 전체 설계도](../img/login-page-v1.2.0.png)
-
 ![로그인 모달 v1.2 화면 미리보기](../img/login-page-v1.2.1.png)
 
 ![로그인 모달 v1.2 상세 기능 명세](../img/login-page-v1.2.2.png)
