@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "module": "es2015",
+    "lib": ["ES2017", "DOM", "DOM.Iterable"],
+    "rootDir": ".",
+    "outDir": ".",
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "removeComments": false,
+    "declaration": false,
+    "sourceMap": false
+  },
+  "include": ["main.ts"],
+  "exclude": ["node_modules", "main.js"]
+}

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>베스트픽 | 오늘의 베스트 상품 랭킹</title>
+
+    <meta name="description" content="카테고리별 판매량·리뷰·평점 기준 베스트 상품 랭킹. 인기순·가격순·리뷰순 정렬과 찜하기, 장바구니 담기를 한 번에.">
+    
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <a class="skip-link" href="#productGrid">본문으로 바로가기</a>
+
+    <!-- 헤더 -->
+    <header class="site-header">
+        <div class="wrap header__inner">
+            <a class="logo" href="#">
+                <span class="logo__mark" aria-hidden="true">B</span>
+                <span class="logo__text">베스트픽<small>BestPick</small></span>
+            </a>
+
+            <form class="search" role="search" onsubmit="return false;">
+                <input id="searchInput" type="search" placeholder="상품명, 브랜드로 검색해보세요" aria-label="상품 검색">
+                <button type="submit" class="search__btn" aria-label="검색">🔍</button>
+            </form>
+
+            <div class="header__actions">
+                <button id="wishlistToggle" class="icon-btn" type="button" aria-pressed="false">
+                    <span class="icon-btn__ico" aria-hidden="true">♥</span>
+                    <span class="icon-btn__label">찜</span>
+                    <span id="wishCount" class="badge">0</span>
+                </button>
+                <button id="cartToggle" class="icon-btn" type="button">
+                    <span class="icon-btn__ico" aria-hidden="true">🛒</span>
+                    <span class="icon-btn__label">장바구니</span>
+                    <span id="cartCount" class="badge">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 히어로 -->
+    <section class="hero">
+        <div class="wrap hero__inner">
+            <p class="hero__eyebrow">2026 상반기 결산 랭킹</p>
+            <h1 class="hero__title">가장 많이 팔린 <em>베스트 상품</em></h1>
+            <p class="hero__desc">
+                판매·리뷰·평점 데이터를 기준으로 매일 오전 6시에 갱신되는 실시간 랭키입니다.
+                카테고리와 정렬 기준을 바꿔가며 나에게 맞는 상품을 찾아보세요.
+            </p>
+            <ul class="hero__stats">
+                <li><strong>1,240만</strong><span>누적 판매 수량</span></li>
+                <li><strong>4.8</strong><span>평균 평점</span></li>
+                <li><strong>96%</strong><span>재구매 의향</span></li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 본문 -->
+    <main class="wrap">
+        <div class="toolbar">
+            <nav id="categoryTabs" class="tabs" aria-label="카테고리"></nav>
+            <div class="toolbar__right">
+                <p id="resultCount" class="result-count"></p>
+                <div id="sortGroup" class="sorts" role="group" aria-label="정렬 기준"></div>
+            </div>
+        </div>
+
+        <section id="productGrid" class="grid" aria-live="polite"></section>
+
+        <div class="more">
+            <button id="moreBtn" class="more__btn" type="button">베스트 상품 더 보기</button>
+        </div>
+    </main>
+
+    <!-- 푸터 -->
+    <footer class="site-footer">
+        <div class="wrap">
+            <div class="footer__grid">
+                <div class="footer__col">
+                    <h4>베스트픽</h4>
+                    <ul>
+                        <li>회사 소개</li>
+                        <li>채용 정보</li>
+                        <li>입점 문의</li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4>고객 지원</h4>
+                    <ul>
+                        <li>주문/배송 조회</li>
+                        <li>교환·반품 안내</li>
+                        <li>자주 묻는 질문</li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4>이용 안내</h4>
+                    <ul>
+                        <li>이용약관</li>
+                        <li>개인정보처리방침</li>
+                        <li>전자금융거래약관</li>
+                    </ul>
+                </div>
+            </div>
+            <p class="footer__note">
+                © 2026 BestPick. 본 페이지는 데모용으로 제작된 샘플이며, 상품 정보는 실제 판매 데이터가 아닙니다.
+            </p>
+        </div>
+    </footer>
+
+    <!-- 장바구니 드로어 -->
+    <div id="cartDrawer" class="drawer" aria-hidden="true" aria-label="장바구니">
+        <div class="drawer__head">
+            <h2>장바구니 <span id="drawerCount">(0)</span></h2>
+            <button id="cartClose" class="drawer__close" type="button" aria-label="장바구니 닫기">✕</button>
+        </div>
+        <div id="cartItems" class="drawer__body"></div>
+        <div class="drawer__foot">
+            <div class="total">
+                <span>결제 예상 금액</span>
+                <strong id="cartTotal">0원</strong>
+            </div>
+            <button id="checkoutBtn" class="checkout" type="button">주문하기</button>
+        </div>
+    </div>
+
+    <div id="drawerOverlay" class="overlay" hidden></div>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script src="./script.js" defer></script>
+</body>
+</html>
