@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>로그인 모달·Code-Name-JS</title>
+
+        <link rel="stylesheet" href="./style.css">
+    </head>
+    <body>
+
+        <!-- 모달 뒤에 깔린 기본 페이지 (모달을 닫은 뒤 다시 열기 위한 버튼) -->
+        <main class="page">
+            <h1 class="page-title">metacode journal</h1>
+            <button type="button" class="btn-open" id="openModalBtn">로그인 열기</button> <!-- [연결①] JS가 id로 찾아 모달 열기 -->
+        </main>
+
+
+        <!-- dimmed 영역 (LOGIN-02 레이어 팝업) -->
+        <div class="overlay is-open" id="loginOverlay"> <!-- [연결①] JS id / [연결②] CSS .overlay.is-open -->
+
+            <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+
+                <!-- ① 헤더 & 닫기 버튼 -->
+                <header class="modal-header">
+                    <h2 class="logo" id="modalTitle">
+                        <svg class="logo-icon" viewBox="0 0 24 24" aria-hidden="true">
+                            <defs>
+                                <linearGradient id="sparkle" x1="0" y1="1" x2="1" y2="0">
+                                    <stop offset="0" stop-color="#f4b400" />
+                                    <stop offset=".35" stop-color="#e94235" />
+                                    <stop offset=".65" stop-color="#4285f4" />
+                                    <stop offset="1" stop-color="#34a853" />
+                                </linearGradient>
+                            </defs>
+                            <path fill="url(#sparkle)" d="M12 0C12.6 6.4 17.6 11.4 24 12 17.6 12.6 12.6 17.6 12 24 11.4 17.6 6.4 12.6 0 12 6.4 11.4 11.4 6.4 12 0Z" />
+                        </svg>
+                        Gemini
+                    </h2>
+                    <button type="button" class="btn-close" id="closeModalBtn" aria-label="닫기"> <!-- [연결③] JS 클릭 → 모달 닫기 -->
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+                    </button>
+                </header>
+
+
+                <form class="modal-body" id="loginForm" novalidate> <!-- [연결④] JS submit 이벤트 -->
+
+                    <!-- ② 이메일 입력 필드 -->
+                    <div class="field" id="emailField"> <!-- [연결⑤] JS가 .is-invalid 추가 → CSS 빨간 테두리 -->
+                        <label class="field-label" for="email">이메일</label> <!-- label for ↔ input id -->
+                        <input type="email" id="email" name="email" class="input"
+                               placeholder="이메일을 입력해 주세요." autocomplete="email"
+                               aria-describedby="emailError">
+                        <p class="error-msg" id="emailError" role="alert"></p> <!-- [연결⑤] 에러 문구 자리 (min-height 확보) -->
+                    </div>
+
+                    <!-- ③ 비밀번호 입력 필드 -->
+                    <div class="field" id="passwordField">
+                        <label class="field-label" for="password">비밀번호</label>
+                        <div class="input-wrap">
+                            <input type="password" id="password" name="password" class="input"
+                                   placeholder="비밀번호를 입력해 주세요." autocomplete="current-password"
+                                   aria-describedby="passwordError">
+                            <!-- [연결⑥] JS가 aria-pressed를 바꾸면 CSS가 아이콘을 교체 -->
+                            <button type="button" class="btn-eye" id="eyeBtn" aria-label="비밀번호 표시" aria-pressed="false">
+                                <svg class="icon-eye" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M1 12s4-7.5 11-7.5S23 12 23 12s-4 7.5-11 7.5S1 12 1 12Z" />
+                                    <circle cx="12" cy="12" r="3.5" />
+                                </svg>
+                                <svg class="icon-eye-off" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M1 12s4-7.5 11-7.5S23 12 23 12s-4 7.5-11 7.5S1 12 1 12Z" />
+                                    <circle cx="12" cy="12" r="3.5" />
+                                    <path class="slash" d="M3 3l18 18" />
+                                </svg>
+                            </button>
+                        </div>
+                        <p class="error-msg" id="passwordError" role="alert"></p>
+                    </div>
+
+                    <!-- ④ 로그인 상태 유지 / ⑤ 비밀번호 찾기 -->
+                    <div class="options">
+                        <label class="checkbox">
+                            <input type="checkbox" id="rememberMe" name="remember"> <!-- [연결⑦] JS가 checked 읽기 -->
+                            <span>로그인 상태 유지</span>
+                        </label>
+                        <a href="#find-password" class="link" id="findPwLink">비밀번호 찾기</a>
+                    </div>
+
+                    <!-- 인증 실패 안내 문구 -->
+                    <p class="form-error" id="formError" role="alert"></p>
+
+                    <!-- ⑥ 로그인 버튼 (두 칸이 모두 채워지기 전에는 disabled) -->
+                    <button type="submit" class="btn-primary" id="loginBtn" disabled> <!-- [연결⑧] JS disabled · .is-loading → CSS -->
+                        <span class="btn-label">로그인</span>
+                        <span class="spinner" aria-hidden="true"></span>
+                    </button>
+                </form>
+
+
+                <!-- ⑦ 소셜 로그인 버튼 -->
+                <div class="modal-social">
+                    <!-- [연결⑨] data-provider 값을 JS가 dataset.provider로 읽어 토스트 문구를 만듦 -->
+                    <button type="button" class="btn-social" data-provider="Google">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5a5.6 5.6 0 0 1-2.4 3.6v3h3.9c2.2-2.1 3.5-5.1 3.5-8.8Z" />
+                            <path fill="#34A853" d="M12 24c3.2 0 6-1.1 7.9-2.9l-3.9-3c-1 .7-2.4 1.1-4 1.1-3.1 0-5.7-2.1-6.6-4.9h-4v3.1A12 12 0 0 0 12 24Z" />
+                            <path fill="#FBBC05" d="M5.4 14.3a7.2 7.2 0 0 1 0-4.6V6.6h-4a12 12 0 0 0 0 10.8l4-3.1Z" />
+                            <path fill="#EA4335" d="M12 4.8c1.7 0 3.3.6 4.5 1.8l3.4-3.4A12 12 0 0 0 1.4 6.6l4 3.1C6.3 6.9 8.9 4.8 12 4.8Z" />
+                        </svg>
+                        Google
+                    </button>
+                    <button type="button" class="btn-social" data-provider="GitHub">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill="currentColor" d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.2-3.1-.1-.4-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.6 18.3 5 18.3 5c.7 1.6.2 2.8.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3Z" />
+                        </svg>
+                        GitHub
+                    </button>
+                </div>
+
+                <!-- ⑧ 회원가입 링크 -->
+                <p class="signup">
+                    아직 회원이 아니신가요? → <a href="#join" class="link-strong" id="signUpLink">회원가입</a>
+                </p>
+            </section>
+        </div>
+
+
+        <!-- 토스트 메시지 -->
+        <div class="toast" id="toast" role="status" aria-live="polite"></div> <!-- [연결⑩] JS .show 추가 → CSS 표시 -->
+
+        <!-- script.ts를 빌드한 결과물(script.js)을 불러옴 -->
+        <script src="./script.js" defer></script>
+    </body>
+</html>

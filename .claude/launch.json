@@ -26,6 +26,12 @@
       "port": 5520
     },
     {
+      "name": "login-page-v1.2",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "5522", "--directory", "02-web-study/login-page/v1.2"],
+      "port": 5522
+    },
+    {
       "name": "best-page-v1",
       "runtimeExecutable": "python",
       "runtimeArgs": ["-m", "http.server", "5521", "--directory", "03-genspark-study/01-web/projects/best-page/v1.0"],
