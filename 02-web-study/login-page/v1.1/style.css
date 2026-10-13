@@ -1,0 +1,371 @@
+/* ==========================================================================
+   v1.1 CSS — 로그인 (LOGIN-01) 상태 보드: A · B-1 · B-2 · C-1 · C-2
+   ========================================================================== */
+
+
+
+/* ==================================================
+   전역 변수  [연결] CSS 변수 (설계도 명세 ⓪ ③ 값)
+   ================================================== */
+:root {
+--bg: #e1e1e1;                 /* ⓪ 배경: A · B-1 · B-2 · C-1 */
+--bg-done: #fcfcfc;            /* ⓪ 배경: C-2 */
+--white: #ffffff;
+--text: #000000;
+--primary: #db7656;            /* 로그인 버튼 · 아이콘 주황 */
+--primary-hover: #c9603f;
+--primary-dark: #b22c00;       /* ③ 입력값 색 · 라벨 · 테두리 */
+--placeholder: #e1ad9c;        /* ③ placeholder 색 */
+--focus-ring: rgba(219, 118, 86, .25);
+--error: #cd3e12;              /* ④ 에러 바 */
+--success-bg: #e3fce3;         /* ⑥ C-1 · ⑧ C-2 성공 표시 */
+--success-border: #1f9d3a;
+--success-text: #166534;
+--divider-end: #f0c9bb;
+--radius-lg: 20px;             /* ⓪ 큰 둥글기: 카드 */
+--radius-md: 10px;             /* ⓪ 중간 둥글기: 입력칸 · 버튼 · 성공 박스 */
+--radius-sm: 4px;              /* ⓪ 작은 둥글기: 에러 바 · 체크박스 */
+--ease: ease;
+--font: 'Pretendard', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Malgun Gothic', sans-serif;
+}
+
+
+
+/* ==================================================
+   리셋 & 베이스
+   ================================================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: var(--font);
+    color: var(--text);
+    background: var(--bg);
+    min-height: 100vh;
+    display: grid;
+    place-items: center;           /* ⓪ 화면 정중앙 */
+    padding: 24px 16px;
+    transition: background .3s var(--ease);
+}
+
+button { font: inherit; }
+
+
+
+/* ==================================================
+   ① 카드 영역
+   ================================================== */
+/* 너비 500px / 높이 670px (A 기준)
+   에러 시 높이: 늘어남 (에러 칸 자리 미리 확보 안 함) → height를 고정하지 않음 */
+.card {
+    width: 100%;
+    max-width: 500px;
+    padding: 50px 75px 83px;
+    background: var(--white);
+    border-radius: var(--radius-lg);
+}
+
+
+
+/* ==================================================
+   ② 로고
+   ================================================== */
+.logo { display: grid; justify-items: center; user-select: none; }
+
+/* 아이콘 이미지 크기: 정사각형 54px */
+.logo-icon {
+    width: 54px;
+    height: 54px;
+    stroke: var(--primary);
+    stroke-width: 2.6;
+    stroke-linecap: round;
+}
+
+/* Opus 5.5 글씨 크기: 42px */
+.logo-font {
+    margin-top: 2px;
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 50px;
+    letter-spacing: -.5px;
+}
+
+
+
+/* ==================================================
+   ③ 입력칸
+   ================================================== */
+.form { margin-top: 40px; }
+
+.field + .field { margin-top: 24px; }
+
+.field-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 18px;
+    color: var(--primary-dark);
+}
+
+.input {
+    display: block;
+    width: 100%;
+    height: 50px;
+    padding: 0 15px;
+    font-size: 15px;
+    color: var(--primary-dark);    /* 입력값 색 → #B22C00 */
+    background: var(--white);
+    border: 1px solid var(--primary-dark);
+    border-radius: var(--radius-md);
+    outline: none;
+    transition: box-shadow .2s var(--ease), border-color .2s var(--ease);
+}
+.input::placeholder { color: var(--placeholder); }   /* placeholder 색 → #E1AD9C */
+.input:focus { box-shadow: 0 0 0 3px var(--focus-ring); }
+
+/* 비밀번호 칸: 눈 아이콘 자리만큼 오른쪽 여백 */
+.input-wrap { position: relative; }
+.input-wrap .input { padding-right: 52px; }
+
+/* 브라우저(Edge 등)가 기본으로 붙이는 비밀번호 표시 · 지우기 버튼 숨김
+   (-ms- 선택자는 Chrome이 모르는 이름이라, 다른 선택자와 묶지 않고 따로 작성) */
+.input::-ms-reveal,
+.input::-ms-clear { display: none; }
+
+
+
+/* -- 눈 아이콘: password ↔ text -- */
+.btn-eye {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    background: none;
+    border: none;
+    border-radius: var(--radius-sm);
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+.btn-eye svg { width: 26px; height: 26px; }
+.btn-eye .eye-shape { fill: var(--primary); }
+.btn-eye .eye-ring  { fill: var(--white); }
+.btn-eye .eye-pupil { fill: var(--primary); }
+.btn-eye .eye-slash { fill: none; stroke: var(--primary-dark); stroke-width: 2.4; stroke-linecap: round; }
+.btn-eye:focus-visible { outline: 2px solid var(--primary-dark); outline-offset: 1px; }
+
+/* [연결④] aria-pressed 값에 따라 아이콘 교체 */
+.btn-eye .icon-eye-off { display: none; }
+.btn-eye[aria-pressed="true"] .icon-eye { display: none; }
+.btn-eye[aria-pressed="true"] .icon-eye-off { display: block; }
+
+
+
+/* ==================================================
+   ④ 에러 바
+   ================================================== */
+/* 평소에는 숨김(display: none → 자리도 차지하지 않음) → 나타나면 카드가 늘어남 */
+.error-bar {
+    display: none;
+    min-height: 30px;
+    margin-top: 16px;
+    padding: 7px 15px;
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--white);
+    background: var(--error);
+    border-radius: var(--radius-sm);
+    animation: bar-in .2s var(--ease);
+}
+
+/* B-1: [연결③] JS가 .field에 .is-invalid를 붙이면 그 칸의 에러 바만 표시 */
+.field.is-invalid .error-bar { display: block; }
+.field.is-invalid .input { border-color: var(--error); }
+
+/* B-2: [연결①] 화면 상태가 B-2일 때만 공통 에러 바 표시 */
+.form-error { margin-top: 14px; }
+body[data-state="B-2"] .form-error { display: block; }
+
+@keyframes bar-in {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: none; }
+}
+
+
+
+/* ==================================================
+   ⑤ 부가 기능: 로그인 상태 유지 / 비밀번호 찾기
+   ================================================== */
+.options {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 18px;
+    font-size: 13px;
+    line-height: 18px;
+    color: var(--primary-dark);
+}
+.checkbox { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+.checkbox input {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 1px solid var(--primary-dark);
+    border-radius: var(--radius-sm);
+    background: var(--white);
+    cursor: pointer;
+}
+.checkbox input:checked { background: var(--primary-dark); }
+.checkbox input:focus-visible { outline: 2px solid var(--primary-dark); outline-offset: 2px; }
+
+.link { color: var(--primary-dark); text-decoration: none; }
+.link:hover { text-decoration: underline; }
+
+
+
+/* ==================================================
+   ⑥ 로그인 버튼 · ⑦ 회원가입 버튼
+   ================================================== */
+.btn-primary,
+.btn-secondary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    height: 50px;
+    font-size: 18px;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: background .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease);
+}
+
+.btn-primary {
+    margin-top: 20px;
+    color: var(--white);
+    background: var(--primary);
+    border: 1px solid var(--primary);
+}
+.btn-primary:hover:not(:disabled) { background: var(--primary-hover); border-color: var(--primary-hover); }
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible { outline: 2px solid var(--primary-dark); outline-offset: 2px; }
+
+/* 기본은 "로그인" 글씨만 보이고, "✓ 로그인 성공"은 숨김 */
+.btn-primary .label-success { display: none; align-items: center; gap: 6px; }
+
+/* C-1: [연결①] 화면 상태가 C-1이면 초록 + "✓ 로그인 성공" / [연결⑥] disabled는 JS가 켬 */
+body[data-state="C-1"] .btn-primary {
+    color: var(--success-text);
+    background: var(--success-bg);
+    border-color: var(--success-border);
+    cursor: default;
+}
+body[data-state="C-1"] .btn-primary .label-default { display: none; }
+body[data-state="C-1"] .btn-primary .label-success { display: flex; }
+
+.icon-check {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* 구분선: 진한 주황 → 연한 주황 그라데이션 */
+.divider {
+    height: 2px;
+    margin-top: 20px;
+    border: none;
+    background: linear-gradient(90deg, var(--primary-dark), var(--divider-end));
+}
+
+.signup-text {
+    margin-top: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 14px;
+    color: var(--primary-dark);
+}
+
+.btn-secondary {
+    margin-top: 11px;
+    color: var(--primary-dark);
+    background: var(--white);
+    border: 1px solid var(--primary-dark);
+}
+.btn-secondary:hover { background: #fff4f0; }
+
+
+
+/* ==================================================
+   ⑧ 완료 화면 (C-2)
+   ================================================== */
+.done {
+    display: none;                 /* 기본은 숨김 */
+    width: 100%;
+    max-width: 350px;
+    animation: bar-in .3s var(--ease);
+}
+
+/* [연결①] 화면 상태가 C-2이면: 배경 #FCFCFC + 카드 숨김 + 완료 화면 표시 */
+body[data-state="C-2"] { background: var(--bg-done); }
+body[data-state="C-2"] .card { display: none; }
+body[data-state="C-2"] .done { display: block; }
+
+.done .logo { margin-bottom: 32px; }
+
+.success-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 50px;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--success-text);
+    background: var(--success-bg);
+    border: 1px solid var(--success-border);
+    border-radius: var(--radius-md);
+}
+
+/* "✓ 로그인이 되었습니다!" 아래에 margin-top: 5px */
+.btn-home { margin-top: 5px; font-size: 17px; }
+
+
+
+/* ==================================================
+   토스트  [연결⑨] JS가 .show를 붙이면 나타남
+   ================================================== */
+.toast {
+    position: fixed;
+    left: 50%;
+    bottom: 32px;
+    z-index: 20;
+    max-width: calc(100% - 32px);
+    padding: 12px 22px;
+    font-size: 14px;
+    color: var(--white);
+    background: rgba(17, 17, 17, .9);
+    border-radius: 999px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, 20px);
+    transition: opacity .3s var(--ease), transform .3s var(--ease);
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+
+
+/* ==================================================
+   좁은 화면 (모바일)
+   ================================================== */
+@media (max-width: 480px) {
+    .card { padding: 40px 20px 48px; }
+    .logo-font { font-size: 34px; line-height: 42px; }
+}

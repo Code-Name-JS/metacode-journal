@@ -26,6 +26,12 @@
       "port": 5520
     },
     {
+      "name": "login-page-v1.1",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "5523", "--directory", "02-web-study/login-page/v1.1"],
+      "port": 5523
+    },
+    {
       "name": "login-page-v1.2",
       "runtimeExecutable": "python",
       "runtimeArgs": ["-m", "http.server", "5522", "--directory", "02-web-study/login-page/v1.2"],

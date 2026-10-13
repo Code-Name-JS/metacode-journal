@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>로그인·Code-Name-JS</title>
+
+        <link rel="stylesheet" href="./style.css">
+    </head>
+    <!-- [연결①] data-state: 설계도 상태 보드(A · B-1 · B-2 · C-1 · C-2)와 같은 이름. JS가 바꾸면 CSS가 화면을 바꿈 -->
+    <body data-state="A">
+
+        <!-- ① 카드 영역 (A · B-1 · B-2 · C-1) -->
+        <main class="card">
+
+            <!-- ② 로고 -->
+            <div class="logo">
+                <svg class="logo-icon" viewBox="0 0 54 54" aria-hidden="true">
+                    <g>
+                        <line x1="27" y1="27" x2="27.0" y2="3.0" />
+                        <line x1="27" y1="27" x2="37.8" y2="12.6" />
+                        <line x1="27" y1="27" x2="46.9" y2="15.5" />
+                        <line x1="27" y1="27" x2="45.9" y2="29.3" />
+                        <line x1="27" y1="27" x2="47.8" y2="39.0" />
+                        <line x1="27" y1="27" x2="33.6" y2="42.6" />
+                        <line x1="27" y1="27" x2="27.0" y2="50.0" />
+                        <line x1="27" y1="27" x2="15.0" y2="43.0" />
+                        <line x1="27" y1="27" x2="6.2" y2="39.0" />
+                        <line x1="27" y1="27" x2="9.1" y2="24.8" />
+                        <line x1="27" y1="27" x2="7.9" y2="16.0" />
+                        <line x1="27" y1="27" x2="19.6" y2="9.5" />
+                    </g>
+                </svg>
+                <h1 class="logo-font">Opus 5.5</h1>
+            </div>
+
+
+            <form class="form" id="loginForm" novalidate> <!-- [연결②] JS submit 이벤트 (클릭 · Enter) -->
+
+                <!-- ③ 이메일 -->
+                <div class="field" id="emailField"> <!-- [연결③] JS가 .is-invalid 추가 → CSS 에러 바 표시 -->
+                    <label class="field-label" for="email">이메일</label> <!-- label for ↔ input id -->
+                    <input type="email" id="email" name="email" class="input"
+                           placeholder="이메일을 입력해 주세요." autocomplete="email"
+                           aria-describedby="emailError">
+                    <p class="error-bar" id="emailError" role="alert"></p> <!-- ④ B-1 에러 바 -->
+                </div>
+
+                <!-- ③ 비밀번호 -->
+                <div class="field" id="passwordField">
+                    <label class="field-label" for="password">비밀번호</label>
+                    <div class="input-wrap">
+                        <input type="password" id="password" name="password" class="input"
+                               placeholder="비밀번호를 입력해 주세요." autocomplete="current-password"
+                               aria-describedby="passwordError formError">
+                        <!-- [연결④] JS가 aria-pressed를 바꾸면 CSS가 아이콘을 교체 -->
+                        <button type="button" class="btn-eye" id="eyeBtn" aria-label="비밀번호 표시" aria-pressed="false">
+                            <svg class="icon-eye" viewBox="0 0 24 24" aria-hidden="true">
+                                <path class="eye-shape" d="M1 12s4-7.5 11-7.5S23 12 23 12s-4 7.5-11 7.5S1 12 1 12Z" />
+                                <circle class="eye-ring" cx="12" cy="12" r="4.2" />
+                                <circle class="eye-pupil" cx="12" cy="12" r="2" />
+                            </svg>
+                            <svg class="icon-eye-off" viewBox="0 0 24 24" aria-hidden="true">
+                                <path class="eye-shape" d="M1 12s4-7.5 11-7.5S23 12 23 12s-4 7.5-11 7.5S1 12 1 12Z" />
+                                <circle class="eye-ring" cx="12" cy="12" r="4.2" />
+                                <circle class="eye-pupil" cx="12" cy="12" r="2" />
+                                <path class="eye-slash" d="M3 3l18 18" />
+                            </svg>
+                        </button>
+                    </div>
+                    <p class="error-bar" id="passwordError" role="alert"></p> <!-- ④ B-1 에러 바 -->
+                </div>
+
+                <!-- ④ B-2 인증 실패: 공통 한 줄, 비밀번호 칸 아래 -->
+                <p class="error-bar form-error" id="formError" role="alert"></p> <!-- [연결①] CSS [data-state="B-2"]일 때만 표시 -->
+
+                <!-- ⑤ 로그인 상태 유지 / 비밀번호 찾기 -->
+                <div class="options">
+                    <label class="checkbox">
+                        <input type="checkbox" id="rememberMe" name="remember"> <!-- [연결⑤] JS change → 준비중 안내 -->
+                        <span>로그인 상태 유지</span>
+                    </label>
+                    <a href="#find-password" class="link" id="findPwLink">비밀번호 찾기</a>
+                </div>
+
+                <!-- ⑥ 로그인 버튼: C-1에서 초록 + "✓ 로그인 성공" + disabled -->
+                <button type="submit" class="btn-primary" id="loginBtn"> <!-- [연결⑥] JS disabled / CSS [data-state="C-1"] -->
+                    <span class="label-default">로그인</span>
+                    <span class="label-success">
+                        <svg class="icon-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5" /></svg>
+                        로그인 성공
+                    </span>
+                </button>
+
+                <!-- 구분선 -->
+                <hr class="divider">
+
+                <!-- ⑦ 회원가입 -->
+                <p class="signup-text">아직 회원이 아니신가요?</p>
+                <button type="button" class="btn-secondary" id="signUpBtn">회원가입</button> <!-- [연결⑦] JS 클릭 → 준비중 안내 -->
+
+            </form>
+        </main>
+
+
+        <!-- ⑧ 완료 화면 (C-2) -->
+        <section class="done" id="donePanel" aria-labelledby="doneTitle"> <!-- [연결①] CSS [data-state="C-2"]일 때만 표시 -->
+            <div class="logo">
+                <svg class="logo-icon" viewBox="0 0 54 54" aria-hidden="true">
+                    <g>
+                        <line x1="27" y1="27" x2="27.0" y2="3.0" />
+                        <line x1="27" y1="27" x2="37.8" y2="12.6" />
+                        <line x1="27" y1="27" x2="46.9" y2="15.5" />
+                        <line x1="27" y1="27" x2="45.9" y2="29.3" />
+                        <line x1="27" y1="27" x2="47.8" y2="39.0" />
+                        <line x1="27" y1="27" x2="33.6" y2="42.6" />
+                        <line x1="27" y1="27" x2="27.0" y2="50.0" />
+                        <line x1="27" y1="27" x2="15.0" y2="43.0" />
+                        <line x1="27" y1="27" x2="6.2" y2="39.0" />
+                        <line x1="27" y1="27" x2="9.1" y2="24.8" />
+                        <line x1="27" y1="27" x2="7.9" y2="16.0" />
+                        <line x1="27" y1="27" x2="19.6" y2="9.5" />
+                    </g>
+                </svg>
+                <h2 class="logo-font" id="doneTitle">Opus 5.5</h2>
+            </div>
+
+            <p class="success-box" role="status">
+                <svg class="icon-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5" /></svg>
+                로그인이 되었습니다!
+            </p>
+            <a href="#home" class="btn-primary btn-home" id="homeLink">홈페이지로 바로가기 →</a> <!-- [연결⑧] JS 클릭 → 준비중 안내 -->
+        </section>
+
+
+        <!-- 토스트 메시지 ("준비중" 안내) -->
+        <div class="toast" id="toast" role="status" aria-live="polite"></div> <!-- [연결⑨] JS .show 추가 → CSS 표시 -->
+
+        <!-- script.ts를 빌드한 결과물(script.js)을 불러옴 -->
+        <script src="./script.js" defer></script>
+    </body>
+</html>
