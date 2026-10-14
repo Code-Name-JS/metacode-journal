@@ -150,7 +150,7 @@ function setupEyeToggle(inputId, btnId, iconId) {
 
 /* -- 로그인 상태 유지 복원 -- */
 window.addEventListener('DOMContentLoaded', () => {
-  const saved = localStorage.getItem('v2-remembered');
+  const saved = localStorage.getItem('v2_remembered');
   if (saved) {
     document.getElementById('email').value = saved;
     document.getElementById('remember').checked = true;
@@ -391,22 +391,6 @@ function shakeForm(formId){
 
 
 
-/* -- 카운터 애니메이션 -- */
-function animateStats(){
-  document.querySelectorAll('.stat-num').forEach(el => {
-    const target = +el.dataset.target;
-    let cur = 0;
-    const step = Math.ceil(target / 40);
-    const timer = setInterval(() => {
-      cur = Math.min(cur + step, target);
-      el.textContent = cur;
-      if (cur >= target) clearInterval(timer);
-    }, 28);
-  });
-}
-
-
-
 /* -- 유틸 -- */
 function delay(ms){return new Promise(r => setTimeout(r, ms));}
 
@@ -424,7 +408,11 @@ style.textContent = `
     75%     { transform: translateX(-3px); }
     90%     { transform: translateX(2px); }
   }
-`}
+`;
+
+// style 변수는 if(loginForm) { ... } 블록 안에서 선언됐으므로 블록 안에서 주입해야 함
+document.head.appendChild(style);
+}
 
 /* -- 하단 스탯 숫자 애니메이션 -- */
 function animateStats() {
@@ -457,4 +445,3 @@ function animateStats() {
 /* -- 스탯 애니메이션 실행 -- */
 animateStats();
 
-document.head.appendChild(style);

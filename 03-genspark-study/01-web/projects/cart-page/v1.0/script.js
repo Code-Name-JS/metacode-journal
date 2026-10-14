@@ -29,7 +29,7 @@ const COUPONS = {
 /* -- 샘플 데이터 (썸네일은 그라디언트 + 이모지) -- */
 const DEMO_ITEMS = [
     { id: 'p1', name: '무선 노이즈캔슬링 헤드폰', option: '미드나잇 블랙', price: 189000, qty: 1, checked: true, emoji: '🎧', bg: 'linear-gradient(135deg,#c2b6f6,#8fb8f5)' },
-    { id: 'p2', naem: '스마트워치 시리즈 9', option: '45mm 스타라이트', price: 429000, qty: 1, checked: false, emoji: '⌚', bg: 'linear-gradient(135deg,#ffd8a8,#ffa8a8)' },
+    { id: 'p2', name: '스마트워치 시리즈 9', option: '45mm 스타라이트', price: 429000, qty: 1, checked: false, emoji: '⌚', bg: 'linear-gradient(135deg,#ffd8a8,#ffa8a8)' },
     { id: 'p3', name: '러닝 슈즈 에어플로우', option: '화이트 / 270mm', price: 89000, qty: 1, checked: false, emoji: '👟', bg: 'linear-gradient(135deg,#b8f2d8,#8fe3f0)' },
     { id: 'p4', name: '캠핑 미니 화로대', option: '스테인리 스틸', price: 45000, qty: 1, checked: true, emoji: '🏕️', bg: 'linear-gradient(135deg,#ffe3a3,#ffc4a3)' },
 ];
