@@ -9,8 +9,8 @@ HTML / CSS / TypeScript / JavaScript 로 작성되었으며, 번들러 없이 �
 | --- | --- |
 | `index.html` | 페이지 마크업 (헤더 · 히어로 · 툴바 · 상품 그리드 · 장바구니 드로어) |
 | `style.css` | 디자인 토큰(CSS 변수) 기반 스타일시트 + 반응형(4/3/2열) |
-| `main.ts` | **TypeScript 원본** — 인터페이스/타입 정의, 목 데이터, 렌더링 및 이벤트 로직 |
-| `main.js` | `main.ts`를 `npx tsc`로 컴파일한 결과물 (브라우저 실행용) |
+| `script.ts` | **TypeScript 원본** — 인터페이스/타입 정의, 목 데이터, 렌더링 및 이벤트 로직 |
+| `script.js` | `script.ts`를 `npx tsc`로 컴파일한 결과물 (브라우저 실행용) |
 | `tsconfig.json` | 컴파일 설정 (`strict: true`) |
 
 ## 실행 방법
@@ -38,5 +38,5 @@ npx serve .
 
 ## 참고
 
-- 상품 데이터는 `main.ts`의 `PRODUCTS` 배열에 정의된 **목(mock) 데이터**입니다.
+- 상품 데이터는 `script.ts`의 `PRODUCTS` 배열에 정의된 **목(mock) 데이터**입니다.
 - 이미지는 `picsum.photos`의 고정 시드를 사용합니다.
