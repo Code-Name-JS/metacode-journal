@@ -429,3 +429,159 @@ function render(): void {
 
 
 /* --------------------------- 7. 상호작용 동작 ----------------------------- */
+function toggleWishlist(id: number): void {
+    const product = PRODUCTS.find((item) => item.id === id);
+    if (!product) return;
+
+    if (app.wishlist.has(id)) {
+        app.wishlist.delete(id);
+        toast("찜 목록에서 삭제했습니다.");
+    } else {
+        app.wishlist.add(id);
+        toast("찜 목록에 추가했습니다. ♥");
+    }
+    saveState();
+    render();    
+}
+
+function toggleCart(id: number): void {
+    const product = PRODUCTS.find((item) => item.id === id);
+    if (!product) return;
+
+    if (app.cart.has(id)) {
+        app.cart.delete(id);
+        toast("장바구니에서 뺐습니다.");
+    } else {
+        app.cart.set(id, 1);
+        toast("장바구니에 담았습니다. 🛒");
+    }
+    saveState();
+    render();
+}
+
+function openDrawer(): void {
+    $("#cartDrawer").classList.add("is-open");
+    $("#cartDrawer").setAttribute("aria-hidden", "false");
+    $("#drawerOverlay").hidden = false;
+    document.body.classList.add("no-scroll");
+}
+
+function closeDrawer(): void {
+    $("#cartDrawer").classList.remove("is-open");
+    $("#cartDrawer").setAttribute("aria-hidden", "true");
+    $("#drawerOverlay").hidden = true;
+    document.body.classList.remove("no-scroll");
+}
+
+
+
+/* ------------------------------ 8. 이벤트 --------------------------------- */
+function bindEvents(): void {
+    // 카테고리 탭
+    $("#categoryTabs").addEventListener("click", (event) => {
+        const target = (event.target as HTMLElement).closest<HTMLElement>("[data-category]");
+        if (!target) return;
+        app.category = target.dataset.category as CategoryId;
+        app.visible = PAGE_SIZE;
+        renderCategories();
+        render();
+    });
+
+    // 정렬
+    $("#sortGroup").addEventListener("click", (event) => {
+        const target = (event.target as HTMLElement).closest<HTMLElement>("[data-sort]");
+        if (!target) return;
+        app.sort = target.dataset.sort as SortKey;
+        app.visible = PAGE_SIZE;
+        renderSorts();
+        render();
+    });
+
+    // 상품 카드 (찜 / 장바구니)
+    $("#productGrid").addEventListener("click", (event) => {
+        const target = (event.target as HTMLElement).closest<HTMLElement>("[data-action]");
+        if (!target) return;
+        const card = target.closest<HTMLElement>(".card");
+        if (!card) return;
+        const id = Number(card.dataset.id);
+        const action = target.dataset.action;
+        if (action === "wish") toggleWishlist(id);
+        if (action === "cart") toggleCart(id);
+    });
+
+    // 더 보기
+    $("#moreBtn").addEventListener("click", () => {
+        app.visible += PAGE_SIZE;
+        renderProducts();
+    });
+
+    // 검색
+    $("#searchInput").addEventListener("input", (event) => {
+        app.keyword = (event.target as HTMLInputElement).value;
+        app.visible = PAGE_SIZE;
+        renderProducts();
+    });
+
+    // 찜한 상품만 보기
+    $("#wishlistToggle").addEventListener("click", () => {
+        app.wishlistOnly = !app.wishlistOnly;
+        app.visible = PAGE_SIZE;
+        toast(app.wishlistOnly ? "찜한 상품만 보고 있습니다." : "전체 상품을 보고 있습니다.");
+        render();
+    });
+
+    // 장바구니 드로어
+    $("#cartToggle").addEventListener("click", openDrawer);
+    $("#cartClose").addEventListener("click", closeDrawer);
+    $("#drawerOverlay").addEventListener("click", closeDrawer);
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeDrawer();
+    });
+
+    // 드로어 내부 (수량 / 삭제)
+    $("#cartItems").addEventListener("click", (event) => {
+        const target = (event.target as HTMLElement);
+        const row = target.closest<HTMLElement>(".cart-item");
+        if (!row) return;
+        const id = Number(row.dataset.id);
+
+        if (target.closest("[data-action='remove']")) {
+            app.cart.delete(id);
+            saveState();
+            render();
+            return;
+        }
+
+        const qtyBtn = target.closest<HTMLElement>("[data-qty]");
+        if (qtyBtn) {
+            const delta = Number(qtyBtn.dataset.qty);
+            const next = (app.cart.get(id) ?? 1) + delta;
+            if (next <= 0) app.cart.delete(id);
+            else app.cart.set(id, next);
+            saveState();
+            render();
+        }
+    });
+
+    // 주문하기
+    $("#checkoutBtn").addEventListener("click", () => {
+        if (app.cart.size === 0) {
+            toast("장바구니가 비어 있습니다.");
+            return;
+        }
+        toast("주문 페이지로 이동합니다. (데모)");
+    });
+}
+
+
+
+/* ------------------------------- 9. 초기화 -------------------------------- */
+function init(): void {
+    loadState();
+    renderCategories();
+    renderSorts();
+    bindEvents();
+    render();
+}
+
+document.addEventListener("DOMContentLoaded", init);
