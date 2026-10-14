@@ -1,9 +1,10 @@
-import os
+from pathlib import Path
+
 from playwright.sync_api import sync_playwright
 
 def run_verification():
-    file_path = os.path.abspath("src/index.html")
-    file_url = f"file://{file_path}"
+    # 스크립트와 같은 폴더의 index.html (어느 위치에서 실행해도 같은 파일을 연다)
+    file_url = Path(__file__).resolve().with_name("index.html").as_uri()
 
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
