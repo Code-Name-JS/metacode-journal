@@ -6,9 +6,8 @@
  * ========================================================================== */
 /* --------------------------- 2. 상수 & 목 데이터 -------------------------- */
 const PAGE_SIZE = 8;
-const WON = new Intel.NumberFormat("ko-KR");
+const WON = new Intl.NumberFormat("ko-KR");
 const STORAGE_KEY = "bestpick:v1";
-
 /** 카테고리 목록 */
 const CATEGORIES = [
     { id: "all", label: "전체", emoji: "🏆" },
@@ -19,19 +18,16 @@ const CATEGORIES = [
     { id: "living", label: "생활", emoji: "🏠" },
     { id: "sports", label: "스포츠", emoji: "👟" },
 ];
-
 /** 정렬 옵션 */
 const SORTS = [
     { key: "popular", label: "인기순" },
     { key: "price", label: "가격순" },
     { key: "review", label: "리뷰순" },
 ];
-
-//** 이미지 플레이스홀더 (시드 고정 → 항상 같은 이미지) */
+/** 이미지 플레이스홀더 (시드 고정 → 항상 같은 이미지) */
 function img(seed) {
     return "https://picsum.photos/seed/bestpick-" + String(seed).padStart(2, "0") + "/640/640";
 }
-
 /** 베스트 상품 목 데이터 */
 const PRODUCTS = [
     { id: 1, rank: 1, brand: "사운드코어", name: "무선 노이즈캔슬링 블루투스 이어폰", category: "digital", price: 129000, originalPrice: 199000, rating: 4.8, reviewCount: 12480, salesCount: 32450, image: img(1), tags: ["노이즈캔슬링", "무선"], freeShipping: true, isNew: false },
@@ -54,10 +50,7 @@ const PRODUCTS = [
     { id: 18, rank: 18, brand: "런앤고", name: "요가매트 6mm 논슬립", category: "sports", price: 27900, originalPrice: 45000, rating: 4.6, reviewCount: 3050, salesCount: 8120, image: img(18), tags: ["논슬립", "6mm"], freeShipping: true, isNew: false },
     { id: 19, rank: 19, brand: "데일리웨어", name: "아로마 디퓨저 200ml", category: "living", price: 21900, originalPrice: 35000, rating: 4.4, reviewCount: 1870, salesCount: 7690, image: img(19), tags: ["아로마", "인테리어"], freeShipping: false, isNew: false },
     { id: 20, rank: 20, brand: "아침식탁", name: "하루한줌 견과류 30팩", category: "food", price: 15900, originalPrice: 24000, rating: 4.5, reviewCount: 2290, salesCount: 7180, image: img(20), tags: ["소포장", "하루한줌"], freeShipping: true, isNew: false },
-]
-
-
-
+];
 /* ------------------------------ 3. 상태 ----------------------------------- */
 const app = {
     category: "all",
@@ -68,9 +61,6 @@ const app = {
     wishlist: new Set(),
     cart: new Map(),
 };
-
-
-
 /* ------------------------------ 4. 유틸 ----------------------------------- */
 /** 안전한 DOM 조회 */
 function $(selector) {
@@ -79,7 +69,6 @@ function $(selector) {
         throw new Error("요소를 찾을 수 없습니다: " + selector);
     return el;
 }
-
 /** HTML 이스케이프 */
 function escapeHtml(value) {
     return value
@@ -89,7 +78,6 @@ function escapeHtml(value) {
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#39;");
 }
-
 /** 할인율 계산 (%) */
 function discountRate(product) {
     const { price, originalPrice } = product;
@@ -97,7 +85,6 @@ function discountRate(product) {
         return 0;
     return Math.round((1 - price / originalPrice) * 100);
 }
-
 /** 랭킹 배지 등급 */
 function rankTier(rank) {
     if (rank === 1)
@@ -108,11 +95,10 @@ function rankTier(rank) {
         return "bronze";
     return "plain";
 }
-
 /** 이미지 로드 실패 시 쓸 SVG 플레이스홀더 */
 function placeholderImage(label) {
-    const initial = label.trim().charAt(0) || "?"
-    const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="640" heigth="640">' +
+    const initial = label.trim().charAt(0) || "?";
+    const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640">' +
         '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">' +
         '<stop offset="0" stop-color="#ffe3ec"/><stop offset="1" stop-color="#e6edfd"/>' +
         '</linearGradient></defs>' +
@@ -123,17 +109,15 @@ function placeholderImage(label) {
         "</text></svg>";
     return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
 }
-
 /** 토스트 메시지 */
 let toastTimer;
 function toast(message) {
-    const box = $("toast");
+    const box = $("#toast");
     box.textContent = message;
     box.classList.add("is-on");
     window.clearTimeout(toastTimer);
     toastTimer = window.setTimeout(() => box.classList.remove("is-on"), 2000);
 }
-
 function saveState() {
     try {
         const payload = {
@@ -146,13 +130,12 @@ function saveState() {
         /* 저장 실패는 무시 (시크릿 모드 등) */
     }
 }
-
 function loadState() {
-    let _a, _b;
+    var _a, _b;
     try {
         const raw = window.localStorage.getItem(STORAGE_KEY);
         if (!raw)
-            ruturn;
+            return;
         const parsed = JSON.parse(raw);
         ((_a = parsed.wishlist) !== null && _a !== void 0 ? _a : []).forEach((id) => app.wishlist.add(id));
         ((_b = parsed.cart) !== null && _b !== void 0 ? _b : []).forEach(([id, qty]) => app.cart.set(id, qty));
@@ -161,12 +144,9 @@ function loadState() {
         /* 복원 실패는 무시 */
     }
 }
-
-
-
 /* ------------------------------ 6. 렌더링 --------------------------------- */
 function renderCategories() {
-    const nav = $("#categroryTabs");
+    const nav = $("#categoryTabs");
     nav.innerHTML = CATEGORIES.map((category) => {
         const on = category.id === app.category ? " is-on" : "";
         return ('<button type="button" class="tab' + on + '" data-category="' + category.id + '" ' +
@@ -175,7 +155,6 @@ function renderCategories() {
             "<span>" + category.label + "</span></button>");
     }).join("");
 }
-
 function renderSorts() {
     const group = $("#sortGroup");
     group.innerHTML = SORTS.map((option) => {
@@ -184,9 +163,9 @@ function renderSorts() {
             'aria-pressed="' + (option.key === app.sort) + '">' + option.label + "</button>");
     }).join("");
 }
-
 /** 현재 조건에 맞는 상품 목록 */
 function selectProducts() {
+    const keyword = app.keyword.trim().toLowerCase();
     const filtered = PRODUCTS.filter((product) => {
         if (app.category !== "all" && product.category !== app.category)
             return false;
@@ -213,7 +192,6 @@ function selectProducts() {
         }
     });
 }
-
 function productCardHtml(product) {
     const wished = app.wishlist.has(product.id);
     const inCart = app.cart.has(product.id);
@@ -238,7 +216,7 @@ function productCardHtml(product) {
         '<ul class="card__tags">' + tags + "</ul>" +
         '<p class="card__price">' +
         (rate > 0 ? '<span class="rate">' + rate + "%</span>" : "") +
-        "<strong>" + WON.format(product.price) + '<span class="won">원</span></strong>' +  
+        "<strong>" + WON.format(product.price) + '<span class="won">원</span></strong>' +
         (product.originalPrice > product.price
             ? "<s>" + WON.format(product.originalPrice) + "원</s>"
             : "") +
@@ -252,7 +230,7 @@ function productCardHtml(product) {
         "<span>판매 " + WON.format(product.salesCount) + "</span>" +
         "</p>" +
         '<p class="card__ship">' +
-        (product.freeShipping ? '<span class="ship--free">무료배송</span>' : '<span class="ship">배송비 별도</span>') +
+        (product.freeShipping ? '<span class="ship ship--free">무료배송</span>' : '<span class="ship">배송비 별도</span>') +
         "</p>" +
         '<button type="button" class="cart-btn' + (inCart ? " is-on" : "") + '" data-action="cart">' +
         (inCart ? "장바구니에서 빼기" : "장바구니 담기") +
@@ -260,7 +238,6 @@ function productCardHtml(product) {
         "</div>" +
         "</article>");
 }
-
 function renderProducts() {
     const grid = $("#productGrid");
     const list = selectProducts();
@@ -285,13 +262,12 @@ function renderProducts() {
     moreBtn.hidden = !hasMore;
     moreBtn.textContent = "베스트 상품 더 보기 (" + (list.length - shown.length) + "개)";
 }
-
 /** 이미지 로드 실패 → SVG 플레이스홀더로 교체 */
 function bindImageFallback() {
     const images = document.querySelectorAll(".card__img");
     images.forEach((element) => {
         element.addEventListener("error", () => {
-            let _a;
+            var _a;
             const id = Number((_a = element.dataset.id) !== null && _a !== void 0 ? _a : "0");
             const product = PRODUCTS.find((item) => item.id === id);
             if (!product)
@@ -300,7 +276,6 @@ function bindImageFallback() {
         }, { once: true });
     });
 }
-
 function renderCart() {
     const body = $("#cartItems");
     const entries = Array.from(app.cart.entries());
@@ -319,7 +294,7 @@ function renderCart() {
             if (!product)
                 return "";
             return ('<div class="cart-item" data-id="' + product.id + '">' +
-            '<img class="cart-item__img" src="' + product.image + '" alt="' + escapeHtml(product.name) + '">' +
+                '<img class="cart-item__img" src="' + product.image + '" alt="' + escapeHtml(product.name) + '">' +
                 '<div class="cart-item__info">' +
                 '<p class="cart-item__brand">' + escapeHtml(product.brand) + "</p>" +
                 '<p class="cart-item__name">' + escapeHtml(product.name) + "</p>" +
@@ -335,4 +310,171 @@ function renderCart() {
         })
             .join("");
     }
+    const total = entries.reduce((sum, [id, qty]) => {
+        const product = PRODUCTS.find((item) => item.id === id);
+        return product ? sum + product.price * qty : sum;
+    }, 0);
+    $("#cartTotal").textContent = WON.format(total) + "원";
+    $("#drawerCount").textContent = "(" + entries.length + ")";
 }
+function updateBadges() {
+    $("#wishCount").textContent = String(app.wishlist.size);
+    $("#cartCount").textContent = String(app.cart.size);
+    $("#wishlistToggle").setAttribute("aria-pressed", String(app.wishlistOnly));
+    $("#wishlistToggle").classList.toggle("is-on", app.wishlistOnly);
+}
+function render() {
+    renderProducts();
+    renderCart();
+    updateBadges();
+}
+/* --------------------------- 7. 상호작용 동작 ----------------------------- */
+function toggleWishlist(id) {
+    const product = PRODUCTS.find((item) => item.id === id);
+    if (!product)
+        return;
+    if (app.wishlist.has(id)) {
+        app.wishlist.delete(id);
+        toast("찜 목록에서 삭제했습니다.");
+    }
+    else {
+        app.wishlist.add(id);
+        toast("찜 목록에 추가했습니다. ♥");
+    }
+    saveState();
+    render();
+}
+function toggleCart(id) {
+    const product = PRODUCTS.find((item) => item.id === id);
+    if (!product)
+        return;
+    if (app.cart.has(id)) {
+        app.cart.delete(id);
+        toast("장바구니에서 뺐습니다.");
+    }
+    else {
+        app.cart.set(id, 1);
+        toast("장바구니에 담았습니다. 🛒");
+    }
+    saveState();
+    render();
+}
+function openDrawer() {
+    $("#cartDrawer").classList.add("is-open");
+    $("#cartDrawer").setAttribute("aria-hidden", "false");
+    $("#drawerOverlay").hidden = false;
+    document.body.classList.add("no-scroll");
+}
+function closeDrawer() {
+    $("#cartDrawer").classList.remove("is-open");
+    $("#cartDrawer").setAttribute("aria-hidden", "true");
+    $("#drawerOverlay").hidden = true;
+    document.body.classList.remove("no-scroll");
+}
+/* ------------------------------ 8. 이벤트 --------------------------------- */
+function bindEvents() {
+    // 카테고리 탭
+    $("#categoryTabs").addEventListener("click", (event) => {
+        const target = event.target.closest("[data-category]");
+        if (!target)
+            return;
+        app.category = target.dataset.category;
+        app.visible = PAGE_SIZE;
+        renderCategories();
+        render();
+    });
+    // 정렬
+    $("#sortGroup").addEventListener("click", (event) => {
+        const target = event.target.closest("[data-sort]");
+        if (!target)
+            return;
+        app.sort = target.dataset.sort;
+        app.visible = PAGE_SIZE;
+        renderSorts();
+        render();
+    });
+    // 상품 카드 (찜 / 장바구니)
+    $("#productGrid").addEventListener("click", (event) => {
+        const target = event.target.closest("[data-action]");
+        if (!target)
+            return;
+        const card = target.closest(".card");
+        if (!card)
+            return;
+        const id = Number(card.dataset.id);
+        const action = target.dataset.action;
+        if (action === "wish")
+            toggleWishlist(id);
+        if (action === "cart")
+            toggleCart(id);
+    });
+    // 더 보기
+    $("#moreBtn").addEventListener("click", () => {
+        app.visible += PAGE_SIZE;
+        renderProducts();
+    });
+    // 검색
+    $("#searchInput").addEventListener("input", (event) => {
+        app.keyword = event.target.value;
+        app.visible = PAGE_SIZE;
+        renderProducts();
+    });
+    // 찜한 상품만 보기
+    $("#wishlistToggle").addEventListener("click", () => {
+        app.wishlistOnly = !app.wishlistOnly;
+        app.visible = PAGE_SIZE;
+        toast(app.wishlistOnly ? "찜한 상품만 보고 있습니다." : "전체 상품을 보고 있습니다.");
+        render();
+    });
+    // 장바구니 드로어
+    $("#cartToggle").addEventListener("click", openDrawer);
+    $("#cartClose").addEventListener("click", closeDrawer);
+    $("#drawerOverlay").addEventListener("click", closeDrawer);
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape")
+            closeDrawer();
+    });
+    // 드로어 내부 (수량 / 삭제)
+    $("#cartItems").addEventListener("click", (event) => {
+        var _a;
+        const target = event.target;
+        const row = target.closest(".cart-item");
+        if (!row)
+            return;
+        const id = Number(row.dataset.id);
+        if (target.closest("[data-action='remove']")) {
+            app.cart.delete(id);
+            saveState();
+            render();
+            return;
+        }
+        const qtyBtn = target.closest("[data-qty]");
+        if (qtyBtn) {
+            const delta = Number(qtyBtn.dataset.qty);
+            const next = ((_a = app.cart.get(id)) !== null && _a !== void 0 ? _a : 1) + delta;
+            if (next <= 0)
+                app.cart.delete(id);
+            else
+                app.cart.set(id, next);
+            saveState();
+            render();
+        }
+    });
+    // 주문하기
+    $("#checkoutBtn").addEventListener("click", () => {
+        if (app.cart.size === 0) {
+            toast("장바구니가 비어 있습니다.");
+            return;
+        }
+        toast("주문 페이지로 이동합니다. (데모)");
+    });
+}
+/* ------------------------------- 9. 초기화 -------------------------------- */
+function init() {
+    loadState();
+    renderCategories();
+    renderSorts();
+    bindEvents();
+    render();
+}
+document.addEventListener("DOMContentLoaded", init);
