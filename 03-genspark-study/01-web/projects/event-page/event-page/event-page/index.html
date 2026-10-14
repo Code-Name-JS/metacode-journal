@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2026 가을 감사 페스티벌 | 오늘의정원</title>
+  <meta name="description" content="2026 가을 감사 페스티벌 - 9월 15일부터 10월 31일까지, 오늘의정원 가을맞이 이벤트에 참여하고 푸짐한 선물을 받아가세요." />
+  <meta name="theme-color" content="#3b1c0c" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#entry">본문으로 바로가기</a>
+
+  <!-- ============ 헤더 ============ -->
+  <header class="site-header" id="siteHeader">
+    <div class="wrap header-inner">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true">🌿</span>
+        <span class="brand-text" id="brandName">오늘의정원</span>
+      </a>
+
+      <nav class="nav" id="navLinks" aria-label="주요 메뉴"></nav>
+
+      <a class="btn btn-primary btn-sm nav-cta" href="#entry" id="navCta">응모하기</a>
+
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ============ 히어로 ============ -->
+    <section class="hero">
+      <div class="hero-glow hero-glow--a" aria-hidden="true"></div>
+      <div class="hero-glow hero-glow--b" aria-hidden="true"></div>
+
+      <div class="wrap hero-inner">
+        <div class="hero-copy">
+          <p class="hero-badge" id="heroBadge">총 상금 3,000만 원 상당</p>
+          <p class="hero-eyebrow" id="heroEyebrow">2026 가을 감사 페스티벌</p>
+          <h1 class="hero-title" id="heroTitle"></h1>
+          <p class="hero-subtitle" id="heroSubtitle"></p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#entry" id="heroCtaPrimary">지금 응모하기</a>
+            <a class="btn btn-ghost" href="#prizes" id="heroCtaSecondary">경품 보러가기</a>
+          </div>
+
+          <p class="hero-meta" id="heroMeta"></p>
+        </div>
+
+        <aside class="countdown-card" aria-live="polite">
+          <p class="countdown-label" id="countdownLabel">응모 마감까지</p>
+          <div class="countdown" id="countdown"></div>
+          <p class="countdown-foot" id="countdownFoot"></p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============ 지표 ============ -->
+    <section class="stats" aria-label="이벤트 요약">
+      <div class="wrap">
+        <div class="stats-grid" id="statsGrid"></div>
+      </div>
+    </section>
+
+    <!-- ============ 경품 ============ -->
+    <section class="section" id="prizes" data-reveal>
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow" id="prizeEyebrow">PRIZES</p>
+          <h2 class="section-title" id="prizeTitle"></h2>
+          <p class="section-desc" id="prizeDesc"></p>
+        </header>
+        <div class="prize-grid" id="prizeGrid"></div>
+      </div>
+    </section>
+
+    <!-- ============ 일정 ============ -->
+    <section class="section section--muted" id="schedule" data-reveal>
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow" id="scheduleEyebrow">SCHEDULE</p>
+          <h2 class="section-title" id="scheduleTitle"></h2>
+          <p class="section-desc" id="scheduleDesc"></p>
+        </header>
+        <ol class="timeline" id="scheduleList"></ol>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="section" id="faq" data-reveal>
+      <div class="wrap wrap--narrow">
+        <header class="section-head">
+          <p class="eyebrow" id="faqEyebrow">FAQ</p>
+          <h2 class="section-title" id="faqTitle"></h2>
+          <p class="section-desc" id="faqDesc"></p>
+        </header>
+        <div class="faq-list" id="faqList"></div>
+      </div>
+    </section>
+
+    <!-- ============ 응모 폼 ============ -->
+    <section class="section section--entry" id="entry" data-reveal>
+      <div class="wrap wrap--narrow">
+        <header class="section-head">
+          <p class="eyebrow" id="entryEyebrow">ENTRY</p>
+          <h2 class="section-title" id="entryTitle"></h2>
+          <p class="section-desc" id="entryDesc"></p>
+        </header>
+
+        <form class="entry-form" id="entryForm" novalidate>
+          <div class="field" data-field="name">
+            <label for="f-name" id="label-name">이름</label>
+            <input id="f-name" name="name" type="text" autocomplete="name" />
+            <p class="field-error" id="err-name" hidden></p>
+          </div>
+
+          <div class="field" data-field="phone">
+            <label for="f-phone" id="label-phone">휴대폰 번호</label>
+            <input id="f-phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" />
+            <p class="field-error" id="err-phone" hidden></p>
+          </div>
+
+          <div class="field" data-field="email">
+            <label for="f-email" id="label-email">이메일</label>
+            <input id="f-email" name="email" type="email" autocomplete="email" />
+            <p class="field-error" id="err-email" hidden></p>
+          </div>
+
+          <div class="field" data-field="channel">
+            <label for="f-channel" id="label-channel">가입 경로</label>
+            <select id="f-channel" name="channel"></select>
+            <p class="field-error" id="err-channel" hidden></p>
+          </div>
+
+          <div class="field field--check" data-field="agree">
+            <label class="check" for="f-agree">
+              <input id="f-agree" name="agree" type="checkbox" />
+              <span id="label-agree">개인정보 수집 및 이용에 동의합니다.</span>
+            </label>
+            <p class="field-error" id="err-agree" hidden></p>
+          </div>
+
+          <p class="privacy" id="privacyNote"></p>
+
+          <button class="btn btn-primary btn-block" type="submit" id="entrySubmit">응모 완료하기</button>
+          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ 푸터 ============ -->
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div>
+        <p class="footer-brand" id="footerBrand"></p>
+        <p class="footer-tagline" id="footerTagline"></p>
+      </div>
+      <div class="footer-meta">
+        <p id="footerAddress"></p>
+        <p id="footerContact"></p>
+        <p class="footer-note" id="footerNote"></p>
+        <p class="footer-copy">© <span id="footerYear">2026</span> <span id="footerCopyBrand">오늘의정원</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============ 완료 모달 ============ -->
+  <div class="modal-backdrop" id="modalBackdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" id="modal">
+      <div class="modal-icon" aria-hidden="true">🌰</div>
+      <h3 class="modal-title" id="modalTitle"></h3>
+      <div class="modal-body" id="modalBody"></div>
+      <button class="btn btn-primary btn-block" type="button" id="modalConfirm">확인</button>
+      <button class="modal-close" type="button" id="modalClose" aria-label="닫기">✕</button>
+    </div>
+  </div>
+
+  <noscript>
+    <p style="padding:24px;text-align:center;font-family:sans-serif">
+      이 페이지는 JavaScript 로 이벤트 정보를 렌더링합니다. JavaScript 를 켜 주세요.
+    </p>
+  </noscript>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>
