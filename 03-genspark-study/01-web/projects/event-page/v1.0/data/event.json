@@ -1,0 +1,50 @@
+{
+    "meta": {
+        "eventId": "AUTUMN-2026-THANKS",
+        "brand": "오늘의 정원",
+        "tagline": "매일의 식탁에 제철을 담습니다",
+        "locale": "ko-KR"
+    },
+    "nav": {
+        "links": [
+            { "href": "#prizes", "label": "경품 안내" },
+            { "href": "#schedule", "label": "이벤트 일정" },
+            { "href": "#faq", "label": "자주 묻는 질문" },
+            { "herf": "#entry", "label": "응모하기" }
+        ],
+        "cta": "응모하기"
+    },
+    "hero": {
+        "badge": "총 상금 3,000만 원 상담",
+        "eyebrow": "2026 가을 감사 페스티벌",
+        "title": "가을의 결실을\n당신의 식탁으로",
+        "subtitle": "9월 15일부터 10월 31일까지, 오늘의 정원이 준비한 가을맞이 감사 이벤트에 참여하고 제철 선물을 받아가세요.",
+        "startDate": "2026-09-15T00:00:00+09:00",
+        "endDate": "2026-10-31T23:59:59+09:00",
+        "countdownLabel": "응모 마감까지",
+        "closedLabel": "이벤트가 종료되었습니다",
+        "ctaPrimary": "지금 응모하기",
+        "ctaSecondary": "경품 보러가기",
+        "metaLabel": "응모 기간 2026.09.15 (화) ~ 2026.10.31 (토) · 누구나 무료 참여"
+    },
+    "stats": [
+        { "value": "1,200", "suffix": "명", "label": "총 당첨 인원" },
+        { "value": "47", "suffix": "일", "label": "이벤트 진행 기간" },
+        { "value": "4.9", "suffix": "/5", "label": "지난 시즌 만족도" }
+    ],
+    "prizes": {
+        "eyebrow": "PRIZES",
+        "title": "풍성한 가을 선물",
+        "description": "응모 한 번으로 네 가지 행운에 도전하세요. 중복 당첨은 되지 않습니다.",
+        "items": [
+            {
+                "rank": "1등",
+                "title": "제주 감귤 한 상자 + 호텔 1박",
+                "description": "제주 프리미엄 감귤 10kg 박스와 오션뷰 호텔 숙박권을 함께 드립니다.",
+                "quantity": "3명",
+                "icon": "🍊",
+                "featured" : true
+            }
+        ]
+    }
+}

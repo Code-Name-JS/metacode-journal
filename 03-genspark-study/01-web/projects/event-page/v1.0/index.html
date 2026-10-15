@@ -28,7 +28,97 @@
             <nav class="nav" id="navLinks" aria-label="주요 메뉴"></nav>
 
             <a class="btn btn-primart btn-sm nav-cta" href="#entry" id="navCta">응모하기</a>
+
+            <button class="nav-toggle" id="navToggle" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="navLinks">
+                <span></span><span></span><span></span>
+            </button>
         </div>
     </header>
+
+    <main id="top">
+        <!-- 히어로 -->
+        <section class="hero">
+            <div class="hero-glow hero-glow--a" aria-hidden="true"></div>
+            <div class="hero-glow hero-glow--b" aria-hidden="true"></div>
+
+            <div class="wrap hero-inner">
+                <div class="hero-copy">
+                    <p class="hero-badge" id="heroBadge">총 상금 3,000만 원 상당</p>
+                    <p class="hero-eyebrow" id="heroEyebrow">2026 가을 감사 페스티벌</p>
+                    <h1 class="hero-title" id="heroTitle"></h1>
+                    <p class="hero-subtitle" id="heroSubtitle"></p>
+
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="#entry" id="heroCtaPrimary">지금 응모하기</a>
+                        <a class="btn btn-ghost" href="#prizes" id="heroCtaSecondary">경품 보러가기</a>
+                    </div>
+
+                    <p class="hero-meta" id="heroMeta"></p>
+                </div>
+
+                <aside class="countdown-card" aria-live="polite">
+                    <p class="countdown-label" id="countdownLabel">응모 마감까지</p>
+                    <div class="countdown" id="countdown"></div>
+                    <p class="countdown-foot" id="countdownFoot"></p>
+                </aside>
+            </div>
+        </section>
+
+        <!-- 지표 -->
+        <section class="stats" aria-label="이벤트 요약">
+            <div class="wrap">
+                <div class="stats-grid" id="statsGrid"></div>
+            </div>
+        </section>
+
+        <!-- 경품 -->
+        <section class="section" id="prizes" data-reveal>
+            <div class="wrap">
+                <header class="section-head">
+                    <p class="eyebrow" id="prizeEyebrow">PRIZES</p>
+                    <h2 class="section-title" id="prizeTitle"></h2>
+                    <p class="section-desc" id="prizeDesc"></p>
+                </header>
+                <div class="prize-grid" id="prizeGrid"></div>
+            </div>
+        </section>
+
+        <!-- 일정 -->
+        <section class="section section--muted" id="schedule" data-reveal>
+            <div class="wrap">
+                <header class="section-head">
+                    <p class="eyebrow" id="scheduleEyebrow">SCHEDULE</p>
+                    <h2 class="section-title" id="scheduleTitle"></h2>
+                    <p class="section-desc" id="scheduleDesc"></p>
+                </header>
+                <ol class="timeline" id="scheduleList"></ol>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="section" id="faq" data-reveal>
+            <div class="wrap wrap--narrow">
+                <header class="section-head">
+                    <p class="eyebrow" id="faqEyebrow">FAQ</p>
+                    <h2 class="section-title" id="faqTitle"></h2>
+                    <p class="section-desc" id="faqDesc"></p>
+                </header>
+                <div class="faq-list" id="faqList"></div>
+            </div>
+        </section>
+
+        <!-- 응모 폼 -->
+        <section class="section section--entry" id="entry" data-reveal>
+            <div class="wrap wrap--narrow">
+                <header class="section-head">
+                    <p class="eyebrow" id="entryEyebrow">ENTRY</p>
+                    <h2 class="section-title" id="entryTitle"></h2>
+                    <p class="section-desc" id="entryDesc"></p>
+                </header>
+
+                <form class="entry-form" id="entryForm" novalidate></form>
+            </div>
+        </section>
+    </main>
 </body>
 </html>
