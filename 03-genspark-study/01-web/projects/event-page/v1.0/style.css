@@ -378,3 +378,164 @@ button { font-family: inherit; }
 .faq-item.is-open .faq-arrow { transform: rotate(180deg); }
 .faq-a { max-height: 0; overflow: hidden; transition: max-heigth .3s var(--ease); }
 .faq-a-inner { padding: 0 22px 22px 54px; color: var(--muted); font-size: 15px; }
+
+
+
+/* -- 폼 -- */
+.entry-form {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 34px;
+    box-shadow: var(--shadow-lg);
+    display: grid;
+    gap: 20px;
+}
+.field { display: grid; gap: 8px; }
+.field label { font-size: 14px; font-weight: 700; }
+.field input[type="text"],
+.field input[type="tel"],
+.field input[type="email"],
+.field select {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 16px;
+    font-family: inherit;
+    color: var(--ink);
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    transition: border-color .18s var(--ease), background .18s var(--ease);
+}
+.field select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%); background-position: calc(100% - 20px) 22px, calc(100% - 14px) 22px; background-size: 6px 6px, 6px 6px; background-repeat: no-repeat; }
+.field input:focus, .field select:focus { outline: none; background: #fff; border-color: var(--brand-soft); box-shadow: 0 0 0 4px rgba(245, 158, 11, .18); }
+.field.has-error input, .field.has-error select { border-color: #dc2626; background: #fff5f5; }
+.field-error { font-size: 13px; color: #dc2626; font-weight: 600; }
+
+.field--check { gap: 10px; }
+.check { display: flex; align-items: flex-start; gap: 10px; font-weight: 500; font-size: 15px; cursor: pointer; }
+.check input { width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--brand); flex: none; }
+.privacy { font-size: 13px; color: var(--muted); background: var(--surface-2); padding: 14px 16px; border-radius: var(--radius-sm); }
+.form-status { font-size: 14px; font-weight: 700; color: var(--accent); text-align: center; min-height: 1.2em; }
+
+
+
+/* -- 푸터 -- */
+.site-footer { background: #241a12; color: rgba(255, 255, 255, .72); padding: 56px 0 40px; }
+.footer-inner { display: grid; grid-template-columns: 1fr 1.2fr; gap: 32px; }
+.footer-brand { font-size: 20px; font-weight: 900; color: #fff; }
+.footer-tagline { margin-top: 6px; font-size: 15px; }
+.footer-meta p { font-size: 14px; margin-bottom: 6px; }
+.footer-note { color: rgba(255, 255, 255, .45); font-size: 13px; }
+.footer-copy { margin-top: 14px; font-size: 13px; color: rgba(255, 255, 255, .45); }
+
+
+
+/* -- 모달 -- */
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    background: rgba(28, 26, 23, .55);
+    backdrop-filter: blur(4px);
+    animation: fade .2s var(--ease);
+}
+.modal-backdrop[hidden] { display: none; }
+.modal {
+    position: relative;
+    width: min(440px, 100%);
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 34px;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+    animation: pop .26s var(--ease);
+}
+.modal-icon { font-size: 44px; }
+.modal-title { margin-top: 10px; font-size: 22px; font-weight: 900; }
+.modal-body { margin: 14px 0 24px; color: var(--muted); font-size: 15px; }
+.modal-ticket {
+    margin: 16px 0 0;
+    padding: 14px;
+    border-radius: var(--radius-sm);
+    background: var(--surface-2);
+    border: 1px dashed var(--line);
+}
+.modal-ticket-label { font-size: 12px; letter-spacing: .1em; color: var(--muted); font-weight: 700; }
+.modal-ticket-value { font-size: 20px; font-weight: 900; letter-spacing: .06em; color: var(--brand); font-variant-numeric: tabular-nums; }
+.modal-close {
+    position: absolute;
+    top: 14px; right: 14px;
+    width: 34px; height: 34px;
+    border: 0;
+    border-radius: 50%;
+    background: var(--surface-2);
+    color: var(--muted);
+    font-size: 15px;
+    cursor: pointer;
+}
+.modal-close:hover { background: var(--line); }
+
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes pop { from { opacity: 0; transform: translateY(14px) scale(.97); } to { opacity: 1; transform: none; } }
+
+
+
+/* -- 스크롤 등장 -- */
+[data-reveal] { opacity: 0; transform: translateY(24px); transition: opacity .6s var(--ease), transform .6s var(--ease); }
+[data-reveal].is-visible { opacity: 1; transform: none; }
+
+
+
+/* -- 반응형 -- */
+@media (max-width: 960px) {
+    .nav { display: none; }
+    .nav-cta { display: none; }
+    .nav-toggle { display: flex; }
+    .site-header.nav-open .nav {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        position: absolute;
+        top: 100%;
+        left: 12px;
+        right: 12px;
+        margin: 0;
+        padding: 8px;
+        background: #fff;
+        color: var(--ink);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-lg);
+    }
+    .site-header.nav-open .nav-link { padding: 14px 16px; border-radius: 10px; opacity: 1; font-weight: 700; }
+    .site-header.nav-open .nav-link:hover { background: var(--surface-2); }
+
+    .hero { padding: calc(var(--header-h) + 48px) 0 76px; }
+    .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+    .prize-grid { grid-template-columns: 1fr; }
+    .prize--featured { grid-column: span 1; }
+    .footer-inner { grid-template-columns: 1fr; gap: 24px; }
+}
+
+@media (max-width: 640px) {
+    .wrap { padding: 0 18px; }
+    .section { padding: 68px 0; }
+    .stats-grid { grid-template-columns: 1fr; margin-top: -30px; }
+    .countdown { grid-template-columns: repeat(2, 1fr); }
+    .timeline::before { left: 4px; }
+    .tl-item { grid-template-columns: 1fr; gap: 6px; padding-left: 26px; }
+    .tl-date { text-align: left; }
+    .tl-body::before { left: -29px; top: 6px; }
+    .entry-form { padding: 24px 20px; }
+    .modal { padding: 28px 22px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+    html { scroll-behavior: auto; }
+    [data-reveal] { opacity: 1; transform: none; }
+}
