@@ -165,6 +165,90 @@ const FALLBACK_DATA: EventData = {
         metaLabel: "응모 기간 2026.09.15 (화) ~ 2026.10.31 (토) · 누구나 무료 참여"
     },
     stats: [
-        { value: "1,200", suffix: "명", label: "총 당첨 인원"}
-    ]
-}
+        { value: "1,200", suffix: "명", label: "총 당첨 인원" },
+        { value: "47", suffix: "일", label: "이벤트 진행 기간" },
+        { value: "4.9", suffix: "/5", label: "지난 시즌 만족도" }
+    ],
+    prizes: {
+        eyebrow: "PRIZES",
+        title: "풍성한 가을 선물",
+        description: "응모 한 번으로 네 가지 행운에 도전하세요. 중복 당첨은 되지 않습니다.",
+        items: [
+            {
+                rank: "1등",
+                title: "제주 감귤 한 상자 + 호텔 1박",
+                description: "제주 프리미엄 감귤 10kg 박스와 오션뷰 호텔 숙박권을 함께 드립니다.",
+                quantity: "3명",
+                icon: "🍊",
+                featured: true
+            },
+            {
+                rank: "2등",
+                title: "프리미엄 한우 세트",
+                description: "1++ 등급 한우 등심 4인분 세트를 집에서 편하게 받아보세요.",
+                quantity: "20명",
+                icon: "🥩"
+            },
+            {
+                rank: "3등",
+                title: "가을 유기농 꾸러미",
+                description: "제철 채소와 견과류로 구성된 유기농 정기 꾸러미 3개월 이용권.",
+                quantity: "전원",
+                icon: "🎟️"
+            }
+        ]
+    },
+    schedule: {
+        eyebrow: "SCHEDULE",
+        title: "이벤트 일정",
+        description: "응모부터 당첨자 발표까지, 가을 한 시즌 동안 진행됩니다.",
+        items: [
+            { date: "09.15", title: "이벤트 시작 · 응모 오픈", description: "온라인 응모 페이지가 열리고 누구나 참여할 수 있습니다." },
+            { date: "09.30", title: "1차 추첨 · 참여상 발송", description: "참여상 할인 쿠폰을 입력하신 이메일로 순차 발송합니다." },
+            { date: "10.31", title: "응모 마감", description: "이벤트 종료 시각(23:59)까지 접수된 응모만 유효합니다." },
+            { date: "11.05", title: "최종 당첨자 발표", description: "당첨자에게 개별 연락 후 경품을 순차 발송합니다." }
+        ]
+    },
+    faq: {
+        eyebrow: "FAQ",
+        title: "자주 묻는 질문",
+        description: "응모 전에 확인해 보세요.",
+        items: [
+            { question: "참여 비용이 있나요?", answer: "없습니다. 본 이벤트는 누구나 무료로 참여할 수 있으며, 응모 과정에서 결제 정보를 요구하지 않습니다." },
+            { question: "응모는 몇 번까지 가능한가요?", answer: "휴대폰 번호 기준 1인 1회 응모 원칙입니다. 중복 응모가 확인되면 최초 응모만 유효 처리됩니다." },
+            { question: "당첨 결과는 어떻게 알 수 있나요?", answer: "11월 5일에 응모 시 입력하신 휴대폰 번호와 이메일로 개별 안내드립니다. 미당첨자에게는 별도 안내가 가지 않습니다." },
+            { question: "경품 발송은 언제 이뤄지나요?", answer: "당첨 안내 후 7일 이내에 순차 발송됩니다. 주소지 오류로 반송된 경우 재발송이 어려울 수 있습니다." },
+            { question: "입력한 개인정보는 어떻게 처리되나요?", answer: "수집한 정보는 당첨 안내 목적으로만 사용되며, 이벤트 종료 후 3개월 이내에 안전하게 파기됩니다." }
+        ]
+    },
+    form: {
+        eyebrow: "ENTRY",
+        title: "가을 선물 응모하기",
+        description:
+            "아래 정보를 입력하시면 응모가 완료됩니다. 당첨자 발표는 11월 5일, 등록하신 연락처로 개별 안내드립니다.",
+        fields: {
+            name: { label: "이름", placeholder: "홍길동", error: "이름을 2자 이상 입력해 주세요." },
+            phone: { label: "휴대폰 번호", placeholder: "010-1234-5678", error: "010으로 시작하는 휴대폰 번호를 입력해 주세요." },
+            email: { label: "이메일", placeholder: "garden@example.com", error: "이메일 형식이 올바르지 않습니다." },
+            channel: {
+                label: "가입 경로",
+                options: ["인스타그램", "블로그", "지인 추천", "뉴스레터", "기타"],
+                error: "가입 경로를 선택해 주세요."
+            },
+            agree: { label: "개인정보 수집 및 이용에 동의합니다.", error: "이벤트 참여를 위해 동의가 필요합니다." }
+        },
+        privacyNote: "수집한 정보는 이벤트 당첨 안내 목적으로만 사용되며, 이벤트 종료 후 3개월 이내에 파기됩니다.",
+        submit: "응모 완료하기",
+        submitting: "전송 중...",
+        successTitle: "응모가 완료되었습니다",
+        successBody:
+            "가을 감사 페스티벌에 참여해 주셔서 감사합니다. 당첨 여부는 11월 5일 등록하신 연락처로 안내드립니다.",
+        ticketLabel: "응모 번호"
+    },
+    footer: {
+        tagline: "매일의 식탁에 제철을 담습니다",
+        address: "서울특별시 중구 세종대로 00, 3층",
+        contact: "고객센터 1600-0000 · help@todaygarden.example",
+        note: "본 페이지는 데모용으로 제작된 가상의 이벤트 페이지입니다."
+    }
+};
