@@ -136,7 +136,7 @@ button { font-family: inherit; }
     color: #fff;
     box-shadow: 0 10px 24px rgba(194, 65, 12, .28);
 }
-.btn-primart:hover { transform: translateY(-2px); box-shadow: 0 16px 32px rgba(194, 65, 12, .34); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 32px rgba(194, 65, 12, .34); }
 .btn-ghost {
     background: rgba(255, 255, 255, .08);
     border-color: rgba(255, 255, 255, .4);

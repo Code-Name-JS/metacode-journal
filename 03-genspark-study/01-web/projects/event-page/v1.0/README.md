@@ -8,8 +8,8 @@ HTML · CSS · TypeScript(원본) · JavaScript(컴파일 결과) · JSON(데이
 event-page/
 ├── index.html          # 마크업 (구조만 담당, 문구는 JS가 JSON에서 주입)
 ├── style.css           # 스타일 (반응형 + 다크 히어로 + 타임라인/아코디언/모달)
-├── src/main.ts         # ★ TypeScript 원본 (타입 정의 + 렌더링 + 카운트다운 + 폼 검증)
-├── js/main.js          # tsc 컴파일 결과 (브라우저가 실제로 실행하는 파일)
+├── src/script.ts         # ★ TypeScript 원본 (타입 정의 + 렌더링 + 카운트다운 + 폼 검증)
+├── js/script.js          # tsc 컴파일 결과 (브라우저가 실제로 실행하는 파일)
 ├── data/event.json     # 모든 문구·경품·일정·FAQ 데이터
 ├── tsconfig.json       # TypeScript 컴파일 설정
 └── README.md
@@ -19,11 +19,11 @@ event-page/
 
 ```bash
 npm install -g typescript   # 또는 npx 사용
-npx tsc                     # src/main.ts → js/main.js 생성
+npx tsc                     # src/script.ts → js/script.js 생성
 ```
 
 `tsconfig.json` 의 `"module": "es2020"` + import/export 가 없는 단일 파일이기 때문에 결과물이 **일반 스크립트**로 떨어집니다.
-(`<script type="module">` 이 아니라 `<script src="js/main.js" defer>` 로 로드 → `file://` 로 열어도 실행됩니다.)
+(`<script type="module">` 이 아니라 `<script src="js/script.js" defer>` 로 로드 → `file://` 로 열어도 실행됩니다.)
 
 ## 실행 방법
 
@@ -31,7 +31,7 @@ npx tsc                     # src/main.ts → js/main.js 생성
 `index.html` 을 더블클릭합니다.
 
 > ⚠️ `file://` 환경에서는 브라우저 보안 정책상 `fetch('data/event.json')` 이 차단됩니다.
-> 이를 위해 `src/main.ts` 안에 **동일한 내용의 `FALLBACK_DATA`** 를 내장해 두었습니다.
+> 이를 위해 `src/script.ts` 안에 **동일한 내용의 `FALLBACK_DATA`** 를 내장해 두었습니다.
 > 페이지는 정상 렌더링되며, 콘솔에 대체 안내 로그만 남습니다.
 
 ### 방법 2 — 로컬 서버 (JSON 실제 로딩)
@@ -49,10 +49,10 @@ npx serve .
 
 | 바꾸고 싶은 것 | 수정 위치 |
 | --- | --- |
-| 모든 문구·경품·일정·FAQ | `data/event.json` (+ `src/main.ts` 의 `FALLBACK_DATA`) |
+| 모든 문구·경품·일정·FAQ | `data/event.json` (+ `src/script.ts` 의 `FALLBACK_DATA`) |
 | 색상·타이포그래피·간격 | `style.css` 최상단 `:root` 변수 |
 | 카운트다운 종료 시각 | `event.json` → `hero.endDate` |
-| 폼 검증 규칙 | `src/main.ts` → `validateField()` |
+| 폼 검증 규칙 | `src/script.ts` → `validateField()` |
 
 ## 참고
 
