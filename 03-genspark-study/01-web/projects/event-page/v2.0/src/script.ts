@@ -81,7 +81,7 @@ const Modal = (() => {
         if (bodyEl) {
             bodyEl.innerHTML = `${content.icon ? `<p class="modal__icon">${content.icon}</p>` : ""}${content.body}`;
         }
-        root.classList = `${content.icon ? `<p class="modal__icon">${content.icon}</p>` : ""}${content.body}`;
+        root.classList.add("is-open");
         root.setAttribute("aria-hidden", "false");
         document.body.style.overflow = "hidden";
         $<HTMLButtonElement>("[data-modal-close]", root)?.focus();
