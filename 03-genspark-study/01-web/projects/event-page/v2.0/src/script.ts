@@ -286,6 +286,7 @@ function initSmoothAnchors(): void {
 function main(): void {
     initHeader();
     initCountdown();
+    initProgress();
     initReveal();
     initSmoothAnchors();
 

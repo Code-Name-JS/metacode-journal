@@ -440,3 +440,18 @@ button {
     color: var(--color-accent);
     font-weight: 700;
 }
+
+.progress_track {
+    height: 10px;
+    border-radius: var(--radius-pill);
+    background: rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+}
+
+.progress__bar {
+    height: 100%;
+    width: 0;
+    border-radius: var(--radius-pill);
+    background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+    transition: width 1.2s var(--ease);
+}
