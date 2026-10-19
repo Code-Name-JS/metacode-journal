@@ -441,7 +441,7 @@ button {
     font-weight: 700;
 }
 
-.progress_track {
+.progress__track {
     height: 10px;
     border-radius: var(--radius-pill);
     background: rgba(255, 255, 255, 0.08);
