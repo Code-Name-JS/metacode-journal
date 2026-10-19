@@ -131,11 +131,35 @@ button {
     box-shadow: 0 18px 40px rgba(124, 92, 255, 0.45);
 }
 
+.btn--ghost {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+}
+
+.btn--ghost:hover {
+    background: var(--color-surface-strong);
+    transform: translateY(-2px);
+}
+
 .btn--sm {
     --btn-py: 9px;
     --btn-px: 16px;
     font-size: 14px;
 }
+
+.btn--lg {
+    --btn-py: 16px;
+    --btn-px: 30px;
+    font-size: 16px;
+}
+
+.btn[disabled] {
+    opacity: 0.6;
+    cursor: progress;
+    transform: none;
+}
+
 
 
 /* ---------- 5. 헤더 ---------- */

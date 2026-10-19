@@ -131,7 +131,7 @@ function initReveal(): void {
     const items = $$<HTMLElement>("[data-reveal]");
     if (items.length === 0) return;
 
-    const reduceMotion = window.matchMedia("(perfers-reduced-motion: reduce)").matches;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduceMotion) {
         items.forEach((item) => item.classList.add("is-visible"));
         return;
