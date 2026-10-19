@@ -37,6 +37,9 @@ const $$ = <T extends Element>(selector: string, scope: ParentNode = document): 
 
 const pad2 = (n: number): string => String(n).padStart(2, "0");
 
+/** 숫자에 천 단위 구분 기호를 넣습니다. */
+const formatNumber = (n: number): string => n.toLocaleString("ko-KR");
+
 /** 요소가 있으면 콜백을 실행합니다. */
 const on = <K extends keyof HTMLElementEventMap>(
     target: EventTarget | null,
@@ -120,6 +123,29 @@ function initCountdown(): void {
 
     render();
     const timerId = window.setInterval(render, 1000);
+}
+
+
+
+/* --------------------------------------------------------------------------
+   6. 참여 진행률
+   -------------------------------------------------------------------------- */
+function initProgress(): void {
+    const bar = $<HTMLElement>("[data-progress-bar]");
+    const label = $<HTMLElement>("[data-progress-label]");
+    if (!bar || !label) return;
+
+    const ratio = Math.min(CONFIG.currentParticipants / CONFIG.goalParticipants, 1);
+    const percent = Math.round(ratio * 100);
+
+    label.textContent = `${formatNumber(CONFIG.currentParticipants)} / ${formatNumber(
+        CONFIG.goalParticipants,
+    )}명 (${percent}%)`;
+
+    // 레이아웃이 잡힌 뒤 애니메이션되도록 한 프레임 지연
+    window.requestAnimationFrame(() => {
+        bar.style.width = `${percent}%`;
+    });
 }
 
 
