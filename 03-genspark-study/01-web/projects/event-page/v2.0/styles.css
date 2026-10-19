@@ -74,8 +74,13 @@ body {
     overflow-x: hidden;
 }
 
-h1, h2, h3 {
+h1, h2, h3, p, ul, ol {
     margin: 0;
+}
+
+ul, ol {
+    padding: 0;
+    list-style: none;
 }
 
 a {
@@ -101,9 +106,14 @@ button {
     padding: 0 var(--space-5);
 }
 
-
 .section {
     padding: var(--space-8) 0;
+}
+
+.section--alt {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0));
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .section__head {
@@ -506,6 +516,24 @@ button {
     box-shadow: var(--shadow-glow);
 }
 
+.card--featured {
+    background: linear-gradient(165deg, rgba(124, 92, 255, 0.18), rgba(34, 224, 196, 0.07));
+    border-color: rgba(124, 92, 255, 0.42);
+}
+
+.card__ribbon {
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-4);
+    padding: 4px 12px;
+    border-radius: var(--radius-pill);
+    background: var(--color-accent);
+    color: #06231f;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+}
+
 .card__icon {
     font-size: 34px;
     line-height: 1;
@@ -531,4 +559,43 @@ button {
     font-size: 13px;
     font-weight: 700;
     color: var(--color-accent);
+}
+
+
+
+/* ---------- 8. 참여 단계 ---------- */
+.steps {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+    counter-reset: step;
+}
+
+.step {
+    position: relative;
+    padding: var(--space-6) var(--space-5) var(--space-5);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    background: var(--color-bg);   
+}
+
+.step__num {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    color: var(--color-primary-strong);
+}
+
+.step__title {
+    margin-top: var(--space-3);
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.step__text {
+    margin-top: var(--space-2);
+    color: var(--color-text-muted);
+    font-size: 15px;
 }
