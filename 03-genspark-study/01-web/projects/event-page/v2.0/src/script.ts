@@ -4,6 +4,52 @@
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
+   1. 설정값 (여기만 바꾸면 이벤트 내용이 바뀝니다)
+   -------------------------------------------------------------------------- */
+interface EventConfig {
+    /** 이벤트 종료 시각 (ISO 8601) */
+    deadline: string;
+    /** 목료 참여자 수 (진행률 계산용) */
+    goalParticipants: number;
+    /** 현재 참여자 수 (데모용 고정값 / 실제로는 API 응답으로 교체) */
+    currentParticipants: number;
+    /** 할인 쿠폰 접두어 */
+    couponPrefix: string;
+}
+
+const CONFIG: EventConfig = {
+    deadline: "2026-11-30T23:59:59+09:00",
+    goalParticipants: 5000,
+    currentParticipants: 3842,
+    couponPrefix: "NOVA",
+};
+
+
+
+/* --------------------------------------------------------------------------
+   2. 유틸
+   -------------------------------------------------------------------------- */
+const $ = <T extends Element>(selector: string, scope: ParentNode = document): T | null =>
+    scope.querySelector<T>(selector);
+
+const $$ = <T extends Element>(selector: string, scope: ParentNode = document): T[] =>
+    Array.from(scope.querySelectorAll<T>(selector));
+
+const pad2 = (n: number): string => String(n).padStart(2, "0");
+
+/** 요소가 있으면 콜백을 실행합니다. */
+const on = <K extends keyof HTMLElementEventMap>(
+    target: EventTarget | null,
+    type: K | string,
+    handler: (event: Event) => void,
+): void => {
+    if (!target) return;
+    target.addEventListener(type, handler as EventListener);
+};
+
+
+
+/* --------------------------------------------------------------------------
    3. 헤더 스크롤 상태 + 모바일 메뉴
    -------------------------------------------------------------------------- */
 function initHeader(): void {
@@ -31,23 +77,81 @@ function initHeader(): void {
 
 
 /* --------------------------------------------------------------------------
-   2. 유틸
+   5. 카운트다운
    -------------------------------------------------------------------------- */
-const $ = <T extends Element>(selector: string, scope: ParentNode = document): T | null =>
-    scope.querySelector<T>(selector);
+function initCountdown(): void {
+    const root = $<HTMLElement>("[data-countdown]");
+    if (!root) return;
 
-const $$ = <T extends Element>(selector: string, scope: ParentNode = document): T[] =>
-    Array.from(scope.querySelectorAll<T>(selector));
+    const units: Record<string, HTMLElement | null> = {
+        days: $<HTMLElement>('[data-countdown-unit="days"]', root),
+        hours: $<HTMLElement>('[data-countdown-unit="hours"]', root),
+        minutes: $<HTMLElement>('[data-countdown-unit="minutes"]', root),
+        seconds: $<HTMLElement>('[data-countdown-unit="seconds"]', root),
+    };
+    const endedMessage = $<HTMLElement>("[data-countdown-ended]", root);
+    const grid = $<HTMLElement>(".countdown__grid", root);
+    const target = new Date(CONFIG.deadline).getTime();
 
-/** 요소가 있으면 콜백을 실행합니다. */
-const on = <K extends keyof HTMLElementEventMap>(
-    target: EventTarget | null,
-    type: K | string,
-    handler: (event: Event) => void,
-): void => {
-    if (!target) return;
-    target.addEventListener(type, handler as EventListener);
-};
+    const render = (): void => {
+        const diff = target - Date.now();
+
+        if (diff <= 0) {
+            Object.values(units).forEach((el) => {
+                if (el) el.textContent = "00";
+            });
+            if (endedMessage) endedMessage.hidden = false;
+            if (grid) grid.style.opacity = "0.45";
+            window.clearInterval(timerId);
+            return;
+        }
+        
+        const totalSeconds = Math.floor(diff / 1000);
+        const days = Math.floor(totalSeconds / 86400);
+        const hours = Math.floor((totalSeconds % 86400) / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+
+        if (units.days) units.days.textContent = pad2(days);
+        if (units.hours) units.hours.textContent = pad2(hours);
+        if (units.minutes) units.minutes.textContent = pad2(minutes);
+        if (units.seconds) units.seconds.textContent = pad2(seconds);        
+    };
+
+    render();
+    const timerId = window.setInterval(render, 1000);
+}
+
+
+
+/* --------------------------------------------------------------------------
+   8. 스크롤 등장 애니메이션
+   -------------------------------------------------------------------------- */
+function initReveal(): void {
+    const items = $$<HTMLElement>("[data-reveal]");
+    if (items.length === 0) return;
+
+    const reduceMotion = window.matchMedia("(perfers-reduced-motion: reduce)").matches;
+    if (reduceMotion) {
+        items.forEach((item) => item.classList.add("is-visible"));
+        return;
+    }
+
+    const observer = new IntersectionObserver(
+        (entries, obs) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                const el = entry.target as HTMLElement;
+                const delay = Number(el.dataset.revealDelay ?? 0);
+                window.setTimeout(() => el.classList.add("is-visible"), delay);
+                obs.unobserve(el);
+            });
+        },
+        { threshold: 0.14, rootMargin: "0px 0px -8% 0px" },
+    );
+
+    items.forEach((item) => observer.observe(item));
+}
 
 
 
@@ -103,6 +207,33 @@ const Modal = (() => {
 
 
 /* --------------------------------------------------------------------------
+   11. 토스트 알림
+   -------------------------------------------------------------------------- */
+type ToastType = "success" | "error" | "info";
+
+function showToast(message: string, type: ToastType = "info", duration = 3200): void {
+    const host = $<HTMLElement>("[data-toast-host]");
+    if (!host) return;
+
+    const toast = document.createElement("div");
+    toast.className = `toast toast--${type}`;
+    toast.setAttribute("role", "status");
+
+    const icon = type === "success" ? "✅" : type === "error" ? "⚠️" : "ℹ️";
+    toast.innerHTML = `<span aria-hidden="true">${icon}</span><span>${message}</span>`;
+    host.appendChild(toast);
+
+    window.requestAnimationFrame(() => toast.classList.add("is-visible"));
+
+    window.setTimeout(() => {
+        toast.classList.remove("is-visible");
+        window.setTimeout(() => toast.remove(), 300);
+    }, duration);
+}
+
+
+
+/* --------------------------------------------------------------------------
    13. 부드러운 앵커 이동 (구형 브라우저 대응)
    -------------------------------------------------------------------------- */
 function initSmoothAnchors(): void {
@@ -128,5 +259,15 @@ function initSmoothAnchors(): void {
    -------------------------------------------------------------------------- */
 function main(): void {
     initHeader();
+    initCountdown();
+    initReveal();
     initSmoothAnchors();
+
+    console.info("[NOVA] 이벤트 페이지 초기화 완료", { deadline: CONFIG.deadline });
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", main);
+} else {
+    main();
 }

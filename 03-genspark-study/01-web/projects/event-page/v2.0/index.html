@@ -16,9 +16,77 @@
         <div class="container site-header__inner">
             <a class="logo" href="#top">
                 <span class="logo__mark" aria-hidden="true">N</span>
+                <span class="logo__text">NOVA</span>
             </a>
+
+            <nav class="nav" id="primary-nav" data-nav>
+                <a class="nav__link" href="#benefits">혜택</a>
+                <a class="nav__link" href="#how">참여 방법</a>
+                <a class="nav__link" href="#apply">사전예약</a>
+                <a class="nav__link" href="#faq">FAQ</a>
+            </nav>
+
+            <div class="site-header__actions">
+                <a class="btn btn--primary btn--sm" href="#apply">사전예약하기</a>
+                <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="primary-nav" aria-label="메뉴 열기">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
         </div>
     </header>
+
+    <main id="top">
+        <!-- ============ 히어로 ============ -->
+        <section class="hero">
+            <div class="hero__glow hero__glow--a" aria-hidden="true"></div>
+            <div class="hero__glew hero__glow--b" aria-hidden="true"></div>
+
+            <div class="container hero__inner">
+                <p class="badge" data-reveal>🎉 2026 가을 한정 · 사전예약 오픈</p>
+
+                <h1 class="hero__title" data-reveal data-reveal-delay="80">
+                    새로운 시작을 여는<br />
+                    <span class="hero__title-accent">NOVA 런칭 페스티벌</span>
+                </h1>
+
+                <p class="hero__desc" data-reveal data-reveal-delay="160">
+                    2026년 11월 30일까지 사전예약에 참여하신 모든 분께
+                    <strong>웰컴 키트</strong>와 <strong>최대 40% 할인 쿠폰</strong>을 드립니다.
+                    가장 먼저, 가장 특별하게 만나보세요.
+                </p>
+
+                <!-- 카운트 다운 -->
+                <div class="countdown" data-countdown data-reveal data-reveal-delay="240">
+                    <p class="countdown__label">이벤트 종료까지 남은 시간</p>
+                    <div class="countdown__grid" role="timer" aria-live="off">
+                        <div class="countdown__unit">
+                            <span class="countdown__value" data-countdown-unit="days">--</span>
+                            <span class="countdown__key">일</span>
+                        </div>
+                        <div class="countdown__unit">
+                            <span class="countdown__value" data-countdown-unit="hours">--</span>
+                            <span class="countdown__key">시간</span>
+                        </div>
+                        <div class="countdown__unit">
+                            <span class="countdown__value" data-countdown-unit="minutes">--</span>
+                            <span class="countdown__key">분</span>
+                        </div>
+                        <div class="countdown__unit">
+                            <span class="countdown__value" data-countdown-unit="seconds">--</span>
+                            <span class="countdown__key">초</span>
+                        </div>
+                    </div>
+                    <p class="countdown__ended" hidden data-countdown-ended>이벤트가 종료되었습니다.</p>
+                </div>
+
+                <div class="heor_cta" data-reveal data-reveal-delay="320">
+                    <a class="btn btn--primary btn--lg" href="#apply">무료로 사전예약 참여하기</a>
+                    <a class="btn btn--ghost btn--lg" href="#benefits">혜택 자세히 보기</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
 
     <script src="./dist/script.js" defer></script>
 </body>
