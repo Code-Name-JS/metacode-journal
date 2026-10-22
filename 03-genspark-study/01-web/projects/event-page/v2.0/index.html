@@ -167,9 +167,199 @@
                         <p class="step__text">출시일에 맞춰 집 앞으로 안전하게 보내드립니다.</p>
                     </li>
                 </ol>
+
+                <div class="stat" data-reveal>
+                    <div class="stat">
+                        <span class="stat__value" data-counter="3842">0</span>
+                        <span class="stat__key">누적 참여자(명)</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat__value" data-counter="12" data-counter-suffix="억">0</span>
+                        <span class="stat__key">누적 제공 혜택(원)</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat__value" data-counter="4.9">0</span>
+                        <span class="stat__key">참여자 만족도</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ============ 사전예약 폼 ============ -->
+        <section class="section" id="apply">
+            <div class="container apply">
+                <div class="apply__intro" data-reveal>
+                    <p class="section__eyebrow">PRE-REGISTER</p>
+                    <h2 class="section__title">지금 사전예약하고 혜택을 받아보세요</h2>
+                    <p class="section__desc">
+                        아래 정보를 입력하시면 할인 쿠폰이 즉시 발급됩니다.
+                        언제든 수신을 해지하실 수 있습니다.
+                    </p>
+
+                    <ul class="check-list">
+                        <li>전원 웰컴 키트 무료 배송</li>
+                        <li>최대 40% 할인 쿠폰 즉시 발급</li>
+                        <li>출시 D-1 얼리 액세스 초대</li>
+                    </ul>
+                </div>
+
+                <form class="form" data-apply-form novalidate data-reveal data-reveal-delay="120">
+                    <div class="field">
+                        <label class="field__label" for="name">이름</label>
+                        <input class="field__input" id="name" name="name" type="text" placeholder="홍길동" autocomplete="name" />
+                        <p class="field__error" data-error-for="name" aria-live="polite"></p>
+                    </div>
+
+                    <div class="field">
+                        <label class="field__label" for="email">이메일</label>
+                        <input class="field__input" id="email" name="email" type="email" placeholder="nova@example.com" autocomplete="email" />
+                        <p class="field__error" data-error-for="email" aria-live="polite"></p>
+                    </div>
+
+                    <div class="field">
+                        <label class="field__label" for="phone">휴대폰 번호</label>
+                        <input class="field__input" id="phone" name="phone" type="tel" placeholder="010-1234-5678" autcomplete="numeric" />
+                        <p class="field__error" data-error-for="phone" aria-live="polite"></p>
+                    </div>
+
+                    <div class="field">
+                        <label class="field__label" for="interest">관심 카테고리</label>
+                        <select class="field__input field__input--select" id="interest" name="interest">
+                            <option value="">선택해 주세요</option>
+                            <option value="home">홈 · 리빙</option>
+                            <option value="beauty">뷰티</option>
+                            <option value="wellness">헬스 · 웰니스</option>
+                            <option value="tech">테크 · 가전</option>
+                            <option value="etc">기타</option>
+                        </select>
+                        <p class="field__error" data-error-for="interest" aria-live="polite"></p>
+                    </div>
+
+                    <label class="checkbox">
+                        <input type="checkbox" id="agree" name="agree" />
+                        <span class="checkbox__box" aria-hidden="true"></span>
+                        <span class="checkbox__text">개인정보 수집 및 이용에 동의합니다. (필수)</span>
+                    </label>
+                    <p class="field__error" data-error-for="agree" aria-live="polite"></p>
+
+                    <button class="btn btn--primary btn--lg btn--block" type="submit" data-submit>
+                        <span data-submit-label>무료로 사전예약 신청하기</span>
+                    </button>
+
+                    <p class="form__note">
+                        신청 즉시 할인 쿠폰이 발급되며, 개인정보는 이벤트 종료 후 3개월 내 파기됩니다.
+                    </p>
+                </form>
+            </div>
+        </section>
+
+        <!-- ============ FAQ ============ -->
+        <section class="section section--alt" id="feq">
+            <div class="container container--narrow">
+                <header class="section__head" data-reveal>
+                    <p class="section__eyebrow">FAQ</p>
+                    <h2 class="section__title">자주 묻는 질문</h2>
+                </header>
+
+                <div class="faq" data-reveal>
+                    <div class="feq__item" data-faq-item>
+                        <button class="faq__trigger" type="button" data-faq-trigger aria-expanded="false">
+                            <span>참여 비용이 있나요?</span>
+                            <span class="faq__chevron" aria-hidden="true"></span>
+                        </button>
+                        <div class="faq__panel" data-faq-panel>
+                            <p>아니요, 사전예약 참여는 <strong>완전 무료</strong>입니다. 웰컴 키트 배송비도 저희가 부담합니다.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq__item" data-faq-item>
+                        <button class="faq__trigger" type="button" data-faq-trigger aria-expanded="false">
+                            <span>할인 쿠폰은 언제부터 사용할 수 있나요?</span>
+                            <span class="faq__chevron" aria-hidden="true"></span>
+                        </button>
+                        <div class="faq__panel" data-faq-panel>
+                            <p>2026년 12월 1일부터 12월 31일까지 사용 가능합니다. 발급된 쿠폰은 신청하신 이메일에서 확인할 수 있습니다.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq__item" data-faq-item>
+                        <button class="faq__trigger" type="button" data-faq-trigger aria-expanded="false">
+                            <span>웰컴 키트는 언제 배송되나요?</span>
+                            <span class="faq__chevron" aria-hidden="true"></span>
+                        </button>
+                        <div class="faq__panel" data-faq-panel>
+                            <p>출시일인 2026년 12월 1일부터 순차 발송되며, 발송 시 알림 문자를 보내드립니다.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq__item" data-faq-item>
+                        <button class="faq__trigger" type="button" data-faq-trigger aria-expanded="false">
+                            <span>개인정보는 어떻게 관리되나요?</span>
+                            <span class="faq__chevron" aria-hidden="true"></span>
+                        </button>
+                        <div class="faq__panel" data-faq-panel>
+                            <p>수집한 정보는 이벤트 운영 목적으로만 사용되며, 이벤트 종료 후 3개월 내 안전하게 파기됩니다.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq__item" data-faq-item>
+                        <button class="faq__trigger" type="button" data-faq-trigger aria-expanded="false">
+                            <span>신청 내역을 어디서 확인하나요?</span>
+                            <span class="faq__chevron" aria-hidden="true"></span>
+                        </button>
+                        <div class="faq__panel" data-faq-panel>
+                            <p>신청하신 이메일로 발송되는 확인 메일에서 쿠폰 코드와 신청 내역을 확인하실 수 있습니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ 마지막 CTA ============ -->
+        <section class="section cta-section">
+            <div class="container">
+                <div class="cta-box" data-reveal>
+                    <h2 class="cta-box__title">망설이면 혜택이 사라져요</h2>
+                    <p class="cta-box__text">2026년 11월 30일까지만 신청할 수 있습니다.</p>
+                    <a class="btn btn--primary btn--lg" href="#apply">사전예약 참여하기</a>
+                </div>
             </div>
         </section>
     </main>
+
+    <!-- ============ 푸터 ============ -->
+    <footer class="site-footer">
+        <div class="container site-footer__inner">
+            <div class="site-footer__brand">
+                <span class="logo__mark" aria-hidden="true">N</span>
+                <div>
+                    <p class="site-footer__name">NOVA</p>
+                    <p class="site-footer__desc">새로운 시작을 여는 브랜드</p>
+                </div>
+            </div>
+            <ul class="site-footer__links">
+                <li><a href="#benefits">혜택</a></li>
+                <li><a href="#apply">사전예약</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#top">이용약관</a></li>
+                <li><a href="#top">개인정보처리방침</a></li>
+            </ul>
+            <p class="site-footer__copy">© 2026 NOVA. 이 페이지는 예시용 데모입니다. hello@nova-event.example</p>
+        </div>
+    </footer>
+
+    <!-- ============ 모달 ============ -->
+    <div class="modal" data-modal aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal__dialog">
+            <button class="modal__close" type="button" data-modal-close aria-label="당기">×</button>
+            <h3 class="modal__title" id="modal-title" data-modal-title>신청 완료</h3>
+            <div class="modal__body" data-modal-body></div>
+            <button class="btn btn--primary btn--block" type="button" data-modal-close>확인</button>
+        </div>
+    </div>
+
+    <!-- ============ 토스트 ============ -->
+    <div class="toast-host" data-toast-host aria-live="polite" aria-atomic="false"></div>
 
     <script src="./dist/script.js" defer></script>
 </body>

@@ -96,6 +96,11 @@ button {
     background: none;
 }
 
+.input, select {
+    font: inherit;
+    color: inherit;
+}
+
 
 
 /* ---------- 3. 레이아웃 ---------- */
@@ -104,6 +109,10 @@ button {
     max-width: var(--container);
     margin: 0 auto;
     padding: 0 var(--space-5);
+}
+
+.container--narrow {
+    max-width: 780px;
 }
 
 .section {
@@ -598,4 +607,580 @@ button {
     margin-top: var(--space-2);
     color: var(--color-text-muted);
     font-size: 15px;
+}
+
+/* 통계 */
+.stat {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    margin-top: var(--space-7);
+    padding: var(--space-6) var(--space-5);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    text-align: center;
+}
+
+.stat__value {
+    display: block;
+    font-size: clamp(26px, 6vw, 40px);
+    font-weight: 900;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.03em;
+    background: linear-gradient(120deg, #fff, var(--color-primary-strong));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.stat__key {
+    font-size: 13px;
+    color: var(--color-text-muted);
+}
+
+
+
+/* ---------- 9. 사전예약 폼 ---------- */
+.apply {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-7);
+    align-items: start;
+}
+
+.apply__intro .section__title,
+.apply__intro .section__desc {
+    text-align: left;
+}
+
+.apply__intro .section__eyebrow {
+    text-align: left;
+}
+
+.check-list {
+    margin-top: var(--space-5);
+    display: grid;
+    gap: var(--space-3);
+}
+
+.check-list li {
+    position: relative;
+    padding-left: 30px;
+    font-size: 15px;
+    color: var(--color-text);
+}
+
+.check-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: grid;
+    place-items: center;
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    border-radius: 50%;
+    background: rgba(34, 224, 196, 0.16);
+    color: var(--color-accent);
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.form {
+    padding: var(--space-6) var(--space-5);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    box-shadow: var(--shadow-card);
+    display: grid;
+    gap: var(--space-4);
+}
+
+.field {
+    display: grid;
+    gap: var(--space-2);
+}
+
+.field__label {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.field__input {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    background: rgba(0, 0, 0, 0.28);
+    color: var(--color-text);
+    font-size: 15px;
+    transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+
+.field__input::placeholder {
+    color: rgba(169, 173, 205, 0.6);
+}
+
+.field__input:focus {
+    outline: none;
+    border-color: var(--color-primary-strong);
+    box-shadow: 0 0 0 4px rgba(124, 92, 255, 0.2);
+}
+
+.field__input--select {
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, var(--color-text-muted) 50%),
+        linear-gradient(135deg, var(--color-text-muted) 50%, transparent 50%);
+    background-position: calc(100% - 20px) 21px, calc(100% - 15px) 21px;
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+}
+
+.field__input--select option {
+    background: #14142e;
+    color: var(--color-text);
+}
+
+.field__error {
+    min-height: 0;
+    font-size: 13px;
+    color: var(--color-danger);
+}
+
+.field.has-error .field__input {
+    border-color: var(--color-danger);
+    box-shadow: 0 0 0 4px rgba(255, 107, 129, 0.16);
+}
+
+/* 체크박스 */
+.checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    font-size: 14px;
+    color: var(--color-text-muted);
+    cursor: pointer;
+}
+
+.checkbox input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.checkbox__box {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    margin-top: 1px;
+    border-radius: 7px;
+    border: 1px solid var(--color-border);
+    background: rgba(0, 0, 0, 0.3);
+    transition: background-color 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+
+.checkbox__box::after {
+    content: "";
+    width: 6px;
+    height: 11px;
+    border: solid #0b0b1a;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg) scale(0);
+    transition: transform 0.18s var(--ease);
+}
+
+.checkbox input:checked + .checkbox__box {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+}
+
+.checkbox input:checked + .checkbox__box::after {
+    transform: rotate(45deg) scale(1);
+}
+
+.checkbox input:focus-visible + .checkbox__box {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+}
+
+.form__note {
+    font-size: 12px;
+    color: var(--color-text-muted);
+    text-align: center;
+}
+
+
+
+/* ---------- 10. FAQ ---------- */
+.faq {
+    display: grid;
+    gap: var(--space-3);
+}
+
+.faq__item {
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    background: var(--color-bg);
+    overflow: hidden;
+    transition: border-color 0.24s var(--ease);
+}
+
+.faq__item.is-open {
+    border-color: rgba(124, 92, 255, 0.5);
+}
+
+.faq__trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    width: 100%;
+    padding: var(--space-4) var(--space-5);
+    text-align: left;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.faq__chevron {
+    flex: 0 0 auto;
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid var(--color-text-muted);
+    border-bottom: 2px solid var(--color-text-muted);
+    transform: rotate(45deg);
+    transition: transform 0.24s var(--ease), border-color 0.24s var(--ease);
+}
+
+.faq__item.is-open .faq__chevron {
+    transform: rotate(-135deg);
+    border-color: var(--color-accent);
+}
+
+.faq__panel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.32s var(--ease);
+}
+
+.faq__panel p {
+    padding: 0 var(--space-5) var(--space-5);
+    color: var(--color-text-muted);
+    font-size: 15px;
+}
+
+.faq__panel strong {
+    color: var(--color-text);
+}
+
+
+
+/* ---------- 11. 마지막 CTA ---------- */
+.cta-box {
+    padding: var(--space-8) var(--space-5);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.26), rgba(34, 224, 196, 0.14));
+    border: 1px solid rgba(124, 92, 255, 0.4);
+}
+
+.cta-box__title {
+    font-size: clamp(22px, 5vw, 34px);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+}
+
+.cta-box__text {
+    margin: var(--space-3) 0 var(--space-5);
+    color: #d9dcff;
+}
+
+
+
+/* ---------- 12. 푸터 ---------- */
+.site-footer {
+    padding: var(--space-7) 0 var(--space-6);
+    border-top: 1px solid var(--color-border);
+    background: rgba(0, 0, 0, 0.25);
+}
+
+.site-footer__inner {
+    display: grid;
+    gap: var(--space-5);
+    text-align: center;
+    justify-items: center;
+}
+
+.site-footer__brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    text-align: left;
+}
+
+.site-footer__name {
+    font-weight: 900;
+    letter-spacing: 0.06em;
+}
+
+.site-footer__desc {
+    font-size: 13px;
+    color: var(--color-text-muted);
+}
+
+.site-footer__links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-4);
+    font-size: 14px;
+    color: var(--color-text-muted);
+}
+
+.site-footer__links a:hover {
+    color: var(--color-text);
+}
+
+.site-footer__copy {
+    font-size: 12px;
+    color: rgba(169, 173, 205, 0.75);
+}
+
+
+
+/* ---------- 13. 모달 ---------- */
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: grid;
+    place-items: center;
+    padding: var(--space-4);
+    background: rgba(4, 4, 12, 0.72);
+    backdrop-filter: blur(6px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.24s var(--ease), visibility 0.24s var(--ease);
+}
+
+.modal.is-open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal__dialog {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    padding: var(--space-6) var(--space-5) var(--space-5);
+    border-radius: var(--radius-lg);
+    background: #14142e;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-card);
+    transform: translateY(14px) scale(0.98);
+    transition: transform 0.28s var(--ease);
+    text-align: center;
+}
+
+.modal.is-open .modal__dialog {
+    transform: translateY(0) scale(1);
+}
+
+.modal__close {
+    position: absolute;
+    top: var(--space-3);
+    right: var(--space-3);
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    font-size: 20px;
+    line-height: 1;
+    color: var(--color-text-muted);
+    background: var(--color-surface);
+}
+
+.modal__close:hover {
+    color: var(--color-text);
+    background: var(--color-surface-strong);
+}
+
+.modal__title {
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.modal__body {
+    margin: var(--space-4) 0 var(--space-5);
+    color: var(--color-text-muted);
+    font-size: 15px;
+}
+
+.modal__body .modal__highlight {
+    display: block;
+    margin-top: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    border: 1px dashed rgba(34, 224, 196, 0.5);
+    background: rgba(34, 224, 196, 0.08);
+    color: var(--color-text);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.modal__icon {
+    font-size: 40px;
+    line-height: 1;
+    margin-bottom: var(--space-3);
+}
+
+
+
+/* ---------- 14. 토스트 ---------- */
+.toast-host {
+    position: fixed;
+    z-index: 120;
+    left: 50%;
+    bottom: var(--space-5);
+    transform: translateX(-50%);
+    display: grid;
+    gap: var(--space-2);
+    width: min(420px, calc(100vw - 32px));
+    pointer-events: none;
+}
+
+.toast {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    background: #191937;
+    color: var(--color-text);
+    font-size: 14px;
+    box-shadow: var(--shadow-card);
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.24s var(--ease), transform 0.24s var(--ease);
+}
+
+.toast.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast--success {
+    border-color: rgba(34, 224, 196, 0.5);
+}
+
+.toast--error {
+    border-color: rgba(255, 107, 129, 0.55);
+}
+
+
+
+/* ---------- 15. 스크롤 등장 애니메이션 ---------- */
+[data-reveal] {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+    will-change: opacity, transform;
+}
+
+[data-reveal].is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+
+/* ---------- 16. 반응형 (태블릿 이상) ---------- */
+@media (min-width: 640px) {
+    .hero__cta {
+        flex-direction: row;
+        justify-content: center;
+        max-width: none;
+    }
+
+    .card-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .steps {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .stats {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .site-footer__inner {
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        justify-items: start;
+        text-align: left;
+    }
+
+    .site-footer__links {
+        justify-content: center;
+    }
+}
+
+@media (min-width: 900px) {
+    .nav {
+        display: flex;
+    }
+
+    .nav-toggle {
+        display: none;
+    }
+
+    .nav.is-open {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        padding: 0;
+        border: 0;
+        background: none;
+        box-shadow: none;
+    }
+
+    .section {
+        padding: var(--space-9) 0;
+    }
+
+    .hero {
+        padding: var(--space-8) 0 var(--space-9);
+    }
+
+    .apply {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-8);
+    }
+}
+
+
+
+/* ---------- 17. 접근성: 모션 최소화 ---------- */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        transition-duration: 0.001ms !important;
+    }
+
+    [data-reveal] {
+        opacity: 1;
+        transform: none;
+    }
 }
