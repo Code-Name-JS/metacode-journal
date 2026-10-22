@@ -42,6 +42,12 @@
       "runtimeExecutable": "python",
       "runtimeArgs": ["-m", "http.server", "5521", "--directory", "03-genspark-study/01-web/projects/best-page/v1.0"],
       "port": 5521
+    },
+    {
+      "name": "hyperframes-v1",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "5524", "--directory", "05-motion-study/hyperframes/v1.0"],
+      "port": 5524
     }
   ]
 }

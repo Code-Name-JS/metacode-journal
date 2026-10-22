@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contrast Loop — Hyperframes</title>
+    <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+    <main class="page">
+        <!--
+            컴포지션(Composition) = 영상 한 편.
+            data-* 속성에 "영상의 규격"을 적어두면 TS가 읽어서 타임라인을 만든다.
+            [연결①] JS가 id="stage" 로 찾음
+            [연결②] data-width / data-height → TS가 CSS 변수 --comp-w / --comp-h 로 넘김
+            [연결③] data-duration / data-fps → TS 타임라인 길이·프레임 수
+        -->
+        <div
+            id="stage"
+            class="stage"
+            data-composition-id="contrast-loop"
+            data-width="500"
+            data-height="500"
+            data-duration="6"
+            data-fps="30"
+        >
+            <!-- 아래층: 어두운 배경 + 밝은 원 (화면 전체) -->
+            <div class="layer layer--dark" aria-hidden="true">
+                <span class="dot" data-dot="a"></span> <!-- [연결④] CSS .dot[data-dot="a"] 가 --a-x / --a-y 로 위치를 잡음 -->
+                <span class="dot" data-dot="b"></span> <!-- [연결④] CSS .dot[data-dot="b"] 가 --b-x / --b-y 로 위치를 잡음 -->
+            </div>
+
+            <!-- 위층: 밝은 배경 + 어두운 원 (clip-path 로 오른쪽 절반만 보임) -->
+            <div class="layer layer--light" aria-hidden="true">
+                <span class="dot" data-dot="a"></span>
+                <span class="dot" data-dot="b"></span>
+            </div>
+        </div>
+
+        <!-- 미리보기 컨트롤 (컴포지션 바깥 = 렌더링 결과물에는 포함되지 않는 UI) -->
+        <div class="controls">
+            <button id="playBtn" class="controls__btn" type="button" aria-pressed="false"> <!-- [연결⑤] JS click 이벤트 -->
+                <span class="controls__icon" aria-hidden="true"></span>
+                <span class="controls__label">재생</span>
+            </button>
+            <input
+                id="scrubber"
+                class="controls__scrub"
+                type="range"
+                min="0"
+                max="180"
+                step="1"
+                value="0"
+                aria-label="타임라인 위치(프레임)"
+            /> <!-- [연결⑥] JS input 이벤트 → timeline.seek() -->
+            <output id="frameLabel" class="controls__time" for="scrubber">000 / 180</output> <!-- [연결⑦] JS가 textContent 갱신 -->
+        </div>
+
+        <p class="hint">Space 재생/정지 · ← → 한 프레임 이동</p>
+    </main>
+
+    <script src="./dist/script.js" defer></script>
+</body>
+</html>
