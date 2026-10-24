@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f7f8fc" />
+    <meta name="description" content="MetaCode — Thinking beyond syntax." />
+
+    <title>로그인 | MetaCode | ChatGPT</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+
+</head>
+<body>
+    <main class="login-shell">
+        <section class="visual-panel" aria-label="MetaCode 소개">
+            <a class="brand" href="#" aria-label="MetaCode 홈">
+                <span class="brand-mark" aria-hidden="true"><i data-lucide="mountain"></i></span>
+                <span>MetaCode</span>
+            </a>
+            <div class="hero-copy">
+                <p class="eyebrow">THINK · BUILD · CREATE</p>
+                <h1>Better Thoughts,<br />Greater Creation.</h1>
+                <p class="hero-description">생각을 코드로,<br />그리고 더 나은 내일을 만듭니다.</p>
+            </div>
+            <div class="visual-footer">
+                <span>Thinking beyond syntax.</span>
+                <span class="footer-dot"></span>
+                <span>Est. 2026</span>
+            </div>
+        </section>
+
+        <section class="form-panel" aria-labelledby="login-title">
+            <div class="utility-bar">
+                <button class="icon-button" id="theme-toggle" type="button" aria-label="다크 모드 전환" title="테마 전환">
+                    <i data-lucide="moon"></i>
+                </button>
+                <button class="language-button" type="button" aria-label="언어 선택">KR <i data-lucide="chevron-down"></i></button>
+            </div>
+
+            <div class="form-content">
+                <div class="heading-block">
+                    <p class="eyebrow accent">WELCOME BACK</p>
+                    <h2 id="login-title">로그인</h2>
+                    <p>계정에 로그인하여 서비스를 이용하세요.</p>
+                </div>
+
+                <form id="login-form" novalidate>
+                    <div class="field">
+                        <label for="email">이메일 또는 사용자명</label>
+                        <div class="input-wrap">
+                            <i data-lucide="mail" aria-hidden="true"></i>
+                            <input id="email" name="email" type="text" autocomplete="username" placeholder="example@domain.com" required />
+                        </div>
+                        <small class="field-error" id="email-error"></small>
+                    </div>
+
+                    <div class="field">
+                        <label for="password">비밀번호</label>
+                        <div class="input-wrap">
+                            <i data-lucide="lock-keyhole" aria-hidden="true"></i>
+                            <input id="password" name="password" type="password" autocomplete="current-password" placeholder="비밀번호를 입력하세요" required minlength="8" />
+                            <button class="input-action" id="password-toggle" type="button" aria-label="비밀번호 표시">
+                                <i data-lucide="eye"></i>
+                            </button>
+                        </div>
+                        <small class="field-error" id="password-error"></small>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="check-label">
+                            <input type="checkbox" id="remember" name="remember" />
+                            <span class="custom-check" aria-hidden="true"></span>
+                            로그인 상태 유지
+                        </label>
+                        <a class="text-link" href="#" id="forgot-link">비밀번호를 잊으셨나요?</a>
+                    </div>
+
+                    <button class="primary-button" id="login-button" type="submit">
+                        <span>로그인</span><i data-lucide="arrow-right"></i>
+                    </button>
+                    <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
+                </form>
+
+                <div class="separator"><span>또는</span></div>
+
+                <button class="google-button" id="google-login" type="button">
+                    <span class="google-g" aria-hidden="true">G</span>
+                    Google로 로그인
+                </button>
+
+                <p class="signup-prompt">계정이 없으신가요? <a class="text-link" href="#" id="signup-link">회원가입</a></p>
+                <p class="security-note"><i data-lucide="shield-check"></i>안전한 계정 보호를 위해 로그인 정보를 관리하세요.</p>
+            </div>
+        </section>
+    </main>
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="./dist/script.js" defer></script>
+</body>
+</html>
