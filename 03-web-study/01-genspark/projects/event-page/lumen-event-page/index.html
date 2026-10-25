@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>LUMEN° 2026 윈터 리워드 페스티벌 — 최대 120만원 쿠폰 패키지</title>
+<meta name="description" content="12월 31일까지 단 69일. LUMEN° 윈터 리워드 페스티벌에서 최대 120만원 상당 쿠폰 패키지와 매일 럭키 드로우 응모권을 받아가세요." />
+<meta name="theme-color" content="#07070c" />
+<link rel="preconnect" href="https://cdn.jsdelivr.net" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css" />
+<link rel="stylesheet" href="./style.css" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23b6ff3d'/%3E%3Ctext x='16' y='23' font-family='Arial' font-size='18' font-weight='bold' text-anchor='middle' fill='%2307070c'%3EL%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+  <!-- 배경 장식 -->
+  <div class="bg" aria-hidden="true">
+    <div class="bg__blob bg__blob--violet"></div>
+    <div class="bg__blob bg__blob--cyan"></div>
+    <div class="bg__blob bg__blob--lime"></div>
+    <div class="bg__grid"></div>
+    <div class="bg__grain"></div>
+  </div>
+
+  <a class="skip" href="#entry">본문 바로가기</a>
+
+  <!-- 헤더 -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a class="logo" href="#top" aria-label="LUMEN 홈">
+        <span class="logo__mark" aria-hidden="true"></span>
+        <span class="logo__text">LUMEN<sup>°</sup></span>
+      </a>
+
+      <nav class="nav__links" id="navLinks" aria-label="주요 섹션">
+        <a href="#benefits">혜택</a>
+        <a href="#steps">참여 방법</a>
+        <a href="#rewards">리워드</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+      <div class="nav__actions">
+        <a class="btn btn--primary btn--sm" href="#entry">무료로 참여하기</a>
+        <button class="nav__burger" id="navBurger" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="navLinks">
+          <span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- 히어로 -->
+    <section class="hero">
+      <div class="hero__inner">
+        <div class="hero__copy">
+          <p class="eyebrow reveal">
+            <span class="dot" aria-hidden="true"></span>
+            2026 Winter Reward Festival
+          </p>
+
+          <h1 class="hero__title reveal" data-delay="1">
+            겨울이 오면,<br />
+            리워드도 <span class="grad">커진다</span>
+          </h1>
+
+          <p class="hero__lead reveal" data-delay="2">
+            12월 31일까지 단 69일. 지금 참여하면 <strong>최대 120만원 상당</strong> 쿠폰 패키지와
+            매일 갱신되는 럭키 드로우 응모권을 함께 드립니다.
+          </p>
+
+          <div class="hero__cta reveal" data-delay="3">
+            <a class="btn btn--primary" href="#entry">
+              30초 만에 참여하기
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a class="btn btn--ghost" href="#benefits">혜택 먼저 보기</a>
+          </div>
+
+          <dl class="hero__stats reveal" data-delay="4">
+            <div>
+              <dt>누적 참여자</dt>
+              <dd><span data-count="184320">0</span>명</dd>
+            </div>
+            <div>
+              <dt>지급된 쿠폰</dt>
+              <dd><span data-count="27">0</span>억원</dd>
+            </div>
+            <div>
+              <dt>경품 응모권</dt>
+              <dd><span data-count="512000">0</span>장</dd>
+            </div>
+          </dl>
+        </div>
+
+        <!-- 카운트다운 카드 -->
+        <aside class="timer reveal" data-delay="2" aria-label="이벤트 종료까지 남은 시간">
+          <div class="timer__head">
+            <span class="timer__label">이벤트 종료까지</span>
+            <span class="timer__live"><span class="pulse" aria-hidden="true"></span>LIVE</span>
+          </div>
+
+          <div class="timer__grid" id="timerGrid" role="timer" aria-live="off">
+            <div class="tcell"><span class="tcell__num" id="tDays">00</span><span class="tcell__unit">DAYS</span></div>
+            <div class="tcell"><span class="tcell__num" id="tHours">00</span><span class="tcell__unit">HOURS</span></div>
+            <div class="tcell"><span class="tcell__num" id="tMinutes">00</span><span class="tcell__unit">MIN</span></div>
+            <div class="tcell"><span class="tcell__num" id="tSeconds">00</span><span class="tcell__unit">SEC</span></div>
+          </div>
+
+          <div class="progress">
+            <div class="progress__meta">
+              <span>이벤트 진행률</span>
+              <span id="progressText">0%</span>
+            </div>
+            <div class="progress__track"><div class="progress__bar" id="progressBar"></div></div>
+            <p class="progress__note">10.01 시작 · 12.31 23:59 종료</p>
+          </div>
+
+          <div class="timer__foot">
+            <span class="avatars" aria-hidden="true"><i></i><i></i><i></i></span>
+            <p>지금 <strong id="liveJoiners">142</strong>명이 참여 중입니다</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 마퀴 -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track" id="marqueeTrack">
+        <span>최대 120만원 쿠폰 패키지</span><b>✦</b>
+        <span>전 상품 무료배송</span><b>✦</b>
+        <span>매일 럭키 드로우</span><b>✦</b>
+        <span>신규 가입 3만원 즉시 지급</span><b>✦</b>
+        <span>리워드 포인트 2배 적립</span><b>✦</b>
+      </div>
+    </div>
+
+    <!-- 혜택 -->
+    <section class="section" id="benefits">
+      <div class="wrap">
+        <header class="sec-head">
+          <p class="eyebrow reveal"><span class="dot" aria-hidden="true"></span>Benefits</p>
+          <h2 class="sec-head__title reveal">참여하면 바로 받는<br /><em>4가지 혜택</em></h2>
+          <p class="sec-head__desc reveal">쿠폰 코드를 복사해 결제창에 입력하면 즉시 적용됩니다. 모든 혜택은 중복 사용 가능합니다.</p>
+        </header>
+
+        <div class="cards">
+          <article class="card reveal">
+            <div class="card__top">
+              <span class="card__tag">NEW</span>
+              <span class="card__value">30,000<small>원</small></span>
+            </div>
+            <h3 class="card__title">신규 가입 쿠폰</h3>
+            <p class="card__desc">3만원 이상 구매 시 사용 가능한 즉시 할인 쿠폰. 발급일로부터 30일간 유효합니다.</p>
+            <button class="coupon" type="button" data-code="WELCOME30" aria-label="쿠폰 코드 WELCOME30 복사">
+              <span class="coupon__code">WELCOME30</span>
+              <span class="coupon__action">복사</span>
+            </button>
+          </article>
+
+          <article class="card reveal" data-delay="1">
+            <div class="card__top">
+              <span class="card__tag card__tag--violet">HOT</span>
+              <span class="card__value">15<small>%</small></span>
+            </div>
+            <h3 class="card__title">첫 구매 할인</h3>
+            <p class="card__desc">첫 결제 시 전 상품 15% 할인. 최대 5만원까지 할인 금액이 적용됩니다.</p>
+            <button class="coupon" type="button" data-code="FIRST15" aria-label="쿠폰 코드 FIRST15 복사">
+              <span class="coupon__code">FIRST15</span>
+              <span class="coupon__action">복사</span>
+            </button>
+          </article>
+
+          <article class="card reveal" data-delay="2">
+            <div class="card__top">
+              <span class="card__tag card__tag--cyan">SHIP</span>
+              <span class="card__value">무료<small>배송</small></span>
+            </div>
+            <h3 class="card__title">평생 무료배송</h3>
+            <p class="card__desc">이벤트 참여 시 회원 등급과 무관하게 모든 주문에 무료배송을 적용합니다.</p>
+            <button class="coupon" type="button" data-code="FREESHIP" aria-label="쿠폰 코드 FREESHIP 복사">
+              <span class="coupon__code">FREESHIP</span>
+              <span class="coupon__action">복사</span>
+            </button>
+          </article>
+
+          <article class="card reveal" data-delay="3">
+            <div class="card__top">
+              <span class="card__tag card__tag--violet">P</span>
+              <span class="card__value">5,000<small>P</small></span>
+            </div>
+            <h3 class="card__title">리워드 포인트</h3>
+            <p class="card__desc">참여 즉시 5,000 포인트 지급. 12월 한 달간 결제 금액의 2%가 추가 적립됩니다.</p>
+            <button class="coupon" type="button" data-code="POINT5K" aria-label="쿠폰 코드 POINT5K 복사">
+              <span class="coupon__code">POINT5K</span>
+              <span class="coupon__action">복사</span>
+            </button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 참여 방법 -->
+    <section class="section section--tight" id="steps">
+      <div class="wrap">
+        <header class="sec-head sec-head--center">
+          <p class="eyebrow reveal"><span class="dot" aria-hidden="true"></span>How it works</p>
+          <h2 class="sec-head__title reveal">3단계면 끝나는 참여</h2>
+          <p class="sec-head__desc reveal">평균 소요 시간 30초. 회원이 아니어도 이메일만 있으면 참여할 수 있습니다.</p>
+        </header>
+
+        <ol class="steps">
+          <li class="step reveal">
+            <span class="step__num">01</span>
+            <h3>참여 정보 입력</h3>
+            <p>이름과 이메일, 휴대폰 번호만 입력하면 응모가 완료됩니다.</p>
+          </li>
+          <li class="step reveal" data-delay="1">
+            <span class="step__num">02</span>
+            <h3>쿠폰 즉시 수령</h3>
+            <p>완료 화면에서 쿠폰 코드 4종을 한 번에 확인하고 복사할 수 있습니다.</p>
+          </li>
+          <li class="step reveal" data-delay="2">
+            <span class="step__num">03</span>
+            <h3>구매하고 응모권 적립</h3>
+            <p>결제 금액 1만원당 응모권 1장이 자동 적립되어 럭키 드로우에 참여됩니다.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 리워드 -->
+    <section class="section" id="rewards">
+      <div class="wrap">
+        <div class="rewards">
+          <div class="rewards__copy">
+            <p class="eyebrow reveal"><span class="dot" aria-hidden="true"></span>Reward tiers</p>
+            <h2 class="sec-head__title reveal">쓸수록 커지는<br /><em>등급별 리워드</em></h2>
+            <p class="sec-head__desc reveal">이벤트 기간 누적 결제 금액에 따라 세 가지 등급 중 하나가 자동 적용됩니다. 등급은 실시간으로 갱신됩니다.</p>
+            <a class="btn btn--ghost reveal" href="#entry">내 등급 확인하고 참여하기</a>
+          </div>
+
+          <div class="tiers">
+            <article class="tier reveal">
+              <header>
+                <span class="tier__name">Silver</span>
+                <span class="tier__req">10만원 이상</span>
+              </header>
+              <p class="tier__amount">3<small>%</small></p>
+              <ul>
+                <li>전 상품 3% 추가 할인</li>
+                <li>응모권 2배 적립</li>
+                <li>무료배송 유지</li>
+              </ul>
+            </article>
+
+            <article class="tier tier--featured reveal" data-delay="1">
+              <span class="tier__badge">MOST PICKED</span>
+              <header>
+                <span class="tier__name">Gold</span>
+                <span class="tier__req">50만원 이상</span>
+              </header>
+              <p class="tier__amount">7<small>%</small></p>
+              <ul>
+                <li>전 상품 7% 추가 할인</li>
+                <li>응모권 3배 적립</li>
+                <li>시즌 한정 굿즈 증정</li>
+                <li>우선 배송 서비스</li>
+              </ul>
+            </article>
+
+            <article class="tier reveal" data-delay="2">
+              <header>
+                <span class="tier__name">Platinum</span>
+                <span class="tier__req">120만원 이상</span>
+              </header>
+              <p class="tier__amount">12<small>%</small></p>
+              <ul>
+                <li>전 상품 12% 추가 할인</li>
+                <li>응모권 5배 적립</li>
+                <li>전용 1:1 컨시어지</li>
+                <li>연말 리미티드 박스</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 응모 폼 -->
+    <section class="section section--entry" id="entry">
+      <div class="wrap">
+        <div class="entry">
+          <div class="entry__copy">
+            <p class="eyebrow reveal"><span class="dot" aria-hidden="true"></span>Free entry</p>
+            <h2 class="sec-head__title reveal">지금 참여하고<br /><em>쿠폰 4종</em> 받아가세요</h2>
+            <p class="sec-head__desc reveal">참여는 무료이며, 입력하신 정보는 이벤트 안내 목적으로만 사용됩니다.</p>
+
+            <ul class="entry__list reveal">
+              <li><span aria-hidden="true">✦</span>최대 120만원 상당 쿠폰 패키지</li>
+              <li><span aria-hidden="true">✦</span>럭키 드로우 자동 응모 (1등 500만원 상당)</li>
+              <li><span aria-hidden="true">✦</span>12월 1일, 당첨자 개별 안내</li>
+            </ul>
+          </div>
+
+          <form class="form reveal" id="entryForm" novalidate>
+            <div class="field">
+              <label for="fName">이름</label>
+              <input id="fName" name="name" type="text" placeholder="홍길동" autocomplete="name" required />
+              <p class="field__error" id="errName" role="alert"></p>
+            </div>
+
+            <div class="field">
+              <label for="fEmail">이메일</label>
+              <input id="fEmail" name="email" type="email" placeholder="hello@lumen.co.kr" autocomplete="email" inputmode="email" required />
+              <p class="field__error" id="errEmail" role="alert"></p>
+            </div>
+
+            <div class="field">
+              <label for="fPhone">휴대폰 번호</label>
+              <input id="fPhone" name="phone" type="tel" placeholder="010-1234-5678" autocomplete="tel" inputmode="tel" required />
+              <p class="field__error" id="errPhone" role="alert"></p>
+            </div>
+
+            <div class="field">
+              <label for="fCategory">관심 카테고리</label>
+              <div class="select">
+                <select id="fCategory" name="category">
+                  <option value="fashion">패션 · 액세서리</option>
+                  <option value="beauty">뷰티 · 케어</option>
+                  <option value="living">리빙 · 인테리어</option>
+                  <option value="digital">디지털 · 가전</option>
+                </select>
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+            </div>
+
+            <label class="check" id="agreeWrap">
+              <input id="fAgree" name="agree" type="checkbox" required />
+              <span class="check__box" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="12" height="12"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <span class="check__text">개인정보 수집 및 이벤트 안내 수신에 동의합니다. <em>(필수)</em></span>
+            </label>
+            <p class="field__error" id="errAgree" role="alert"></p>
+
+            <button class="btn btn--primary btn--block" type="submit" id="submitBtn">
+              <span class="btn__label">무료로 참여하기</span>
+              <span class="btn__spinner" aria-hidden="true"></span>
+            </button>
+
+            <p class="form__foot">이미 <strong>184,320</strong>명이 참여했습니다 · 1인 1회 참여 가능</p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+      <div class="wrap wrap--narrow">
+        <header class="sec-head sec-head--center">
+          <p class="eyebrow reveal"><span class="dot" aria-hidden="true"></span>FAQ</p>
+          <h2 class="sec-head__title reveal">자주 묻는 질문</h2>
+        </header>
+
+        <div class="faq" id="faqList">
+          <div class="faq__item reveal">
+            <button class="faq__q" type="button" aria-expanded="false" aria-controls="a1">
+              <span>이벤트 참여에 비용이 발생하나요?</span>
+              <span class="faq__icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq__a" id="a1" role="region">
+              <p>아니요. 참여는 100% 무료이며, 쿠폰과 포인트는 별도 결제 없이 즉시 발급됩니다.</p>
+            </div>
+          </div>
+
+          <div class="faq__item reveal">
+            <button class="faq__q" type="button" aria-expanded="false" aria-controls="a2">
+              <span>쿠폰은 언제까지 사용할 수 있나요?</span>
+              <span class="faq__icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq__a" id="a2" role="region">
+              <p>발급일로부터 30일간 유효하며, 이벤트 종료일(12월 31일)을 넘길 수 없습니다. 결제창의 쿠폰 선택 영역에서 유효기간을 확인할 수 있습니다.</p>
+            </div>
+          </div>
+
+          <div class="faq__item reveal">
+            <button class="faq__q" type="button" aria-expanded="false" aria-controls="a3">
+              <span>럭키 드로우 당첨자는 어떻게 발표되나요?</span>
+              <span class="faq__icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq__a" id="a3" role="region">
+              <p>12월 1일과 1월 5일 두 차례에 걸쳐 응모 시 입력한 이메일과 휴대폰 번호로 개별 안내드립니다. 미당첨 시 별도 연락은 드리지 않습니다.</p>
+            </div>
+          </div>
+
+          <div class="faq__item reveal">
+            <button class="faq__q" type="button" aria-expanded="false" aria-controls="a4">
+              <span>등급은 어떻게 산정되나요?</span>
+              <span class="faq__icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq__a" id="a4" role="region">
+              <p>이벤트 기간 동안의 누적 결제 금액을 기준으로 실시간 산정됩니다. 반품으로 결제가 취소된 경우 누적 금액에서 차감되어 등급이 조정될 수 있습니다.</p>
+            </div>
+          </div>
+
+          <div class="faq__item reveal">
+            <button class="faq__q" type="button" aria-expanded="false" aria-controls="a5">
+              <span>참여 정보를 수정하고 싶어요.</span>
+              <span class="faq__icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq__a" id="a5" role="region">
+              <p>참여 완료 후에는 고객센터(help@lumen.co.kr)로 문의해 주세요. 이벤트 종료 전까지 1회에 한해 수정 가능합니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 마지막 CTA -->
+    <section class="section section--cta">
+      <div class="wrap">
+        <div class="cta reveal">
+          <p class="cta__eyebrow">마감까지 <span id="ctaDays">69</span>일</p>
+          <h2 class="cta__title">놓치면 내년에 다시<br />만날 수 없는 혜택</h2>
+          <p class="cta__desc">지금 참여하면 쿠폰 4종과 응모권까지 한 번에 받을 수 있습니다.</p>
+          <a class="btn btn--primary btn--lg" href="#entry">무료로 참여하기</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <div class="footer__brand">
+        <span class="logo__mark" aria-hidden="true"></span>
+        <span>LUMEN<sup>°</sup></span>
+        <p>일상을 밝히는 셀렉션 스토어</p>
+      </div>
+      <div class="footer__cols">
+        <div>
+          <h4>이벤트</h4>
+          <a href="#benefits">혜택 안내</a>
+          <a href="#steps">참여 방법</a>
+          <a href="#faq">자주 묻는 질문</a>
+        </div>
+        <div>
+          <h4>고객 지원</h4>
+          <a href="#entry">1:1 문의</a>
+          <a href="#faq">배송 정책</a>
+          <a href="#faq">교환 · 환불</a>
+        </div>
+        <div>
+          <h4>약관</h4>
+          <a href="#faq">이용약관</a>
+          <a href="#faq">개인정보처리방침</a>
+          <a href="#faq">이벤트 유의사항</a>
+        </div>
+      </div>
+    </div>
+    <div class="wrap footer__bottom">
+      <p>© 2026 LUMEN Inc. All rights reserved.</p>
+      <p>본 페이지는 디자인 시안이며 실제 이벤트가 아닙니다.</p>
+    </div>
+  </footer>
+
+  <!-- 참여 완료 모달 -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__panel" role="document">
+      <button class="modal__close" type="button" aria-label="닫기" data-close>
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+
+      <div class="modal__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="26" height="26"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+
+      <h2 class="modal__title" id="modalTitle">참여가 완료되었습니다!</h2>
+      <p class="modal__desc" id="modalDesc"></p>
+
+      <div class="modal__codes" id="modalCodes"></div>
+
+      <button class="btn btn--primary btn--block" type="button" data-close>쿠폰 확인 완료</button>
+      <p class="modal__foot">쿠폰은 마이페이지 &gt; 쿠폰함에서도 확인할 수 있습니다.</p>
+    </div>
+  </div>
+
+  <!-- 토스트 -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
