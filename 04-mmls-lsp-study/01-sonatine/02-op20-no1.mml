@@ -17,51 +17,54 @@
 ; l16(음길이), r16(쉼표) 0.25박 → 0.25칸  
 ; 띄어쓰기 칸 3개에 1묶음 음표
 
-A @2 t80 o4 l4 f l16 a ; 1박 1개(음길이) + 0.25박 1개(음길이) / 총 1.25칸 성립
-A l4 >ccc cf<a ; 1박 6개(음길이) / 총 6칸 성립
-A l2 >c l8 <b>dc<b-   r4 l8 >b l16 g ; 2박 1개(음길이) + 0.5박 4개(음길이) / 총 4칸 성립
-; 1박 1개(쉼표) + 0.5박 1개(음길이) + 0.25박 1개(음길이_ / 총 1.75칸 성립
-A l4 e r4   l8 g l16 e l4 c r4   l8 d l16 <b ; 1박 1개(음길이) + 1박 1개(쉼표) / 총 2칸 성립
-; 0.5박 1개(음길이) + 0.25박 1개(음길이) + 1박 1개(음길이) + 1박 1개(쉼표) / 총 2.75칸 성립
-; 0.5박 1개(음길이) + 0.25박 1개(음길이) / 총 0.75칸 성립
-A l4 g r4 l4 g+a r2 ; 1박 1개(음길이) + 1박 1개(쉼표) 1박 2개(음길이) + 2박 1개(쉼표) / 총 6칸 성립
-A r2 l4 aaga; 2박 1개(쉼표) + 1박 4개(음길이) / 총 6칸 성립
-A l4 >c r4 <b a r4 >ag
-A fedc
+A @2 t120 o4 l4 f l16 a
+A l4 >ccc cf<a
+A l2 >c l8 <b>dc<b-   r4 l8 >b- l16 g
+A l4 e r4   l8 g l16 e l4 c r4   l8 d l16 <b-
+A l4 g r4 l4 g+a r2
+A r2 l4 aaga
+A l4 >c r4 l4 <b- a r4 l8 >a l16 g 
+A l4 f r8 l8 r8 e l16 d l8 c  l4 <b r4 r16 l8 >ag r8 l4 <b-
+A l4 >cccc
 
-B @2 t80 o4 l4 f l16 a
+B @2 t120 o4 l4 f l16 a
 B l4 >ccc cf<a
-B l2 >c l8 <b>dc<b-   r4 l8 >b l16 g
-B l4 e r4   l8 g l16 e l4 c r4   l8 d l16 <b
+B l2 >c l8 <b>dc<b-   r4 l8 >b- l16 g
+B l4 e r4   l8 g l16 e l4 c r4   l8 d l16 <b-
 B l4 g r4 l4 g+a r2 ;
 B r2 l4 faef+
-B l4 gdef r4 >ag
+B l4 gdef r4 l8 >a l16 g
+B l4 f r8 l8 r8 e l16 d l8 c  l4 <b r4 r16 l8 >ag r8 l4 <b-
+B l4 r4 eee
 
 
-C @2 t80 o4 r4 r16 ; 1박 1개(쉼표) + 025박 1개(쉼표) / 총 1.25칸 성립
-C r4 l4 >cc ccc ; 1박 1개(쉼표) + 1박 5개(음길이) / 총 6칸 성립
-C l2 c r4 r8 l8 c   r4 r8 r16 ; 2박 1개(음길이) + 1박 1개(쉼표) + 0.5박 1개(쉼포) + 0.5박 1개(음길이) / 총 4칸 성립
-; 1박 1개(쉼표) + 0.5박 1개(쉼표) + 0.25박 1개(쉼표) / 총 1.75칸 성립
-C l4 cc   r8 r16 l4 cc r8 r16 ; 1박 2개(음길이) / 총 2칸 성립
-; 0.5박 1개(쉼표) + 0.25박 1개(쉼표) + 1박 2개(음길이) / 총 2.75칸 성립
-; 0.5박 1개(쉼표) + 0.25박 1개(쉼표) / 총 0.75칸 성립
-C r4 l4 ccc   <<fa ; 1박 1개(쉼표) + 1박 5개(음길이) / 총 6칸 성립
-C l4 >ccc   c<b-a ; 1박 3개 / 총 3칸 성립
-; 1박 3개 / 총 3칸 성립
-C
 
-D @2 t80 o4 r4 r16
+C @2 t120 o4 r4 r16
+C r4 l4 >cc ccc
+C l2 c r4 r8 l8 c   r4 r8 r16
+C l4 cc   r8 r16 l4 cc r8 r16
+C r4 l4 ccc   <<fa
+C l4 >ccc   c<b-a
+C l4 g r4 l4 >c f r4 r16 r8
+C l4 a a r8 r16 r8   l4 ff r16 r8 r2 
+C l4 e<eee
+
+D @2 t120 o4 r4 r16
 D r4 l4 <aa aaa
 D l2 g r4 r8 l8 g   r4 r8 r16
 D l4 bb   r8 r16 l4 bb r8 r16
 D r4 l4 bba   fa
 D l4 >ccc c<b-a
-D
+D l4 g r4 l4 >c f r4 r8 r16
+D l4 f f r8 r16 r8   l4 <gg r16 r8 r2 
+D l4 >cccc
 
-E @2 t80 o4 r4 r16
+E @2 t120 o4 r4 r16
 E r4 l4 ff fff
 E l2 e r4 r8 l8 e   r4 r8 r16
 E l4 gg   r8 r16 l4 ee r8 r16
 E r4 l4 eef   <fa
 E l4 >ccc c<b-a
-E
+E l4 g r4 l4 >c f r4 r8 r16
+E l4 f f r8 r16 r8   l4 <gg r16 r8 r2 
+E l4 >cccc
