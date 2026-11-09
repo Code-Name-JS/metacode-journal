@@ -1,4 +1,4 @@
-#title "Kuhlau Sonatina Op.20 No.1 II. Andante"
+#title "Kuhlau Sonatina Op.20 No.1 II. A Andante"
 
 @2 = {
     /* AR  D1R D2R RR D1L  TL KS MUL DT1 DT2 AME */
@@ -14,7 +14,7 @@
 ; l2(음길이), r2(쉼표) 2박 → 2칸
 ; l4(음길이), r4(쉼표) 1박 → 1칸
 ; l8(음길이), r8(쉼표) 0.5박 → 0.5칸
-; l16(음길이), r16(쉼표) 0.25박 → 0.25칸  
+; l16(음길이), r16(쉼표) 0.25박 → 0.25칸
 ; 띄어쓰기 칸 3개에 1묶음 음표
 
 A @2 t90 o4 l4 f l16 a
@@ -27,6 +27,15 @@ A l4 >c r4 l4 <b- a r4 l8 >a l16 g
 A l4 f r8 l8 r8 e l16 d l8 c  l4 <b r4 r16 l8 >ag r8 l4 <b-
 A l4 >cccc
 
+; "Kuhlau Sonatina Op.20 No.1 II. B Andante"
+
+A l4 <e l16 f
+A l4 g r4 l4 g l16 a l4 b   r4 l4 b l16 >c
+A l4 d r4 l4 <bg l4. >e
+A l4 fff <b-b-b-
+A l4 >cccc cc
+
+
 B @2 t90 o4 l4 f l16 a
 B l4 >ccc cf<a
 B l2 >c l8 <b>dc<b-   r4 l8 >b- l16 g
@@ -36,6 +45,13 @@ B r2 l4 faef+
 B l4 gdef r4 l8 >a l16 g
 B l4 f r8 l8 r8 e l16 d l8 c  l4 <b r4 r16 l8 >ag r8 l4 <b-
 B l4 r4 eee
+
+;"Kuhlau Sonatina Op.20 No.1 II. B Andante"
+
+B l4 c l16 d
+B l4 e r4 l4 e l16 f l4 g   r4 l4 g l16 a
+B l4 b r4 l4 ge l4. b
+B l4 a-a-a- <fff
 
 
 
@@ -49,6 +65,14 @@ C l4 g r4 l4 >c f r4 r16 r8
 C l4 a a r8 r16 r8   l4 ff r16 r8 r2 
 C l4 e<eee
 
+; "Kuhlau Sonatina Op.20 No.1 II. B Andante"
+
+C r4 r16
+C r4 l4 c r4 r16 r4 l4 c r4 r16
+C r4 l4 ccc r4.
+C l4 b-b-b- b-b-b-
+
+
 D @2 t90 o4 r4 r16
 D r4 l4 <aa aaa
 D l2 g r4 r8 l8 g   r4 r8 r16
@@ -59,6 +83,14 @@ D l4 g r4 l4 >c f r4 r8 r16
 D l4 f f r8 r16 r8   l4 <gg r16 r8 r2 
 D l4 >cccc
 
+; "Kuhlau Sonatina Op.20 No.1 II. B Andante"
+
+D r4 r16
+D r4 l4 c r4 r16 r4 l4 c r4 r16
+D r4 l4 ccc r4.
+D l4 b-b-b- b-b-b-
+
+
 E @2 t90 o4 r4 r16
 E r4 l4 ff fff
 E l2 e r4 r8 l8 e   r4 r8 r16
@@ -68,3 +100,10 @@ E l4 >ccc c<b-a
 E l4 g r4 l4 >c f r4 r8 r16
 E l4 f f r8 r16 r8   l4 <gg r16 r8 r2 
 E l4 >cccc
+
+; "Kuhlau Sonatina Op.20 No.1 II. B Andante"
+
+E r4 r16
+E r4 l4 c r4 r16 r4 l4 c r4 r16
+E r4 l4 ccc r4.
+E l4 b-b-b- b-b-b-
